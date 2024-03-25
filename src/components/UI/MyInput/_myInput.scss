@@ -1,0 +1,27 @@
+@import '@/assets/scss/variables';
+@import '@/assets/scss/mixins';
+
+.my-input {
+  @include flexbox(column);
+  row-gap: 2px;
+  padding: 11px 16px;
+  width: 100%;
+  border-radius: 16px;
+  background: $bg-base-secondary;
+  @include get-font(14px, 500, 20px, $text-base);
+  position: relative;
+
+  &__title {
+    @include get-font(12px, 500, 16px, $text-base-light);
+  }
+
+  & > input {
+    width: 100%;
+    height: 24px;
+    background: transparent;
+
+    &::placeholder {
+      @include get-font(16px, 500, 24px, $text-base-light);
+    }
+  }
+}
