@@ -1,3 +1,16 @@
-.my-header {
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
 
+.my-header {
+  @include flexbox(column);
+  padding: 0 24px;
+  border-radius: 16px;
+  background: $bg-base;
+
+  &__selects {
+    @include flexbox(row);
+    column-gap: 16px;
+    padding: 24px 0;
+    width: 100%;
+  }
 }

@@ -6,7 +6,7 @@
         @set-tab="setTab"
     />
 
-    <div class="my-header__selects">
+    <div class="my-header__selects" v-if="route.name === HomeRoutesEnum.purchase">
       <Select
           v-for="select in selects"
           :key="select.id"
@@ -46,6 +46,8 @@ import {
 
 import RUBIcon from '@/assets/images/RUB.png';
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
+import { useRoute } from "vue-router";
+import { HomeRoutesEnum } from "@/enums/home-routes.enum.ts";
 
 const props = defineProps({
   tabs: {
@@ -55,6 +57,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['set-tab'])
+
+const route = useRoute();
 
 const purchase: ISelect[] = reactive([
   {
@@ -149,19 +153,5 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/scss/variables";
-@import "@/assets/scss/mixins";
-
-.my-header {
-  @include flexbox(column);
-  padding: 0 24px;
-  background: $bg-base;
-
-  &__selects {
-    @include flexbox(row);
-    column-gap: 16px;
-    padding: 24px 0;
-    width: 100%;
-  }
-}
+@import "myHeader";
 </style>
