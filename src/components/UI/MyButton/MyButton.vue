@@ -37,6 +37,7 @@ const props = defineProps({
   @include get-font(12px, 500, 16px);
   transition: .25s all ease;
   cursor: pointer;
+  position: relative;
 
   &__legend {
     @include flex-center;
@@ -45,6 +46,9 @@ const props = defineProps({
     border-radius: 50%;
     background: $bg-violet;
     @include get-font(10px, 700, 12px, $text-base-on-color);
+    position: absolute;
+    top: -5px;
+    right: -5px;
   }
 
   &.success {

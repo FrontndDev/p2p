@@ -39,7 +39,7 @@
       </div>
 
       <div class="my-purchases__button">
-        <MyButton type="neutral" name="Подробнее"/>
+        <MyButton type="neutral" name="Подробнее" :legend="row?.legend"/>
       </div>
     </div>
   </div>
@@ -63,6 +63,7 @@ const table = reactive([
     orderId: '121 456 789 001',
     date: '28.02.2024',
     time: '23:30',
+    legend: 1,
   },
   {
     id: 2,
