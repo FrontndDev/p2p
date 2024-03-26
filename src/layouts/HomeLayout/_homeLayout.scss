@@ -1,3 +1,7 @@
+@import "@/assets/scss/mixins";
+
 .home-layout {
-  
+  @include flexbox(column);
+  row-gap: 16px;
+  width: 100%;
 }

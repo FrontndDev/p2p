@@ -3,10 +3,16 @@
 
 .my-tabs {
   @include flexbox(row, flex-start, center);
+  border-radius: 16px;
+
+  &.default-tabs {
+    column-gap: 8px;
+    padding: 4px;
+    background: $bg-base-secondary;
+  }
 
   &.header-tabs {
     column-gap: 24px;
-    border-radius: 16px;
   }
 
   &.little {

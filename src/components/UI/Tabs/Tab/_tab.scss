@@ -20,6 +20,19 @@
     right: 10px;
   }
 
+  &.default-tabs {
+    padding: 12px 16px;
+    max-width: 192px;
+    width: 100%;
+    border-radius: 12px;
+    @include get-font(16px, 500, 24px, $text-base-secondary);
+
+    &.active {
+      background: $bg-base;
+      color: $text-base;
+    }
+  }
+
   &.header-tabs {
     padding: 16px 0;
     border-bottom: 4px solid transparent;

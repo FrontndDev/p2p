@@ -4,6 +4,7 @@
 .my-header {
   @include flexbox(column);
   padding: 0 24px;
+  width: 100%;
   border-radius: 16px;
   background: $bg-base;
 

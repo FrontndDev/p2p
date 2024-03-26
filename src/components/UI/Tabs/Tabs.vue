@@ -25,7 +25,7 @@ const emit = defineEmits(['set-tab'])
 
 const props = defineProps({
   type: {
-    type: String as PropType<'header-tabs'>,
+    type: String as PropType<'default-tabs' | 'header-tabs'>,
     default: '',
   },
   tabs: {

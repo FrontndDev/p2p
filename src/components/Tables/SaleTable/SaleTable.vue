@@ -1,5 +1,5 @@
 <template>
-  <div class="purchase">
+  <div>
 
   </div>
 </template>
@@ -8,8 +8,6 @@
 
 </script>
 
-<style scoped lang="scss">
-.purchase {
+<style scoped>
 
-}
 </style>
