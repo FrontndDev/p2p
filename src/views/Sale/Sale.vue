@@ -4,12 +4,10 @@
         type="default-tabs"
         :tabs="tabs"
     />
-    <SaleTable/>
   </div>
 </template>
 
 <script setup lang="ts">
-import SaleTable from "@/components/Tables/SaleTable/SaleTable.vue";
 import Tabs from "@/components/UI/Tabs/Tabs.vue";
 import { reactive } from "vue";
 

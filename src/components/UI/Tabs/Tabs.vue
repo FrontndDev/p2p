@@ -46,6 +46,7 @@ const setTab = (id: number) => {
 
 onMounted(() => {
   selectedTab.value = props.tabs[0]
+  emit('set-tab', props.tabs[0])
 })
 </script>
 

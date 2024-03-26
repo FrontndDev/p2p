@@ -1,0 +1,28 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.my-table {
+  width: 100%;
+
+  &__row {
+    display: grid;
+    grid-column-gap: 40px;
+    padding: 17px 24px;
+    transition: .25s all ease;
+
+    &:not(.my-table__row_headers):hover {
+      background: $bg-base-secondary;
+    }
+
+    &_headers {
+      padding: 16px 24px;
+      border-top: 1px solid $border-base-light;
+      border-bottom: 1px solid $border-base-light;
+      @include get-font(14px, 500, 20px, $text-base-light);
+    }
+
+    & > div {
+      @include flexbox(row, flex-start, center);
+    }
+  }
+}

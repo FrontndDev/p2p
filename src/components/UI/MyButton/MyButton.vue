@@ -1,10 +1,27 @@
 <template>
-  <div class="my-button">Купить TON</div>
+  <div class="my-button" :class="props.type">
+    {{ props.name }}
+
+    <div class="my-button__legend" v-if="props.legend">{{ props.legend }}</div>
+  </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
+import { PropType } from "vue";
 
+const props = defineProps({
+  type: {
+    type: String as PropType<'success' | 'neutral'>,
+    default: 'success'
+  },
+  name: {
+    type: String,
+    default: 'Name'
+  },
+  legend: {
+    type: Number || String,
+    default: ''
+  }
 })
 </script>
 
@@ -13,15 +30,36 @@ const props = defineProps({
 @import "@/assets/scss/mixins";
 
 .my-button {
-  padding: 8px 12px;
+  padding: 7px 12px;
+  width: fit-content;
+  border: 1px solid transparent;
   border-radius: 8px;
-  border: 1px solid $border-green-secondary;
-  @include get-font(12px, 500, 16px, $text-base-light);
+  @include get-font(12px, 500, 16px);
+  transition: .25s all ease;
   cursor: pointer;
 
-  &.active-button {
-    background: $bg-green-secondary;
-    color: $text-base;
+  &__legend {
+    @include flex-center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: $bg-violet;
+    @include get-font(10px, 700, 12px, $text-base-on-color);
+  }
+
+  &.success {
+    border-color: $border-green-secondary;
+    color: $text-base-light;
+
+    &.active-button {
+      background: $bg-green-secondary;
+      color: $text-base;
+    }
+  }
+
+  &.neutral {
+    border-color: $border-base-dark-light-secondary;
+    color: $text-base-light;
   }
 }
 </style>

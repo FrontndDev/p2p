@@ -1,0 +1,108 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.my-purchases {
+  &__row {
+    grid-template-columns: 336px 148px 120px 120px 120px 108px;
+  }
+
+  &__seller {
+    @include flexbox(row);
+    column-gap: 12px;
+
+    &-avatar {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    &-info {
+      @include flexbox(column);
+      row-gap: 2px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    &-name {
+      width: 100%;
+      @include get-font(16px, 500, 24px, $text-base);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+  }
+
+  &__info {
+    @include flexbox(column !important, center !important, flex-start !important);
+    row-gap: 4px;
+
+    &-count {
+      @include flex-center;
+      column-gap: 8px;
+      @include get-font(14px, 500, 20px, $text-base);
+    }
+
+    &-sum {
+      @include get-font(12px, 500, 16px, $text-base-light);
+    }
+  }
+
+  &__status {
+    margin: auto 0;
+    padding: 4px 8px 4px 20px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 4px;
+    background: $bg-base-secondary;
+    @include get-font(10px, 700, 12px, $text-base-light);
+    text-transform: uppercase;
+    position: relative;
+
+    &::before {
+      content: '';
+      margin: auto;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 9px;
+    }
+
+    &.completed::before {
+      background: $bg-green;
+    }
+
+    &.in-process::before {
+      background: $bg-orange;
+    }
+
+    &.canceled::before {
+      background: $bg-red;
+    }
+  }
+
+  &__order-id {
+    @include flex-center;
+    column-gap: 4px;
+    @include get-font(12px, 500, 16px, $text-link);
+    cursor: pointer;
+  }
+
+  &__date {
+    @include flex-center;
+    column-gap: 4px;
+    @include get-font(12px, 500, 16px, $text-base-disable);
+
+    & > span {
+      color: $text-base-light;
+    }
+  }
+
+  &__button {
+    justify-content: flex-end !important;
+  }
+}
