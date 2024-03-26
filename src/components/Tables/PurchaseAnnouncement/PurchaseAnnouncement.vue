@@ -1,6 +1,6 @@
 <template>
-  <div class="my-table ads">
-    <div class="ads__row my-table__row my-table__row_headers">
+  <div class="my-table purchase-announcement">
+    <div class="purchase-announcement__row my-table__row my-table__row_headers">
       <div>Продавец</div>
       <div>Валюта</div>
       <div>Цена</div>
@@ -8,17 +8,17 @@
       <div>Доступно / Лимиты</div>
     </div>
 
-    <div class="ads__row my-table__row" v-for="row in table" :key="row.id">
-      <div class="ads__seller">
+    <div class="purchase-announcement__row my-table__row" v-for="row in table" :key="row.id">
+      <div class="purchase-announcement__seller">
         <img
             src="http://localhost:5173/app/p2p/Social%20Lift%20-%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D1%81%D0%B2%D1%8F%D0%B7%D0%BA%D0%B8_files/2969585.blockies.jpg"
             alt="avatar"
-            class="ads__seller-avatar"
+            class="purchase-announcement__seller-avatar"
         >
 
-        <div class="ads__seller-info">
-          <div class="ads__seller-name" :title="row.name">{{ row.name }}</div>
-          <div class="ads__seller-description">
+        <div class="purchase-announcement__seller-info">
+          <div class="purchase-announcement__seller-name" :title="row.name">{{ row.name }}</div>
+          <div class="purchase-announcement__seller-description">
             <div>{{ row.successful }} <template v-if="typeof row.done !== 'number'">успешных</template> сделок</div>
 
             <template v-if="typeof row.done === 'number'">
@@ -28,41 +28,43 @@
           </div>
         </div>
       </div>
-      <div class="ads__wallet">
-        <component :is="getIcon(row.wallet)"/>
+      <div class="purchase-announcement__wallet">
+        <img alt="icon" :src="getIcon(row.wallet)">
         {{ row.wallet }}
       </div>
-      <div class="ads__price">{{ row.price }} RUB</div>
-      <div class="ads__payment-methods">
+      <div class="purchase-announcement__price">{{ row.price }} RUB</div>
+      <div class="purchase-announcement__payment-methods">
         <div
-            class="ads__payment-methods-item"
+            class="purchase-announcement__payment-methods-item"
             v-for="method in getPaymentMethods(row.paymentMethods)"
             :key="method.id"
             :title="method.name"
         >{{ method.name }}</div>
-        <div class="ads__payment-methods-item" v-if="row.paymentMethods.length > 4">
+        <div class="purchase-announcement__payment-methods-item" v-if="row.paymentMethods.length > 4">
           +{{ row.paymentMethods.length - 4 }}
         </div>
       </div>
-      <div class="ads__info">
-        <div class="ads__info-available">
+      <div class="purchase-announcement__info">
+        <div class="purchase-announcement__info-available">
           {{ row.available }}
-          <component :is="getIcon(row.wallet)"/>
+          <img alt="icon" :src="getIcon(row.wallet)">
         </div>
-        <div class="ads__info-limits">{{ row.limits.min }} - {{ row.limits.max }} RUB</div>
+        <div class="purchase-announcement__info-limits">{{ row.limits.min }} - {{ row.limits.max }} RUB</div>
       </div>
-      <div class="ads__button">
-        <MyButton :name="`Купить ${row.wallet}`"/>
+      <div class="purchase-announcement__button">
+        <MyButton type="success-btn" :name="`Купить ${row.wallet}`"/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import USDIcon from '@/assets/svg/wallets/usd.svg?component';
-import TONIcon from '@/assets/svg/wallets/ton.svg?component';
+import USDIcon from '@/assets/svg/wallets/usd.svg';
+import TONIcon from '@/assets/svg/wallets/ton.svg';
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
-import { reactive } from "vue";
+import {
+  reactive
+} from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
 
 const table = reactive([
@@ -204,6 +206,7 @@ const table = reactive([
   },
 ])
 
+
 const getIcon = (type: string) => {
   switch (type) {
     case 'USD':
@@ -220,5 +223,5 @@ const getPaymentMethods = (paymentMethods: any[]) => {
 
 <style scoped lang="scss">
 @import "../table";
-@import "ads";
+@import "purchaseAnnouncement";
 </style>

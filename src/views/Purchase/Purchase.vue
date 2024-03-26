@@ -8,8 +8,8 @@
       />
     </div>
 
-    <Ads v-if="activeTab.id === 1"/>
-    <MyPurchases v-if="activeTab.id === 2"/>
+    <PurchaseAnnouncement v-if="activeTab.id === 1"/>
+    <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
 
     <Pagination/>
   </div>
@@ -22,10 +22,10 @@ import {
   Ref,
   ref
 } from "vue";
+import PurchaseAnnouncement from "@/components/Tables/PurchaseAnnouncement/PurchaseAnnouncement.vue";
 import Pagination from "@/components/Pagination/Pagination.vue";
-import Ads from "@/components/Tables/Ads/Ads.vue";
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
-import MyPurchases from "@/components/Tables/MyPurchases/MyPurchases.vue";
+import MyPurchasesAndDeals from "@/components/Tables/MyPurchasesAndDeals/MyPurchasesAndDeals.vue";
 
 const tabs = reactive([
   {

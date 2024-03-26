@@ -11,8 +11,8 @@ import { PropType } from "vue";
 
 const props = defineProps({
   type: {
-    type: String as PropType<'success' | 'neutral'>,
-    default: 'success'
+    type: String as PropType<'primary-btn' | 'success-btn' | 'neutral-btn'>,
+    default: 'primary-btn'
   },
   name: {
     type: String,
@@ -51,17 +51,22 @@ const props = defineProps({
     right: -5px;
   }
 
-  &.success {
+  &.primary-btn {
+    background: $bg-primary-default;
+    color: $text-base-on-color;
+  }
+
+  &.success-btn {
     border-color: $border-green-secondary;
     color: $text-base-light;
 
-    &.active-button {
+    &.active-btn {
       background: $bg-green-secondary;
       color: $text-base;
     }
   }
 
-  &.neutral {
+  &.neutral-btn {
     border-color: $border-base-dark-light-secondary;
     color: $text-base-light;
   }

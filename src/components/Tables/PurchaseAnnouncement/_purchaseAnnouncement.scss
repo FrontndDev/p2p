@@ -1,11 +1,11 @@
 @import "@/assets/scss/variables";
 @import "@/assets/scss/mixins";
 
-.ads {
+.purchase-announcement {
   &__row {
     grid-template-columns: 304px 88px 112px 172px 174px 102px;
 
-    &:not(.ads__row_headers):hover {
+    &:not(.purchase-announcement__row_headers):hover {
 
       & .my-button {
         background: $bg-green-secondary;

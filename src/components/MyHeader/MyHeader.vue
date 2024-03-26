@@ -44,7 +44,7 @@ import {
   ISelects
 } from "@/components/UI/Select/select.interface.ts";
 
-import RUBIcon from '@/assets/images/RUB.png';
+import RUBIcon from '@/assets/images/rub.png';
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import { useRoute } from "vue-router";
 import { HomeRoutesEnum } from "@/enums/home-routes.enum.ts";
