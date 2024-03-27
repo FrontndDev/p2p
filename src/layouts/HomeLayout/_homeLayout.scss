@@ -1,7 +1,17 @@
 @import "@/assets/scss/mixins";
 
 .home-layout {
-  @include flexbox(column);
-  row-gap: 16px;
+  //@include flexbox(column);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
   width: 100%;
+
+  &.purchase {
+    grid-template-areas: "my-header my-header" "my-table my-table";
+  }
+
+  &.sale {
+    grid-template-areas: "my-header my-header" "sale-info requisites" "my-table my-table";
+  }
 }

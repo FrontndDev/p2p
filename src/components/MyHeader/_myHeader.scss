@@ -3,6 +3,7 @@
 
 .my-header {
   @include flexbox(column);
+  grid-area: my-header;
   padding: 0 24px;
   width: 100%;
   border-radius: 16px;

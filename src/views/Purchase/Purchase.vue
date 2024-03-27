@@ -51,6 +51,7 @@ const setTab = (tab: ITabs) => {
 
 .purchase {
   @include flexbox(column);
+  grid-area: my-table;
   width: 100%;
   border-radius: 16px;
   background: $bg-base;

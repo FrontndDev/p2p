@@ -1,5 +1,5 @@
 <template>
-  <div class="home-layout">
+  <div class="home-layout" :class="classes">
     <MyHeader :tabs="tabs" @set-tab="setTab"/>
 
     <RouterView/>
@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import MyHeader from "@/components/MyHeader/MyHeader.vue";
 import {
+  computed,
   onMounted,
   reactive,
   ref,
@@ -41,10 +42,19 @@ const routes: IHomeRoutes = reactive({
   2: HomeRoutesEnum.sale,
 })
 
-const selectedType: Ref<ITabs> = ref(tabs[0]);
+const activeTab: Ref<ITabs> = ref(tabs[0]);
+
+const classes = computed(() => {
+  switch (activeTab.value.id) {
+    case 1:
+      return 'purchase';
+    case 2:
+      return 'sale';
+  }
+})
 
 const setTab = (tab: ITabs) => {
-  selectedType.value = tab
+  activeTab.value = tab
   router.push({ name: routes[tab.id] })
 }
 

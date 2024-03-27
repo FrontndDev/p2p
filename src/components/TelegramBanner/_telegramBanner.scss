@@ -1,0 +1,8 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.telegram-banner {
+  @include flex-center;
+  padding: 16px;
+  border-radius: 16px;
+}
