@@ -6,8 +6,13 @@ $bg-base-dark: #191B2A;
 $bg-base-dark-secondary: #262940;
 $bg-base-deep: #565A76;
 $bg-base-light: #EFF2F5;
-$bg-primary-default: #B043FF;
 $bg-violet: #A33FBC;
+// bg-primary
+$bg-primary-default: #B043FF;
+$bg-primary-hover: #A11FFF;
+$bg-primary-pressed: #9400FF;
+$bg-primary-disable: #DFB2FF;
+//
 $bg-violet-light: #F5EDF7;
 $bg-blue: #53A7F0;
 $bg-blue-dark: #1A86E5;
@@ -15,7 +20,12 @@ $bg-blue-light: #E8F3FC;
 $bg-orange: #F19C18;
 $bg-orange-light: #FEF5E7;
 $bg-green: #5CD685;
-$bg-green-secondary: #47EB7E;
+// bg-green-secondary
+$bg-green-secondary-default: #47EB7E;
+$bg-green-secondary-hover: #47EB7E;
+$bg-green-secondary-pressed: #47EB7E;
+$bg-green-secondary-disable: #47EB7E;
+//
 $bg-green-light: #EBFAF0;
 $bg-red: #FF3A30;
 $bg-red-light: #FFF1F0;
@@ -28,8 +38,13 @@ $text-base-light: #7B879D;
 $text-base-disable: #C4CAD4;
 $text-base-on-color: #FFFFFF;
 $text-base-on-color-secondary: #8E90A3;
-$text-primary-default: #B043FF;
 $text-violet: #A33FBC;
+// text-primary
+$text-primary-default: #B043FF;
+$text-primary-hover: #A11FFF;
+$text-primary-pressed: #9400FF;
+$text-primary-disable: #DFB2FF;
+//
 $text-link: #1A86E5;
 $text-green: #29A352;
 $text-red: #FF3A30;
@@ -42,11 +57,26 @@ $border-base-bright: #E0E5EB;
 $border-base-contrast: #BFCCD9;
 $border-base-dark: #0B0C0E;
 $border-base-dark-light: #262940;
-$border-base-dark-light-secondary: #8099B3;
+// border-tertiary
+$border-tertiary-default: #8099B3;
+$border-tertiary-hover: #4C6580;
+$border-tertiary-pressed: #394C60;
+$border-tertiary-disable: #BFCCD9;
+//
 $border-blue: #53A7F0;
 $border-green: #5CD685;
-$border-green-secondary: #47EB7E;
+// border-green-secondary
+$border-green-secondary-default: #47EB7E;
+$border-green-secondary-hover: #27E768;
+$border-green-secondary-pressed: #19DC5A;
+$border-green-secondary-disable: #A2F5BF;
+//
 $border-orange: #F19C18;
+// border-primary
 $border-primary-default: #B043FF;
+$border-primary-hover: #A11FFF;
+$border-primary-pressed: #9400FF;
+$border-primary-disable: #DFB2FF;
+//
 $border-violet: #B043FF;
 $border-red: #FF3A30;

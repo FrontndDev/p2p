@@ -38,9 +38,18 @@
     border-bottom: 4px solid transparent;
     @include get-font(18px, 700, 28px, $text-base-light);
 
+    &:hover {
+      color: $text-base-secondary;
+    }
+
     &.active {
       border-bottom-color: $border-violet;
       color: $text-violet;
+
+      &:hover {
+        border-bottom-color: $border-primary-hover;
+        color: $text-primary-hover;
+      }
     }
   }
 

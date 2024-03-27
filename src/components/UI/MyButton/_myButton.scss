@@ -22,31 +22,102 @@
     right: -5px;
   }
 
+  &.primary-btn {
+    background: $bg-primary-default;
+    color: $text-base-on-color;
+
+    &:hover {
+      background: $bg-primary-hover;
+    }
+
+    &:active {
+      background: $bg-primary-pressed;
+    }
+
+    &.disabled {
+      background: $bg-primary-disable;
+      color: $text-base-on-color;
+    }
+  }
+
   &.second-primary-btn {
     padding: 7px 11.35px;
     border: 1px solid $border-primary-default;
     color: $text-primary-default;
-  }
 
-  &.primary-btn {
-    background: $bg-primary-default;
-    color: $text-base-on-color;
+    &:hover {
+      border-color: $border-primary-hover;
+      color: $text-primary-hover;
+    }
+
+    &:active {
+      border-color: $border-primary-pressed;
+      color: $text-primary-pressed;
+    }
+
+    &.disabled {
+      border-color: $border-primary-disable;
+      color: $text-primary-disable;
+    }
   }
 
   &.success-btn {
     padding: 7px 11.35px;
-    border: 1px solid $border-green-secondary;
+    border: 1px solid $border-green-secondary-default;
     color: $text-base-light;
+
+    &:hover {
+      border-color: $border-green-secondary-hover;
+      color: $text-base-secondary;
+    }
+
+    &:active {
+      border-color: $border-green-secondary-pressed;
+      color: $text-base;
+    }
+
+    &.disabled {
+      border-color: $border-green-secondary-disable;
+      color: $text-base-disable;
+    }
   }
 
   &.second-success-btn {
-    background: $bg-green-secondary;
+    background: $bg-green-secondary-default;
     color: $text-base;
+
+    &:hover {
+      background: $bg-green-secondary-hover;
+    }
+
+    &:active {
+      background: $bg-green-secondary-pressed;
+    }
+
+    &.disabled {
+      background: $bg-green-secondary-disable;
+      color: $text-base-light;
+    }
   }
 
   &.neutral-btn {
     padding: 7px 11.35px;
-    border: 1px solid $border-base-dark-light-secondary;
+    border: 1px solid $border-tertiary-default;
     color: $text-base-light;
+
+    &:hover {
+      border-color: $border-tertiary-hover;
+      color: $text-base-secondary;
+    }
+
+    &:active {
+      border-color: $border-tertiary-pressed;
+      color: $text-base;
+    }
+
+    &.disabled {
+      border-color: $border-tertiary-disable;
+      color: $text-base-disable;
+    }
   }
 }

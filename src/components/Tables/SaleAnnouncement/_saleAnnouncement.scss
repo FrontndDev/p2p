@@ -8,7 +8,7 @@
     &:not(.sale-announcement__row_headers):hover {
 
       & .my-button {
-        background: $bg-green-secondary;
+        background: $bg-green-secondary-default;
         color: $text-base;
       }
     }
