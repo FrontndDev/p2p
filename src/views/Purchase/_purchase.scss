@@ -1,3 +1,18 @@
-.purchase {
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
 
+.purchase {
+  @include flexbox(column);
+  grid-area: my-table;
+  width: 100%;
+  border-radius: 16px;
+  background: $bg-base;
+}
+
+@media screen and (max-width: 756px) {
+  .purchase {
+    &__tabs {
+      width: 100%;
+    }
+  }
 }

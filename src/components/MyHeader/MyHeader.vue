@@ -1,10 +1,14 @@
 <template>
   <div class="my-header">
-    <Tabs
-        type="header-tabs"
-        :tabs="props.tabs"
-        @set-tab="setTab"
-    />
+    <div class="my-header__up">
+      <div class="my-header__title title-h1">Social P2P</div>
+      <Tabs
+          type="header-tabs"
+          :default-tab="getTabByRouteName"
+          :tabs="props.tabs"
+          @set-tab="setTab"
+      />
+    </div>
 
     <div class="my-header__selects" v-if="route.name === HomeRoutesEnum.purchase">
       <Select
@@ -59,6 +63,17 @@ const props = defineProps({
 const emit = defineEmits(['set-tab'])
 
 const route = useRoute();
+
+const getTabByRouteName = computed(() => {
+  const routeName = route.name as HomeRoutesEnum
+
+  switch (routeName) {
+    case HomeRoutesEnum.purchase:
+      return props.tabs[0]
+    case HomeRoutesEnum.sale:
+      return props.tabs[1]
+  }
+})
 
 const purchase: ISelect[] = reactive([
   {
@@ -120,18 +135,14 @@ const selects: ComputedRef<ISelects[]> = computed(() => [
 ])
 
 const selectItem = (item: ISelect, id: number) => {
-  console.log('item', item, id)
   switch (id) {
     case 1:
-      console.log('id', id)
       selectedPurchase.value = item;
       break;
     case 2:
-      console.log('id', id)
       selectedWallet.value = item;
       break;
     case 3:
-      console.log('id', id)
       selectedPaymentMethod.value = item;
       break;
   }

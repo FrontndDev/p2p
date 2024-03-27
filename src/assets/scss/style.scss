@@ -11,6 +11,8 @@
 }
 
 #p2p-app {
+  margin: 0 auto;
+  max-width: 1200px;
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
@@ -87,6 +89,10 @@ button {
     @include flexbox(row, space-between, center);
     padding: 16px 24px 8px;
   }
+}
+
+.title-h1 {
+  @include get-font(28px, 700, 44px, $text-base);
 }
 
 .title-h2 {

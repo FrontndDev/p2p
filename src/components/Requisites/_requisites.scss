@@ -17,9 +17,9 @@
 
   &__item {
     display: grid;
+    justify-content: space-between;
     align-items: center;
     grid-template-columns: 144px 80px 160px 16px;
-    grid-column-gap: 48px;
     padding: 20px 24px;
 
     &-wallet {
@@ -57,6 +57,14 @@
 
     &:not(:last-child) {
       border-bottom: 1px solid $border-base-light;
+    }
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .requisites {
+    &__item {
+      grid-template-columns: auto 80px 160px 16px;
     }
   }
 }

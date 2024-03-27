@@ -1,6 +1,6 @@
 <template>
   <div class="purchase">
-    <div class="my-container">
+    <div class="purchase__tabs my-container">
       <Tabs
           type="default-tabs"
           :tabs="tabs"
@@ -46,14 +46,5 @@ const setTab = (tab: ITabs) => {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/scss/variables";
-@import "@/assets/scss/mixins";
-
-.purchase {
-  @include flexbox(column);
-  grid-area: my-table;
-  width: 100%;
-  border-radius: 16px;
-  background: $bg-base;
-}
+@import "purchase";
 </style>

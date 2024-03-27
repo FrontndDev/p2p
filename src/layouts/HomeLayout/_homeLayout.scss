@@ -1,8 +1,6 @@
 @import "@/assets/scss/mixins";
 
 .home-layout {
-  //@include flexbox(column);
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   width: 100%;
@@ -13,5 +11,22 @@
 
   &.sale {
     grid-template-areas: "my-header my-header" "sale-info requisites" "my-table my-table";
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .home-layout {
+
+    //&.purchase {
+    //  grid-template-areas: "my-header my-header" "my-table my-table";
+    //}
+    //
+    //&.sale {
+    //  grid-template-areas: "my-header my-header" "sale-info sale-info" "requisites requisites" "my-table my-table";
+    //}
+
+    &-title {
+      display: none;
+    }
   }
 }

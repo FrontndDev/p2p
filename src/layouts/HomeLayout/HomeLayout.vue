@@ -1,4 +1,7 @@
 <template>
+  <div class="home-layout-title my-container">
+    <div class="title-h1">Social P2P</div>
+  </div>
   <div class="home-layout" :class="classes">
     <MyHeader :tabs="tabs" @set-tab="setTab"/>
 

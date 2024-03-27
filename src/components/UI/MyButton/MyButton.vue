@@ -1,6 +1,7 @@
 <template>
-  <div class="my-button" :class="props.type">
+  <div class="my-button" :class="[props.type, props.size]">
     {{ props.name }}
+    <slot name="icon"/>
 
     <div class="my-button__legend" v-if="props.legend">{{ props.legend }}</div>
   </div>
@@ -13,6 +14,10 @@ const props = defineProps({
   type: {
     type: String as PropType<'primary-btn' | 'second-primary-btn' | 'success-btn' | 'second-success-btn' | 'neutral-btn'>,
     default: 'primary-btn'
+  },
+  size: {
+    type: String as PropType<'' | 'big'>,
+    default: ''
   },
   name: {
     type: String,

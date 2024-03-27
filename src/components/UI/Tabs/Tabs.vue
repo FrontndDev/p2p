@@ -28,6 +28,10 @@ const props = defineProps({
     type: String as PropType<'default-tabs' | 'header-tabs'>,
     default: '',
   },
+  defaultTab: {
+    type: Object as PropType<ITabs | null>,
+    default: null,
+  },
   tabs: {
     type: Array as PropType<ITabs[]>,
     required: true,
@@ -45,7 +49,7 @@ const setTab = (id: number) => {
 }
 
 onMounted(() => {
-  selectedTab.value = props.tabs[1]
+  selectedTab.value = props.defaultTab ?? props.tabs[0]
   emit('set-tab', selectedTab.value)
 })
 </script>

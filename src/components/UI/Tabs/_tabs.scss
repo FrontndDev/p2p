@@ -33,18 +33,12 @@
   }
 }
 
-@media (max-width: 992px) {
+@media screen and (max-width: 756px) {
   .my-tabs {
-    width: 100%;
+    justify-content: flex-end;
 
     &.header-tabs {
-      column-gap: 8px;
-      border-radius: 8px;
-      width: 100%;
-    }
-
-    &.little {
-      column-gap: 16px;
+      width: fit-content;
     }
   }
 }

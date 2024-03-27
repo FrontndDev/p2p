@@ -9,10 +9,36 @@
   border-radius: 16px;
   background: $bg-base;
 
+  &__up {
+    width: 100%;
+  }
+
   &__selects {
     @include flexbox(row);
     column-gap: 16px;
     padding: 24px 0;
     width: 100%;
+  }
+}
+
+@media screen and (min-width: 757px) {
+  .my-header {
+    &__title {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .my-header {
+    &__up {
+      @include flexbox(row, space-between, center);
+      column-gap: 8px;
+      width: 100%;
+    }
+
+    &__title {
+      white-space: nowrap;
+    }
   }
 }

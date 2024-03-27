@@ -7,9 +7,9 @@
 
   &__item {
     display: grid;
+    justify-content: space-between;
     align-items: center;
     grid-template-columns: 132px 182px 182px;
-    grid-column-gap: 24px;
     padding: 11px 24px;
 
     &-wallet {
