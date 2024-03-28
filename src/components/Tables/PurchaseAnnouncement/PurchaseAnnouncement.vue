@@ -46,10 +46,14 @@
       </div>
       <div class="purchase-announcement__info">
         <div class="purchase-announcement__info-available">
+          <span>Сумма</span>
           {{ row.available }}
           <img alt="icon" :src="getIcon(row.wallet)">
         </div>
-        <div class="purchase-announcement__info-limits">{{ row.limits.min }} - {{ row.limits.max }} RUB</div>
+        <div class="purchase-announcement__info-limits">
+          <span>Лимит</span>
+          {{ row.limits.min }} - {{ row.limits.max }} RUB
+        </div>
       </div>
       <div class="purchase-announcement__button">
         <MyButton type="success-btn" :name="`Купить ${row.wallet}`"/>

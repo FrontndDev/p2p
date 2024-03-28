@@ -25,3 +25,25 @@
     }
   }
 }
+
+@media screen and (max-width: 756px) {
+  .my-input {
+    row-gap: 4px;
+    padding: 10px 12px;
+    min-width: 144px;
+
+    &__title {
+      font-size: 10px;
+      line-height: 12px;
+    }
+
+    & > input {
+      height: 20px;
+
+      &::placeholder {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+}

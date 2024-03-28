@@ -5,12 +5,9 @@
   &__row {
     grid-template-columns: 304px 88px 112px 172px 174px 102px;
 
-    &:not(.purchase-announcement__row_headers):hover {
-
-      & .my-button {
-        background: $bg-green-secondary-default;
-        color: $text-base;
-      }
+    &:hover .my-button {
+      background: $bg-green-secondary-default;
+      color: $text-base;
     }
   }
 
@@ -84,17 +81,91 @@
     row-gap: 4px;
 
     &-available {
-      @include flex-center;
+      display: none;
       column-gap: 8px;
       @include get-font(14px, 500, 20px, $text-base);
     }
 
     &-limits {
+      display: none;
       @include get-font(12px, 500, 16px, $text-base-light);
     }
   }
 
   &__button {
     justify-content: flex-end !important;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .purchase-announcement {
+    &__row {
+      display: grid;
+      grid-template-columns: 173px 100px;
+      grid-template-areas:
+              "price button"
+              "wallet button"
+              "seller seller"
+              "info info"
+              "payment-methods payment-methods";
+      padding: 16px;
+      width: 100%;
+      border-radius: 16px;
+
+      & .my-button {
+        background: $bg-green-secondary-default;
+        color: $text-base;
+      }
+    }
+
+    &__seller {
+      grid-area: seller;
+      column-gap: 16px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid $border-base-light;
+
+      &-name,
+      &-description {
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+
+    &__wallet {
+      grid-area: wallet;
+      margin-top: 4px;
+    }
+
+    &__price {
+      grid-area: price;
+    }
+
+    &__payment-methods {
+      grid-area: payment-methods;
+      margin-top: 16px;
+    }
+
+    &__info {
+      grid-area: info;
+
+      &-available,
+      &-limits {
+        @include flex-center;
+        column-gap: 8px;
+        margin-top: 16px;
+        @include get-font(12px, 500, 16px, $text-base);
+
+        & > span {
+          margin-right: 8px;
+          width: 42px;
+          @include get-font(12px, 500, 16px, $text-base-light);
+        }
+      }
+    }
+
+    &__button {
+      grid-area: button;
+    }
   }
 }

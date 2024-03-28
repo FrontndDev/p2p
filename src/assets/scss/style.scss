@@ -10,6 +10,10 @@
   padding: 0;
 }
 
+body {
+  background: $bg-base-secondary;
+}
+
 #p2p-app {
   margin: 0 auto;
   max-width: 1200px;
@@ -103,8 +107,8 @@ button {
   @include get-font(14px, 500, 20px, $text-base);
 }
 
-@media (max-width: 992px) {
-  .container {
-    padding: 0;
+@media screen and (max-width: 756px) {
+  .my-container {
+    padding: 16px;
   }
 }

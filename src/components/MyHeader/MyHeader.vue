@@ -100,11 +100,11 @@ const wallets: ISelect[] = reactive([
 const paymentMethods: ISelect[] = reactive([
   {
     id: 1,
-    name: 'Все способы'
+    name: 'Все'
   },
   {
     id: 2,
-    name: 'Не все способы'
+    name: 'Не все'
   }
 ]);
 

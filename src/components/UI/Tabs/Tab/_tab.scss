@@ -149,7 +149,20 @@
     }
 
     &.default-tabs {
+      padding: 8px 12px;
+      width: 156px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 608px) {
+  .my-tab {
+    &.default-tabs {
       max-width: 100%;
+      width: 100%;
     }
   }
 }

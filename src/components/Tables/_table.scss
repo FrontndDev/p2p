@@ -29,3 +29,21 @@
     }
   }
 }
+
+@media screen and (max-width: 756px) {
+  .my-table {
+    @include flexbox(column);
+    row-gap: 16px;
+    padding: 16px;
+    background: $bg-base-secondary;
+    overflow: unset;
+
+    &__row {
+      background: $bg-base;
+
+      &_headers {
+        display: none !important;
+      }
+    }
+  }
+}

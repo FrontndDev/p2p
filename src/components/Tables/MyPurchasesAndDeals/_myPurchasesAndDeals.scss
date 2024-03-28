@@ -31,7 +31,6 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
   }
 
   &__info {
@@ -90,6 +89,10 @@
     column-gap: 4px;
     @include get-font(12px, 500, 16px, $text-link);
     cursor: pointer;
+
+    & > span {
+      display: none;
+    }
   }
 
   &__date {
@@ -99,10 +102,113 @@
 
     & > span {
       color: $text-base-light;
+
+      &:first-child {
+        display: none;
+      }
     }
   }
 
   &__button {
     justify-content: flex-end !important;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .my-purchases-and-deals {
+    &__row {
+      display: grid;
+      grid-template-columns: 173px 100px;
+      grid-template-areas:
+              "info status"
+              "info status"
+              "seller seller"
+              "order-id order-id"
+              "date date"
+              "button button";
+      padding: 16px;
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    &__seller {
+      grid-area: seller;
+      column-gap: 16px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid $border-base-light;
+
+      &-name {
+        display: flex !important;
+        flex-direction: column;
+        font-size: 12px;
+        line-height: 16px;
+        white-space: unset;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    &__info {
+      grid-area: info;
+
+      &-available,
+      &-limits {
+        @include flex-center;
+        column-gap: 8px;
+        margin-top: 16px;
+        @include get-font(12px, 500, 16px, $text-base);
+
+        & > span {
+          padding-right: 8px;
+          width: 42px;
+          @include get-font(12px, 500, 16px, $text-base-light);
+        }
+      }
+    }
+
+    &__status {
+      grid-area: status;
+    }
+
+    &__order-id {
+      grid-area: order-id;
+
+      & > span {
+        display: block;
+      }
+    }
+
+    &__date {
+      grid-area: date;
+
+      & > span:not(:first-child) {
+        color: $text-base;
+      }
+    }
+
+    &__order-id,
+    &__date {
+      column-gap: 8px;
+      margin-top: 16px;
+
+      & > span:first-child {
+        display: block;
+        margin-right: 8px;
+        width: 64px;
+        @include get-font(12px, 500, 16px, $text-base-light);
+      }
+    }
+
+    &__button {
+      grid-area: button;
+      margin-top: 16px;
+
+      & > .my-button {
+        width: 100%;
+      }
+    }
   }
 }

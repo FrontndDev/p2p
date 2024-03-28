@@ -37,8 +37,21 @@
   .my-tabs {
     justify-content: flex-end;
 
-    &.header-tabs {
+    &.header-tabs,
+    &.default-tabs {
       width: fit-content;
+    }
+
+    &.default-tabs {
+      border-radius: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 608px) {
+  .my-tabs {
+    &.default-tabs {
+      width: 100%;
     }
   }
 }

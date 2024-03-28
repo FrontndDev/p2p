@@ -1,6 +1,7 @@
 @import "@/assets/scss/mixins";
 
 .home-layout {
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   width: 100%;
@@ -16,7 +17,7 @@
 
 @media screen and (max-width: 756px) {
   .home-layout {
-
+    gap: 4px;
     //&.purchase {
     //  grid-template-areas: "my-header my-header" "my-table my-table";
     //}
@@ -28,5 +29,11 @@
     &-title {
       display: none;
     }
+  }
+}
+
+@media screen and (max-width: 608px) {
+  .home-layout {
+    gap: 0;
   }
 }
