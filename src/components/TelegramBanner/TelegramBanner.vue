@@ -19,6 +19,7 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
   @include flex-center;
   column-gap: 16px;
   padding: 16px;
+  width: 100%;
   border-radius: 16px;
   background: $bg-base;
   @include get-font(14px, 500, 20px, $text-base);

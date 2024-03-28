@@ -1,5 +1,5 @@
 <template>
-  <div class="my-table sale-announcement">
+  <div class="sale-announcement my-table">
     <div class="sale-announcement__row my-table__row my-table__row_headers">
       <div>Валюта</div>
       <div>Цена</div>
@@ -28,13 +28,18 @@
       </div>
       <div class="sale-announcement__info">
         <div class="sale-announcement__info-available">
+          <span>Остаток</span>
           {{ row.available }}
           <img alt="icon" :src="getIcon(row.wallet)">
         </div>
-        <div class="sale-announcement__info-limits">{{ row.limits.min }} - {{ row.limits.max }} RUB</div>
+        <div class="sale-announcement__info-limits">
+          <span>Лимиты</span>
+          {{ row.limits.min }} - {{ row.limits.max }} RUB
+        </div>
       </div>
       <div class="sale-announcement__status" :class="row.status">{{ StatusesEnum[row.status] }}</div>
       <div class="sale-announcement__date">
+        <span>Дата</span>
         <span>{{ row.date }}</span>|<span>{{ row.time }}</span>
       </div>
       <div class="sale-announcement__edit-button">

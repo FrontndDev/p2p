@@ -15,9 +15,21 @@
   }
 }
 
+@media screen and (max-width: 980px) {
+  .home-layout {
+    &.sale {
+      grid-template-columns: 1fr;
+
+      &.sale {
+        grid-template-areas: "my-header" "sale-info" "requisites" "my-table";
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 756px) {
   .home-layout {
-    gap: 4px;
+    gap: 0;
     //&.purchase {
     //  grid-template-areas: "my-header my-header" "my-table my-table";
     //}
@@ -29,11 +41,5 @@
     &-title {
       display: none;
     }
-  }
-}
-
-@media screen and (max-width: 608px) {
-  .home-layout {
-    gap: 0;
   }
 }

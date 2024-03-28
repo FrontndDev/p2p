@@ -1,7 +1,7 @@
 <template>
   <div class="information-about-transfers">
     <div class="information-about-transfers__item" v-for="item in data" :key="item.id">
-      <div class="information-about-transfers__item-title">{{ item.title }}</div>
+      <div class="information-about-transfers__item-title" v-html="getTitle(item.title)"/>
       <div class="information-about-transfers__item-value">{{ item.value }}</div>
     </div>
   </div>
@@ -32,6 +32,11 @@ const data = reactive([
     value: '2 min'
   },
 ])
+
+const getTitle = (title: string) => {
+  const array = title.split(' ')
+  return `<span>${array[0]}</span> <span>${array[1]}</span>`
+}
 </script>
 
 <style scoped lang="scss">
@@ -47,13 +52,12 @@ const data = reactive([
     @include flexbox(column);
     row-gap: 4px;
     padding: 16px;
-    max-width: 136px;
-    width: 100%;
+    width: 25%;
     border-radius: 16px;
     background: $bg-base;
 
     &-title {
-      width: 94%;
+      @include flexbox(column);
       @include get-font(14px, 500, 20px, $text-base-light);
     }
 
