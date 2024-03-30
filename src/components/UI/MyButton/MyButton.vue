@@ -1,5 +1,9 @@
 <template>
-  <div class="my-button" :class="[props.type, props.size]">
+  <div
+      class="my-button"
+      :style="`width: ${props.width};`"
+      :class="[props.type, props.size, { disabled }]"
+  >
     {{ props.name }}
     <slot name="icon"/>
 
@@ -19,6 +23,10 @@ const props = defineProps({
     type: String as PropType<'' | 'big'>,
     default: ''
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
   name: {
     type: String,
     default: 'Name'
@@ -26,6 +34,10 @@ const props = defineProps({
   legend: {
     type: Number || String,
     default: ''
+  },
+  width: {
+    type: String,
+    default: 'fit-content'
   }
 })
 </script>

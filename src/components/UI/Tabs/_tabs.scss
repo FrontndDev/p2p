@@ -31,6 +31,10 @@
   &.little {
     column-gap: 16px;
   }
+
+  & ::v-deep(+ svg) {
+    flex-shrink: 0;
+  }
 }
 
 @media screen and (max-width: 756px) {

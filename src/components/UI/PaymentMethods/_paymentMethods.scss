@@ -1,0 +1,29 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.payment-methods {
+  @include flexbox(row, flex-end, center, wrap !important);
+  gap: 4px;
+  width: fit-content;
+
+  &__item {
+    padding: 4px 8px;
+    max-width: 80px;
+    width: fit-content;
+    border-radius: 4px;
+    overflow: hidden;
+    @include get-font(10px, 700, 12px, $text-base-light);
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+
+    &.base {
+      &-secondary {
+        background: $bg-base-secondary;
+      }
+
+      &-light {
+        background: $bg-base-light;
+      }
+    }
+  }
+}

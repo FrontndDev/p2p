@@ -11,46 +11,6 @@
     }
   }
 
-  &__seller {
-    @include flexbox(row);
-    column-gap: 12px;
-
-    &-avatar {
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    &-info {
-      @include flexbox(column);
-      row-gap: 2px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    &-name {
-      width: 100%;
-      @include get-font(16px, 500, 24px, $text-base);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    &-description {
-      @include flex-center;
-      column-gap: 8px;
-      @include get-font(14px, 500, 20px, $text-base-secondary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      & > span {
-        @include get-font(14px, 500, 20px, $text-base-disable);
-      }
-    }
-  }
-
   &__wallet {
     column-gap: 8px;
   }
@@ -87,8 +47,11 @@
     }
 
     &-limits {
-      display: none;
       @include get-font(12px, 500, 16px, $text-base-light);
+
+      & > span {
+        display: none;
+      }
     }
   }
 
@@ -118,20 +81,6 @@
       }
     }
 
-    &__seller {
-      grid-area: seller;
-      column-gap: 16px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid $border-base-light;
-
-      &-name,
-      &-description {
-        font-size: 12px;
-        line-height: 16px;
-      }
-    }
-
     &__wallet {
       grid-area: wallet;
       margin-top: 4px;
@@ -157,6 +106,7 @@
         @include get-font(12px, 500, 16px, $text-base);
 
         & > span {
+          display: block;
           margin-right: 8px;
           width: 42px;
           @include get-font(12px, 500, 16px, $text-base-light);

@@ -31,8 +31,8 @@
       </div>
 
       <div class="p2p-wallets__item-buttons">
-        <MyButton type="neutral-btn" name="Вывести"/>
-        <MyButton type="second-primary-btn" name="Пополнить"/>
+        <MyButton type="neutral-btn" width="100%" name="Вывести"/>
+        <MyButton type="second-primary-btn" width="100%" name="Пополнить"/>
       </div>
     </div>
   </div>

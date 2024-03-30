@@ -1,0 +1,28 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.profile-settings {
+  &__header {
+    @include flexbox(row, flex-start, center);
+    column-gap: 4px;
+    padding: 16px;
+    border-radius: 0 0 16px 16px;
+    background: $bg-base;
+    @include get-font(18px, 700, 28px, $text-base);
+    cursor: pointer;
+  }
+
+  &__content {
+    @include flexbox(column);
+    row-gap: 16px;
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .profile-settings {
+    &__header {
+      border-radius: 0;
+    }
+  }
+}

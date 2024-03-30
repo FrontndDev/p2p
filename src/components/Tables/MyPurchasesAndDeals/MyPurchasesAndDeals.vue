@@ -10,13 +10,7 @@
 
     <div class="my-purchases-and-deals__row my-table__row" v-for="row in table" :key="row.id">
       <div class="my-purchases-and-deals__seller">
-        <img
-            src="http://localhost:5173/app/p2p/Social%20Lift%20-%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D1%81%D0%B2%D1%8F%D0%B7%D0%BA%D0%B8_files/2969585.blockies.jpg"
-            alt="avatar"
-            class="my-purchases-and-deals__seller-avatar"
-        >
-
-        <div class="my-purchases-and-deals__seller-name" :title="row.name" v-html="getName(row.name)"/>
+        <Seller :name="getName(row.name)"/>
       </div>
       <div class="my-purchases-and-deals__info">
         <div class="my-purchases-and-deals__info-count">
@@ -42,7 +36,7 @@
       </div>
 
       <div class="my-purchases-and-deals__button">
-        <MyButton type="neutral-btn" name="Подробнее" :legend="row?.legend"/>
+        <MyButton width="100%" type="neutral-btn" name="Подробнее" :legend="row?.legend"/>
       </div>
     </div>
   </div>
@@ -56,6 +50,7 @@ import {
 } from "vue";
 import { StatusesEnum } from "@/enums/statuses.enum.ts";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import Seller from "@/components/Seller/Seller.vue";
 
 const table = reactive([
   {
@@ -93,7 +88,6 @@ const table = reactive([
     time: '12:00',
   },
 ])
-
 
 const getIcon = (type: string) => {
   switch (type) {

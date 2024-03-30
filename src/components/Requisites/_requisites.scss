@@ -15,6 +15,10 @@
     cursor: pointer;
   }
 
+  &__edit {
+    display: none;
+  }
+
   &__item {
     display: grid;
     justify-content: space-between;
@@ -65,6 +69,54 @@
   .requisites {
     &__item {
       grid-template-columns: auto 80px 160px 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .requisites {
+    &__add {
+      display: none;
+    }
+
+    &__edit {
+      display: block;
+    }
+
+    &__content {
+      @include flexbox(row);
+      column-gap: 12px;
+      padding: 12px;
+      overflow: auto;
+    }
+
+    &__item {
+      @include flexbox(column-reverse);
+      row-gap: 4px;
+      padding: 12px;
+      border-radius: 8px;
+      background: $bg-base-secondary;
+
+      &-wallet {
+        column-gap: 8px;
+        @include get-font(14px, 500, 20px, $text-base-secondary);
+
+        & > img {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      &-bank {
+        padding: 0;
+        background: transparent;
+        @include get-font(14px, 700, 20px, $text-base-secondary);
+      }
+
+      &-card-num,
+      &-edit {
+        display: none;
+      }
     }
   }
 }

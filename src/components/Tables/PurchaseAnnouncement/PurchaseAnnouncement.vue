@@ -10,23 +10,7 @@
 
     <div class="purchase-announcement__row my-table__row" v-for="row in table" :key="row.id">
       <div class="purchase-announcement__seller">
-        <img
-            src="http://localhost:5173/app/p2p/Social%20Lift%20-%20%D0%B4%D0%BE%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D1%81%D0%B2%D1%8F%D0%B7%D0%BA%D0%B8_files/2969585.blockies.jpg"
-            alt="avatar"
-            class="purchase-announcement__seller-avatar"
-        >
-
-        <div class="purchase-announcement__seller-info">
-          <div class="purchase-announcement__seller-name" :title="row.name">{{ row.name }}</div>
-          <div class="purchase-announcement__seller-description">
-            <div>{{ row.successful }} <template v-if="typeof row.done !== 'number'">успешных</template> сделок</div>
-
-            <template v-if="typeof row.done === 'number'">
-              <span>|</span>
-              <div>{{ row.done }}% выполнено</div>
-            </template>
-          </div>
-        </div>
+        <Seller :name="getName(row.name)"/>
       </div>
       <div class="purchase-announcement__wallet">
         <img alt="icon" :src="getIcon(row.wallet)">
@@ -70,6 +54,7 @@ import {
   reactive
 } from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
+import Seller from "@/components/Seller/Seller.vue";
 
 const table = reactive([
   {
@@ -218,6 +203,11 @@ const getIcon = (type: string) => {
     case 'TON':
       return TONIcon
   }
+}
+
+const getName = (name: string) => {
+  const array = name.split(' ')
+  return `<span>${array[0]}</span> <span>${array[1]}</span>`
 }
 
 const getPaymentMethods = (paymentMethods: any[]) => {

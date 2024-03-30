@@ -73,3 +73,34 @@
     }
   }
 }
+
+@media screen and (max-width: 756px) {
+  .p2p-wallets {
+    &__item {
+      grid-template-columns: 110px 162px;
+      grid-template-areas: "wallet info" "buttons buttons";
+      padding: 16px;
+
+      &-wallet {
+        grid-area: wallet;
+
+        &-count {
+          @include get-font(12px, 700, 16px, $text-base);
+        }
+
+        &-name {
+          @include get-font(12px, 500, 16px, $text-base-light);
+        }
+      }
+
+      &-info {
+        grid-area: info;
+      }
+
+      &-buttons {
+        grid-area: buttons;
+        margin-top: 16px;
+      }
+    }
+  }
+}

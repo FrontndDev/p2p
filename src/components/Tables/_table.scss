@@ -45,6 +45,22 @@
       &_headers {
         display: none !important;
       }
+
+      &::v-deep(.seller) {
+        grid-area: seller;
+        column-gap: 16px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid $border-base-light;
+
+        & .seller {
+          &__name,
+          &__description {
+            font-size: 12px;
+            line-height: 16px;
+          }
+        }
+      }
     }
   }
 }

@@ -6,33 +6,6 @@
     grid-template-columns: 336px 148px 120px 120px 120px 108px;
   }
 
-  &__seller {
-    @include flexbox(row);
-    column-gap: 12px;
-
-    &-avatar {
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    &-info {
-      @include flexbox(column);
-      row-gap: 2px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    &-name {
-      width: 100%;
-      @include get-font(16px, 500, 24px, $text-base);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
   &__info {
     @include flexbox(column !important, center !important, flex-start !important);
     row-gap: 4px;
@@ -133,22 +106,6 @@
 
     &__seller {
       grid-area: seller;
-      column-gap: 16px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid $border-base-light;
-
-      &-name {
-        display: flex !important;
-        flex-direction: column;
-        font-size: 12px;
-        line-height: 16px;
-        white-space: unset;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      }
     }
 
     &__info {

@@ -97,6 +97,10 @@
 
     &-limits {
       @include get-font(12px, 500, 16px, $text-base-light);
+
+      & > span {
+        display: none;
+      }
     }
   }
 
@@ -143,6 +147,10 @@
 
     & > span {
       color: $text-base-light;
+
+      &:first-child {
+        display: none;
+      }
     }
   }
 
@@ -231,6 +239,7 @@
 
       & > span {
         &:first-child {
+          display: block;
           margin-right: 8px;
           width: 52px;
         }

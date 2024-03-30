@@ -24,7 +24,13 @@
       @include flexbox(row, flex-start, center);
       column-gap: 16px;
       width: 100%;
+    }
+  }
+}
 
+@media screen and (max-width: 608px) {
+  .purchase {
+    &__tabs {
       & > svg {
         display: block;
       }

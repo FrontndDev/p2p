@@ -66,4 +66,20 @@ const getTitle = (title: string) => {
     }
   }
 }
+
+@media screen and (max-width: 756px) {
+  .information-about-transfers {
+    justify-content: flex-start;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      height: 0;
+    }
+
+    &__item {
+      flex-shrink: 0;
+      width: 144px;
+    }
+  }
+}
 </style>

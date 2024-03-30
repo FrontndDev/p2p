@@ -24,17 +24,38 @@
       @include get-font(16px, 500, 24px, $text-base-light);
     }
   }
+
+  &__wallet {
+    @include flex-center;
+    column-gap: 8px;
+    @include get-font(12px, 500, 16px, $text-base-disable);
+    position: absolute;
+    bottom: 13px;
+    right: 16px;
+
+    & > span {
+      &:first-child {
+        color: $text-base-secondary;
+      }
+
+      &:last-child {
+        color: $text-violet;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 756px) {
-  .my-input {
-    row-gap: 4px;
-    padding: 10px 12px;
-    min-width: 144px;
+  .my-input:not(.no-media) {
+    & .my-input {
+      row-gap: 4px;
+      padding: 10px 12px;
+      min-width: 144px;
 
-    &__title {
-      font-size: 10px;
-      line-height: 12px;
+      &__title {
+        font-size: 10px;
+        line-height: 12px;
+      }
     }
 
     & > input {

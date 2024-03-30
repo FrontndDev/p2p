@@ -24,6 +24,7 @@
     <div class="my-select__down" v-if="showDropdown">
       <div
           class="my-select__item"
+          :class="{ active: props.selectedItem?.id === item.id }"
           v-for="item in props.items"
           :key="item.id"
           @click="selectItem(item)"
