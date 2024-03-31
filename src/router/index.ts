@@ -6,6 +6,8 @@ import HomeLayout from "@/layouts/HomeLayout/HomeLayout.vue";
 import Purchase from "@/views/Purchase/Purchase.vue";
 import Sale from "@/views/Sale/Sale.vue";
 import ProfileSettings from "@/views/ProfileSettings/ProfileSettings.vue";
+import MainLayout from "@/layouts/MainLayout/MainLayout.vue";
+import BuyCurrency from "@/views/BuyCurrency/BuyCurrency.vue";
 // @ts-ignore
 const baseUrl: string = '/app/p2p'
 
@@ -26,6 +28,17 @@ const routes = [
             path: 'sale',
             name: 'sale',
             component: Sale,
+          }
+        ]
+      },
+      {
+        path: '',
+        component: MainLayout,
+        children: [
+          {
+            path: 'buy-currency',
+            name: 'buy-currency',
+            component: BuyCurrency,
           }
         ]
       },

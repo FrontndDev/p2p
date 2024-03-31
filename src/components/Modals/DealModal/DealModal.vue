@@ -1,5 +1,5 @@
 <template>
-  <Modal padding="0" width="880px">
+  <Modal padding="0" width="880px" @close-modal="emit('close-modal')">
     <template #content>
       <div class="deal-modal">
         <div class="deal-modal__content">
@@ -66,7 +66,7 @@
             </div>
 
             <div class="deal-modal__buttons">
-              <MyButton type="neutral-btn" size="big" name="Отмена" width="50%"/>
+              <MyButton type="neutral-btn" size="big" name="Отмена" width="50%" @click="emit('close-modal')"/>
               <MyButton size="big" name="Открыть ссылку" width="50%"/>
             </div>
           </div>
@@ -91,6 +91,8 @@ import Select from "@/components/UI/Select/Select.vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+
+const emit = defineEmits(['close-modal'])
 
 const paymentMethods = reactive([
   {

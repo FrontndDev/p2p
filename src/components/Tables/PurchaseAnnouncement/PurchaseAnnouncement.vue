@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="purchase-announcement__button">
-        <MyButton type="success-btn" :name="`Купить ${row.wallet}`"/>
+        <MyButton type="success-btn" :name="`Купить ${row.wallet}`" @click="emit('buy')"/>
       </div>
     </div>
   </div>
@@ -55,6 +55,8 @@ import {
 } from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
 import Seller from "@/components/Seller/Seller.vue";
+
+const emit = defineEmits(['buy'])
 
 const table = reactive([
   {

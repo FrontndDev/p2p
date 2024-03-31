@@ -10,14 +10,14 @@
       <Settings @click="showPurchaseFilter = !showPurchaseFilter"/>
     </div>
 
-    <PurchaseAnnouncement v-if="activeTab.id === 1"/>
+    <PurchaseAnnouncement @buy="showDealModal = true" v-if="activeTab.id === 1"/>
     <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
 
     <Pagination/>
   </div>
 
   <PurchaseFilter @close-popup="showPurchaseFilter = false" v-if="showPurchaseFilter"/>
-  <DealModal v-if="true"/>
+  <DealModal @close-modal="showDealModal = false" v-if="showDealModal"/>
 </template>
 
 <script setup lang="ts">
@@ -47,6 +47,7 @@ const tabs = reactive([
 ]);
 
 const showPurchaseFilter = ref(false);
+const showDealModal = ref(false);
 
 const activeTab: Ref<ITabs> = ref(tabs[0])
 
