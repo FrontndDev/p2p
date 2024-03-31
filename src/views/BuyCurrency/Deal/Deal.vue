@@ -3,7 +3,9 @@
     <div class="deal__up">
       <div class="deal__header">
         <div class="deal__title">
-          <ClockIcon/>
+          <div class="deal__icon" :class="dealType">
+            <component :is="getMessageTimeIcon"/>
+          </div>
           Подтверждение заявки продавцом
         </div>
         <div class="deal__timer">
@@ -18,6 +20,8 @@
       </div>
       <div class="deal__text">Для осуществления сделки необходимо дождаться подтверждение продавца в течении 15 минут</div>
       <div class="deal__text">Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок</div>
+
+      <Progressbar/>
     </div>
 
     <div class="deal__info">
@@ -73,9 +77,40 @@
 </template>
 
 <script setup lang="ts">
+// Deal Type Icons
 import ClockIcon from '@/assets/svg/deal/clock.svg?component';
+import ExclamationIcon from '@/assets/svg/deal/exclamation.svg?component';
+import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
+import CrossIcon from '@/assets/svg/deal/cross.svg?component';
+import DisputeIcon from '@/assets/svg/deal/dispute.svg?component';
+//
 import USDIcon from '@/assets/svg/wallets/usd.svg?component';
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import { TDealType } from "@/views/BuyCurrency/Deal/deal.interface.ts";
+import {
+  computed,
+  ref,
+  Ref
+} from "vue";
+import { DealEnum } from "@/views/BuyCurrency/Deal/deal.enum.ts";
+import Progressbar from "@/components/Progressbar/Progressbar.vue";
+
+const dealType: Ref<TDealType> = ref(DealEnum.confirmationApplication);
+
+const getMessageTimeIcon = computed(() => {
+  switch (dealType.value) {
+    case DealEnum.confirmationApplication:
+      return ClockIcon;
+    case DealEnum.confirmationPayment:
+      return ExclamationIcon;
+    case DealEnum.completed:
+      return CheckMarkIcon;
+    case DealEnum.canceled:
+      return CrossIcon;
+    case DealEnum.dispute:
+      return DisputeIcon;
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -103,6 +138,37 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
     @include flexbox(row, flex-start, center);
     column-gap: 12px;
     @include get-font(18px, 500, 28px, $text-base);
+
+    & > rect {
+      fill: #000000;
+    }
+  }
+
+  &__icon {
+    @include flex-center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+
+    &.confirmationApplication {
+      background: $bg-base-contrast;
+    }
+
+    &.confirmationPayment {
+      background: $bg-orange;
+    }
+
+    &.completed {
+      background: $bg-green;
+    }
+
+    &.canceled {
+      background: $bg-red;
+    }
+
+    &.dispute {
+      background: $bg-violet;
+    }
   }
 
   &__timer {

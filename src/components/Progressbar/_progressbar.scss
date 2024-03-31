@@ -1,0 +1,56 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.my-progressbar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  background: $bg-base-secondary;
+
+  &__step {
+    @include flexbox(column);
+    row-gap: 12px;
+
+    &-progress {
+      @include flexbox(row, flex-start, center);
+      column-gap: 12px;
+      width: 100%;
+    }
+
+    &-circle {
+      @include flex-center;
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: $bg-base-bright;
+      @include get-font(12px, 700, 16px, $text-base-secondary);
+    }
+
+    &-line {
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      background: $bg-base-bright;
+    }
+
+    &-name {
+      @include get-font(16px, 500, 24px, $text-base-secondary);
+    }
+  }
+
+  & .completed {
+    background: $bg-green;
+  }
+
+  & .canceled {
+    background: $bg-red;
+  }
+
+  & .active {
+    background: $bg-violet;
+    color: $text-base-on-color;
+  }
+}

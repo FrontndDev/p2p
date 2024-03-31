@@ -10,31 +10,15 @@
     </div>
 
     <div class="chat__content">
-      <div class="chat__message" :class="{ 'your-message': item !== 1 }" v-for="item in 20" :key="item">
+      <div class="chat__message" :class="{ 'your-message': [1, 10, 20].includes(item) }" v-for="item in 20" :key="item">
         Всегда готова к сделке
-        <template v-if="item === 1">, я 24/7 на связи, пишите звоните, помогу в чате в тг, предложу любой обмен, рада сотрудничеству и постоянным клиентам</template>
+        <template v-if="[1, 10, 20].includes(item)">, я 24/7 на связи, пишите звоните, помогу в чате в тг, предложу любой обмен, рада сотрудничеству и постоянным клиентам</template>
 
         <div class="chat__message-time">
           12:20
           <ReadIcon/>
         </div>
       </div>
-<!--      <div class="chat__message your-message">-->
-<!--        Спасибо жду-->
-
-<!--        <div class="chat__message-time">-->
-<!--          12:20-->
-<!--          <ReadIcon/>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="chat__message your-message">-->
-<!--        )-->
-
-<!--        <div class="chat__message-time">-->
-<!--          12:20-->
-<!--          <ReadIcon/>-->
-<!--        </div>-->
-<!--      </div>-->
     </div>
     <div class="chat__footer">
       <input type="text" placeholder="Написать сообщение">
@@ -118,7 +102,7 @@ import Seller from "@/components/Seller/Seller.vue";
   &__message {
     @include flexbox(row, flex-start, flex-end);
     column-gap: 16px;
-    margin: 0 auto 8px 0;
+    margin: 8px auto 0 0;
     padding: 12px 16px;
     max-width: 400px;
     width: fit-content;
@@ -134,6 +118,10 @@ import Seller from "@/components/Seller/Seller.vue";
 
     &:not(.your-message) + .your-message {
       margin: 16px 0 0 auto;
+    }
+
+    &:first-child {
+      margin-top: 0;
     }
 
     &-time {

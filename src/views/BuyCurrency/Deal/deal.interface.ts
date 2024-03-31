@@ -1,0 +1,1 @@
+export type TDealType = 'confirmationApplication' | 'confirmationPayment' | 'completed' | 'canceled' | 'dispute';
