@@ -8,6 +8,7 @@ import Sale from "@/views/Sale/Sale.vue";
 import ProfileSettings from "@/views/ProfileSettings/ProfileSettings.vue";
 import MainLayout from "@/layouts/MainLayout/MainLayout.vue";
 import BuyCurrency from "@/views/BuyCurrency/BuyCurrency.vue";
+import PlaceAd from "@/views/PlaceAd/PlaceAd.vue";
 // @ts-ignore
 const baseUrl: string = '/app/p2p'
 
@@ -39,6 +40,17 @@ const routes = [
             path: 'buy-currency',
             name: 'buy-currency',
             component: BuyCurrency,
+            meta: {
+              title: 'Купить USD'
+            }
+          },
+          {
+            path: 'place-ad',
+            name: 'place-ad',
+            component: PlaceAd,
+            meta: {
+              title: 'Разместить объявление'
+            }
           }
         ]
       },

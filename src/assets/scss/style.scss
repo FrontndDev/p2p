@@ -32,6 +32,10 @@ body {
   &::-webkit-scrollbar {
     width: 0;
   }
+
+  &::placeholder {
+    font-family: 'Montserrat', sans-serif;
+  }
 }
 
 
@@ -86,6 +90,12 @@ button {
   padding: 16px 24px;
 }
 
+.my-content-container {
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+}
+
 .p2p-card {
   border-radius: 16px;
   background: $bg-base;
@@ -97,6 +107,7 @@ button {
 }
 
 .title-h1 {
+  padding: 24px 0;
   @include get-font(28px, 700, 44px, $text-base);
 }
 
@@ -105,7 +116,11 @@ button {
 }
 
 .title-h3 {
-  @include get-font(14px, 500, 20px, $text-base);
+  @include get-font(16px, 700, 24px, $text-base-secondary);
+}
+
+.fw-700 {
+  font-weight: 700;
 }
 
 @media screen and (max-width: 756px) {
@@ -117,6 +132,10 @@ button {
     &__header {
       padding: 16px 16px 0;
     }
+  }
+
+  .title-h1 {
+    padding: 0;
   }
 
   .title-h2 {

@@ -1,5 +1,5 @@
 <template>
-  <div class="title-h1">Купить USD</div>
+  <div class="title-h1">{{ route.meta.title }}</div>
 
   <div class="main-layout">
     <RouterView/>
@@ -7,11 +7,11 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 
+const route: any = useRoute();
 </script>
 
 <style scoped lang="scss">
-.main-layout {
-  margin-top: 24px;
-}
+@import "mainLayout";
 </style>

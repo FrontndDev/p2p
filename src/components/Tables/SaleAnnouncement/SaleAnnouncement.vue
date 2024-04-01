@@ -16,15 +16,10 @@
       </div>
       <div class="sale-announcement__price">{{ row.price }} RUB</div>
       <div class="sale-announcement__payment-methods">
-        <div
-            class="sale-announcement__payment-methods-item"
-            v-for="method in getPaymentMethods(row.paymentMethods)"
-            :key="method.id"
-            :title="method.name"
-        >{{ method.name }}</div>
-        <div class="sale-announcement__payment-methods-item" v-if="row.paymentMethods.length > 4">
-          +{{ row.paymentMethods.length - 4 }}
-        </div>
+        <PaymentMethods
+            class="flex-start"
+            :payment-methods="getPaymentMethods(row.paymentMethods)"
+        />
       </div>
       <div class="sale-announcement__info">
         <div class="sale-announcement__info-available">
@@ -61,6 +56,7 @@ import {
 } from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
 import { StatusesEnum } from "@/enums/statuses.enum.ts";
+import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 
 const table = reactive([
   {
@@ -224,7 +220,8 @@ const getIcon = (type: string) => {
 }
 
 const getPaymentMethods = (paymentMethods: any[]) => {
-  return useDeepCopy(paymentMethods).splice(0, 4)
+  const methods = useDeepCopy(paymentMethods).splice(0, 4)
+  return paymentMethods.length > 4 ? [...methods, { id: 5, name: `+${paymentMethods.length - 4}` }] : methods
 }
 </script>
 

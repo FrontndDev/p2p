@@ -1,0 +1,158 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.deal {
+  max-width: 680px;
+  width: 100%;
+  border-radius: 16px;
+  border-bottom: 1px solid $border-base-bright;
+  background: $bg-base;
+
+  &__up {
+    @include flexbox(column);
+    row-gap: 16px;
+    padding: 24px 0;
+  }
+
+  &__header {
+    @include flexbox(row, space-between, center);
+    padding: 0 24px;
+    column-gap: 16px;
+    width: 100%;
+  }
+
+  &__title {
+    @include flexbox(row, flex-start, center);
+    column-gap: 12px;
+    @include get-font(18px, 500, 28px, $text-base);
+
+    & > rect {
+      fill: #000000;
+    }
+  }
+
+  &__icon {
+    @include flex-center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+
+    &.confirmationApplication {
+      background: $bg-base-contrast;
+    }
+
+    &.confirmationPayment {
+      background: $bg-orange;
+    }
+
+    &.completed {
+      background: $bg-green;
+    }
+
+    &.canceled {
+      background: $bg-red;
+    }
+
+    &.dispute {
+      background: $bg-violet;
+    }
+  }
+
+  &__timer {
+    @include flex-center;
+    column-gap: 8px;
+
+    &-item {
+      @include flex-center;
+      padding: 8px;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: $bg-red-light;
+      @include get-font(16px, 700, 24px, $text-red);
+    }
+
+    &-colon {
+      @include flexbox(column);
+      row-gap: 4px;
+    }
+  }
+
+  &__text {
+    margin-left: 24px;
+    padding: 0 24px;
+    @include get-font(14px, 500, 20px, $text-base-secondary);
+    position: relative;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $bg-base-contrast;
+      position: absolute;
+      top: 9px;
+      left: 1px;
+    }
+  }
+
+  &__progressbar {
+    padding-bottom: 8px;
+  }
+
+  &__info {
+    @include flexbox(column);
+    row-gap: 24px;
+    padding: 24px;
+    border-top: 1px solid $border-base-bright;
+
+    &-header {
+      @include flexbox(row, space-between, center);
+      width: 100%;
+    }
+
+    &-title {
+      @include get-font(16px, 700, 24px, $text-base-secondary);
+    }
+
+    &-date,
+    &-id {
+      @include flex-center;
+      column-gap: 4px;
+
+      & > span {
+        color: $text-base-disable;
+      }
+    }
+
+    &-item {
+      @include flexbox(row, space-between, center);
+      column-gap: 8px;
+      width: 100%;
+
+      &:nth-child(even) {
+        padding: 4px 0
+      }
+
+      &-title {
+        @include get-font(14px, 500, 20px, $text-base-light);
+      }
+
+      &-value {
+        @include flex-center;
+        column-gap: 8px;
+        @include get-font(14px, 500, 20px, $text-base);
+
+        &.price {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  &__buttons {
+    @include flexbox(row);
+    column-gap: 16px;
+    width: 100%;
+  }
+}

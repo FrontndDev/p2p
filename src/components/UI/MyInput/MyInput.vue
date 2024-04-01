@@ -1,13 +1,19 @@
 <template>
     <div class="my-input">
       <div class="my-input__title" v-if="props.title">{{ props.title }}</div>
-      <input
-          type="text"
-          :style="`width: calc(100% - ${wallet ? wallet?.offsetWidth + 16 : 0}px);`"
-          :placeholder="props.placeholder"
-          :value="props.value"
-          @input="inputValue($event)"
-      >
+      <div class="my-input__field">
+        <template v-if="props.icon">
+          <img :src="props.icon" alt="icon" v-if="typeof props.icon === 'string'">
+          <component :is="props.icon" v-else/>
+        </template>
+        <input
+            type="text"
+            :style="`width: calc(100% - ${wallet ? wallet?.offsetWidth + 16 : 0}px);`"
+            :placeholder="props.placeholder"
+            :value="props.value"
+            @input="inputValue($event)"
+        >
+      </div>
 
       <div class="my-input__wallet" ref="wallet" v-if="props.wallet">
         <span>{{ props.wallet }}</span>|<span>Все</span>
@@ -17,6 +23,7 @@
 
 <script setup lang="ts">
 import {
+  PropType,
   Ref,
   ref
 } from "vue";
@@ -37,6 +44,9 @@ const props = defineProps({
   wallet: {
     type: String,
     default: ''
+  },
+  icon: {
+    type: String as PropType<string | SVGAElement>,
   }
 })
 

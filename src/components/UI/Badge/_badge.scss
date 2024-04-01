@@ -1,0 +1,13 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  @include get-font(14px, 700, 20px);
+
+  &.red {
+    background: $bg-red-light;
+    color: $text-red;
+  }
+}

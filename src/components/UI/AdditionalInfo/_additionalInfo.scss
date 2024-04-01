@@ -1,0 +1,18 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.additional-info {
+  @include flex-center;
+  column-gap: 24px;
+  @include get-font(12px, 500, 16px, $text-base-light);
+
+  &__date,
+  &__id {
+    @include flex-center;
+    column-gap: 4px;
+
+    & > span {
+      color: $text-base-disable;
+    }
+  }
+}

@@ -19,23 +19,6 @@
     @include get-font(14px, 700, 20px, $text-base);
   }
 
-  &__payment-methods {
-    @include flexbox(row, center, center, wrap !important);
-    gap: 4px;
-
-    &-item {
-      padding: 4px 8px;
-      max-width: 80px;
-      width: fit-content;
-      border-radius: 4px;
-      background: $bg-base-secondary;
-      overflow: hidden;
-      @include get-font(10px, 700, 12px, $text-base-light);
-      text-overflow: ellipsis;
-      text-transform: uppercase;
-    }
-  }
-
   &__info {
     @include flexbox(column !important, center !important, flex-start !important);
     row-gap: 4px;

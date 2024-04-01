@@ -2,8 +2,8 @@ import { ComputedRef } from "vue";
 
 export interface ISelect {
   id: number;
-  icon?: SVGAElement | string;
   name: string;
+  icon?: SVGAElement | string;
 }
 
 export interface ISelects {

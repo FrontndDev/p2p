@@ -1,0 +1,7 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.place-ad {
+  @include flexbox(row);
+  column-gap: 16px;
+}

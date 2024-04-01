@@ -21,25 +21,16 @@
       <div class="deal__text">Для осуществления сделки необходимо дождаться подтверждение продавца в течении 15 минут</div>
       <div class="deal__text">Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок</div>
 
-      <Progressbar/>
+      <div class="deal__progressbar my-content-container">
+        <Progressbar/>
+      </div>
+      <SellerDetails/>
     </div>
 
     <div class="deal__info">
       <div class="deal__info-header">
         <div class="deal__info-title">Информация о сделке</div>
-        <div class="deal__info-additional">
-          <div class="deal__info-date">
-            28.02.2024 <span>|</span> 18:01
-          </div>
-          <div class="deal__info-id">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M1.34949 4.69832C1.02686 5.02095 0.837209 5.56687 0.837209 6.50233V8.84651C0.837209 9.78197 1.02686 10.3279 1.34949 10.6505C1.67211 10.9731 2.21803 11.1628 3.15349 11.1628H5.49767C6.43313 11.1628 6.97905 10.9731 7.30168 10.6505C7.6243 10.3279 7.81395 9.78197 7.81395 8.84651V6.50233C7.81395 5.56687 7.6243 5.02095 7.30168 4.69832C6.97905 4.3757 6.43313 4.18605 5.49767 4.18605H3.15349C2.21803 4.18605 1.67211 4.3757 1.34949 4.69832ZM0.75749 4.10633C1.31394 3.54988 2.13546 3.34884 3.15349 3.34884H5.49767C6.51571 3.34884 7.33723 3.54988 7.89367 4.10633C8.45012 4.66278 8.65116 5.48429 8.65116 6.50233V8.84651C8.65116 9.86454 8.45012 10.6861 7.89367 11.2425C7.33723 11.799 6.51571 12 5.49767 12H3.15349C2.13546 12 1.31394 11.799 0.75749 11.2425C0.201043 10.6861 0 9.86454 0 8.84651V6.50233C0 5.48429 0.201043 4.66278 0.75749 4.10633Z" fill="#7B879D"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M4.69832 1.34949C4.3757 1.67211 4.18605 2.21803 4.18605 3.15349V3.34884H5.49767C6.51571 3.34884 7.33723 3.54988 7.89367 4.10633C8.45012 4.66278 8.65116 5.48429 8.65116 6.50233V7.81395H8.84651C9.78197 7.81395 10.3279 7.6243 10.6505 7.30168C10.9731 6.97905 11.1628 6.43313 11.1628 5.49767V3.15349C11.1628 2.21803 10.9731 1.67211 10.6505 1.34949C10.3279 1.02686 9.78197 0.837209 8.84651 0.837209H6.50233C5.56687 0.837209 5.02095 1.02686 4.69832 1.34949ZM4.10633 0.75749C4.66278 0.201043 5.48429 0 6.50233 0H8.84651C9.86454 0 10.6861 0.201043 11.2425 0.75749C11.799 1.31394 12 2.13546 12 3.15349V5.49767C12 6.51571 11.799 7.33723 11.2425 7.89367C10.6861 8.45012 9.86454 8.65116 8.84651 8.65116H8.23256C8.00137 8.65116 7.81395 8.46375 7.81395 8.23256V6.50233C7.81395 5.56687 7.6243 5.02095 7.30168 4.69832C6.97905 4.3757 6.43313 4.18605 5.49767 4.18605H3.76744C3.53625 4.18605 3.34884 3.99863 3.34884 3.76744V3.15349C3.34884 2.13546 3.54988 1.31394 4.10633 0.75749Z" fill="#7B879D"/>
-            </svg>
-
-            12357413255
-          </div>
-        </div>
+        <AdditionalInfo date="28.02.2024" time="18:01" id="12357413255"/>
       </div>
 
       <div class="deal__info-item">
@@ -55,7 +46,7 @@
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Способ оплаты</div>
-        <div class="deal__info-item-value payment-method">Сбербанк</div>
+        <PaymentMethods :payment-methods="[{ id: 1, name: 'Сбербанк' }]"/>
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Окно оплаты</div>
@@ -94,6 +85,9 @@ import {
 } from "vue";
 import { DealEnum } from "@/views/BuyCurrency/Deal/deal.enum.ts";
 import Progressbar from "@/components/Progressbar/Progressbar.vue";
+import SellerDetails from "@/components/SellerDetails/SellerDetails.vue";
+import AdditionalInfo from "@/components/UI/AdditionalInfo/AdditionalInfo.vue";
+import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 
 const dealType: Ref<TDealType> = ref(DealEnum.confirmationApplication);
 
@@ -114,168 +108,5 @@ const getMessageTimeIcon = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/scss/variables";
-@import "@/assets/scss/mixins";
-
-.deal {
-  max-width: 680px;
-  border-radius: 16px;
-  background: $bg-base;
-
-  &__up {
-    @include flexbox(column);
-    row-gap: 16px;
-    padding: 24px;
-  }
-
-  &__header {
-    @include flexbox(row, space-between, center);
-    column-gap: 16px;
-    width: 100%;
-  }
-
-  &__title {
-    @include flexbox(row, flex-start, center);
-    column-gap: 12px;
-    @include get-font(18px, 500, 28px, $text-base);
-
-    & > rect {
-      fill: #000000;
-    }
-  }
-
-  &__icon {
-    @include flex-center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-
-    &.confirmationApplication {
-      background: $bg-base-contrast;
-    }
-
-    &.confirmationPayment {
-      background: $bg-orange;
-    }
-
-    &.completed {
-      background: $bg-green;
-    }
-
-    &.canceled {
-      background: $bg-red;
-    }
-
-    &.dispute {
-      background: $bg-violet;
-    }
-  }
-
-  &__timer {
-    @include flex-center;
-    column-gap: 8px;
-
-    &-item {
-      @include flex-center;
-      padding: 8px;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: $bg-red-light;
-      @include get-font(16px, 700, 24px, $text-red);
-    }
-
-    &-colon {
-      @include flexbox(column);
-      row-gap: 4px;
-    }
-  }
-
-  &__text {
-    padding-left: 20px;
-    @include get-font(14px, 500, 20px, $text-base-secondary);
-    position: relative;
-
-    &::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: $bg-base-contrast;
-      position: absolute;
-      top: 9px;
-      left: 1px;
-    }
-  }
-
-  &__info {
-    @include flexbox(column);
-    row-gap: 24px;
-    padding: 24px;
-    border-top: 1px solid $border-base-bright;
-
-    &-header {
-      @include flexbox(row, space-between, center);
-      width: 100%;
-    }
-
-    &-additional {
-      @include flex-center;
-      column-gap: 24px;
-      @include get-font(12px, 500, 16px, $text-base-light);
-    }
-
-    &-title {
-      @include get-font(16px, 700, 24px, $text-base-secondary);
-    }
-
-    &-date,
-    &-id {
-      @include flex-center;
-      column-gap: 4px;
-
-      & > span {
-        color: $text-base-disable;
-      }
-    }
-
-    &-item {
-      @include flexbox(row, space-between, center);
-      column-gap: 8px;
-      width: 100%;
-
-      &:nth-child(even) {
-        padding: 4px 0
-      }
-
-      &-title {
-        @include get-font(14px, 500, 20px, $text-base-light);
-      }
-
-      &-value {
-        @include flex-center;
-        column-gap: 8px;
-        @include get-font(14px, 500, 20px, $text-base);
-
-        &.price {
-          font-weight: 700;
-        }
-
-        &.payment-method {
-          padding: 4px 8px;
-          border-radius: 4px;
-          background: $bg-base-light;
-          @include get-font(12px, 700, 12px, $text-base-light);
-          text-transform: uppercase;
-        }
-      }
-    }
-  }
-
-  &__buttons {
-    @include flexbox(row);
-    column-gap: 16px;
-    width: 100%;
-  }
-}
+@import "deal";
 </style>

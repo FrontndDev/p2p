@@ -18,15 +18,10 @@
       </div>
       <div class="purchase-announcement__price">{{ row.price }} RUB</div>
       <div class="purchase-announcement__payment-methods">
-        <div
-            class="purchase-announcement__payment-methods-item"
-            v-for="method in getPaymentMethods(row.paymentMethods)"
-            :key="method.id"
-            :title="method.name"
-        >{{ method.name }}</div>
-        <div class="purchase-announcement__payment-methods-item" v-if="row.paymentMethods.length > 4">
-          +{{ row.paymentMethods.length - 4 }}
-        </div>
+        <PaymentMethods
+            class="flex-start"
+            :payment-methods="getPaymentMethods(row.paymentMethods)"
+        />
       </div>
       <div class="purchase-announcement__info">
         <div class="purchase-announcement__info-available">
@@ -55,6 +50,7 @@ import {
 } from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
 import Seller from "@/components/Seller/Seller.vue";
+import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 
 const emit = defineEmits(['buy'])
 
@@ -213,7 +209,8 @@ const getName = (name: string) => {
 }
 
 const getPaymentMethods = (paymentMethods: any[]) => {
-  return useDeepCopy(paymentMethods).splice(0, 4)
+  const methods = useDeepCopy(paymentMethods).splice(0, 4)
+  return paymentMethods.length > 4 ? [...methods, { id: 5, name: `+${paymentMethods.length - 4}` }] : methods
 }
 </script>
 
