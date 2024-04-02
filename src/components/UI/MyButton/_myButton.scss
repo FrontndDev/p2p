@@ -17,6 +17,10 @@
     object-fit: cover;
   }
 
+  & ::v-deep(path) {
+    transition: .25s all ease;
+  }
+
   &__legend {
     @include flex-center;
     width: 16px;
@@ -133,11 +137,19 @@
     &:hover {
       border-color: $border-tertiary-hover;
       color: $text-base-secondary;
+
+      & ::v-deep(path) {
+        fill: $text-base-secondary;
+      }
     }
 
     &:active {
       border-color: $border-tertiary-pressed;
       color: $text-base;
+
+      & ::v-deep(path) {
+        fill: $text-base;
+      }
     }
 
     &.disabled {

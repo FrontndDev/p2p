@@ -85,4 +85,9 @@
       color: $text-link !important;
     }
   }
+
+  &__buttons {
+    @include flexbox(row);
+    gap: 16px;
+  }
 }

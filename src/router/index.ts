@@ -51,7 +51,15 @@ const routes = [
             meta: {
               title: 'Разместить объявление'
             }
-          }
+          },
+          {
+            path: 'edit-ad',
+            name: 'edit-ad',
+            component: PlaceAd,
+            meta: {
+              title: 'Редактировать объявление'
+            }
+          },
         ]
       },
       {

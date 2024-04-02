@@ -32,14 +32,28 @@
         </div>
 
         <div class="ad-information__footer">
-          <div class="ad-information__conditions">
-            <MyCheckbox :active="conditions" @set-value="conditions = !conditions">
-              <div class="ad-information__checkbox-text">
-                Я прочитал(-а) и соглашаюсь с <a href="#">Условиями</a> и <a href="#">Политикой конфидентиальности P2P</a>
-              </div>
-            </MyCheckbox>
+          <template v-if="route.name === 'place-ad'">
+            <div class="ad-information__conditions">
+              <MyCheckbox :active="conditions" @set-value="conditions = !conditions">
+                <div class="ad-information__checkbox-text">
+                  Я прочитал(-а) и соглашаюсь с <a href="#">Условиями</a> и <a href="#">Политикой конфидентиальности P2P</a>
+                </div>
+              </MyCheckbox>
+            </div>
+            <MyButton size="big" width="100%" name="Разместить объявление"/>
+          </template>
+          <div class="ad-information__buttons" v-else-if="route.name === 'edit-ad'">
+            <MyButton type="neutral-btn" size="big" width="100%" name="Удалить">
+              <template #icon-left>
+                <TrashIcon/>
+              </template>
+            </MyButton>
+            <MyButton size="big" width="100%" name="Остановить">
+              <template #icon-left>
+                <PauseIcon/>
+              </template>
+            </MyButton>
           </div>
-          <MyButton size="big" width="100%" name="Разместить объявление"/>
         </div>
       </div>
     </div>
@@ -47,6 +61,8 @@
 </template>
 
 <script setup lang="ts">
+import TrashIcon from '@/assets/svg/trash.svg?component';
+import PauseIcon from '@/assets/svg/pause.svg?component';
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import {
   reactive,
@@ -54,6 +70,9 @@ import {
 } from "vue";
 import MyCheckbox from "@/components/UI/MyCheckbox/MyCheckbox.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const paymentMethods = reactive([
   {

@@ -57,12 +57,24 @@
       <div class="ad__row">
         <div class="ad__row-title">Способ оплаты</div>
         <div class="ad__row-content">
+          <MyButton
+              type="second-primary-btn"
+              size="big"
+              width="100%"
+              name="Управление реквизитами"
+              v-if="route.name === 'edit-ad'"
+          >
+            <template #icon-left>
+              <AddIcon/>
+            </template>
+          </MyButton>
           <PaymentMethods class="flex-start" :payment-methods="paymentMethods"/>
           <MyButton
               type="second-primary-btn"
               size="big"
               width="100%"
               name="Выберите способ оплаты"
+              v-if="route.name === 'place-ad'"
           >
             <template #icon-left>
               <AddIcon/>
@@ -114,6 +126,9 @@ import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const wallets: ISelect[] = reactive([
   {
