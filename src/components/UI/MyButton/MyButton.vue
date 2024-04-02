@@ -4,8 +4,9 @@
       :style="`width: ${props.width};`"
       :class="[props.type, props.size, { disabled }]"
   >
+    <slot name="icon-left"/>
     {{ props.name }}
-    <slot name="icon"/>
+    <slot name="icon-right"/>
 
     <div class="my-button__legend" v-if="props.legend">{{ props.legend }}</div>
   </div>

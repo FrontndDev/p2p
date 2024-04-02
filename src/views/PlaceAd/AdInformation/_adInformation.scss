@@ -1,3 +1,88 @@
-.ad-information {
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
 
+.ad-information {
+  max-width: 504px;
+  width: 100%;
+  border-radius: 16px;
+  background: $bg-base;
+
+  &__title {
+    @include flexbox(row, space-between, center);
+    padding: 24px;
+    border-bottom: 1px solid $border-base-bright;
+  }
+
+  &__body {
+    padding: 24px;
+  }
+
+  &__content {
+    &-header {
+      @include flexbox(row, space-between, center);
+      column-gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid $border-base-light;
+      width: 100%;
+    }
+
+    &-title {
+      @include get-font(18px, 700, 28px, $text-base-light);
+    }
+
+    &-wallet {
+      @include flexbox(row, flex-start, center);
+      column-gap: 12px;
+      @include get-font(18px, 700, 28px, $text-base);
+
+      & > img {
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  &__rows {
+    @include flexbox(column);
+    row-gap: 24px;
+    padding: 24px 0;
+    width: 100%;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 16px;
+    width: 100%;
+
+    &:not(:last-child) {
+      padding: 2px 0;
+    }
+
+    & > div {
+      @include get-font(16px, 500, 24px, $text-base-secondary);
+
+      &:last-child {
+        margin-left: auto;
+        color: $text-base;
+      }
+    }
+  }
+
+  &__footer {
+    border-top: 1px solid $border-base-light;
+  }
+
+  &__conditions {
+    padding: 24px 0;
+  }
+
+  &__checkbox-text {
+    @include get-font(14px, 500, 20px, $text-base);
+
+    & > a {
+      color: $text-link !important;
+    }
+  }
 }
