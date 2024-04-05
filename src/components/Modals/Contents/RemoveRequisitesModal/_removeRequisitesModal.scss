@@ -1,0 +1,33 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.remove-requisites-modal {
+  @include flexbox(column);
+  row-gap: 40px;
+  padding: 0 16px;
+  width: 100%;
+
+  &__content {
+    @include flexbox(column, center, center);
+    row-gap: 8px;
+    padding: 52px 0;
+    width: 100%;
+    text-align: center;
+
+    & > img {
+      width: 88px;
+      height: 88px;
+      object-fit: cover;
+    }
+  }
+
+  &__buttons {
+    @include flexbox(row);
+    column-gap: 16px;
+    width: 100%;
+  }
+
+  &__description {
+    @include get-font(14px, 500, 20px, $text-base-secondary);
+  }
+}

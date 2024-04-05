@@ -9,7 +9,7 @@
       {{ route.meta.title }}
     </div>
 
-    <div class="main-layout-action">Отменить сделку</div>
+    <div class="main-layout-action" v-if="route.meta.action">{{ route.meta.action }}</div>
   </div>
 
   <div class="main-layout">

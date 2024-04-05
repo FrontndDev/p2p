@@ -11,3 +11,10 @@
     color: $text-red;
   }
 }
+
+@media screen and (max-width: 756px) {
+  .badge {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}

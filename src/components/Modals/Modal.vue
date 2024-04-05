@@ -3,7 +3,7 @@
     <Transition name="modal">
       <div class="my-modal">
         <div class="my-modal__content" :style="`padding: ${props.padding}; max-width: ${width};`">
-          <ModalHeader :title="props.title" :show-title="props.showTitle"/>
+          <ModalHeader :title="props.title" :show-title="props.showTitle" :action="props.actionInHeader"/>
 
           <slot name="content"/>
 
@@ -18,8 +18,13 @@
 <script setup lang="ts">
 import ModalCloseIcon from "@/components/Modals/ModalCloseIcon/ModalCloseIcon.vue";
 import ModalHeader from "@/components/Modals/ModalHeader/ModalHeader.vue";
+import { PropType } from "vue";
 
 const props = defineProps({
+  actionInHeader: {
+    type: String as PropType<'' | 'back'>,
+    default: '',
+  },
   show: {
     type: Boolean,
     default: true,
@@ -30,7 +35,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: 'Заголовок'
+    default: ''
   },
   padding: {
     type: String,

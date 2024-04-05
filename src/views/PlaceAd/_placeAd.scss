@@ -5,3 +5,10 @@
   @include flexbox(row);
   column-gap: 16px;
 }
+
+@media screen and (max-width: 1120px) {
+  .place-ad {
+    @include flexbox(column);
+    row-gap: 4px;
+  }
+}

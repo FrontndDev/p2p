@@ -2,12 +2,16 @@
 @import "@/assets/scss/mixins";
 
 .my-modal-header {
-  @include flexbox(row, space-between, center);
+  @include flexbox(row, flex-end, center);
   width: 100%;
   position: relative;
 
+  &.with-action {
+    @include flexbox(row, space-between, center);
+  }
+
   &__back {
-    display: none;
+    @include flexbox(row, flex-start, center);
     @include get-font(14px, 500, 20px, $text-link);
   }
 
@@ -37,7 +41,10 @@
       right: 0;
     }
 
-    &__back,
+    &__back {
+      column-gap: 8px;
+    }
+
     &__title {
       display: block;
     }

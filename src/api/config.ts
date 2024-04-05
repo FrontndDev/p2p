@@ -1,7 +1,10 @@
 import axios, { AxiosError } from 'axios'
 import { useShowMessage } from "@/composables/useShowMessage";
 
-const BASE_URL = 'https://dev.halk.ai'
+const __IS_DEV__ = import.meta.env.VITE_IS_DEV === 'true'
+
+const devUrl = import.meta.env.VITE_DEV_URL ?? 'https://dev.halk.ai' // 'https://stage2.halk.ai' 'https://dev.halk.ai'
+const BASE_URL = __IS_DEV__ ? devUrl : window.location.origin;
 
 const checkUserIsModer = (error: AxiosError) => {
     //@ts-ignore

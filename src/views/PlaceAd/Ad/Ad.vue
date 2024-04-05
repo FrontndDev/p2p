@@ -58,6 +58,7 @@
         <div class="ad__row-title">Способ оплаты</div>
         <div class="ad__row-content">
           <MyButton
+              class="ad__row-button ad__row-button_first"
               type="second-primary-btn"
               size="big"
               width="100%"
@@ -70,6 +71,7 @@
           </MyButton>
           <PaymentMethods class="flex-start" :payment-methods="paymentMethods"/>
           <MyButton
+              class="ad__row-button ad__row-button_second"
               type="second-primary-btn"
               size="big"
               width="100%"
