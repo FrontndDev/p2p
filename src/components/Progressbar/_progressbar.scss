@@ -54,3 +54,14 @@
     color: $text-base-on-color;
   }
 }
+
+@media screen and (max-width: 756px) {
+  .my-progressbar {
+    grid-column-gap: 8px;
+    padding: 12px;
+
+    &__step-name {
+      @include get-font(10px, 500, 12px, $text-base-secondary);
+    }
+  }
+}

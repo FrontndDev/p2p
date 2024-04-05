@@ -32,6 +32,10 @@
   }
 
   &__icon {
+    flex-shrink: 0;
+  }
+
+  &__icon {
     @include flex-center;
     width: 24px;
     height: 24px;
@@ -154,5 +158,21 @@
     @include flexbox(row);
     column-gap: 16px;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .deal {
+    &__title {
+      @include get-font(14px, 500, 20px, $text-base);
+    }
+
+    &__text {
+      @include get-font(12px, 500, 16px, $text-base-secondary);
+    }
+
+    &__progressbar {
+      padding-bottom: 0;
+    }
   }
 }

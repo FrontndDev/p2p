@@ -1,0 +1,51 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.my-modal-header {
+  @include flexbox(row, space-between, center);
+  width: 100%;
+  position: relative;
+
+  &__back {
+    display: none;
+    @include get-font(14px, 500, 20px, $text-link);
+  }
+
+  &__title {
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    @include get-font(20px, 700, 32px, $text-base);
+    inset: 0;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .my-modal-header {
+    padding: 16px 16px 24px;
+
+    &::before {
+      content: '';
+      margin: auto;
+      width: 36px;
+      height: 4px;
+      border-radius: 4px;
+      background: $bg-base-contrast;
+      position: absolute;
+      top: 4px;
+      left: 0;
+      right: 0;
+    }
+
+    &__back,
+    &__title {
+      display: block;
+    }
+
+    &__title {
+      display: block !important;
+      @include get-font(16px, 700, 16px, $text-base);
+      position: absolute;
+    }
+  }
+}

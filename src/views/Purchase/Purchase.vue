@@ -31,7 +31,7 @@ import PurchaseAnnouncement from "@/components/Tables/PurchaseAnnouncement/Purch
 import Pagination from "@/components/UI/Pagination/Pagination.vue";
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import MyPurchasesAndDeals from "@/components/Tables/MyPurchasesAndDeals/MyPurchasesAndDeals.vue";
-import DealModal from "@/components/Modals/DealModal/DealModal.vue";
+import DealModal from "@/components/Modals/Contents/DealModal/DealModal.vue";
 import PurchaseFilter from "@/components/BottomPopups/PurchaseFilter/PurchaseFilter.vue";
 import Settings from '@/assets/svg/settings.svg?component';
 

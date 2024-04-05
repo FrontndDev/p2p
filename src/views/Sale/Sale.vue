@@ -4,7 +4,7 @@
     <TelegramBanner/>
     <InformationAboutTransfers/>
   </div>
-  <Requisites/>
+  <Requisites @add-requisites="showAddRequisitesModal = true"/>
 
   <div class="sale">
     <div class="sale-tabs my-container">
@@ -47,6 +47,8 @@
 
     <Pagination/>
   </div>
+
+  <AddRequisitesModal v-if="showAddRequisitesModal" @close-modal="showAddRequisitesModal = false"/>
 </template>
 
 <script setup lang="ts">
@@ -66,6 +68,7 @@ import Requisites from "@/components/Requisites/Requisites.vue";
 import TelegramBanner from "@/components/TelegramBanner/TelegramBanner.vue";
 import InformationAboutTransfers from "@/components/InformationAboutTransfers/InformationAboutTransfers.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import AddRequisitesModal from "@/components/Modals/Contents/AddRequisitesModal/AddRequisitesModal.vue";
 
 const tabs = reactive([
   {
@@ -77,6 +80,8 @@ const tabs = reactive([
     name: 'Мои сделки',
   }
 ]);
+
+const showAddRequisitesModal = ref(false);
 
 const activeTab: Ref<ITabs> = ref(tabs[0]);
 

@@ -1,3 +1,40 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
 .main-layout {
   margin-top: 24px;
+
+  &-title > svg {
+    display: none;
+  }
+
+  &-action {
+    display: none;
+    @include get-font(12px, 500, 16px, $text-base-light);
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .main-layout {
+    margin-top: 4px;
+
+    &-header {
+      @include flexbox(row, space-between, center);
+      padding: 16px;
+      background: $bg-base;
+    }
+
+    &-title {
+      @include flexbox(row, flex-start, center);
+      column-gap: 4px;
+
+      & > svg {
+        display: block;
+      }
+    }
+
+    &-action {
+      display: block;
+    }
+  }
 }

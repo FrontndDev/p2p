@@ -112,3 +112,11 @@
     }
   }
 }
+
+@media screen and (max-width: 756px) {
+  .seller-details {
+    &__title {
+      display: none;
+    }
+  }
+}

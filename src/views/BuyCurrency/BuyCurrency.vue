@@ -17,4 +17,12 @@ import Chat from "@/components/Chat/Chat.vue";
   @include flexbox(row);
   column-gap: 16px;
 }
+
+@media screen and (max-width: 756px) {
+  .buy-currency {
+    & .chat {
+      display: none;
+    }
+  }
+}
 </style>

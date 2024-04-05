@@ -1,5 +1,5 @@
 <template>
-  <Modal padding="0" width="880px" @close-modal="emit('close-modal')">
+  <Modal title="Покупка" padding="0" width="880px" :show-title="false" @close-modal="emit('close-modal')">
     <template #content>
       <div class="deal-modal">
         <div class="deal-modal__content">
@@ -55,9 +55,10 @@
           </div>
           <div class="deal-modal__right">
             <div class="deal-modal__inputs">
-              <MyInput title="Я отдаю" wallet="RUB"/>
-              <MyInput title="Я получу" wallet="USD"/>
+              <MyInput class="no-media" title="Я отдаю" wallet="RUB"/>
+              <MyInput class="no-media" title="Я получу" wallet="USD"/>
               <Select
+                  class="no-media"
                   title="Способ оплаты"
                   :items="paymentMethods"
                   :selected-item="selectedPaymentMethod"
@@ -67,7 +68,7 @@
 
             <div class="deal-modal__buttons">
               <MyButton type="neutral-btn" size="big" name="Отмена" width="50%" @click="emit('close-modal')"/>
-              <MyButton size="big" name="Открыть ссылку" width="50%"/>
+              <MyButton size="big" name="Открыть сделку" width="50%"/>
             </div>
           </div>
         </div>
@@ -129,129 +130,5 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/scss/variables";
-@import "@/assets/scss/mixins";
-
-.deal-modal {
-  width: 100%;
-
-  &__content {
-    @include flexbox(row);
-  }
-
-  &__left {
-    padding-bottom: 32px;
-    width: 50%;
-    border-radius: 16px 0 0 16px;
-    background: $bg-base-secondary;
-    position: relative;
-
-    &::before {
-      content: '';
-      width: 360px;
-      height: 24px;
-      background: linear-gradient(180deg, rgba(245, 247, 248, 0) 0%, #F5F7F8 100%);
-      position: absolute;
-      bottom: 32px;
-      left: 32px;
-      right: 0;
-      z-index: 1;
-    }
-
-    &-content {
-      @include flexbox(column);
-      row-gap: 24px;
-      padding: 32px 32px 0;
-      max-height: 560px;
-      overflow: auto;
-
-      &::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        width: 100%;
-        background: $bg-base-bright;
-      }
-    }
-  }
-
-  &__right {
-    @include flexbox(column, space-between);
-    row-gap: 16px;
-    padding: 32px;
-    width: 50%;
-    height: 592px;
-    border-radius: 0 16px 16px 0;
-    background: $bg-base;
-  }
-
-  &__inputs {
-    @include flexbox(column);
-    row-gap: 16px;
-    width: 100%;
-  }
-
-  &__seller {
-    padding-bottom: 24px;
-    width: 100%;
-    border-bottom: 1px solid $border-base-bright;
-  }
-
-  &__info {
-    @include flexbox(column);
-    row-gap: 16px;
-    padding-bottom: 24px;
-    width: 100%;
-    border-bottom: 1px solid $border-base-bright;
-
-    &-item {
-      @include flexbox(row, space-between, center);
-      column-gap: 8px;
-      width: 100%;
-      @include get-font(14px, 500, 20px, $text-base-light);
-
-      &:not(:nth-child(1), :nth-child(2)) {
-        padding: 4px 0;
-      }
-
-      &_payment-methods {
-        align-items: flex-start;
-      }
-
-      &-title {
-        flex-shrink: 0;
-        width: 120px;
-      }
-
-      &-value {
-        @include flexbox(row, flex-end, center);
-        column-gap: 8px;
-        width: 248px;
-        color: $text-base;
-        text-align: end;
-
-        &_price {
-          font-weight: 700;
-        }
-      }
-    }
-  }
-
-  &__comment {
-    @include flexbox(column);
-    row-gap: 8px;
-    @include get-font(14px, 500, 20px, $text-base-secondary);
-
-    &-content {
-      color: $text-base;
-    }
-  }
-
-  &__buttons {
-    @include flex-center;
-    column-gap: 16px;
-    width: 100%;
-  }
-}
+@import "dealModal";
 </style>

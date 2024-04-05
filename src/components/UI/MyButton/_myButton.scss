@@ -7,6 +7,7 @@
   padding: 8px 12px;
   border-radius: 8px;
   @include get-font(12px, 500, 16px);
+  white-space: nowrap;
   transition: .25s all ease;
   cursor: pointer;
   position: relative;

@@ -1,0 +1,200 @@
+@import "@/assets/scss/variables";
+@import "@/assets/scss/mixins";
+
+.deal-modal {
+  width: 100%;
+
+  &__content {
+    @include flexbox(row);
+  }
+
+  &__left {
+    padding-bottom: 32px;
+    width: 50%;
+    border-radius: 16px 0 0 16px;
+    background: $bg-base-secondary;
+    position: relative;
+
+    &::before {
+      content: '';
+      width: calc(100% - 64px);
+      height: 24px;
+      background: linear-gradient(180deg, rgba(245, 247, 248, 0) 0%, #F5F7F8 100%);
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      right: 0;
+      z-index: 1;
+    }
+
+    &-content {
+      @include flexbox(column);
+      row-gap: 24px;
+      padding: 32px 32px 0;
+      max-height: 560px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        width: 100%;
+        background: $bg-base-bright;
+      }
+    }
+  }
+
+  &__right {
+    @include flexbox(column, space-between);
+    row-gap: 16px;
+    padding: 32px;
+    width: 50%;
+    height: 592px;
+    border-radius: 0 16px 16px 0;
+    background: $bg-base;
+  }
+
+  &__inputs {
+    @include flexbox(column);
+    row-gap: 16px;
+    width: 100%;
+  }
+
+  &__seller {
+    padding-bottom: 24px;
+    width: 100%;
+    border-bottom: 1px solid $border-base-bright;
+  }
+
+  &__info {
+    @include flexbox(column);
+    row-gap: 16px;
+    padding-bottom: 24px;
+    width: 100%;
+    border-bottom: 1px solid $border-base-bright;
+
+    &-item {
+      @include flexbox(row, space-between, center);
+      column-gap: 8px;
+      width: 100%;
+      @include get-font(14px, 500, 20px, $text-base-light);
+
+      &:not(:nth-child(1), :nth-child(2)) {
+        padding: 4px 0;
+      }
+
+      &_payment-methods {
+        align-items: flex-start;
+      }
+
+      &-title {
+        flex-shrink: 0;
+        width: 120px;
+      }
+
+      &-value {
+        @include flexbox(row, flex-end, center);
+        column-gap: 8px;
+        width: 248px;
+        color: $text-base;
+        text-align: end;
+
+        &_price {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  &__comment {
+    @include flexbox(column);
+    row-gap: 8px;
+    @include get-font(14px, 500, 20px, $text-base-secondary);
+
+    &-content {
+      color: $text-base;
+    }
+  }
+
+  &__buttons {
+    @include flex-center;
+    column-gap: 16px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .deal-modal {
+    height: 100%;
+    overflow: auto;
+    background: $bg-base-secondary;
+
+    &__content {
+      @include flexbox(column-reverse);
+      padding-bottom: 70px;
+    }
+
+    &__left {
+      padding: 0;
+      width: 100%;
+      height: auto;
+      background: $bg-base;
+
+      &::before {
+        display: none;
+      }
+
+      &-content {
+        row-gap: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+    }
+
+    &__right {
+      row-gap: 0;
+      padding: 0 16px 24px;
+      width: 100%;
+      border-bottom: 4px solid $border-base-secondary;
+      height: auto;
+      background: $bg-base;
+    }
+
+    &__info {
+      padding: 24px 16px;
+      order: 0;
+      border-bottom: 4px solid $border-base-secondary;
+    }
+
+    &__seller {
+      padding: 24px 16px 16px;
+      order: 1;
+      border-bottom: none;
+    }
+
+    &__comment {
+      padding: 0 16px;
+      order: 2;
+
+      &-title {
+        display: none;
+      }
+    }
+
+    &__buttons {
+      & .neutral-btn {
+        display: none;
+      }
+
+      & .primary-btn {
+        margin: auto;
+        width: calc(100% - 32px) !important;
+        position: fixed;
+        bottom: 16px;
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+}

@@ -135,6 +135,7 @@ button {
   }
 
   .title-h1 {
+    @include get-font(18px, 700, 28px, $text-base);
     padding: 0;
   }
 

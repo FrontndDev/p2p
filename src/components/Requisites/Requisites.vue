@@ -3,7 +3,7 @@
     <div class="p2p-card__header">
       <div class="title-h2">Реквизиты</div>
 
-      <div class="requisites__add">Добавить реквизиты</div>
+      <div class="requisites__add" @click="emit('add-requisites')">Добавить реквизиты</div>
       <EditIcon class="requisites__edit" @click="emit('show-requisites-popup')"/>
     </div>
 
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import EditIcon from '@/assets/svg/edit.svg?component';
 
-const emit = defineEmits(['show-requisites-popup'])
+const emit = defineEmits(['show-requisites-popup', 'add-requisites'])
 </script>
 
 <style scoped lang="scss">
