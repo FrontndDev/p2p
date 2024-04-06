@@ -40,11 +40,11 @@
             <div class="ad__row-input-info">
               <div>
                 <span>Для продажи</span>
-                <span>999 999 TON</span>
+                <span>1 000 TON</span>
               </div>
               <div>
                 <span>Комиссия</span>
-                <span>1 000 TON</span>
+                <span>100 TON</span>
                 <InfoIcon/>
               </div>
             </div>

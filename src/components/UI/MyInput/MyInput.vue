@@ -3,12 +3,12 @@
       <div class="my-input__title" v-if="props.title">{{ props.title }}</div>
       <div class="my-input__field">
         <template v-if="props.icon">
-          <img :src="props.icon" alt="icon" v-if="typeof props.icon === 'string'">
-          <component :is="props.icon" v-else/>
+          <img :src="props.icon" alt="icon" ref="icon" v-if="typeof props.icon === 'string'">
+          <component ref="icon" :is="props.icon" v-else/>
         </template>
         <input
             type="text"
-            :style="`width: calc(100% - ${wallet ? wallet?.offsetWidth + 16 : 0}px);`"
+            :style="getInputWidth"
             :placeholder="props.placeholder"
             :value="props.value"
             @input="inputValue($event)"
@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import {
+  computed,
   PropType,
   Ref,
   ref
@@ -53,6 +54,15 @@ const props = defineProps({
 const emit = defineEmits(['inputValue']);
 
 const wallet: Ref<HTMLDivElement | undefined> = ref();
+const icon: Ref<HTMLDivElement | undefined> = ref();
+
+const getInputWidth = computed(() => {
+  const walletWidth = wallet.value?.offsetWidth ?? 0;
+  const iconWidth = icon.value?.offsetWidth ?? 0;
+  const width = walletWidth + iconWidth + 16;
+
+  return `width: calc(100% - ${width}px);`
+});
 
 const inputValue = (e: Event) => {
   const event = e.target as HTMLInputElement

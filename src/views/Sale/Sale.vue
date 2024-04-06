@@ -31,7 +31,7 @@
       </div>
 
       <div class="sale-tabs-button">
-        <MyButton width="100%" size="big" name="Добавить объявление">
+        <MyButton width="100%" size="big" name="Добавить объявление" @click="$router.push({ name: 'place-ad' })">
           <template #icon-right>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M8 1.5C8.27614 1.5 8.5 1.72386 8.5 2V14C8.5 14.2761 8.27614 14.5 8 14.5C7.72386 14.5 7.5 14.2761 7.5 14V2C7.5 1.72386 7.72386 1.5 8 1.5Z" fill="white"/>

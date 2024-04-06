@@ -68,7 +68,7 @@
 
             <div class="deal-modal__buttons">
               <MyButton type="neutral-btn" size="big" name="Отмена" width="50%" @click="emit('close-modal')"/>
-              <MyButton size="big" name="Открыть сделку" width="50%"/>
+              <MyButton size="big" name="Открыть сделку" width="50%" @click="$router.push({ name: 'buy-currency' })"/>
             </div>
           </div>
         </div>

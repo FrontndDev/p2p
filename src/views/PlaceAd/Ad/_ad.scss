@@ -80,7 +80,10 @@
       &-info {
         @include flexbox(row, space-between, center);
         column-gap: 10px;
+        padding: 8px 16px;
         width: 100%;
+        border-radius: 8px;
+        background: $bg-blue-light;
 
         & > div {
           @include flexbox(row, flex-start, center);
@@ -172,10 +175,30 @@
     }
 
     &__row {
+      @include flexbox(column);
+      row-gap: 8px;
       padding: 16px 0;
+
+      &:not(:last-child) {
+        border-bottom: 4px solid $border-base-secondary;
+      }
+
+      &-title {
+        @include get-font(16px, 700, 24px, $text-base-secondary);
+      }
 
       &-content {
         row-gap: 8px;
+        max-width: 100%;
+
+        & > textarea {
+          height: 160px;
+        }
+      }
+
+      &-mark {
+        @include flexbox(row, space-between);
+        width: 100%;
       }
 
       &-select {
@@ -192,6 +215,23 @@
             margin-top: 8px;
           }
         }
+
+        & ::v-deep(.my-input__title) {
+          font-size: 12px !important;
+          line-height: 16px !important;
+        }
+
+        &-info {
+
+          & > div {
+            column-gap: 4px;
+            white-space: nowrap;
+
+            & > span:first-child {
+              padding-right: 4px;
+            }
+          }
+        }
       }
 
       &-button {
@@ -206,3 +246,4 @@
     }
   }
 }
+
