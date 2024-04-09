@@ -123,6 +123,12 @@ button {
   font-weight: 700 !important;
 }
 
+// Vue Advanced Chat
+::v-deep(.vac-rooms-container) {
+  display: none !important;
+}
+//
+
 @media screen and (max-width: 756px) {
   .my-container {
     padding: 16px;
