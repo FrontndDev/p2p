@@ -44,7 +44,7 @@ function setGlobalConfig(token: string | null) {
     return token ? { ...defaultSettings, "Authorization": 'Bearer ' + token } : defaultSettings
 }
 
-export async function putAsync(url: string, data: unknown, checkError = true) {
+export async function putAsync(url: string, data: unknown, checkError = true): Promise<any> {
     let iteration = 0; // Итерация
     let retryInterval = 0; // Интервал между повторными запросами в миллисекундах
 
@@ -62,6 +62,7 @@ export async function putAsync(url: string, data: unknown, checkError = true) {
                 retryInterval = 0
                 return response?.data
             }
+
             if (response.status === 204 || response.status === 201) {
                 return true
             }
@@ -70,6 +71,14 @@ export async function putAsync(url: string, data: unknown, checkError = true) {
                 return error.response
             }
             checkUserIsModer(error)
+
+            const setSeconds = () => {
+                // Присваиваем в переменную кол-во секунд в зависимости от итерации
+                const iterations = [1000, 5000, 10000, 30000, 60000]
+                retryInterval = iterations[iteration]
+            }
+
+            setSeconds()
 
             const errorResponse = error.response as AxiosResponse
             const status = errorResponse.status
@@ -87,14 +96,16 @@ export async function putAsync(url: string, data: unknown, checkError = true) {
         }
     }
 
+    // Запускаем fetchAsync
     return fetchAsync();
 }
 
-export async function postAsync(url: string, data = {}, checkError = true) {
+export async function postAsync(url: string, data = {}, checkError = true): Promise<any> {
     let iteration = 0; // Итерация
     let retryInterval = 0; // Интервал между повторными запросами в миллисекундах
 
     async function fetchAsync(): Promise<any> {
+
         try {
             let response = await axios.post(BASE_URL + url, data, { headers: setGlobalConfig(localStorage.getItem('token')) })
 
@@ -103,11 +114,12 @@ export async function postAsync(url: string, data = {}, checkError = true) {
                 useShowMessage('red', error.error_message, 'Ошибка:')
             }
 
-            if (response.status === 200 || response.status === 202) {
+            if (response.status === 200) {
                 iteration = 0
                 retryInterval = 0
                 return response?.data
             }
+
             if (response.status === 204 || response.status === 201) {
                 return true
             }
@@ -118,10 +130,16 @@ export async function postAsync(url: string, data = {}, checkError = true) {
             }
             checkUserIsModer(error)
 
+            const setSeconds = () => {
+                // Присваиваем в переменную кол-во секунд в зависимости от итерации
+                const iterations = [1000, 5000, 10000, 30000, 60000]
+                retryInterval = iterations[iteration]
+            }
+
+            setSeconds()
+
             const errorResponse = error.response as AxiosResponse
             const status = errorResponse.status
-
-            console.error('Ошибка при выполнении запроса:', error);
 
             if (status === 500 || status === 502) {
                 // Увеличиваем итерацию
@@ -136,10 +154,11 @@ export async function postAsync(url: string, data = {}, checkError = true) {
         }
     }
 
+    // Запускаем fetchAsync
     return fetchAsync();
 }
 
-export async function getAsync(url: string, options?: any) {
+export async function getAsync(url: string, options?: any): Promise<any> {
     const config: any = { headers: setGlobalConfig(localStorage.getItem('token')) };
     let iteration = 0; // Итерация
     let retryInterval = 0; // Интервал между повторными запросами в миллисекундах
