@@ -1,5 +1,6 @@
 import axios, {
     AxiosError,
+    AxiosRequestConfig,
     AxiosResponse
 } from 'axios'
 import { useShowMessage } from "@/composables/useShowMessage";
@@ -24,20 +25,21 @@ function setGlobalConfig(token: string | null) {
 
     function getCookie(name: string) {
         let matches = document.cookie.match(new RegExp(
-            "(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + "=([^;]*)"
+          "(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + "=([^;]*)"
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
 
-    const defaultSettings = {
+    const defaultSettings: AxiosRequestConfig["headers"] = {
         "Content-Type": "application/json",
-        "Accept": "application/json",
         "x-auth": getCookie('dasdasdaddjdj'),
-        // @ts-ignore
-        "X-SPACE-ID": `${window.SpaceId}:${window.SpaceIdHash}`,
-        // "VerificationToken": import.meta.env.VUE_APP_VEREFICATION_TOKEN
     };
+
+    if (__IS_DEV__) {
+        defaultSettings["x-auth"] = import.meta.env.VITE_X_AUTH
+        defaultSettings["X-SPACE-ID"] = import.meta.env.VITE_X_SPACE_ID
+    }
 
     return token ? { ...defaultSettings, "Authorization": 'Bearer ' + token } : defaultSettings
 }
@@ -56,6 +58,8 @@ export async function putAsync(url: string, data: unknown, checkError = true) {
             }
 
             if (response.status === 200 || response.status === 202) {
+                iteration = 0
+                retryInterval = 0
                 return response?.data
             }
             if (response.status === 204 || response.status === 201) {
@@ -99,7 +103,9 @@ export async function postAsync(url: string, data = {}, checkError = true) {
                 useShowMessage('red', error.error_message, 'Ошибка:')
             }
 
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 202) {
+                iteration = 0
+                retryInterval = 0
                 return response?.data
             }
             if (response.status === 204 || response.status === 201) {
@@ -112,18 +118,10 @@ export async function postAsync(url: string, data = {}, checkError = true) {
             }
             checkUserIsModer(error)
 
-            const setSeconds = () => {
-                // Присваиваем в переменную кол-во секунд в зависимости от итерации
-                const iterations = [1000, 5000, 10000, 30000, 60000]
-                retryInterval = iterations[iteration]
-            }
-
-            setSeconds()
-
-            console.error('Ошибка при выполнении запроса:', error);
-
             const errorResponse = error.response as AxiosResponse
             const status = errorResponse.status
+
+            console.error('Ошибка при выполнении запроса:', error);
 
             if (status === 500 || status === 502) {
                 // Увеличиваем итерацию
@@ -181,10 +179,10 @@ export async function getAsync(url: string, options?: any) {
                 return;
             }
 
-            console.error('Ошибка при выполнении запроса:', error);
-
             const errorResponse = error.response as AxiosResponse
             const status = errorResponse.status
+
+            console.error('Ошибка при выполнении запроса:', error);
 
             if (status === 500 || status === 502) {
                 // Увеличиваем итерацию
