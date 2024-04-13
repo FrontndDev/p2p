@@ -11,7 +11,6 @@
           :style="getInputWidth"
           :placeholder="props.placeholder"
           :value="props.value"
-          v-if="!props.mask"
           @input="inputValue($event)"
           @blur="emit('blur')"
       >
