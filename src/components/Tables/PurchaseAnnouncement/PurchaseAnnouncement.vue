@@ -1,5 +1,5 @@
 <template>
-  <div class="my-table purchase-announcement">
+  <div class="my-table purchase-announcement" v-if="ads.ads?.length">
     <div class="purchase-announcement__row my-table__row my-table__row_headers">
       <div>Продавец</div>
       <div>Валюта</div>
@@ -8,37 +8,40 @@
       <div>Доступно / Лимиты</div>
     </div>
 
-    <div class="purchase-announcement__row my-table__row" v-for="row in table" :key="row.id">
+    <div class="purchase-announcement__row my-table__row" v-for="ad in ads.ads" :key="ad.id">
       <div class="purchase-announcement__seller">
-        <Seller :name="getName(row.name)"/>
+        <Seller :name="getName(ad.adsAuthor.first_name + ' ' + ad.adsAuthor.last_name)"/>
       </div>
       <div class="purchase-announcement__wallet">
-        <img alt="icon" :src="getIcon(row.wallet)">
-        {{ row.wallet }}
+        <img alt="icon" :src="getIcon(ad.currencyForBuy)">
+        {{ ad.currencyForBuy }}
       </div>
-      <div class="purchase-announcement__price">{{ row.price }} RUB</div>
+      <div class="purchase-announcement__price">{{ ad.priceToShow }}</div>
       <div class="purchase-announcement__payment-methods">
         <PaymentMethods
             class="flex-start"
-            :payment-methods="getPaymentMethods(row.paymentMethods)"
+            :payment-methods="getPaymentMethods([{ id: 1, name: ad.paymentMethod }])"
         />
       </div>
       <div class="purchase-announcement__info">
         <div class="purchase-announcement__info-available">
           <span>Сумма</span>
-          {{ row.available }}
-          <img alt="icon" :src="getIcon(row.wallet)">
+          {{ ad.activeAmount }}
+          <img alt="icon" :src="getIcon(ad.outerCurrency)">
         </div>
         <div class="purchase-announcement__info-limits">
           <span>Лимит</span>
-          {{ row.limits.min }} - {{ row.limits.max }} RUB
+          {{ ad.minAmount }} - {{ ad.maxAmount }}
         </div>
       </div>
       <div class="purchase-announcement__button">
-        <MyButton type="success-btn" :name="`Купить ${row.wallet}`" @click="emit('buy')"/>
+        <MyButton type="success-btn" :name="`Купить ${ad.currencyForBuy}`" @click="emit('buy')"/>
       </div>
     </div>
   </div>
+  <template v-else>
+    <div style="padding: 0 24px 12px;">Нет доступных объявлений</div>
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -46,153 +49,20 @@ import USDIcon from '@/assets/svg/wallets/usd.svg';
 import TONIcon from '@/assets/svg/wallets/ton.svg';
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import {
-  reactive
+  computed,
+  ComputedRef,
 } from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
 import Seller from "@/components/Seller/Seller.vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
+import { useStore } from "vuex";
+import { IAds } from "@/interfaces/store/modules/ads.interface.ts";
 
 const emit = defineEmits(['buy'])
 
-const table = reactive([
-  {
-    id: 1,
-    name: 'Константин Константинопольский',
-    successful: 0,
-    done: 0,
-    wallet: 'USD',
-    price: 359320,
-    paymentMethods: [
-      {
-        id: 1,
-        name: 'Тинькофф'
-      },
-      {
-        id: 2,
-        name: 'Сбербанк'
-      },
-      {
-        id: 3,
-        name: 'Альфа'
-      },
-      {
-        id: 4,
-        name: 'Беларусь'
-      },
-      {
-        id: 5,
-        name: 'Райфайзен'
-      },
-      {
-        id: 6,
-        name: 'Банк'
-      }
-    ],
-    available: 250000,
-    limits: {
-      min: 400250,
-      max: 1000000,
-    },
-  },
-  {
-    id: 2,
-    name: 'Егор Егоров',
-    successful: 20,
-    done: null,
-    wallet: 'TON',
-    price: 1000000,
-    paymentMethods: [
-      {
-        id: 1,
-        name: 'Тинькофф'
-      },
-      {
-        id: 2,
-        name: 'Сбербанк'
-      },
-      {
-        id: 3,
-        name: 'Альфа'
-      },
-      {
-        id: 4,
-        name: 'Беларусь'
-      },
-      {
-        id: 5,
-        name: 'Райфайзен'
-      }
-    ],
-    available: 85000,
-    limits: {
-      min: 200,
-      max: 1000,
-    },
-  },
-  {
-    id: 4,
-    name: 'Евгений Евгегегегенененевич',
-    successful: 5,
-    done: 100,
-    wallet: 'TON',
-    price: 1000,
-    paymentMethods: [
-      {
-        id: 1,
-        name: 'Тинькофф'
-      },
-      {
-        id: 2,
-        name: 'Сбербанк'
-      },
-      {
-        id: 3,
-        name: 'Альфа'
-      },
-    ],
-    available: 500,
-    limits: {
-      min: 100,
-      max: 999,
-    },
-  },
-  {
-    id: 3,
-    name: 'Иван Васкович',
-    successful: 145,
-    done: 95,
-    wallet: 'USD',
-    price: 50000,
-    paymentMethods: [
-      {
-        id: 1,
-        name: 'Тинькофф'
-      },
-      {
-        id: 2,
-        name: 'Сбербанк'
-      },
-      {
-        id: 3,
-        name: 'Альфа'
-      },
-      {
-        id: 4,
-        name: 'Беларусь'
-      },
-      {
-        id: 5,
-        name: 'Райфайзен'
-      }
-    ],
-    available: 30000,
-    limits: {
-      min: 300000,
-      max: 999999,
-    },
-  },
-])
+const store = useStore();
 
+const ads: ComputedRef<IAds> = computed(() => store.state.ads.ads)
 
 const getIcon = (type: string) => {
   switch (type) {

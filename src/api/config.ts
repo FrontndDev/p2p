@@ -7,17 +7,17 @@ import { useShowMessage } from "@/composables/useShowMessage";
 
 const __IS_DEV__ = import.meta.env.VITE_IS_DEV === 'true'
 
-const devUrl = import.meta.env.VITE_DEV_URL ?? 'https://dev.halk.ai' // 'https://stage2.halk.ai' 'https://dev.halk.ai'
+const devUrl = import.meta.env.VITE_DEV_URL ?? 'https://stage2.halk.ai' // 'https://stage2.halk.ai' 'https://dev.halk.ai'
 const BASE_URL = __IS_DEV__ ? devUrl : window.location.origin;
 
 const checkUserIsModer = (error: AxiosError) => {
-    const errorResponse = error.response as AxiosResponse
+    const errorData = (error.response as AxiosResponse).data
 
     //@ts-ignore
     if (window.UserData.moder) {
-        useShowMessage('red', errorResponse.data.error_message, 'Ошибка:')
+        useShowMessage('red', typeof errorData.error_message === 'string' ? errorData.error_message : errorData.user_message, 'Ошибка:')
     } else if (error?.response?.status !== 500) {
-        useShowMessage('red', errorResponse.data.error_message, 'Ошибка:')
+        useShowMessage('red', typeof errorData.error_message === 'string' ? errorData.error_message : errorData.user_message, 'Ошибка:')
     }
 
     console.error(error)

@@ -11,7 +11,7 @@
             <template>{{ props.selectedItem?.icon }}</template>
           </template>
 
-          {{ props.selectedItem?.name }}
+          <span>{{ props.selectedItem?.name }}</span>
         </div>
       </div>
 

@@ -8,7 +8,7 @@
   width: 100%;
   border-radius: 16px;
   background: $bg-base-secondary;
-  @include get-font(14px, 500, 20px, $text-base);
+  @include get-font(16px, 500, 24px, $text-base);
   position: relative;
 
   &__title {
@@ -35,6 +35,12 @@
 
     &::placeholder {
       @include get-font(16px, 500, 24px, $text-base-light);
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
 
@@ -74,6 +80,7 @@
       row-gap: 4px;
       padding: 10px 12px;
       min-width: 144px;
+      @include get-font(14px, 500, 20px, $text-base);
 
       &__title {
         font-size: 10px;

@@ -1,24 +1,24 @@
 <template>
-    <div class="my-input">
-      <div class="my-input__title" v-if="props.title">{{ props.title }}</div>
-      <div class="my-input__field">
-        <template v-if="props.icon">
-          <img :src="props.icon" alt="icon" ref="icon" v-if="typeof props.icon === 'string'">
-          <component ref="icon" :is="props.icon" v-else/>
-        </template>
-        <input
-            type="text"
-            :style="getInputWidth"
-            :placeholder="props.placeholder"
-            :value="props.value"
-            @input="inputValue($event)"
-        >
-      </div>
-
-      <div class="my-input__wallet" ref="wallet" v-if="props.wallet">
-        <span>{{ props.wallet }}</span>|<span>Все</span>
-      </div>
+  <div class="my-input">
+    <div class="my-input__title" v-if="props.title">{{ props.title }}</div>
+    <div class="my-input__field">
+      <template v-if="props.icon">
+        <img :src="props.icon" alt="icon" ref="icon" v-if="typeof props.icon === 'string'">
+        <component ref="icon" :is="props.icon" v-else/>
+      </template>
+      <input
+          :type="type"
+          :style="getInputWidth"
+          :placeholder="props.placeholder"
+          :value="props.value"
+          @input="inputValue($event)"
+      >
     </div>
+
+    <div class="my-input__wallet" ref="wallet" v-if="props.wallet">
+      <span>{{ props.wallet }}</span>|<span>Все</span>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -30,6 +30,10 @@ import {
 } from "vue";
 
 const props = defineProps({
+  type: {
+    type: String as PropType<'text' | 'number'>,
+    default: 'text'
+  },
   title: {
     type: String,
     default: ''

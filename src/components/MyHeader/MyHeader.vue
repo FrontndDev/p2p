@@ -21,6 +21,7 @@
           @select="selectItem"
       />
       <MyInput
+          type="number"
           title="Количество"
           placeholder="Введите сумму"
           :value="sum"
@@ -40,7 +41,8 @@ import {
   PropType,
   reactive,
   Ref,
-  ref
+  ref,
+  watch
 } from "vue";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
@@ -52,6 +54,8 @@ import RUBIcon from '@/assets/images/rub.png';
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import { useRoute } from "vue-router";
 import { HomeRoutesEnum } from "@/enums/home-routes.enum.ts";
+import { useStore } from "vuex";
+import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
 
 const props = defineProps({
   tabs: {
@@ -64,6 +68,8 @@ const emit = defineEmits(['set-tab'])
 
 const route = useRoute();
 
+const store = useStore();
+
 const getTabByRouteName = computed(() => {
   const routeName = route.name as HomeRoutesEnum
 
@@ -75,91 +81,87 @@ const getTabByRouteName = computed(() => {
   }
 })
 
-const purchase: ISelect[] = reactive([
-  {
-    id: 1,
-    name: 'Все'
-  },
-  {
-    id: 2,
-    name: 'Не все'
-  }
-]);
-const wallets: ISelect[] = reactive([
-  {
-    id: 1,
-    icon: RUBIcon,
-    name: 'RUB'
-  },
-  {
-    id: 2,
-    icon: RUBIcon,
-    name: 'BUN'
-  },
-]);
-const paymentMethods: ISelect[] = reactive([
-  {
-    id: 1,
-    name: 'Все'
-  },
-  {
-    id: 2,
-    name: 'Не все'
-  }
-]);
+const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
+    store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+);
+const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
+    store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+);
+const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
+    store.state.paymentMethods.paymentMethods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
+);
 
-const selectedPurchase: Ref<ISelect | null> = ref(null);
-const selectedWallet: Ref<ISelect | null> = ref(null);
-const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
-const sum = ref('');
+const innerCurrency: ComputedRef<ISelect> = computed(() => store.state.currencies.innerCurrency);
+const outerCurrency: ComputedRef<ISelect> = computed(() => store.state.currencies.outerCurrency);
+const selectedPaymentMethod: ComputedRef<ISelect> = computed(() => store.state.paymentMethods.selectedPaymentMethod);
+const sum: ComputedRef<string> = computed(() => store.state.ads.minAmount);
 
 const selects: ComputedRef<ISelects[]> = computed(() => [
   {
     id: 1,
     title: 'Покупаю',
-    items: purchase,
-    selectedItem: computed(() => selectedPurchase.value)
+    items: innerCurrencies.value,
+    selectedItem: computed(() => innerCurrency.value)
   },
   {
     id: 2,
     title: 'Отдаю',
-    items: wallets,
-    selectedItem: computed(() => selectedWallet.value)
+    items: outerCurrencies.value,
+    selectedItem: computed(() => outerCurrency.value)
   },
   {
     id: 3,
     title: 'Способ оплаты',
-    items: paymentMethods,
+    items: paymentMethods.value,
     selectedItem: computed(() => selectedPaymentMethod.value)
   }
 ])
 
-const selectItem = (item: ISelect, id: number) => {
+const selectItem = async (item: ISelect, id: number) => {
   switch (id) {
     case 1:
-      selectedPurchase.value = item;
+      // Выбираем валюту которую покупаем
+      store.commit('currencies/SET_INNER_CURRENCY', item);
       break;
     case 2:
-      selectedWallet.value = item;
+      // Выбираем валюту которую отдаём
+      store.commit('currencies/SET_OUTER_CURRENCY', item);
+      // При смене внутренней валюты получаем доступные способы оплаты
+      await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
+        store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+      })
       break;
     case 3:
-      selectedPaymentMethod.value = item;
+      // Выбираем способ оплаты
+      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', item);
       break;
   }
+
+  // Получаем объявления
+  await store.dispatch('ads/getAds');
 }
 
 const inputValue = (value: string) => {
-  sum.value = value
+  store.commit('ads/SET_MIN_AMOUNT', value)
 }
 
 const setTab = (tab: ITabs) => {
   emit('set-tab', tab)
 }
 
-onMounted(() => {
-  selectedPurchase.value = purchase[0]
-  selectedWallet.value = wallets[0]
-  selectedPaymentMethod.value = paymentMethods[0]
+onMounted(async () => {
+  // Получаем списки валют
+  await store.dispatch('currencies/getCurrencies').then(() => {
+    store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
+    store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
+
+    // Получаем доступные способы оплаты выбранной валюты
+    store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
+      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+
+      store.dispatch('ads/getAds')
+    })
+  })
 })
 </script>
 
