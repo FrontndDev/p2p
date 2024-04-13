@@ -7,6 +7,6 @@ import store from "./store";
 const app = createApp(App)
 
 app
-    .use(router)
-    .use(store)
-    .mount('#p2p-app')
+  .use(router)
+  .use(store)
+  .mount('#p2p-app')

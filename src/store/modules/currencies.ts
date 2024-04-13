@@ -13,9 +13,17 @@ export default {
   },
   actions: {
     async getCurrencies({ commit }: TCtx) {
+      const key = '/api/v1/p2p'
+      const data = API.getDataFromLS(key)
+      if (data) {
+        commit('SET_INNER_CURRENCIES', data.inner_currencies)
+        commit('SET_OUTER_CURRENCIES', data.outer_currencies)
+      }
+
       return await API.getServiceInformation().then(response => {
         commit('SET_INNER_CURRENCIES', response.data.inner_currencies)
         commit('SET_OUTER_CURRENCIES', response.data.outer_currencies)
+        API.setDataToLS(key, response.data)
 
         return response
       })

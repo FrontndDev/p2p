@@ -39,6 +39,6 @@ export interface IGetAdsParams {
     outer: string;
   };
   page: number;
-  min_amount: number;
+  min_amount: number | string;
   payment_method_id: number;
 }

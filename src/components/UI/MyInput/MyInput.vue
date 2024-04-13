@@ -11,7 +11,9 @@
           :style="getInputWidth"
           :placeholder="props.placeholder"
           :value="props.value"
+          v-if="!props.mask"
           @input="inputValue($event)"
+          @blur="emit('blur')"
       >
     </div>
 
@@ -52,10 +54,10 @@ const props = defineProps({
   },
   icon: {
     type: String as PropType<string | SVGAElement>,
-  }
+  },
 })
 
-const emit = defineEmits(['inputValue']);
+const emit = defineEmits(['inputValue', 'blur']);
 
 const wallet: Ref<HTMLDivElement | undefined> = ref();
 const icon: Ref<HTMLDivElement | undefined> = ref();

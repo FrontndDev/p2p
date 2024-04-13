@@ -26,6 +26,7 @@
           placeholder="Введите сумму"
           :value="sum"
           @input-value="inputValue"
+          @blur="store.dispatch('ads/getAds')"
       />
     </div>
   </div>
@@ -144,9 +145,9 @@ const setTab = (tab: ITabs) => {
   emit('set-tab', tab)
 }
 
-onMounted(async () => {
+onMounted( () => {
   // Получаем списки валют
-  await store.dispatch('currencies/getCurrencies').then(() => {
+  store.dispatch('currencies/getCurrencies').then(() => {
     store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
     store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
 
@@ -157,6 +158,17 @@ onMounted(async () => {
       store.dispatch('ads/getAds')
     })
   })
+
+  if (outerCurrencies.value?.length) {
+    store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
+    store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
+
+    store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
+      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+
+      store.dispatch('ads/getAds')
+    })
+  }
 })
 </script>
 

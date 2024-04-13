@@ -20,7 +20,7 @@ export default {
           outer: rootState.currencies.outerCurrency.name,
         },
         page: state.page,
-        min_amount: state.minAmount,
+        min_amount: state.minAmount ? state.minAmount : 0,
         payment_method_id: rootState.paymentMethods.selectedPaymentMethod.id
       }
       API.getAds(data).then(response => commit('SET_ADS', response.data))
