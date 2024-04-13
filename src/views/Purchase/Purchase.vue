@@ -33,6 +33,7 @@ import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import MyPurchasesAndDeals from "@/components/Tables/MyPurchasesAndDeals/MyPurchasesAndDeals.vue";
 import DealModal from "@/components/Modals/Contents/DealModal/DealModal.vue";
 import PurchaseFilter from "@/components/BottomPopups/PurchaseFilter/PurchaseFilter.vue";
+// @ts-ignore
 import Settings from '@/assets/svg/settings.svg?component';
 
 const tabs = reactive([

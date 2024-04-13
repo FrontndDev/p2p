@@ -48,7 +48,10 @@ import TONIcon from '@/assets/svg/wallets/ton.svg';
 import {
   reactive
 } from "vue";
-import { StatusesEnum } from "@/enums/statuses.enum.ts";
+import {
+  SecondStatusesEnum,
+  StatusesEnum
+} from "@/enums/statuses.enum.ts";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import Seller from "@/components/Seller/Seller.vue";
 
@@ -59,7 +62,7 @@ const table = reactive([
     name: 'Константин Константинопольский',
     count: 1000000,
     sum: 999999999,
-    status: 'in-process',
+    status: SecondStatusesEnum["in-process"],
     orderId: '121 456 789 001',
     date: '28.02.2024',
     time: '23:30',
@@ -71,7 +74,7 @@ const table = reactive([
     name: 'Иван Васкович',
     count: 100,
     sum: 100000,
-    status: 'completed',
+    status: SecondStatusesEnum.completed,
     orderId: '121 456 789 001',
     date: '20.09.2024',
     time: '18:01',
@@ -82,7 +85,7 @@ const table = reactive([
     name: 'Шермухаммаджумма Елдыбыхтынхудурбырдынков',
     count: 100000,
     sum: 97,
-    status: 'canceled',
+    status: SecondStatusesEnum.canceled,
     orderId: '121 456 789 001',
     date: '24.05.2024',
     time: '12:00',

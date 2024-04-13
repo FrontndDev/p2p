@@ -69,12 +69,18 @@
 
 <script setup lang="ts">
 // Deal Type Icons
+// @ts-ignore
 import ClockIcon from '@/assets/svg/deal/clock.svg?component';
+// @ts-ignore
 import ExclamationIcon from '@/assets/svg/deal/exclamation.svg?component';
+// @ts-ignore
 import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
+// @ts-ignore
 import CrossIcon from '@/assets/svg/deal/cross.svg?component';
+// @ts-ignore
 import DisputeIcon from '@/assets/svg/deal/dispute.svg?component';
 //
+// @ts-ignore
 import USDIcon from '@/assets/svg/wallets/usd.svg?component';
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { TDealType } from "@/views/BuyCurrency/Deal/deal.interface.ts";

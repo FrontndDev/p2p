@@ -87,6 +87,7 @@ import {
   ref
 } from "vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
+// @ts-ignore
 import USDIcon from '@/assets/svg/wallets/usd.svg?component'
 import Select from "@/components/UI/Select/Select.vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";

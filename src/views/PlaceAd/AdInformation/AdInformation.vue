@@ -61,7 +61,9 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
 import TrashIcon from '@/assets/svg/trash.svg?component';
+// @ts-ignore
 import PauseIcon from '@/assets/svg/pause.svg?component';
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import {

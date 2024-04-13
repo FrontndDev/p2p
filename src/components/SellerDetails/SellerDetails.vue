@@ -5,7 +5,7 @@
 
       <div class="seller-details__body">
         <div class="seller-details__header">
-          <RadionButton name="Сбербанк"/>
+          <RadioButton name="Сбербанк"/>
         </div>
         <ol class="seller-details__content">
           <li class="seller-details__step">
@@ -41,8 +41,9 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
 import CopyIcon from '@/assets/svg/copy.svg?component';
-import RadionButton from "@/components/UI/RadioButton/RadionButton.vue";
+import RadioButton from "@/components/UI/RadioButton/RadioButton.vue";
 </script>
 
 <style scoped lang="scss">

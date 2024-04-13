@@ -39,10 +39,6 @@ import {
   ComputedRef,
   onMounted,
   PropType,
-  reactive,
-  Ref,
-  ref,
-  watch
 } from "vue";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
@@ -50,7 +46,6 @@ import {
   ISelects
 } from "@/components/UI/Select/select.interface.ts";
 
-import RUBIcon from '@/assets/images/rub.png';
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import { useRoute } from "vue-router";
 import { HomeRoutesEnum } from "@/enums/home-routes.enum.ts";

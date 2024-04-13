@@ -55,7 +55,10 @@ import {
   reactive
 } from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
-import { StatusesEnum } from "@/enums/statuses.enum.ts";
+import {
+  SecondStatusesEnum,
+  StatusesEnum
+} from "@/enums/statuses.enum.ts";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 
 const table = reactive([
@@ -97,7 +100,7 @@ const table = reactive([
       min: 400250,
       max: 1000000,
     },
-    status: 'in-process',
+    status: SecondStatusesEnum["in-process"],
     date: '28.02.2024',
     time: '23:30',
   },
@@ -135,7 +138,7 @@ const table = reactive([
       min: 200,
       max: 1000,
     },
-    status: 'in-process',
+    status: SecondStatusesEnum["in-process"],
     date: '28.02.2024',
     time: '23:30',
   },
@@ -165,7 +168,7 @@ const table = reactive([
       min: 100,
       max: 999,
     },
-    status: 'completed',
+    status: SecondStatusesEnum.completed,
     date: '28.02.2024',
     time: '23:30',
   },
@@ -203,7 +206,7 @@ const table = reactive([
       min: 300000,
       max: 999999,
     },
-    status: 'canceled',
+    status: SecondStatusesEnum.canceled,
     date: '28.02.2024',
     time: '23:30',
   },

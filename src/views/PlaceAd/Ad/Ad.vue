@@ -111,9 +111,13 @@
 
 <script setup lang="ts">
 import TONIcon from '@/assets/svg/wallets/ton.svg';
+// @ts-ignore
 import InfoIcon from '@/assets/svg/info.svg?component';
+// @ts-ignore
 import AddIcon from '@/assets/svg/add.svg?component';
+// @ts-ignore
 import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
+// @ts-ignore
 import ExclamationIcon from '@/assets/svg/deal/exclamation.svg?component';
 import Badge from "@/components/UI/Badge/Badge.vue";
 import AdditionalInfo from "@/components/UI/AdditionalInfo/AdditionalInfo.vue";

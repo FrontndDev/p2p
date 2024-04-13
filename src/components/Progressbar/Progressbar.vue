@@ -18,7 +18,9 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
 import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
+// @ts-ignore
 import CrossIcon from '@/assets/svg/deal/cross.svg?component';
 
 import { reactive } from "vue";

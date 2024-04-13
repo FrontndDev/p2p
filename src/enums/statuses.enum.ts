@@ -3,3 +3,9 @@ export enum StatusesEnum {
   'completed' = 'Завершена',
   'canceled' = 'Отменена',
 }
+
+export enum SecondStatusesEnum {
+  'in-process' = 'in-process',
+  'completed' = 'completed',
+  'canceled' = 'canceled',
+}

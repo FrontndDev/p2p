@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
 import EditIcon from '@/assets/svg/edit.svg?component';
 
 import BottomPopup from "@/components/BottomPopups/BottomPopup.vue";
