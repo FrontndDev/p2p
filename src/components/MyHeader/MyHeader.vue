@@ -114,6 +114,8 @@ const selects: ComputedRef<ISelects[]> = computed(() => [
 ])
 
 const selectItem = async (item: ISelect, id: number) => {
+  store.commit('ads/SET_ADS', null)
+
   switch (id) {
     case 1:
       // Выбираем валюту которую покупаем

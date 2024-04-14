@@ -9,8 +9,8 @@ export default {
   namespaced: true,
   state: {
     ads: {} as IAds,
-    page: 1,
-    minAmount: '10',
+    page: 1 as number,
+    minAmount: '10' as string,
   },
   actions: {
     getAds({ commit, state, rootState }: TCtx) {
@@ -32,6 +32,9 @@ export default {
     },
     SET_MIN_AMOUNT(state: any, minAmount: string) {
       state.minAmount = minAmount
+    },
+    SET_PAGE(state: any, page: number) {
+      state.page = page
     }
   }
 }

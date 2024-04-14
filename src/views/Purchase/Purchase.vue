@@ -12,8 +12,6 @@
 
     <PurchaseAnnouncement @buy="showDealModal = true" v-if="activeTab.id === 1"/>
     <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
-
-    <Pagination/>
   </div>
 
   <PurchaseFilter @close-popup="showPurchaseFilter = false" v-if="showPurchaseFilter"/>
@@ -28,7 +26,6 @@ import {
   ref
 } from "vue";
 import PurchaseAnnouncement from "@/components/Tables/PurchaseAnnouncement/PurchaseAnnouncement.vue";
-import Pagination from "@/components/UI/Pagination/Pagination.vue";
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import MyPurchasesAndDeals from "@/components/Tables/MyPurchasesAndDeals/MyPurchasesAndDeals.vue";
 import DealModal from "@/components/Modals/Contents/DealModal/DealModal.vue";
