@@ -7,15 +7,15 @@
           @set-tab="setTab"
       />
 
-      <Settings @click="showPurchaseFilter = !showPurchaseFilter"/>
+      <Settings @click="openModal(ModalsEnum.showPurchaseFilter)"/>
     </div>
 
-    <PurchaseAnnouncement @buy="showDealModal = true" v-if="activeTab.id === 1"/>
+    <PurchaseAnnouncement @buy="openModal(ModalsEnum.showDealModal)" v-if="activeTab.id === 1"/>
     <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
   </div>
 
-  <PurchaseFilter @close-popup="showPurchaseFilter = false" v-if="showPurchaseFilter"/>
-  <DealModal @close-modal="showDealModal = false" v-if="showDealModal"/>
+  <PurchaseFilter @close-popup="closeModal(ModalsEnum.showPurchaseFilter)" v-if="showModals.showPurchaseFilter"/>
+  <DealModal @close-modal="closeModal(ModalsEnum.showDealModal)" v-if="showModals.showDealModal"/>
 </template>
 
 <script setup lang="ts">
@@ -32,6 +32,8 @@ import DealModal from "@/components/Modals/Contents/DealModal/DealModal.vue";
 import PurchaseFilter from "@/components/BottomPopups/PurchaseFilter/PurchaseFilter.vue";
 // @ts-ignore
 import Settings from '@/assets/svg/settings.svg?component';
+import { ModalsEnum } from "@/enums/modals.enum.ts";
+import { IShowModals } from "@/components/Modals/modal.interface.ts";
 
 const tabs = reactive([
   {
@@ -44,13 +46,28 @@ const tabs = reactive([
   }
 ]);
 
-const showPurchaseFilter = ref(false);
-const showDealModal = ref(false);
-
 const activeTab: Ref<ITabs> = ref(tabs[0])
+
+// Show Modals
+const showModals: IShowModals = reactive({
+  showDealModal: false,
+  showPurchaseFilter: false,
+});
 
 const setTab = (tab: ITabs) => {
   activeTab.value = tab
+}
+
+const openModal = (key: ModalsEnum) => {
+  showModals[key] = true
+  document.body.style.overflow = 'hidden'
+  document.documentElement.style.overflow = 'hidden'
+}
+
+const closeModal = (key: ModalsEnum) => {
+  showModals[key] = false
+  document.body.style.overflow = 'auto'
+  document.documentElement.style.overflow = 'auto'
 }
 </script>
 

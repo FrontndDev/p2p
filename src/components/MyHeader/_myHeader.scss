@@ -58,8 +58,18 @@
 
 @media screen and (max-width: 608px) {
   .my-header {
+    &.for-popup {
+      padding: 0;
+    }
+
     &__selects {
-      display: none;
+      @include flexbox(column);
+      row-gap: 16px;
+      padding: 0;
+
+      &:not(.for-popup) {
+        display: none;
+      }
     }
   }
 }

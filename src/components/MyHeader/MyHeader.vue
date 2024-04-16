@@ -1,6 +1,6 @@
 <template>
-  <div class="my-header">
-    <div class="my-header__up">
+  <div class="my-header" :class="{ 'for-popup': !props.tabs }">
+    <div class="my-header__up" v-if="props.tabs">
       <div class="my-header__title title-h1">Social P2P</div>
       <Tabs
           type="header-tabs"
@@ -10,8 +10,9 @@
       />
     </div>
 
-    <div class="my-header__selects" v-if="route.name === HomeRoutesEnum.purchase">
+    <div class="my-header__selects" :class="{ 'for-popup': !props.tabs }" v-if="route.name === HomeRoutesEnum.purchase">
       <Select
+          :class="{ 'no-media': !props.tabs }"
           v-for="select in selects"
           :key="select.id"
           :id="select.id"
@@ -24,9 +25,10 @@
           type="number"
           title="Количество"
           placeholder="Введите сумму"
+          :class="{ 'no-media': !props.tabs }"
           :value="sum"
           @input-value="inputValue"
-          @blur="store.dispatch('ads/getAds')"
+          @blur="getAds"
       />
     </div>
   </div>
@@ -54,26 +56,35 @@ import { useStore } from "vuex";
 import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
 
 const props = defineProps({
+  // Если табы есть, то действуют настройки для хедера на странице Purchase.vue
+  // Если табы не передаются, настройки действуют для попапа PurchaseFilter.vue
   tabs: {
     type: Object as PropType<ITabs[]>,
-    required: true,
   }
 })
 
-const emit = defineEmits(['set-tab'])
+const emit = defineEmits([
+  'set-tab',
+  'set-inner-currency',
+  'set-outer-currency',
+  'set-payment-method',
+  'input-value',
+]);
 
 const route = useRoute();
 
 const store = useStore();
 
 const getTabByRouteName = computed(() => {
-  const routeName = route.name as HomeRoutesEnum
+  if (props.tabs) {
+    const routeName = route.name as HomeRoutesEnum
 
-  switch (routeName) {
-    case HomeRoutesEnum.purchase:
-      return props.tabs[0]
-    case HomeRoutesEnum.sale:
-      return props.tabs[1]
+    switch (routeName) {
+      case HomeRoutesEnum.purchase:
+        return props.tabs[0]
+      case HomeRoutesEnum.sale:
+        return props.tabs[1]
+    }
   }
 })
 
@@ -111,10 +122,17 @@ const selects: ComputedRef<ISelects[]> = computed(() => [
     items: paymentMethods.value,
     selectedItem: computed(() => selectedPaymentMethod.value)
   }
-])
+]);
+
+const setValue = (callback: Function) => {
+  // Если это хедер, сразу выполняем переданный запрос/метод
+  if (props.tabs) {
+    callback()
+  }
+}
 
 const selectItem = async (item: ISelect, id: number) => {
-  store.commit('ads/SET_ADS', null)
+  setValue(() => store.commit('ads/SET_ADS', null))
 
   switch (id) {
     case 1:
@@ -127,48 +145,56 @@ const selectItem = async (item: ISelect, id: number) => {
       // При смене внутренней валюты получаем доступные способы оплаты
       await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
         store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
-      })
+      });
       break;
     case 3:
       // Выбираем способ оплаты
-      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', item);
+      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', item)
       break;
   }
 
   // Получаем объявления
-  await store.dispatch('ads/getAds');
+  setValue(() => getAds());
 }
 
 const inputValue = (value: string) => {
-  store.commit('ads/SET_MIN_AMOUNT', value)
+  store.commit('ads/SET_MIN_AMOUNT', value);
+}
+
+const getAds = async () => {
+  await store.dispatch('ads/getAds')
 }
 
 const setTab = (tab: ITabs) => {
   emit('set-tab', tab)
 }
 
-onMounted( () => {
-  // Получаем списки валют
-  store.dispatch('currencies/getCurrencies').then(() => {
-    store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
-    store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
+const setCurrencies = () => {
+  store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
+  store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
+  emit('set-inner-currency', innerCurrencies.value[0])
+  emit('set-outer-currency', outerCurrencies.value[0])
+}
 
-    // Получаем доступные способы оплаты выбранной валюты
-    store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
-      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+const getPaymentMethodsByCurrency = () => {
+  // Получаем доступные способы оплаты выбранной валюты
+  store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
+    store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+    emit('set-payment-method', paymentMethods.value[0])
 
-      store.dispatch('ads/getAds')
-    })
+    setValue(() => store.dispatch('ads/getAds'))
   })
+}
 
+onMounted( () => {
   if (outerCurrencies.value?.length) {
-    store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
-    store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
-
-    store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
-      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
-
-      store.dispatch('ads/getAds')
+    setValue(() => setCurrencies())
+    setValue(() => getPaymentMethodsByCurrency())
+  } else {
+    // Получаем списки валют
+    store.dispatch('currencies/getCurrencies').then(() => {
+      setCurrencies()
+      getPaymentMethodsByCurrency()
     })
   }
 })

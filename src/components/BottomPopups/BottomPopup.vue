@@ -1,33 +1,38 @@
 <template>
   <Teleport to="body">
+    <Transition name="bottom-popup">
+
     <div class="bottom-popup">
-      <div class="bottom-popup__body">
-        <div class="bottom-popup__title">
-          {{ props.title }}
+      <div class="bottom-popup__wrapper">
+        <div class="bottom-popup__body">
+          <div class="bottom-popup__title">
+            {{ props.title }}
 
-          <svg
-              width="24"
-              height="24"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="bottom-popup__close"
-              @click="emit('close-popup')"
-          >
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.64645 3.64645C3.84171 3.45118 4.15829 3.45118 4.35355 3.64645L8 7.29289L11.6464 3.64645C11.8417 3.45118 12.1583 3.45118 12.3536 3.64645C12.5488 3.84171 12.5488 4.15829 12.3536 4.35355L8.70711 8L12.3536 11.6464C12.5488 11.8417 12.5488 12.1583 12.3536 12.3536C12.1583 12.5488 11.8417 12.5488 11.6464 12.3536L8 8.70711L4.35355 12.3536C4.15829 12.5488 3.84171 12.5488 3.64645 12.3536C3.45118 12.1583 3.45118 11.8417 3.64645 11.6464L7.29289 8L3.64645 4.35355C3.45118 4.15829 3.45118 3.84171 3.64645 3.64645Z" fill="#7B879D"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.64645 3.64645C3.84171 3.45118 4.15829 3.45118 4.35355 3.64645L8 7.29289L11.6464 3.64645C11.8417 3.45118 12.1583 3.45118 12.3536 3.64645C12.5488 3.84171 12.5488 4.15829 12.3536 4.35355L8.70711 8L12.3536 11.6464C12.5488 11.8417 12.5488 12.1583 12.3536 12.3536C12.1583 12.5488 11.8417 12.5488 11.6464 12.3536L8 8.70711L4.35355 12.3536C4.15829 12.5488 3.84171 12.5488 3.64645 12.3536C3.45118 12.1583 3.45118 11.8417 3.64645 11.6464L7.29289 8L3.64645 4.35355C3.45118 4.15829 3.45118 3.84171 3.64645 3.64645Z" fill="#7B879D"/>
-          </svg>
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="bottom-popup__close"
+                @click="emit('close-popup')"
+            >
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M3.64645 3.64645C3.84171 3.45118 4.15829 3.45118 4.35355 3.64645L8 7.29289L11.6464 3.64645C11.8417 3.45118 12.1583 3.45118 12.3536 3.64645C12.5488 3.84171 12.5488 4.15829 12.3536 4.35355L8.70711 8L12.3536 11.6464C12.5488 11.8417 12.5488 12.1583 12.3536 12.3536C12.1583 12.5488 11.8417 12.5488 11.6464 12.3536L8 8.70711L4.35355 12.3536C4.15829 12.5488 3.84171 12.5488 3.64645 12.3536C3.45118 12.1583 3.45118 11.8417 3.64645 11.6464L7.29289 8L3.64645 4.35355C3.45118 4.15829 3.45118 3.84171 3.64645 3.64645Z" fill="#7B879D"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M3.64645 3.64645C3.84171 3.45118 4.15829 3.45118 4.35355 3.64645L8 7.29289L11.6464 3.64645C11.8417 3.45118 12.1583 3.45118 12.3536 3.64645C12.5488 3.84171 12.5488 4.15829 12.3536 4.35355L8.70711 8L12.3536 11.6464C12.5488 11.8417 12.5488 12.1583 12.3536 12.3536C12.1583 12.5488 11.8417 12.5488 11.6464 12.3536L8 8.70711L4.35355 12.3536C4.15829 12.5488 3.84171 12.5488 3.64645 12.3536C3.45118 12.1583 3.45118 11.8417 3.64645 11.6464L7.29289 8L3.64645 4.35355C3.45118 4.15829 3.45118 3.84171 3.64645 3.64645Z" fill="#7B879D"/>
+            </svg>
+          </div>
+
+          <div class="bottom-popup__content" :style="`max-height: calc(80vh - ${(footer?.offsetHeight ?? 0)}px);`">
+            <slot name="content"/>
+          </div>
         </div>
-
-        <div class="bottom-popup__content" :style="`max-height: calc(80vh - ${(footer?.offsetHeight ?? 0)}px);`">
-          <slot name="content"/>
+        <div class="bottom-popup__footer" ref="footer" v-if="$slots.footer">
+          <slot class="bottom-popup__footer" name="footer"/>
         </div>
       </div>
-      <div class="bottom-popup__footer" ref="footer" v-if="$slots.footer">
-        <slot class="bottom-popup__footer" name="footer"/>
-      </div>
+      <div class="bottom-popup__overlay" @click="emit('close-popup')"/>
     </div>
-    <div class="bottom-popup__overlay" @click="emit('close-popup')"/>
+    </Transition>
   </Teleport>
 </template>
 
@@ -50,72 +55,5 @@ const footer = ref(undefined) as Ref<HTMLDivElement | undefined>;
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/scss/variables";
-@import "@/assets/scss/mixins";
-
-.bottom-popup {
-  width: 100%;
-  border-radius: 16px 16px 0 0;
-  background: $bg-base;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 5000;
-
-  &__body {
-    @include flexbox(column);
-    row-gap: 8px;
-    padding: 16px;
-    position: relative;
-
-    &::before {
-      content: '';
-      margin: auto;
-      width: 36px;
-      height: 4px;
-      border-radius: 4px;
-      background: $bg-base-contrast;
-      position: absolute;
-      top: 4px;
-      left: 0;
-      right: 0;
-    }
-  }
-
-  &__content {
-    width: 100%;
-    overflow: auto;
-  }
-
-  &__footer {
-    padding: 16px;
-    border-top: 1px solid $border-base-light;
-  }
-
-  &__title {
-    @include flex-center;
-    width: 100%;
-    @include get-font(16px, 700, 24px, $text-base);
-    position: relative;
-  }
-
-  &__close {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-  }
-
-  &__overlay {
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(8px);
-    background: $bg-transparency-black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 140;
-  }
-}
+@import "bottomPopup";
 </style>

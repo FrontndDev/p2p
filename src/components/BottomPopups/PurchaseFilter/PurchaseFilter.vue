@@ -1,28 +1,15 @@
 <template>
-  <BottomPopup title="Фильтр">
+  <BottomPopup title="Фильтр" @close-popup="closePopup">
     <template #content>
       <div class="purchase-filter">
-        <div class="purchase-filter__content">
-          <Select
-              class="no-media"
-              v-for="select in selects"
-              :key="select.id"
-              :id="select.id"
-              :title="select.title"
-              :items="select.items"
-              :selected-item="select.selectedItem.value"
-              @select="selectItem"
-          />
-          <MyInput
-              class="no-media"
-              title="Количество"
-              placeholder="Введите сумму"
-              :value="sum"
-              @input-value="inputValue"
-          />
-        </div>
+        <MyHeader
+            @set-outer-currency="setOuterCurrency"
+            @set-inner-currency="setInnerCurrency"
+            @set-payment-method="setPaymentMethod"
+            @input-value="inputValue"
+        />
 
-        <MyButton width="100%" size="big" name="Сохранить"/>
+        <MyButton width="100%" size="big" name="Сохранить" @click="save"/>
       </div>
     </template>
   </BottomPopup>
@@ -30,104 +17,67 @@
 
 <script setup lang="ts">
 import BottomPopup from "@/components/BottomPopups/BottomPopup.vue";
-import Select from "@/components/UI/Select/Select.vue";
-import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
-  computed,
-  ComputedRef,
   onMounted,
-  reactive,
   ref,
   Ref
 } from "vue";
 import {
   ISelect,
-  ISelects
 } from "@/components/UI/Select/select.interface.ts";
-import RUBIcon from "@/assets/images/rub.png";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import MyHeader from "@/components/MyHeader/MyHeader.vue";
+import { useStore } from "vuex";
 
-const purchase: ISelect[] = reactive([
-  {
-    id: 1,
-    name: 'Все'
-  },
-  {
-    id: 2,
-    name: 'Не все'
-  }
-]);
-const wallets: ISelect[] = reactive([
-  {
-    id: 1,
-    icon: RUBIcon,
-    name: 'RUB'
-  },
-  {
-    id: 2,
-    icon: RUBIcon,
-    name: 'BUN'
-  },
-]);
-const paymentMethods: ISelect[] = reactive([
-  {
-    id: 1,
-    name: 'Все'
-  },
-  {
-    id: 2,
-    name: 'Не все'
-  }
-]);
+const emit = defineEmits(['close-popup']);
 
-const selectedPurchase: Ref<ISelect | null> = ref(null);
-const selectedWallet: Ref<ISelect | null> = ref(null);
+const store = useStore();
+
+const selectedInnerCurrency: Ref<ISelect | null> = ref(null);
+const selectedOuterCurrency: Ref<ISelect | null> = ref(null);
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
-const sum = ref('');
+const minAmount = ref('10');
 
-const selects: ComputedRef<ISelects[]> = computed(() => [
-  {
-    id: 1,
-    title: 'Покупаю',
-    items: purchase,
-    selectedItem: computed(() => selectedPurchase.value)
-  },
-  {
-    id: 2,
-    title: 'Отдаю',
-    items: wallets,
-    selectedItem: computed(() => selectedWallet.value)
-  },
-  {
-    id: 3,
-    title: 'Способ оплаты',
-    items: paymentMethods,
-    selectedItem: computed(() => selectedPaymentMethod.value)
-  }
-])
+const setOuterCurrency = (item: ISelect) => {
+  selectedOuterCurrency.value = item
+}
 
-const selectItem = (item: ISelect, id: number) => {
-  switch (id) {
-    case 1:
-      selectedPurchase.value = item;
-      break;
-    case 2:
-      selectedWallet.value = item;
-      break;
-    case 3:
-      selectedPaymentMethod.value = item;
-      break;
-  }
+const setInnerCurrency = (item: ISelect) => {
+  selectedInnerCurrency.value = item
+}
+
+const setPaymentMethod = (item: ISelect) => {
+  selectedPaymentMethod.value = item
 }
 
 const inputValue = (value: string) => {
-  sum.value = value
+  minAmount.value = value
+}
+
+const closePopup = () => {
+  store.commit('currencies/SET_INNER_CURRENCY', selectedInnerCurrency.value)
+  store.commit('currencies/SET_OUTER_CURRENCY', selectedOuterCurrency.value)
+  store.commit('paymentMethods/SET_PAYMENT_METHOD', selectedPaymentMethod.value)
+  store.commit('ads/SET_MIN_AMOUNT', minAmount.value)
+  emit('close-popup')
+}
+
+const save = async () => {
+  store.commit('ads/SET_ADS', null)
+  await store.dispatch('ads/getAds')
+  emit('close-popup');
 }
 
 onMounted(() => {
-  selectedPurchase.value = purchase[0]
-  selectedWallet.value = wallets[0]
-  selectedPaymentMethod.value = paymentMethods[0]
+  const innerCurrency = store.state.currencies.innerCurrency
+  const outerCurrency = store.state.currencies.outerCurrency
+  const paymentMethod = store.state.paymentMethods.selectedPaymentMethod
+  const amount = store.state.ads.minAmount
+
+  if (innerCurrency?.id) selectedInnerCurrency.value = innerCurrency
+  if (outerCurrency?.id) selectedOuterCurrency.value = outerCurrency
+  if (paymentMethod?.id) selectedPaymentMethod.value = paymentMethod
+  if (amount) minAmount.value = amount
 })
 </script>
 
@@ -138,11 +88,5 @@ onMounted(() => {
   @include flexbox(column);
   row-gap: 24px;
   width: 100%;
-
-  &__content {
-    @include flexbox(column);
-    row-gap: 16px;
-    width: 100%;
-  }
 }
 </style>
