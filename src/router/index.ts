@@ -10,7 +10,7 @@ import MainLayout from "@/layouts/MainLayout/MainLayout.vue";
 import BuyCurrency from "@/views/BuyCurrency/BuyCurrency.vue";
 import PlaceAd from "@/views/PlaceAd/PlaceAd.vue";
 // @ts-ignore
-const baseUrl: string = '/app/p2p'
+const baseUrl: string = '/app/p2p/new'
 
 const routes = [
   {
