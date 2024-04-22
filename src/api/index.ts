@@ -1,4 +1,9 @@
-import { getAsync } from "@/api/config.ts";
+import {
+  deleteAsync,
+  getAsync,
+  postAsync,
+  putAsync
+} from "@/api/config.ts";
 import { IGetAdsParams } from "@/interfaces/store/modules/ads.interface.ts";
 
 export function setDataToLS(key: string, data: any) {
@@ -26,7 +31,60 @@ export async function getPaymentMethodsByCurrency(currency: string) {
   return getAsync(`/api/v1/p2p/payment-method?currency=${currency}`)
 }
 
+export async function getProfile() {
+  return getAsync('/api/v1/p2p/profile')
+}
+
+export async function getTransactionInfo(id: number) {
+  return getAsync(`/api/v1/p2p/transaction/${id}`)
+}
+
+export async function getCurrencyRate(data: any) {
+  return getAsync(`/api/v1/p2p/currency/rate?fromCurrency=${data.from}&toCurrency=${data.to}`)
+}
+
+export async function getTransactionsHistory() {
+  return getAsync(`/api/v1/p2p/transaction/buying-history`)
+}
 
 // POST
 
+export async function createRequisite(data: any) {
+  return postAsync('/api/v1/p2p/profile/requisite', data)
+}
+
+export async function topUpWallet(data: any) {
+  return postAsync(`/api/v1/p2p/profile/wallet/top-up`, data)
+}
+
+export async function withdrawWallet(data: any) {
+  return postAsync(`/api/v1/p2p/profile/wallet/withdraw`, data)
+}
+
+export async function createAd(data: any) {
+  return postAsync(`/api/v1/p2p/profile/ads`, data)
+}
+
+export async function createDeal(data: any) {
+  return postAsync(`/api/v1/p2p/transaction`, data)
+}
+
 // PUT
+
+export async function updateRequisite(id: number, data: any) {
+  return putAsync(`/api/v1/p2p/profile/requisite/${id}`, data)
+}
+
+export async function updateAd(id: number, data: any) {
+  return putAsync(`/api/v1/p2p/profile/ads/${id}`, data)
+}
+
+// DELETE
+
+export async function deleteRequisite(id: number) {
+  return deleteAsync(`/api/v1/p2p/profile/requisite/${id}`)
+}
+
+export async function deleteAd(id: number) {
+  return deleteAsync(`/api/v1/p2p/profile/ads/${id}`)
+}

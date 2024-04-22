@@ -27,6 +27,9 @@ export default {
 
         return response
       })
+    },
+    getCurrencyRate(_: TCtx, data: { from: number, to: number }) {
+      API.getCurrencyRate(data).then(response => console.log('getCurrencyRate response', response))
     }
   },
   mutations: {

@@ -42,3 +42,20 @@ export interface IGetAdsParams {
   min_amount: number | string;
   payment_method_id: number;
 }
+
+export interface IAdParams {
+  inner_currency: string;
+  outer_currency: string;
+  requisite_id: number;
+  min_amount: number;
+  max_amount: number;
+  comment: string;
+  factor: number;
+  price: number;
+  price_type: string;
+}
+
+export interface IUpdateAd {
+  id: number;
+  data: IAdParams;
+}

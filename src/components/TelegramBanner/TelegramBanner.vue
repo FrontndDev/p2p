@@ -3,14 +3,23 @@
     <img src="@/assets/images/telegram-banner.png" alt="tg">
     <span>Для участия в сделках необходимо подключение к Telegram Bot</span>
     <div class="telegram-banner__button">
-      <MyButton type="second-success-btn" width="100%" name="Привязать"/>
+      <MyButton
+          width="100%"
+          :type="telegramActive ? 'neutral-btn' : 'second-success-btn'"
+          :name="telegramActive ? 'Отвязать' : 'Привязать'"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const telegramActive = computed(() => store.state.profile.profile.telegramActive)
 </script>
 
 <style scoped lang="scss">

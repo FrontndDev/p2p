@@ -44,8 +44,6 @@
 
     <SaleAnnouncement v-if="activeTab.id === 1"/>
     <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
-
-    <Pagination/>
   </div>
 
   <AddRequisitesModal v-if="showAddRequisitesModal" @close-modal="showAddRequisitesModal = false"/>
@@ -56,12 +54,12 @@
 import Tabs from "@/components/UI/Tabs/Tabs.vue";
 import {
   onBeforeMount,
+  onMounted,
   reactive,
   ref,
   Ref
 } from "vue";
 import SaleAnnouncement from "@/components/Tables/SaleAnnouncement/SaleAnnouncement.vue";
-import Pagination from "@/components/UI/Pagination/Pagination.vue";
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import MyPurchasesAndDeals from "@/components/Tables/MyPurchasesAndDeals/MyPurchasesAndDeals.vue";
 import P2PWallets from "@/components/P2PWallets/P2PWallets.vue";
@@ -71,6 +69,9 @@ import InformationAboutTransfers from "@/components/InformationAboutTransfers/In
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import AddRequisitesModal from "@/components/Modals/Contents/AddRequisitesModal/AddRequisitesModal.vue";
 import RemoveRequisitesModal from "@/components/Modals/Contents/RemoveRequisitesModal/RemoveRequisitesModal.vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const tabs = reactive([
   {
@@ -106,6 +107,10 @@ onBeforeMount(() => {
     setWindowWidth();
   }
 });
+
+onMounted(() => {
+  store.dispatch('profile/getProfile')
+})
 </script>
 
 <style scoped lang="scss">

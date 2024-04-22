@@ -17,6 +17,7 @@
     border-radius: 4px;
     overflow: hidden;
     @include get-font(10px, 700, 12px, $text-base-light);
+    white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: uppercase;
 

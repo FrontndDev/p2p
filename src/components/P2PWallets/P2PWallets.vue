@@ -2,25 +2,25 @@
   <div class="p2p-wallets p2p-card">
     <div class="p2p-card__header title-h2">P2P кошельки</div>
 
-    <div class="p2p-wallets__item" v-for="item in 2" :key="item">
+    <div class="p2p-wallets__item" v-for="wallet in wallets" :key="wallet.id">
       <div class="p2p-wallets__item-wallet">
         <img src="@/assets/svg/wallets/ton.svg" alt="icon">
 
         <div class="p2p-wallets__item-wallet-info">
-          <div class="p2p-wallets__item-wallet-count">{{ item }} 100 000</div>
-          <div class="p2p-wallets__item-wallet-name">TONCOIN</div>
+          <div class="p2p-wallets__item-wallet-count">{{ wallet.realAmount }}</div>
+          <div class="p2p-wallets__item-wallet-name">{{ wallet.currency }}</div>
         </div>
       </div>
 
       <div class="p2p-wallets__item-info">
         <div class="p2p-wallets__item-action">
           <span>Для продажи</span>
-          <span>1 000 000</span>
+          <span>{{ wallet.realAmount }}</span>
         </div>
         <div class="p2p-wallets__item-commission">
           <span>Комиссия</span>
           <span>
-            {{ item }}0 000
+            {{ wallet.amount }}
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6.00388 7.75681L6.75001 5.1635H6.53596L5.31178 5.42258L5.2654 5.56491C5.31535 5.56254 5.35816 5.56136 5.39383 5.56136C5.47232 5.56136 5.53416 5.58152 5.57935 5.62185C5.62454 5.66217 5.64713 5.70843 5.64713 5.76062C5.64713 5.84365 5.62335 5.967 5.57578 6.13068L5.07989 7.83154C5.03946 7.96675 5.01924 8.07824 5.01924 8.16602C5.01924 8.29886 5.06443 8.40916 5.15481 8.49694C5.24756 8.58233 5.37124 8.62503 5.52583 8.62503C5.93015 8.62503 6.31188 8.31309 6.67102 7.68921L6.54972 7.61804C6.39988 7.84814 6.27145 8.00708 6.16442 8.09485C6.12399 8.13043 6.08356 8.14822 6.04313 8.14822C6.01934 8.14822 5.99675 8.13755 5.97534 8.1162C5.95394 8.09248 5.94324 8.06757 5.94324 8.04148C5.94324 7.9964 5.96345 7.90152 6.00388 7.75681Z" fill="#7B879D"/>
               <path d="M6.66346 4.12499C6.66346 4.41175 6.43099 4.64422 6.14423 4.64422C5.85747 4.64422 5.625 4.41175 5.625 4.12499C5.625 3.83822 5.85747 3.60576 6.14423 3.60576C6.43099 3.60576 6.66346 3.83822 6.66346 4.12499Z" fill="#7B879D"/>
@@ -39,8 +39,17 @@
 </template>
 
 <script setup lang="ts">
-
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import { useStore } from "vuex";
+import {
+  computed,
+  ComputedRef
+} from "vue";
+import { IWallets } from "@/interfaces/store/modules/profile.interface.ts";
+
+const store = useStore();
+
+const wallets: ComputedRef<IWallets> = computed(() => store.state.profile.profile.wallets)
 </script>
 
 <style scoped lang="scss">

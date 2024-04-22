@@ -52,6 +52,7 @@
 import USDIcon from '@/assets/svg/wallets/usd.svg';
 import TONIcon from '@/assets/svg/wallets/ton.svg';
 import {
+  onMounted,
   reactive
 } from "vue";
 import {
@@ -61,6 +62,13 @@ import {
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import Seller from "@/components/Seller/Seller.vue";
 import Pagination from "@/components/UI/Pagination/Pagination.vue";
+
+// const props = defineProps({
+//   type: {
+//     type: String as PropType<'purchases' | 'deals'>,
+//     default: 'purchases',
+//   }
+// })
 
 const table = reactive([
   {
@@ -112,6 +120,20 @@ const getName = (name: string) => {
   const array = name.split(' ')
   return `<span>${array[0]}</span> <span>${array[1]}</span>`
 }
+
+// const loadData = () => {
+//   switch (props.type) {
+//     case 'purchases':
+//
+//       break;
+//     case 'deals':
+//       break;
+//   }
+// }
+
+onMounted(() => {
+
+})
 </script>
 
 <style scoped lang="scss">
