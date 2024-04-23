@@ -43,7 +43,7 @@
     </div>
 
     <SaleAnnouncement v-if="activeTab.id === 1"/>
-    <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
+    <MyPurchasesAndDeals type="deals" v-else-if="activeTab.id === 2"/>
   </div>
 
   <AddRequisitesModal v-if="showAddRequisitesModal" @close-modal="showAddRequisitesModal = false"/>

@@ -1,5 +1,5 @@
 <template>
-  <template v-if="true">
+  <template v-if="showTable">
     <div class="my-table my-purchases-and-deals">
       <div class="my-purchases-and-deals__row my-table__row my-table__row_headers">
         <div>Продавец</div>
@@ -43,8 +43,9 @@
     </div>
     <Pagination/>
   </template>
+  <Preloader style="margin-bottom: 12px;" :with-text="true" v-else-if="isLoading"/>
   <template v-else>
-    <div style="padding: 0 24px 12px;">Нет доступных объявлений</div>
+    <div style="padding: 0 24px 12px;">{{ getTextIfThereIsNoData }}</div>
   </template>
 </template>
 
@@ -52,7 +53,10 @@
 import USDIcon from '@/assets/svg/wallets/usd.svg';
 import TONIcon from '@/assets/svg/wallets/ton.svg';
 import {
+  computed,
+  ComputedRef,
   onMounted,
+  PropType,
   reactive
 } from "vue";
 import {
@@ -62,13 +66,18 @@ import {
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import Seller from "@/components/Seller/Seller.vue";
 import Pagination from "@/components/UI/Pagination/Pagination.vue";
+import { useStore } from "vuex";
+import { ITransactionsHistory } from "@/interfaces/store/modules/transactions.interface.ts";
+import Preloader from "@/components/UI/Preloader/Preloader.vue";
 
-// const props = defineProps({
-//   type: {
-//     type: String as PropType<'purchases' | 'deals'>,
-//     default: 'purchases',
-//   }
-// })
+const props = defineProps({
+  type: {
+    type: String as PropType<'purchases' | 'deals'>,
+    default: 'purchases',
+  }
+})
+
+const store = useStore();
 
 const table = reactive([
   {
@@ -105,7 +114,36 @@ const table = reactive([
     date: '24.05.2024',
     time: '12:00',
   },
-])
+]);
+
+const transactionsHistory: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.transactionsHistory);
+
+const showTable = computed(() => {
+  switch (props.type) {
+    case 'purchases':
+      return transactionsHistory.value?.transactions?.length
+    case 'deals':
+      return true
+  }
+})
+
+const isLoading = computed(() => {
+  switch (props.type) {
+    case 'purchases':
+      return !transactionsHistory.value?.transactions
+    case 'deals':
+      return true
+  }
+})
+
+const getTextIfThereIsNoData = computed(() => {
+  switch (props.type) {
+    case 'purchases':
+      return 'Список покупок пуст'
+    case 'deals':
+      return 'Список сделок пуст'
+  }
+})
 
 const getIcon = (type: string) => {
   switch (type) {
@@ -121,18 +159,20 @@ const getName = (name: string) => {
   return `<span>${array[0]}</span> <span>${array[1]}</span>`
 }
 
-// const loadData = () => {
-//   switch (props.type) {
-//     case 'purchases':
-//
-//       break;
-//     case 'deals':
-//       break;
-//   }
-// }
+const loadData = () => {
+  switch (props.type) {
+    case 'purchases':
+      store.dispatch('transactions/getTransactionsHistory')
+      break;
+    case 'deals':
+      break;
+  }
+}
 
 onMounted(() => {
-
+  if (isLoading.value) {
+    loadData()
+  }
 })
 </script>
 
