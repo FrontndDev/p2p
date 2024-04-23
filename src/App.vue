@@ -41,6 +41,8 @@ onMounted( () => {
     setCurrencies()
     getPaymentMethodsByCurrency()
   })
+
+  store.dispatch('profile/getProfile')
 })
 </script>
 

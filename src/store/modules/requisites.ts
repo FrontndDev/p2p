@@ -1,5 +1,6 @@
 import * as API from '@/api';
 import { TCtx } from "@/types/types";
+import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
 
 export default {
   namespaced: true,
@@ -7,7 +8,7 @@ export default {
 
   },
   actions: {
-    createRequisite(_: TCtx, data: any) {
+    createRequisite(_: TCtx, data: ICreateRequisiteParams) {
       API.createRequisite(data).then(response => console.log('createRequisite response', response))
     },
     updateRequisite(_: TCtx, { id, data }: any) {

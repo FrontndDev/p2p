@@ -1,5 +1,5 @@
 <template>
-  <Modal width="560px" padding="24px" title="Добавить реквизиты">
+  <Modal width="560px" padding="24px" title="Добавить реквизиты" @close-modal="emit('close-modal')">
     <template #content>
       <div class="add-requisites-modal">
         <div class="add-requisites-modal__content">
@@ -7,11 +7,13 @@
               title="Валюта"
               :items="wallets"
               :selected-item="selectedWallet"
+              @select="selectWallet"
           />
           <Select
               title="Способ оплаты"
               :items="paymentMethods"
               :selected-item="selectedPaymentMethod"
+              @select="(item: ISelect) => selectedPaymentMethod = item"
           />
           <MyInput
               type="number"
@@ -22,8 +24,8 @@
         </div>
 
         <div class="add-requisites-modal__buttons">
-          <MyButton type="neutral-btn" size="big" name="Отмена" width="100%"/>
-          <MyButton size="big" name="Добавить" width="100%"/>
+          <MyButton type="neutral-btn" size="big" name="Отмена" width="100%" @click="emit('close-modal')"/>
+          <MyButton size="big" name="Добавить" width="100%" @click="addRequisite"/>
         </div>
       </div>
     </template>
@@ -45,26 +47,54 @@ import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
 import { useStore } from "vuex";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
+import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
+import { getPaymentMethodsByCurrency } from "@/api";
+
+const emit = defineEmits(['close-modal']);
 
 const store = useStore();
 
 const wallets: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
-const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
-    store.state.paymentMethods.paymentMethods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
-);
+let paymentMethods: Ref<ISelect[]> = ref([]);
 
 const selectedWallet: Ref<ISelect | null> = ref(null);
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
 const cardNumber = ref('');
 
+const setPaymentMethods = async () => {
+  if (selectedWallet.value) {
+    const response = await getPaymentMethodsByCurrency(selectedWallet.value?.name)
+    paymentMethods.value = response.data.payment_methods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
+    selectedPaymentMethod.value = paymentMethods.value[0]
+  }
+}
+
 const setCardNumber = (value: string) => {
   cardNumber.value = value;
 }
 
-onMounted(() => {
+const selectWallet = (item: ISelect) => {
+  selectedWallet.value = item
+  setPaymentMethods()
+}
+
+const addRequisite = async () => {
+  if (selectedWallet.value && selectedPaymentMethod.value && cardNumber.value) {
+    const data: ICreateRequisiteParams = {
+      requisite: cardNumber.value,
+      currency: selectedWallet.value?.name,
+      payment_method: selectedPaymentMethod.value?.id
+    }
+    await store.dispatch('requisites/createRequisite', data)
+    emit('close-modal')
+  }
+}
+
+onMounted(async () => {
   selectedWallet.value = wallets.value[0];
+  await setPaymentMethods()
   selectedPaymentMethod.value = paymentMethods.value[0];
 });
 </script>

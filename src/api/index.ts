@@ -5,6 +5,7 @@ import {
   putAsync
 } from "@/api/config.ts";
 import { IGetAdsParams } from "@/interfaces/store/modules/ads.interface.ts";
+import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
 
 export function setDataToLS(key: string, data: any) {
   localStorage.setItem(key, JSON.stringify(data));
@@ -49,7 +50,7 @@ export async function getTransactionsHistory() {
 
 // POST
 
-export async function createRequisite(data: any) {
+export async function createRequisite(data: ICreateRequisiteParams) {
   return postAsync('/api/v1/p2p/profile/requisite', data)
 }
 

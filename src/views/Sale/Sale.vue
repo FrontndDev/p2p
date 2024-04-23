@@ -107,10 +107,6 @@ onBeforeMount(() => {
     setWindowWidth();
   }
 });
-
-onMounted(() => {
-  store.dispatch('profile/getProfile')
-})
 </script>
 
 <style scoped lang="scss">

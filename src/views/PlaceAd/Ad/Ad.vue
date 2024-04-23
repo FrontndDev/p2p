@@ -303,6 +303,9 @@ watch(() => paymentMethods.value.length, () => {
 
 onMounted(() => {
   selectPriceType(priceTypes[0])
+  selectInnerCurrency(innerCurrencies.value[0])
+  selectOuterCurrency(outerCurrencies.value[0])
+  selectPaymentMethod(paymentMethods.value[0])
 })
 </script>
 
