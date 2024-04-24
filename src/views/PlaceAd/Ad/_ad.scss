@@ -72,6 +72,33 @@
       }
     }
 
+    &-inputs {
+      @include flexbox(row, flex-start, center);
+      column-gap: 10px;
+
+      & ::v-deep(.my-input:first-child) {
+        & .my-input__field {
+          &::before {
+            content: '%';
+            @include get-font(16px, 500, 24px, $text-base-light);
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 32px;
+          }
+
+          & > input {
+            width: 28px !important;
+          }
+        }
+      }
+
+      & > svg {
+        flex-shrink: 0;
+      }
+    }
+
     &-input {
       @include flexbox(column);
       row-gap: 8px;

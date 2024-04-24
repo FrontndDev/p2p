@@ -25,7 +25,13 @@
 
         <div class="add-requisites-modal__buttons">
           <MyButton type="neutral-btn" size="big" name="Отмена" width="100%" @click="emit('close-modal')"/>
-          <MyButton size="big" name="Добавить" width="100%" @click="addRequisite"/>
+          <MyButton
+              :disabled="requestInProcess"
+              size="big"
+              name="Добавить"
+              width="100%"
+              @click="addRequisite"
+          />
         </div>
       </div>
     </template>
@@ -41,7 +47,7 @@ import {
   ComputedRef,
   onMounted,
   Ref,
-  ref
+  ref,
 } from "vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
@@ -53,6 +59,8 @@ import { getPaymentMethodsByCurrency } from "@/api";
 const emit = defineEmits(['close-modal']);
 
 const store = useStore();
+
+const requestInProcess = ref(false);
 
 const wallets: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
@@ -81,14 +89,19 @@ const selectWallet = (item: ISelect) => {
 }
 
 const addRequisite = async () => {
-  if (selectedWallet.value && selectedPaymentMethod.value && cardNumber.value) {
+  if (selectedWallet.value && selectedPaymentMethod.value && cardNumber.value && !requestInProcess.value) {
+    requestInProcess.value = true
     const data: ICreateRequisiteParams = {
       requisite: cardNumber.value,
       currency: selectedWallet.value?.name,
       payment_method: selectedPaymentMethod.value?.id
     }
-    await store.dispatch('requisites/createRequisite', data)
-    emit('close-modal')
+    const response = await store.dispatch('requisites/createRequisite', data)
+
+    requestInProcess.value = false
+    if (response?.data?.error_code === undefined) {
+      emit('close-modal')
+    }
   }
 }
 

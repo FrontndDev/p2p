@@ -11,6 +11,10 @@
   @include get-font(16px, 500, 24px, $text-base);
   position: relative;
 
+  &.bg-blue {
+    background: $bg-blue-light;
+  }
+
   &__title {
     @include get-font(12px, 500, 16px, $text-base-light);
   }
@@ -19,6 +23,7 @@
     @include flexbox(row, flex-start, center);
     column-gap: 8px;
     width: 100%;
+    position: relative;
 
     & > svg,
     & > img {

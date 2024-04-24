@@ -49,6 +49,7 @@ const setValue = () => {
     width: 16px;
     height: 16px;
     border-radius: 4px;
+    transition: .25s all ease;
   }
 
   &:not(.active) .my-checkbox__check-mark {

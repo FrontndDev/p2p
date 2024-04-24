@@ -158,4 +158,8 @@
       color: $text-base-disable;
     }
   }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }

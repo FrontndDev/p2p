@@ -8,8 +8,11 @@ export default {
 
   },
   actions: {
-    createRequisite(_: TCtx, data: ICreateRequisiteParams) {
-      API.createRequisite(data).then(response => console.log('createRequisite response', response))
+    async createRequisite(_: TCtx, data: ICreateRequisiteParams) {
+      return await API.createRequisite(data).then(response => {
+        console.log('createRequisite response', response)
+        return response
+      })
     },
     updateRequisite(_: TCtx, { id, data }: any) {
       API.updateRequisite(id, data).then(response => console.log('updateRequisite response', response))

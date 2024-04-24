@@ -5,18 +5,19 @@
         :selected-outer-currency="selectedOuterCurrency"
         :selected-price-type="selectedPriceType"
         :selected-payment-method="selectedPaymentMethod"
+        :selling-price="data.price"
         :min-amount="String(data.min_amount)"
         :max-amount="String(data.max_amount)"
         :comment="data.comment"
         @select-inner-currency="(item: ISelect) => selectedInnerCurrency = item"
         @select-outer-currency="(item: ISelect) => selectedOuterCurrency = item"
         @select-price-type="(item: ISelect) => selectedPriceType = item"
-        @input-selling-price="(value: string) => data.price = +value"
+        @input-selling-price="(value: string) => price = +value"
         @input-amount-of-currency=""
-        @input-min-transfer="(value: string) => data.min_amount = +value"
-        @input-max-transfer="(value: string) => data.max_amount = +value"
+        @input-min-transfer="(value: string) => minAmount = +value"
+        @input-max-transfer="(value: string) => maxAmount = +value"
         @select-payment-method="(item: ISelect) => selectedPaymentMethod = item"
-        @input-comment="(value: string) => data.comment = value"
+        @input-comment="(value: string) => comment = value"
     />
     <AdInformation @create-ad="createAd"/>
   </div>
@@ -43,11 +44,18 @@ const selectedInnerCurrency: Ref<ISelect | null> = ref(null);
 const selectedOuterCurrency: Ref<ISelect | null> = ref(null);
 const selectedPriceType: Ref<ISelect | null> = ref(null);
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
+const minAmount = ref(10);
+const maxAmount = ref(20);
+const comment = ref('');
+const factor = ref(-1);
+const price = ref(0);
 
 const priceType = computed(() => {
   switch (selectedPriceType.value?.id) {
     case 1:
       return 'fixed'
+    case 2:
+      return 'float'
   }
 })
 
@@ -55,11 +63,11 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   inner_currency: selectedInnerCurrency.value?.name ?? '',
   outer_currency: selectedOuterCurrency.value?.name ?? '',
   requisite_id: selectedPaymentMethod.value?.id ?? -1,
-  min_amount: 10,
-  max_amount: 20,
-  comment: '',
-  factor: -1, // if price_type == float
-  price: 0, // if price_type == fixed
+  min_amount: minAmount.value,
+  max_amount: maxAmount.value,
+  comment: comment.value,
+  factor: priceType.value === 'float' ? factor.value : price.value, // if price_type == float
+  price: price.value, // if price_type == fixed
   price_type: priceType.value ?? '' // percent | float
 }));
 

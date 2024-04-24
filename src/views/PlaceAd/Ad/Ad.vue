@@ -45,9 +45,31 @@
               placeholder="1 000 000"
               title="Цена продажи"
               :icon="TONIcon"
-              :value="''"
+              :value="String(props.sellingPrice)"
+              v-if="props.selectedPriceType?.id === 1"
               @input-value="inputSellingPrice"
           />
+
+          <div class="ad__row-inputs" v-if="props.selectedPriceType?.id === 2">
+            <MyInput
+                type="number"
+                class="my-input-second"
+                placeholder="100"
+                title="Множитель"
+                :value="''"
+                @input-value="inputFactor"
+            />
+            <StarIcon/>
+            <MyInput
+                type="number"
+                class="my-input-second bg-blue"
+                placeholder="1 000 000"
+                title="Актуальный курс"
+                :icon="TONIcon"
+                :value="String(props.sellingPrice)"
+                @input-value="inputSellingPrice"
+            />
+          </div>
         </div>
       </div>
       <div class="ad__row">
@@ -80,7 +102,7 @@
           <MyInput
               type="number"
               class="my-input-second"
-              placeholder="1 000"
+              placeholder="10"
               title="Минимальный перевод"
               :icon="TONIcon"
               :value="props.minAmount"
@@ -89,7 +111,7 @@
           <MyInput
               type="number"
               class="my-input-second"
-              placeholder="Доступно 1 000 000"
+              placeholder="1 000 000"
               title="Максимальный перевод"
               :icon="TONIcon"
               :value="props.maxAmount"
@@ -120,18 +142,6 @@
               v-if="route.name === 'place-ad'"
               @select="selectPaymentMethod"
           />
-<!--          <MyButton-->
-<!--              class="ad__row-button ad__row-button_second"-->
-<!--              type="second-primary-btn"-->
-<!--              size="big"-->
-<!--              width="100%"-->
-<!--              name="Выберите способ оплаты"-->
-<!--              v-if="route.name === 'place-ad'"-->
-<!--          >-->
-<!--            <template #icon-left>-->
-<!--              <AddIcon/>-->
-<!--            </template>-->
-<!--          </MyButton>-->
         </div>
       </div>
       <div class="ad__row">
@@ -173,6 +183,8 @@ import AddIcon from '@/assets/svg/add.svg?component';
 import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
 // @ts-ignore
 import ExclamationIcon from '@/assets/svg/deal/exclamation.svg?component';
+// @ts-ignore
+import StarIcon from '@/assets/svg/star.svg?component';
 import Badge from "@/components/UI/Badge/Badge.vue";
 import AdditionalInfo from "@/components/UI/AdditionalInfo/AdditionalInfo.vue";
 import Select from "@/components/UI/Select/Select.vue";
@@ -182,6 +194,7 @@ import {
   onMounted,
   PropType,
   reactive,
+  Ref,
   ref,
   watch
 } from "vue";
@@ -210,6 +223,10 @@ const props = defineProps({
     type: Object as PropType<ISelect | null>,
     required: true,
   },
+  sellingPrice: {
+    type: Number,
+    default: ''
+  },
   minAmount: {
     type: String,
     default: '',
@@ -228,6 +245,7 @@ const emit = defineEmits([
   'select-inner-currency',
   'select-outer-currency',
   'select-price-type',
+  'input-factor',
   'input-selling-price',
   'input-amount-of-currency',
   'input-min-transfer',
@@ -244,6 +262,10 @@ const priceTypes = reactive([
     id: 1,
     name: 'Фиксированная'
   },
+  {
+    id: 2,
+    name: 'Динамическая'
+  }
 ]);
 
 const telegramConnected = ref(false);
@@ -254,24 +276,27 @@ const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
 const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
-const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
-    store.state.paymentMethods.paymentMethods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
-);
+const paymentMethods: Ref<ISelect[]> = ref([]);
 
 const selectInnerCurrency = (item: ISelect) => {
   emit('select-inner-currency', item)
 }
 
-const selectOuterCurrency = (item: ISelect) => {
+const selectOuterCurrency = async (item: ISelect) => {
   emit('select-outer-currency', item)
+  const response = await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name)
+  paymentMethods.value = response.data.payment_methods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
 }
 
 const selectPriceType = (item: ISelect) => {
   emit('select-price-type', item)
 }
 
-const inputSellingPrice = (item: ISelect) => {
+const inputFactor = (value: string) => {
+  emit('input-factor', value)
+}
 
+const inputSellingPrice = (item: ISelect) => {
   emit('input-selling-price', item)
 }
 
@@ -296,8 +321,6 @@ const inputComment = (e: Event) => {
 }
 
 watch(() => paymentMethods.value.length, () => {
-  selectInnerCurrency(innerCurrencies.value[0])
-  selectOuterCurrency(outerCurrencies.value[0])
   selectPaymentMethod(paymentMethods.value[0])
 });
 
@@ -305,7 +328,6 @@ onMounted(() => {
   selectPriceType(priceTypes[0])
   selectInnerCurrency(innerCurrencies.value[0])
   selectOuterCurrency(outerCurrencies.value[0])
-  selectPaymentMethod(paymentMethods.value[0])
 })
 </script>
 
