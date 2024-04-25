@@ -11,10 +11,11 @@
 
 <script setup lang="ts">
 import { PropType } from "vue";
+import { ISelect } from "@/components/UI/Select/select.interface.ts";
 
 const props = defineProps({
   paymentMethods: {
-    type: Array as PropType<any>,
+    type: Array as PropType<ISelect[]>,
     required: true,
   },
   bg: {

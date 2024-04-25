@@ -8,26 +8,27 @@
           <div class="ad-information__content-title">Продажа</div>
           <div class="ad-information__content-wallet">
             <img src="@/assets/images/ton.png" alt="icon">
-            TON
+            {{ props.selectedInnerCurrency?.name }}
           </div>
         </div>
 
         <div class="ad-information__rows">
           <div class="ad-information__row">
             <div>Цена</div>
-            <div class="fw-700">1 000 000 RUB</div>
+            <div class="fw-700">{{ props.sellingPrice ?? 0 }} {{ selectedOuterCurrency?.name }}</div>
           </div>
           <div class="ad-information__row">
             <div>Общее колличество</div>
-            <div>1 000 000 BTC</div>
+            <div>{{ props.amountOfCurrency ?? 0 }} {{ props.selectedInnerCurrency?.name }}</div>
           </div>
           <div class="ad-information__row">
             <div>Лимиты</div>
-            <div>1 000 000Р - 999 999 999Р</div>
+            <div>{{ props.minAmount ?? 0}}Р - {{ props.maxAmount ?? 0 }}Р</div>
           </div>
           <div class="ad-information__row">
             <div>Способ оплаты</div>
-            <PaymentMethods :payment-methods="paymentMethods"/>
+            <PaymentMethods :payment-methods="[props.selectedPaymentMethod]" v-if="props.selectedPaymentMethod"/>
+            <div v-else>-</div>
           </div>
         </div>
 
@@ -67,39 +68,44 @@ import TrashIcon from '@/assets/svg/trash.svg?component';
 import PauseIcon from '@/assets/svg/pause.svg?component';
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import {
-  reactive,
+  PropType,
   ref
 } from "vue";
 import MyCheckbox from "@/components/UI/MyCheckbox/MyCheckbox.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { useRoute } from "vue-router";
+import { ISelect } from "@/components/UI/Select/select.interface.ts";
+
+const props = defineProps({
+  selectedInnerCurrency: {
+    type: Object as PropType<ISelect | null>,
+    required: true,
+  },
+  selectedOuterCurrency: {
+    type: Object as PropType<ISelect | null>,
+    required: true,
+  },
+  sellingPrice: {
+    type: Number,
+  },
+  amountOfCurrency: {
+    type: Number,
+  },
+  minAmount: {
+    type: Number,
+  },
+  maxAmount: {
+    type: Number,
+  },
+  selectedPaymentMethod: {
+    type: Object as PropType<ISelect | null>,
+    required: true,
+  }
+})
 
 const emit = defineEmits(['create-ad'])
 
 const route = useRoute();
-
-const paymentMethods = reactive([
-  {
-    id: 1,
-    name: 'Сбербанк'
-  },
-  {
-    id: 2,
-    name: 'Альфа'
-  },
-  {
-    id: 3,
-    name: 'Втб'
-  },
-  {
-    id: 4,
-    name: 'Тинькофф'
-  },
-  {
-    id: 5,
-    name: 'Райфайзен'
-  }
-]);
 
 const conditions = ref(false);
 </script>

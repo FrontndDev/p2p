@@ -65,9 +65,9 @@
                 class="my-input-second bg-blue"
                 placeholder="1 000 000"
                 title="Актуальный курс"
+                :value="String(currentRate)"
+                :disabled="true"
                 :icon="TONIcon"
-                :value="String(props.sellingPrice)"
-                @input-value="inputSellingPrice"
             />
           </div>
         </div>
@@ -159,13 +159,13 @@
         <div class="ad__row-content">
           <div class="ad__row-mark">
             <div>
-              <div class="ad__row-mark-circle" :class="telegramConnected ? 'active' : 'no-active'">
-                <component :is="telegramConnected ? CheckMarkIcon : ExclamationIcon"/>
+              <div class="ad__row-mark-circle" :class="telegramActive ? 'active' : 'no-active'">
+                <component :is="telegramActive ? CheckMarkIcon : ExclamationIcon"/>
               </div>
 
-              {{ telegramConnected ? 'Привязан' : 'Не привязан' }}
+              {{ telegramActive ? 'Привязан' : 'Не привязан' }}
             </div>
-            <div class="ad__row-mark-btn" v-if="!telegramConnected">Привязать</div>
+            <div class="ad__row-mark-btn" v-if="!telegramActive">Привязать</div>
           </div>
         </div>
       </div>
@@ -194,8 +194,6 @@ import {
   onMounted,
   PropType,
   reactive,
-  Ref,
-  ref,
   watch
 } from "vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
@@ -204,7 +202,9 @@ import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
+import {
+  IRequisite,
+} from "@/interfaces/store/modules/profile.interface.ts";
 
 const props = defineProps({
   selectedInnerCurrency: {
@@ -223,21 +223,20 @@ const props = defineProps({
     type: Object as PropType<ISelect | null>,
     required: true,
   },
+  amountOfCurrency: {
+    type: Number,
+  },
   sellingPrice: {
     type: Number,
-    default: ''
   },
   minAmount: {
     type: String,
-    default: '',
   },
   maxAmount: {
     type: String,
-    default: '',
   },
   comment: {
     type: String,
-    default: '',
   },
 })
 
@@ -268,24 +267,27 @@ const priceTypes = reactive([
   }
 ]);
 
-const telegramConnected = ref(false);
-
 const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
 const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
-const paymentMethods: Ref<ISelect[]> = ref([]);
+const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
+    store.state.profile.profile?.requisites?.map((method: IRequisite) => ({ id: method.id, name: method.paymentMethod }))
+);
+
+const currentRate: ComputedRef<number> = computed(() => store.state.currencies.currentRate)
+const telegramActive = computed(() => store.state.profile.profile.telegramActive)
 
 const selectInnerCurrency = (item: ISelect) => {
   emit('select-inner-currency', item)
+  getCurrentRate(item.name, props.selectedOuterCurrency?.name)
 }
 
 const selectOuterCurrency = async (item: ISelect) => {
   emit('select-outer-currency', item)
-  const response = await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name)
-  paymentMethods.value = response.data.payment_methods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
+  getCurrentRate(props.selectedInnerCurrency?.name, item.name)
 }
 
 const selectPriceType = (item: ISelect) => {
@@ -320,7 +322,13 @@ const inputComment = (e: Event) => {
   emit('input-comment', (e.target as HTMLTextAreaElement).value)
 }
 
-watch(() => paymentMethods.value.length, () => {
+const getCurrentRate = (from?: string, to?: string) => {
+  if (from && to) {
+    store.dispatch('currencies/getCurrencyRate', { from, to });
+  }
+}
+
+watch(() => paymentMethods.value?.length, () => {
   selectPaymentMethod(paymentMethods.value[0])
 });
 
@@ -328,6 +336,10 @@ onMounted(() => {
   selectPriceType(priceTypes[0])
   selectInnerCurrency(innerCurrencies.value[0])
   selectOuterCurrency(outerCurrencies.value[0])
+  getCurrentRate(innerCurrencies.value[0].name, outerCurrencies.value[0].name)
+  if (paymentMethods.value) {
+    selectPaymentMethod(paymentMethods.value[0])
+  }
 })
 </script>
 

@@ -9,7 +9,7 @@ export interface IWallets {
   [currency: string]: IWallet
 }
 
-export interface IRequisites {
+export interface IRequisite {
   id: number;
   currency: string;
   requisite: string;
@@ -29,7 +29,7 @@ export interface IStatistics {
 }
 
 export interface IProfile {
-  requisites: IRequisites[];
+  requisites: IRequisite[];
   wallets: IWallets;
   telegramActive: boolean;
   userCanCreateAds: IUserCanCreateAds;

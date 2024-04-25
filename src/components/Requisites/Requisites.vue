@@ -36,13 +36,13 @@ import {
   computed,
   ComputedRef
 } from "vue";
-import { IRequisites } from "@/interfaces/store/modules/profile.interface.ts";
+import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
 
 const emit = defineEmits(['show-requisites-popup', 'add-requisites']);
 
 const store = useStore();
 
-const requisites: ComputedRef<IRequisites[]> = computed(() => store.state.profile.profile.requisites)
+const requisites: ComputedRef<IRequisite[]> = computed(() => store.state.profile.profile.requisites)
 </script>
 
 <style scoped lang="scss">

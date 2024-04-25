@@ -7,6 +7,7 @@
         <component ref="icon" :is="props.icon" v-else/>
       </template>
       <input
+          :disabled="props.disabled"
           :type="type"
           :style="getInputWidth"
           :placeholder="props.placeholder"
@@ -54,6 +55,10 @@ const props = defineProps({
   icon: {
     type: String as PropType<string | SVGAElement>,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 const emit = defineEmits(['inputValue', 'blur']);

@@ -10,6 +10,7 @@ export default {
     outerCurrencies: [] as string[],
     innerCurrency: {} as ISelect,
     outerCurrency: {} as ISelect,
+    currentRate: 0 as number,
   },
   actions: {
     async getCurrencies({ commit }: TCtx) {
@@ -28,8 +29,8 @@ export default {
         return response
       })
     },
-    getCurrencyRate(_: TCtx, data: { from: number, to: number }) {
-      API.getCurrencyRate(data).then(response => console.log('getCurrencyRate response', response))
+    getCurrencyRate({ commit }: TCtx, data: { from: number, to: number }) {
+      API.getCurrencyRate(data).then(response => commit('SET_CURRENT_RATE', response.data.rate))
     }
   },
   mutations: {
@@ -44,6 +45,9 @@ export default {
     },
     SET_OUTER_CURRENCY(state: any, currency: ICurrency) {
       state.outerCurrency = currency
+    },
+    SET_CURRENT_RATE(state: any, rate: any) {
+      state.currentRate = rate
     }
   },
 }

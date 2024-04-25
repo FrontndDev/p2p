@@ -5,21 +5,31 @@
         :selected-outer-currency="selectedOuterCurrency"
         :selected-price-type="selectedPriceType"
         :selected-payment-method="selectedPaymentMethod"
-        :selling-price="data.price"
-        :min-amount="String(data.min_amount)"
-        :max-amount="String(data.max_amount)"
-        :comment="data.comment"
+        :selling-price="price"
+        :amount-of-currency="amountOfCurrency"
+        :min-amount="String(minAmount)"
+        :max-amount="String(maxAmount)"
+        :comment="comment"
         @select-inner-currency="(item: ISelect) => selectedInnerCurrency = item"
         @select-outer-currency="(item: ISelect) => selectedOuterCurrency = item"
         @select-price-type="(item: ISelect) => selectedPriceType = item"
         @input-selling-price="(value: string) => price = +value"
-        @input-amount-of-currency=""
+        @input-amount-of-currency="(value: string) => amountOfCurrency = +value"
         @input-min-transfer="(value: string) => minAmount = +value"
         @input-max-transfer="(value: string) => maxAmount = +value"
         @select-payment-method="(item: ISelect) => selectedPaymentMethod = item"
         @input-comment="(value: string) => comment = value"
     />
-    <AdInformation @create-ad="createAd"/>
+    <AdInformation
+        :selected-inner-currency="selectedInnerCurrency"
+        :selected-outer-currency="selectedOuterCurrency"
+        :selling-price="price"
+        :amount-of-currency="amountOfCurrency"
+        :min-amount="minAmount"
+        :max-amount="maxAmount"
+        :selected-payment-method="selectedPaymentMethod"
+        @create-ad="createAd"
+    />
   </div>
 </template>
 
@@ -47,8 +57,9 @@ const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
 const minAmount = ref(10);
 const maxAmount = ref(20);
 const comment = ref('');
-const factor = ref(-1);
-const price = ref(0);
+const factor: Ref<number | undefined> = ref(undefined);
+const price: Ref<number | undefined> = ref(undefined);
+const amountOfCurrency: Ref<number | undefined> = ref(undefined)
 
 const priceType = computed(() => {
   switch (selectedPriceType.value?.id) {
@@ -66,8 +77,8 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   min_amount: minAmount.value,
   max_amount: maxAmount.value,
   comment: comment.value,
-  factor: priceType.value === 'float' ? factor.value : price.value, // if price_type == float
-  price: price.value, // if price_type == fixed
+  factor: priceType.value === 'float' ? factor.value : undefined, // if price_type == float
+  price: priceType.value === 'fixed' ? price.value : undefined, // if price_type == fixed
   price_type: priceType.value ?? '' // percent | float
 }));
 

@@ -50,8 +50,8 @@ export interface IAdParams {
   min_amount: number;
   max_amount: number;
   comment: string;
-  factor: number;
-  price: number;
+  factor?: number;
+  price?: number;
   price_type: string;
 }
 
