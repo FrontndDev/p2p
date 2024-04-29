@@ -42,7 +42,6 @@ import {
   ComputedRef,
   onMounted,
   PropType,
-  watch,
 } from "vue";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
@@ -143,14 +142,20 @@ const selectItem = async (item: ISelect, id: number) => {
     case 1:
       // Выбираем валюту которую покупаем
       router.push({ query: { ...route.query, inner: item.name } })
+      store.commit('currencies/SET_INNER_CURRENCY', item);
       break;
     case 2:
       // Выбираем валюту которую отдаём
       router.push({ query: { ...route.query, outer: item.name } })
+      store.commit('currencies/SET_OUTER_CURRENCY', item);
+      // При смене внутренней валюты получаем доступные способы оплаты
+      await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
+        store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+      });
       break;
     case 3:
       // Выбираем способ оплаты
-      router.push({ query: { ...route.query, payment_method: item.name } })
+      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', item)
       break;
   }
 
@@ -171,33 +176,17 @@ const setTab = (tab: ITabs) => {
 }
 
 const setCurrencies = () => {
-  setInnerCurrency()
-  setOuterCurrency()
-}
-
-const setInnerCurrency = () => {
-  const currencyName = route.query.inner;
-  const currency = innerCurrencies.value.find(currency => currency.name === currencyName) ?? innerCurrencies.value[0];
-  console.log('inner currency', currency)
-  if (currency) {
-    store.commit('currencies/SET_INNER_CURRENCY', currency);
-    emit('set-inner-currency', currency);
-  }
-}
-
-const setOuterCurrency = () => {
-  const currencyName = route.query.outer;
-  const currency = outerCurrencies.value.find(currency => currency.name === currencyName) ?? outerCurrencies.value[0];
-  console.log('outer currency', currency)
-  if (currency) {
-    store.commit('currencies/SET_INNER_CURRENCY', currency);
-    emit('set-outer-currency', currency);
-  }
+  const innerCurrency = innerCurrencies.value.find(currency => currency.name === route.query.inner) ?? innerCurrencies.value[0]
+  const outerCurrency = outerCurrencies.value.find(currency => currency.name === route.query.outer) ?? outerCurrencies.value[0]
+  emit('set-inner-currency', innerCurrency)
+  emit('set-outer-currency', outerCurrency)
 }
 
 const getPaymentMethodsByCurrency = () => {
+  // const outerCurrency = outerCurrencies.value.find(currency => currency.name === route.query.outer) ?? outerCurrencies.value[0]
+
   // Получаем доступные способы оплаты выбранной валюты
-  store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
+  store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrency.value.name).then(() => {
     store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
     emit('set-payment-method', paymentMethods.value[0])
 
@@ -205,25 +194,10 @@ const getPaymentMethodsByCurrency = () => {
   })
 }
 
-// watch(() => route.query.inner, () => {
-//   store.commit('currencies/SET_INNER_CURRENCY', item);
-// })
-//
-// watch(() => route.query.outer, async () => {
-//   store.commit('currencies/SET_OUTER_CURRENCY', item);
-//   // При смене внутренней валюты получаем доступные способы оплаты
-//   await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
-//     store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
-//   });
-// })
-//
-// watch(() => route.query.payment_method, () => {
-//   store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', item)
-// })
-
 onMounted( () => {
   if (outerCurrencies.value?.length) {
     setValue(() => setCurrencies())
+    setValue(() => getPaymentMethodsByCurrency())
   } else {
     // Получаем списки валют
     store.dispatch('currencies/getCurrencies').then(() => {
