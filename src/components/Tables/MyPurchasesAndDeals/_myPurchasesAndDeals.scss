@@ -48,11 +48,11 @@
       background: $bg-green;
     }
 
-    &.in-process::before {
+    &.pending::before {
       background: $bg-orange;
     }
 
-    &.canceled::before {
+    &.cancelled::before {
       background: $bg-red;
     }
   }

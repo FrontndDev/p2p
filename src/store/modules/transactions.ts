@@ -2,6 +2,7 @@ import * as API from '@/api';
 import { TCtx } from "@/types/types";
 import {
   ICreateDealParams,
+  ITransaction,
   ITransactionsHistory
 } from "@/interfaces/store/modules/transactions.interface.ts";
 
@@ -9,14 +10,14 @@ export default {
   namespaced: true,
   state: {
     transactionsHistory: {} as ITransactionsHistory,
-    transactionInfo: {},
+    transactionInfo: {} as ITransaction,
   },
   actions: {
     getTransactionsHistory({ commit }: TCtx) {
       API.getTransactionsHistory().then(response => commit('SET_TRANSACTIONS_HISTORY', response.data))
     },
     getTransactionInfo({ commit }: TCtx, id: number) {
-      API.getTransactionInfo(id).then(response => commit('SET_TRANSACTIONS_HISTORY', response.data))
+      API.getTransactionInfo(id).then(response => commit('SET_TRANSACTION_INFO', response.data.transaction))
     },
     createDeal(_: TCtx, data: ICreateDealParams) {
       API.createDeal(data).then(response => console.log('createDeal response', response))

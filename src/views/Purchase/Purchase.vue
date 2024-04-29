@@ -10,12 +10,16 @@
       <Settings @click="openModal(ModalsEnum.showPurchaseFilter)"/>
     </div>
 
-    <PurchaseAnnouncement @buy="openModal(ModalsEnum.showDealModal)" v-if="activeTab.id === 1"/>
+    <PurchaseAnnouncement @buy="openDeal" v-if="activeTab.id === 1"/>
     <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
   </div>
 
   <PurchaseFilter @close-popup="closeModal(ModalsEnum.showPurchaseFilter)" v-if="showModals.showPurchaseFilter"/>
-  <DealModal @close-modal="closeModal(ModalsEnum.showDealModal)" v-if="showModals.showDealModal"/>
+  <DealModal
+      :deal-id="selectedDeal"
+      @close-modal="closeModal(ModalsEnum.showDealModal)"
+      v-if="showModals.showDealModal"
+  />
 </template>
 
 <script setup lang="ts">
@@ -23,7 +27,7 @@ import Tabs from "@/components/UI/Tabs/Tabs.vue";
 import {
   reactive,
   Ref,
-  ref
+  ref,
 } from "vue";
 import PurchaseAnnouncement from "@/components/Tables/PurchaseAnnouncement/PurchaseAnnouncement.vue";
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
@@ -34,6 +38,11 @@ import PurchaseFilter from "@/components/BottomPopups/PurchaseFilter/PurchaseFil
 import Settings from '@/assets/svg/settings.svg?component';
 import { ModalsEnum } from "@/enums/modals.enum.ts";
 import { IShowModals } from "@/components/Modals/modal.interface.ts";
+import {
+  useRouter
+} from "vue-router";
+
+const router = useRouter();
 
 const tabs = reactive([
   {
@@ -46,7 +55,9 @@ const tabs = reactive([
   }
 ]);
 
-const activeTab: Ref<ITabs> = ref(tabs[0])
+const activeTab: Ref<ITabs> = ref(tabs[0]);
+
+const selectedDeal = ref(-1)
 
 // Show Modals
 const showModals: IShowModals = reactive({
@@ -65,9 +76,15 @@ const openModal = (key: ModalsEnum) => {
 }
 
 const closeModal = (key: ModalsEnum) => {
+  router.push({ query: {} })
   showModals[key] = false
   document.body.style.overflow = 'auto'
   document.documentElement.style.overflow = 'auto'
+}
+
+const openDeal = (id: number) => {
+  selectedDeal.value = id
+  openModal(ModalsEnum.showDealModal)
 }
 </script>
 

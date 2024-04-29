@@ -8,33 +8,34 @@
               <div class="deal-modal__seller">
                 <Seller
                     type="seller-modal"
-                    name="Константинопольский Константин"
-                    :successful-num="145"
-                    :done-num="100"
+                    :successful-num="-1"
+                    :done-num="-1"
+                    :name="`${selectedDeal.adsAuthor?.first_name} ${selectedDeal.adsAuthor?.last_name}`"
+                    :avatar="selectedDeal.adsAuthor?.avatar"
                 />
               </div>
 
               <div class="deal-modal__info">
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Цена</div>
-                  <div class="deal-modal__info-item-value deal-modal__info-item-value_price">1 000 000 RUB</div>
+                  <div class="deal-modal__info-item-value deal-modal__info-item-value_price">{{ selectedDeal.price }} {{ selectedDeal.outerCurrency }}</div>
                 </div>
                 <div class="deal-modal__info-item deal-modal__info-item_payment-methods">
                   <div class="deal-modal__info-item-title">Способ оплаты</div>
                   <div class="deal-modal__info-item-value">
-                    <PaymentMethods bg="base-light" :payment-methods="paymentMethods"/>
+                    <PaymentMethods bg="base-light" :payment-methods="[selectedPaymentMethod]" v-if="selectedPaymentMethod"/>
                   </div>
                 </div>
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Доступно</div>
                   <div class="deal-modal__info-item-value">
-                    1 000 000 USD
+                    {{ selectedDeal.activeAmount }} {{ selectedDeal.innerCurrency }}
                     <USDIcon/>
                   </div>
                 </div>
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Лимиты</div>
-                  <div class="deal-modal__info-item-value">1 000 000Р - 999 999 999Р</div>
+                  <div class="deal-modal__info-item-value">{{ selectedDeal.minAmount }} - {{ selectedDeal.maxAmount }}</div>
                 </div>
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Окно оплаты</div>
@@ -44,12 +45,7 @@
 
               <div class="deal-modal__comment">
                 <div class="deal-modal__comment-title">Комментарий продавца</div>
-                <div class="deal-modal__comment-content">
-                  Всегда готова к сделке, я 24/7 на связи, пишите звоните, помогу в чате в тг, предложу любой обмен, рада сотрудничеству и постоянным клиентам
-                  <br>
-                  <br>
-                  Всегда готова к сделке, я 24/7 на связи, пишите звоните, помогу в чате в тг, предложу любой обмен, рада сотрудничеству и постоянным клиентам
-                </div>
+                <div class="deal-modal__comment-content">{{ selectedDeal.authorComment }}</div>
               </div>
             </div>
           </div>
@@ -81,6 +77,8 @@
 import Modal from "@/components/Modals/Modal.vue";
 import Seller from "@/components/Seller/Seller.vue";
 import {
+  computed,
+  ComputedRef,
   onMounted,
   reactive,
   Ref,
@@ -93,8 +91,19 @@ import Select from "@/components/UI/Select/Select.vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
+import { useStore } from "vuex";
+import { IAd } from "@/interfaces/store/modules/ads.interface.ts";
 
-const emit = defineEmits(['close-modal'])
+const props = defineProps({
+  dealId: {
+    type: Number,
+    required: true,
+  }
+});
+
+const emit = defineEmits(['close-modal']);
+
+const store = useStore();
 
 const paymentMethods = reactive([
   {
@@ -120,6 +129,8 @@ const paymentMethods = reactive([
 ]);
 
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
+
+const selectedDeal: ComputedRef<IAd> = computed(() => store.state.ads.ads.ads.find((ad: IAd) => ad.id === props.dealId))
 
 const selectPaymentMethod = (paymentMethod: ISelect) => {
   selectedPaymentMethod.value = paymentMethod

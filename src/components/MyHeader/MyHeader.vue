@@ -50,10 +50,7 @@ import {
 } from "@/components/UI/Select/select.interface.ts";
 
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
-import {
-  useRoute,
-  useRouter
-} from "vue-router";
+import { useRoute } from "vue-router";
 import { HomeRoutesEnum } from "@/enums/home-routes.enum.ts";
 import { useStore } from "vuex";
 import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
@@ -74,7 +71,6 @@ const emit = defineEmits([
   'input-value',
 ]);
 
-const router = useRouter();
 const route = useRoute();
 
 const store = useStore();
@@ -141,12 +137,10 @@ const selectItem = async (item: ISelect, id: number) => {
   switch (id) {
     case 1:
       // Выбираем валюту которую покупаем
-      router.push({ query: { ...route.query, inner: item.name } })
       store.commit('currencies/SET_INNER_CURRENCY', item);
       break;
     case 2:
       // Выбираем валюту которую отдаём
-      router.push({ query: { ...route.query, outer: item.name } })
       store.commit('currencies/SET_OUTER_CURRENCY', item);
       // При смене внутренней валюты получаем доступные способы оплаты
       await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
@@ -176,17 +170,15 @@ const setTab = (tab: ITabs) => {
 }
 
 const setCurrencies = () => {
-  const innerCurrency = innerCurrencies.value.find(currency => currency.name === route.query.inner) ?? innerCurrencies.value[0]
-  const outerCurrency = outerCurrencies.value.find(currency => currency.name === route.query.outer) ?? outerCurrencies.value[0]
-  emit('set-inner-currency', innerCurrency)
-  emit('set-outer-currency', outerCurrency)
+  store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
+  store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
+  emit('set-inner-currency', innerCurrencies.value[0])
+  emit('set-outer-currency', outerCurrencies.value[0])
 }
 
 const getPaymentMethodsByCurrency = () => {
-  // const outerCurrency = outerCurrencies.value.find(currency => currency.name === route.query.outer) ?? outerCurrencies.value[0]
-
   // Получаем доступные способы оплаты выбранной валюты
-  store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrency.value.name).then(() => {
+  store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
     store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
     emit('set-payment-method', paymentMethods.value[0])
 

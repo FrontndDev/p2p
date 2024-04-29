@@ -9,9 +9,19 @@
         <div>Доступно / Лимиты</div>
       </div>
 
-      <div class="purchase-announcement__row my-table__row" v-for="ad in ads.ads" :key="ad.id">
+      <div
+          class="purchase-announcement__row my-table__row"
+          v-for="ad in ads.ads"
+          :key="ad.id"
+          @click="emit('buy', ad.id)"
+      >
         <div class="purchase-announcement__seller">
-          <Seller :name="getName(ad.adsAuthor.first_name + ' ' + ad.adsAuthor.last_name)"/>
+          <Seller
+              :successful-num="-1"
+              :done-num="-1"
+              :name="getName(ad.adsAuthor.first_name + ' ' + ad.adsAuthor.last_name)"
+              :avatar="ad.adsAuthor.avatar"
+          />
         </div>
         <div class="purchase-announcement__wallet">
           <img alt="icon" :src="getIcon(ad.currencyForBuy)">
@@ -36,7 +46,7 @@
           </div>
         </div>
         <div class="purchase-announcement__button">
-          <MyButton type="success-btn" :name="`Купить ${ad.currencyForBuy}`" @click="emit('buy')"/>
+          <MyButton type="success-btn" :name="`Купить ${ad.currencyForBuy}`"/>
         </div>
       </div>
     </div>

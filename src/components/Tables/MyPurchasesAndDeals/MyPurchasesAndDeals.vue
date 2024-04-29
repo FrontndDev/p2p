@@ -9,9 +9,12 @@
         <div>Дата / Время</div>
       </div>
 
-      <div class="my-purchases-and-deals__row my-table__row" v-for="row in table" :key="row.id">
+      <div class="my-purchases-and-deals__row my-table__row" v-for="row in data?.list" :key="row.id">
         <div class="my-purchases-and-deals__seller">
-          <Seller :name="getName(row.name)"/>
+          <Seller
+              :name="getName(row.name)"
+              :avatar="row.avatar"
+          />
         </div>
         <div class="my-purchases-and-deals__info">
           <div class="my-purchases-and-deals__info-count">
@@ -20,7 +23,7 @@
           </div>
           <div class="my-purchases-and-deals__info-sum">{{ row.sum }} RUB</div>
         </div>
-        <div class="my-purchases-and-deals__status" :class="row.status">{{ StatusesEnum[row.status] }}</div>
+        <div class="my-purchases-and-deals__status" :class="row.status">{{ row.statusTranslate }}</div>
         <div class="my-purchases-and-deals__order-id">
           <span>ID ордера</span>
 
@@ -79,43 +82,6 @@ const props = defineProps({
 
 const store = useStore();
 
-const table = reactive([
-  {
-    id: 1,
-    wallet: 'TON',
-    name: 'Константин Константинопольский',
-    count: 1000000,
-    sum: 999999999,
-    status: SecondStatusesEnum["in-process"],
-    orderId: '121 456 789 001',
-    date: '28.02.2024',
-    time: '23:30',
-    legend: 1,
-  },
-  {
-    id: 2,
-    wallet: 'USD',
-    name: 'Иван Васкович',
-    count: 100,
-    sum: 100000,
-    status: SecondStatusesEnum.completed,
-    orderId: '121 456 789 001',
-    date: '20.09.2024',
-    time: '18:01',
-  },
-  {
-    id: 3,
-    wallet: 'TON',
-    name: 'Шермухаммаджумма Елдыбыхтынхудурбырдынков',
-    count: 100000,
-    sum: 97,
-    status: SecondStatusesEnum.canceled,
-    orderId: '121 456 789 001',
-    date: '24.05.2024',
-    time: '12:00',
-  },
-]);
-
 const transactionsHistory: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.transactionsHistory);
 
 const showTable = computed(() => {
@@ -143,7 +109,56 @@ const getTextIfThereIsNoData = computed(() => {
     case 'deals':
       return 'Список сделок пуст'
   }
-})
+});
+
+const getPaginationInfo = (obj: { currentPage: number; totalPages: number; }) => {
+  return {
+    currentPage: obj.currentPage,
+    totalPages: obj.totalPages,
+  }
+}
+
+const getTime = (date: string) => date.split('|');
+
+const data = computed(() => {
+  switch (props.type) {
+    case 'purchases':
+      return {
+        ...getPaginationInfo(transactionsHistory.value),
+        list: transactionsHistory.value.transactions.map(transaction => ({
+          id: transaction.id,
+          wallet: transaction.innerCurrency,
+          name: `${transaction.seller.firstName} ${transaction.seller.lastName}`,
+          avatar: transaction.seller.avatar,
+          count: transaction.amount,
+          sum: transaction.price,
+          status: transaction.status.name,
+          statusTranslate: transaction.statusTransaction,
+          orderId: transaction.id,
+          date: getTime(transaction.createdAt)[0],
+          time: getTime(transaction.createdAt)[1],
+          legend: 0,
+        }))
+
+        // id: 1,
+        // wallet: 'TON',
+        // name: 'Константин Константинопольский',
+        // count: 1000000,
+        // sum: 999999999,
+        // status: SecondStatusesEnum["in-process"],
+        // orderId: '121 456 789 001',
+        // date: '28.02.2024',
+        // time: '23:30',
+        // legend: 1,
+      };
+    case 'deals':
+      return {
+        currentPage: 1,
+        totalPages: 1,
+        list: [],
+      };
+  }
+});
 
 const getIcon = (type: string) => {
   switch (type) {

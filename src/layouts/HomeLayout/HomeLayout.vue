@@ -58,12 +58,14 @@ const classes = computed(() => {
 
 const setTab = (tab: ITabs) => {
   activeTab.value = tab
-  router.push({ name: routes[tab.id] })
+  if (route.name !== routes[tab.id]) {
+    router.push({ name: routes[tab.id] })
+  }
 }
 
 onMounted(() => {
-  console.log('route', route)
   if (!route.name) {
+    console.log('!route.name', route)
     router.push({ name: HomeRoutesEnum.purchase })
   }
 })
