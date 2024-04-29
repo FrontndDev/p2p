@@ -24,13 +24,15 @@
       <div class="deal__progressbar my-content-container">
         <Progressbar/>
       </div>
-      <SellerDetails/>
+      <SellerDetails
+          :name="`${transactionInfo.seller?.firstName} ${transactionInfo.seller?.lastName}`"
+      />
     </div>
 
     <div class="deal__info">
       <div class="deal__info-header">
         <div class="deal__info-title">Информация о сделке</div>
-        <AdditionalInfo date="28.02.2024" time="18:01" id="12357413255"/>
+        <AdditionalInfo :id="transactionInfo.id" :date="getDate?.[0]" :time="getDate?.[1]"/>
       </div>
 
       <div class="deal__info-item">
@@ -94,6 +96,9 @@ import Progressbar from "@/components/Progressbar/Progressbar.vue";
 import SellerDetails from "@/components/SellerDetails/SellerDetails.vue";
 import AdditionalInfo from "@/components/UI/AdditionalInfo/AdditionalInfo.vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const dealType: Ref<TDealType> = ref(DealEnum.confirmationApplication);
 
@@ -110,7 +115,11 @@ const getMessageTimeIcon = computed(() => {
     case DealEnum.dispute:
       return DisputeIcon;
   }
-})
+});
+
+const transactionInfo = computed(() => store.state.transactions.transactionInfo);
+
+const getDate = computed(() => transactionInfo.value.createdAt?.split('|'))
 </script>
 
 <style scoped lang="scss">

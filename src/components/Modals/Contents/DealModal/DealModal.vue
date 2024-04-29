@@ -51,8 +51,24 @@
           </div>
           <div class="deal-modal__right">
             <div class="deal-modal__inputs">
-              <MyInput class="no-media" title="Я отдаю" wallet="RUB"/>
-              <MyInput class="no-media" title="Я получу" wallet="USD"/>
+              <MyInput
+                  type="number"
+                  class="no-media"
+                  title="Я отдаю"
+                  wallet="RUB"
+                  :value="imGiving"
+                  @input-value="(value: string) => imGiving = value"
+                  @all="imGiving = getAmountInNumber(selectedDeal.maxAmount)"
+              />
+              <MyInput
+                  type="number"
+                  class="no-media"
+                  title="Я получу"
+                  wallet="USD"
+                  :value="iWillGet"
+                  @input-value="(value: string) => iWillGet = value"
+                  @all="iWillGet = String(selectedDeal.activeAmount)"
+              />
               <Select
                   class="no-media"
                   title="Способ оплаты"
@@ -64,7 +80,12 @@
 
             <div class="deal-modal__buttons">
               <MyButton type="neutral-btn" size="big" name="Отмена" width="50%" @click="emit('close-modal')"/>
-              <MyButton size="big" name="Открыть сделку" width="50%" @click="$router.push({ name: 'buy-currency' })"/>
+              <MyButton
+                  size="big"
+                  name="Открыть сделку"
+                  width="50%"
+                  @click="openDeal"
+              />
             </div>
           </div>
         </div>
@@ -93,6 +114,8 @@ import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { useStore } from "vuex";
 import { IAd } from "@/interfaces/store/modules/ads.interface.ts";
+import { ICreateDealParams } from "@/interfaces/store/modules/transactions.interface.ts";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   dealId: {
@@ -104,6 +127,8 @@ const props = defineProps({
 const emit = defineEmits(['close-modal']);
 
 const store = useStore();
+
+const router = useRouter();
 
 const paymentMethods = reactive([
   {
@@ -130,10 +155,27 @@ const paymentMethods = reactive([
 
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
 
-const selectedDeal: ComputedRef<IAd> = computed(() => store.state.ads.ads.ads.find((ad: IAd) => ad.id === props.dealId))
+const selectedDeal: ComputedRef<IAd> = computed(() => store.state.ads.ads.ads.find((ad: IAd) => ad.id === props.dealId));
+
+const getAmountInNumber = (str: string) => {
+  return str.replace(/\s|₽/g, '')
+}
+
+const imGiving = ref('');
+const iWillGet = ref('');
 
 const selectPaymentMethod = (paymentMethod: ISelect) => {
   selectedPaymentMethod.value = paymentMethod
+}
+
+const openDeal = () => {
+  const data: ICreateDealParams = {
+    adsId: selectedDeal.value.id,
+    amount: +imGiving.value,
+    comment: selectedDeal.value.authorComment
+  }
+  store.dispatch('transactions/createDeal', data)
+  router.push({ name: 'deal' })
 }
 
 onMounted(() => {

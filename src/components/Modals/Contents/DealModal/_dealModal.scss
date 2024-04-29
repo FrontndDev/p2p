@@ -110,7 +110,7 @@
   &__comment {
     @include flexbox(column);
     row-gap: 8px;
-    min-height: 170px;
+    min-height: 194px;
     @include get-font(14px, 500, 20px, $text-base-secondary);
 
     &-content {

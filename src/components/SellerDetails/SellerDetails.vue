@@ -20,7 +20,7 @@
               <div class="seller-details__step-content-item">
                 <div>Имя</div>
                 <div>
-                  Иван Иванов Иванович
+                  {{ props.name }}
                   <CopyIcon/>
                 </div>
               </div>
@@ -44,6 +44,13 @@
 // @ts-ignore
 import CopyIcon from '@/assets/svg/copy.svg?component';
 import RadioButton from "@/components/UI/RadioButton/RadioButton.vue";
+
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
+  }
+})
 </script>
 
 <style scoped lang="scss">

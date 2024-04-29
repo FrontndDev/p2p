@@ -7,6 +7,7 @@
         <component ref="icon" :is="props.icon" v-else/>
       </template>
       <input
+          ref="input"
           :disabled="props.disabled"
           :type="type"
           :style="getInputWidth"
@@ -18,7 +19,7 @@
     </div>
 
     <div class="my-input__wallet" ref="wallet" v-if="props.wallet">
-      <span>{{ props.wallet }}</span>|<span>Все</span>
+      <span>{{ props.wallet }}</span>|<span @click="emit('all')">Все</span>
     </div>
   </div>
 </template>
@@ -28,7 +29,8 @@ import {
   computed,
   PropType,
   Ref,
-  ref
+  ref,
+  watch
 } from "vue";
 
 const props = defineProps({
@@ -59,9 +61,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   }
-})
+});
 
-const emit = defineEmits(['inputValue', 'blur']);
+const emit = defineEmits(['inputValue', 'blur', 'all']);
+
+const input = ref();
 
 const wallet: Ref<HTMLDivElement | undefined> = ref();
 const icon: Ref<HTMLDivElement | undefined> = ref();
@@ -78,6 +82,10 @@ const inputValue = (e: Event) => {
   const event = e.target as HTMLInputElement
   emit('inputValue', event.value)
 }
+
+watch(() => props.value, () => {
+  input.value.value = props.value
+})
 </script>
 
 <style scoped lang="scss">

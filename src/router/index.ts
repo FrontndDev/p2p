@@ -37,8 +37,8 @@ const routes = [
         component: MainLayout,
         children: [
           {
-            path: 'buy-currency',
-            name: 'buy-currency',
+            path: 'deal/:transactionId',
+            name: 'deal',
             component: BuyCurrency,
             meta: {
               title: 'Купить USD',

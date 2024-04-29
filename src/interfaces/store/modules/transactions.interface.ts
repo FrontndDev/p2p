@@ -34,5 +34,7 @@ export interface ITransactionsHistory {
 }
 
 export interface ICreateDealParams {
-
+  adsId: number;
+  amount: number;
+  comment: string;
 }

@@ -1,13 +1,25 @@
 <template>
   <div class="buy-currency">
     <Deal/>
-    <Chat/>
+<!--    <Chat/>-->
   </div>
 </template>
 
 <script setup lang="ts">
 import Deal from "@/views/BuyCurrency/Deal/Deal.vue";
-import Chat from "@/components/Chat/Chat.vue";
+import {
+  onMounted
+} from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+// import Chat from "@/components/Chat/Chat.vue";
+
+const store = useStore();
+const route = useRoute();
+
+onMounted(() => {
+  store.dispatch('transactions/getTransactionInfo', route.params.transactionId )
+})
 </script>
 
 <style scoped lang="scss">

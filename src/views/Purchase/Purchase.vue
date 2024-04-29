@@ -11,7 +11,7 @@
     </div>
 
     <PurchaseAnnouncement @buy="openDeal" v-if="activeTab.id === 1"/>
-    <MyPurchasesAndDeals v-else-if="activeTab.id === 2"/>
+    <MyPurchasesAndDeals v-else-if="activeTab.id === 2" @more-details="goToDeal"/>
   </div>
 
   <PurchaseFilter @close-popup="closeModal(ModalsEnum.showPurchaseFilter)" v-if="showModals.showPurchaseFilter"/>
@@ -85,6 +85,10 @@ const closeModal = (key: ModalsEnum) => {
 const openDeal = (id: number) => {
   selectedDeal.value = id
   openModal(ModalsEnum.showDealModal)
+}
+
+const goToDeal = (transactionId: number) => {
+  router.push({ name: 'deal', params: { transactionId } })
 }
 </script>
 

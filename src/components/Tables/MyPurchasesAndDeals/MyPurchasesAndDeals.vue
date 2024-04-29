@@ -40,11 +40,22 @@
         </div>
 
         <div class="my-purchases-and-deals__button">
-          <MyButton width="100%" type="neutral-btn" name="Подробнее" :legend="row?.legend"/>
+          <MyButton
+              width="100%"
+              type="neutral-btn"
+              name="Подробнее"
+              :legend="row?.legend"
+              @click="emit('more-details', row.orderId)"
+          />
         </div>
       </div>
     </div>
-    <Pagination/>
+    <Pagination
+        :count="data.totalPages"
+        :selected-page="selectedPage"
+        v-if="data.totalPages > 1"
+        @select-page="selectPage"
+    />
   </template>
   <Preloader style="margin-bottom: 12px;" :with-text="true" v-else-if="isLoading"/>
   <template v-else>
@@ -60,12 +71,8 @@ import {
   ComputedRef,
   onMounted,
   PropType,
-  reactive
+  ref,
 } from "vue";
-import {
-  SecondStatusesEnum,
-  StatusesEnum
-} from "@/enums/statuses.enum.ts";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import Seller from "@/components/Seller/Seller.vue";
 import Pagination from "@/components/UI/Pagination/Pagination.vue";
@@ -78,9 +85,13 @@ const props = defineProps({
     type: String as PropType<'purchases' | 'deals'>,
     default: 'purchases',
   }
-})
+});
+
+const emit = defineEmits(['more-details'])
 
 const store = useStore();
+
+const selectedPage = ref(1);
 
 const transactionsHistory: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.transactionsHistory);
 
@@ -133,7 +144,7 @@ const data = computed(() => {
           count: transaction.amount,
           sum: transaction.price,
           status: transaction.status.name,
-          statusTranslate: transaction.statusTransaction,
+          statusTranslate: transaction.statusTransaction?.split(' ')?.[0],
           orderId: transaction.id,
           date: getTime(transaction.createdAt)[0],
           time: getTime(transaction.createdAt)[1],
@@ -182,6 +193,11 @@ const loadData = () => {
     case 'deals':
       break;
   }
+}
+
+const selectPage = (page: number) => {
+  selectedPage.value = page
+  loadData()
 }
 
 onMounted(() => {
