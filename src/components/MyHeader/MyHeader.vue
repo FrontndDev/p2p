@@ -42,6 +42,7 @@ import {
   ComputedRef,
   onMounted,
   PropType,
+  watch,
 } from "vue";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
@@ -50,7 +51,10 @@ import {
 } from "@/components/UI/Select/select.interface.ts";
 
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
-import { useRoute } from "vue-router";
+import {
+  useRoute,
+  useRouter
+} from "vue-router";
 import { HomeRoutesEnum } from "@/enums/home-routes.enum.ts";
 import { useStore } from "vuex";
 import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
@@ -71,6 +75,7 @@ const emit = defineEmits([
   'input-value',
 ]);
 
+const router = useRouter();
 const route = useRoute();
 
 const store = useStore();
@@ -137,19 +142,15 @@ const selectItem = async (item: ISelect, id: number) => {
   switch (id) {
     case 1:
       // Выбираем валюту которую покупаем
-      store.commit('currencies/SET_INNER_CURRENCY', item);
+      router.push({ query: { ...route.query, inner: item.name } })
       break;
     case 2:
       // Выбираем валюту которую отдаём
-      store.commit('currencies/SET_OUTER_CURRENCY', item);
-      // При смене внутренней валюты получаем доступные способы оплаты
-      await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
-        store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
-      });
+      router.push({ query: { ...route.query, outer: item.name } })
       break;
     case 3:
       // Выбираем способ оплаты
-      store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', item)
+      router.push({ query: { ...route.query, payment_method: item.name } })
       break;
   }
 
@@ -170,10 +171,28 @@ const setTab = (tab: ITabs) => {
 }
 
 const setCurrencies = () => {
-  store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
-  store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
-  emit('set-inner-currency', innerCurrencies.value[0])
-  emit('set-outer-currency', outerCurrencies.value[0])
+  setInnerCurrency()
+  setOuterCurrency()
+}
+
+const setInnerCurrency = () => {
+  const currencyName = route.query.inner;
+  const currency = innerCurrencies.value.find(currency => currency.name === currencyName) ?? innerCurrencies.value[0];
+  console.log('inner currency', currency)
+  if (currency) {
+    store.commit('currencies/SET_INNER_CURRENCY', currency);
+    emit('set-inner-currency', currency);
+  }
+}
+
+const setOuterCurrency = () => {
+  const currencyName = route.query.outer;
+  const currency = outerCurrencies.value.find(currency => currency.name === currencyName) ?? outerCurrencies.value[0];
+  console.log('outer currency', currency)
+  if (currency) {
+    store.commit('currencies/SET_INNER_CURRENCY', currency);
+    emit('set-outer-currency', currency);
+  }
 }
 
 const getPaymentMethodsByCurrency = () => {
@@ -186,10 +205,25 @@ const getPaymentMethodsByCurrency = () => {
   })
 }
 
+// watch(() => route.query.inner, () => {
+//   store.commit('currencies/SET_INNER_CURRENCY', item);
+// })
+//
+// watch(() => route.query.outer, async () => {
+//   store.commit('currencies/SET_OUTER_CURRENCY', item);
+//   // При смене внутренней валюты получаем доступные способы оплаты
+//   await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
+//     store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+//   });
+// })
+//
+// watch(() => route.query.payment_method, () => {
+//   store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', item)
+// })
+
 onMounted( () => {
   if (outerCurrencies.value?.length) {
     setValue(() => setCurrencies())
-    setValue(() => getPaymentMethodsByCurrency())
   } else {
     // Получаем списки валют
     store.dispatch('currencies/getCurrencies').then(() => {
