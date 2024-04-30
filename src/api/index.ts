@@ -28,6 +28,10 @@ export async function getAds({ currency, page, min_amount, payment_method_id }: 
   return getAsync(`/api/v1/p2p/ads` + query);
 }
 
+export async function getProfileAds(page: number) {
+  return getAsync(`/api/v1/p2p/profile/ads?page=${page}`)
+}
+
 export async function getPaymentMethodsByCurrency(currency: string) {
   return getAsync(`/api/v1/p2p/payment-method?currency=${currency}`)
 }

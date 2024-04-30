@@ -1,1 +1,10 @@
-export type TDealType = 'confirmationApplication' | 'confirmationPayment' | 'completed' | 'canceled' | 'dispute';
+export type TDealType =
+  'pending' |
+  'accepted' |
+  'completed' |
+  'cancelled' |
+  'declined' |
+  'payed' |
+  'error' |
+  'expired' |
+  'payment_confirmation_expired';

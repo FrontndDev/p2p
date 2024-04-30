@@ -34,7 +34,7 @@
         <div class="ad__row-content">
           <Select
               title="Тип цены"
-              :items="priceTypes"
+              :items="props.priceTypes"
               :selected-item="props.selectedPriceType"
               @select="selectPriceType"
           />
@@ -83,7 +83,9 @@
                 title="Количество на продажу"
                 wallet="TON"
                 :icon="TONIcon"
+                :value="String(amountOfCurrency)"
                 @input-value="inputAmountOfCurrency"
+                @all="inputAmountOfCurrency(props.maxAmount?.split('Р')[0] ?? '')"
             />
 
             <div class="ad__row-input-info">
@@ -193,7 +195,6 @@ import {
   ComputedRef,
   onMounted,
   PropType,
-  reactive,
   watch
 } from "vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
@@ -207,6 +208,10 @@ import {
 } from "@/interfaces/store/modules/profile.interface.ts";
 
 const props = defineProps({
+  priceTypes: {
+    type: Array as PropType<ISelect[]>,
+    required: true,
+  },
   selectedInnerCurrency: {
     type: Object as PropType<ISelect | null>,
     required: true,
@@ -225,6 +230,7 @@ const props = defineProps({
   },
   amountOfCurrency: {
     type: Number,
+    required: true,
   },
   sellingPrice: {
     type: Number,
@@ -255,17 +261,6 @@ const emit = defineEmits([
 
 const route = useRoute();
 const store = useStore();
-
-const priceTypes = reactive([
-  {
-    id: 1,
-    name: 'Фиксированная'
-  },
-  {
-    id: 2,
-    name: 'Динамическая'
-  }
-]);
 
 const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
@@ -333,7 +328,7 @@ watch(() => paymentMethods.value?.length, () => {
 });
 
 onMounted(() => {
-  selectPriceType(priceTypes[0])
+  selectPriceType(props.priceTypes[0])
   selectInnerCurrency(innerCurrencies.value[0])
   selectOuterCurrency(outerCurrencies.value[0])
   getCurrentRate(innerCurrencies.value[0].name, outerCurrencies.value[0].name)

@@ -1,8 +1,8 @@
 <template>
-  <Modal width="560px" padding="24px" title="Добавить реквизиты" @close-modal="emit('close-modal')">
+  <Modal width="560px" padding="24px" title="Редактировать реквизиты" @close-modal="emit('close-modal')">
     <template #content>
-      <div class="add-requisites-modal">
-        <div class="add-requisites-modal__content">
+      <div class="edit-requisites-modal">
+        <div class="edit-requisites-modal__content">
           <Select
               title="Валюта"
               :items="wallets"
@@ -23,20 +23,20 @@
           />
         </div>
 
-        <div class="add-requisites-modal__buttons">
+        <div class="edit-requisites-modal__buttons">
           <MyButton
               type="neutral-btn"
               size="big"
-              name="Отмена"
+              name="Удалить"
               width="100%"
-              @click="emit('close-modal')"
+              @click="deleteRequisite"
           />
           <MyButton
               :disabled="requestInProcess"
               size="big"
-              name="Добавить"
+              name="Сохранить"
               width="100%"
-              @click="addRequisite"
+              @click="editRequisite"
           />
         </div>
       </div>
@@ -52,6 +52,7 @@ import {
   computed,
   ComputedRef,
   onMounted,
+  PropType,
   Ref,
   ref,
 } from "vue";
@@ -59,19 +60,34 @@ import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
 import { useStore } from "vuex";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
-import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
 import { getPaymentMethodsByCurrency } from "@/api";
+import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
+import { IUpdateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
+
+const props = defineProps({
+  selectedRequisite: {
+    type: Object as PropType<IRequisite>,
+    required: true,
+  }
+});
 
 const emit = defineEmits(['close-modal']);
 
 const store = useStore();
 
 const requestInProcess = ref(false);
+let paymentMethods: Ref<ISelect[]> = ref([]);
 
 const wallets: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
-let paymentMethods: Ref<ISelect[]> = ref([]);
+//
+const selectedRequisiteCurrency: ComputedRef<ISelect | undefined> = computed(() =>
+    wallets.value.find(wallet => wallet.name === props.selectedRequisite?.currency)
+);
+const selectedRequisitePaymentMethod: ComputedRef<ISelect | undefined> = computed(() =>
+    paymentMethods.value.find(method => method.name === props.selectedRequisite?.paymentMethod)
+);
 
 const selectedWallet: Ref<ISelect | null> = ref(null);
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
@@ -94,30 +110,34 @@ const selectWallet = (item: ISelect) => {
   setPaymentMethods()
 }
 
-const addRequisite = async () => {
-  if (selectedWallet.value && selectedPaymentMethod.value && cardNumber.value && !requestInProcess.value) {
-    requestInProcess.value = true
-    const data: ICreateRequisiteParams = {
-      requisite: cardNumber.value,
-      currency: selectedWallet.value?.name,
-      payment_method: selectedPaymentMethod.value?.id
-    }
-    const response = await store.dispatch('requisites/createRequisite', data)
+const deleteRequisite = () => {
+  store.dispatch('requisites/deleteRequisite', props.selectedRequisite?.id)
+  emit('close-modal')
+}
 
-    requestInProcess.value = false
-    if (response?.data?.error_code === undefined) {
-      emit('close-modal')
+const editRequisite = () => {
+  if (props.selectedRequisite && cardNumber.value && selectedWallet.value && selectedPaymentMethod.value) {
+    const data: IUpdateRequisiteParams = {
+      id: props.selectedRequisite.id,
+      data: {
+        requisite: cardNumber.value,
+        currency: selectedWallet.value?.name,
+        payment_method: selectedPaymentMethod.value?.id
+      }
     }
+    store.dispatch('requisites/updateRequisite', data)
   }
+  emit('close-modal')
 }
 
 onMounted(async () => {
-  selectedWallet.value = wallets.value[0];
+  selectedWallet.value = selectedRequisiteCurrency.value ?? wallets.value[0]
+  cardNumber.value = props.selectedRequisite?.requisite ?? ''
   await setPaymentMethods()
-  selectedPaymentMethod.value = paymentMethods.value[0];
+  selectedPaymentMethod.value = selectedRequisitePaymentMethod.value ?? paymentMethods.value[0];
 });
 </script>
 
 <style scoped lang="scss">
-@import "addRequisitesModal";
+@import "editRequisitesModal";
 </style>

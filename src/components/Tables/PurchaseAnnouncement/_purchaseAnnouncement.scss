@@ -5,6 +5,10 @@
   &__row {
     grid-template-columns: 304px 88px 112px 172px 174px 102px;
 
+    &:not(.my-table__row_headers):hover {
+      background: $bg-base-secondary;
+    }
+
     &:hover .my-button {
       background: $bg-green-secondary-default;
       color: $text-base;

@@ -6,7 +6,7 @@
           <div class="deal__icon" :class="dealType">
             <component :is="getMessageTimeIcon"/>
           </div>
-          Подтверждение заявки продавцом
+          {{ transactionInfo.statusTransaction ?? 'Загрузка...' }}
         </div>
         <div class="deal__timer">
           <div class="deal__timer-item">14</div>
@@ -22,7 +22,10 @@
       <div class="deal__text">Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок</div>
 
       <div class="deal__progressbar my-content-container">
-        <Progressbar/>
+        <Progressbar
+            :status="dealType"
+            v-if="dealType !== DealEnum.completed && dealType !== DealEnum.pending"
+        />
       </div>
       <SellerDetails
           :name="`${transactionInfo.seller?.firstName} ${transactionInfo.seller?.lastName}`"
@@ -88,7 +91,6 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { TDealType } from "@/views/BuyCurrency/Deal/deal.interface.ts";
 import {
   computed,
-  ref,
   Ref
 } from "vue";
 import { DealEnum } from "@/views/BuyCurrency/Deal/deal.enum.ts";
@@ -100,24 +102,28 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const dealType: Ref<TDealType> = ref(DealEnum.confirmationApplication);
+const transactionInfo = computed(() => store.state.transactions.transactionInfo);
+
+const dealType: Ref<TDealType> = computed(() => transactionInfo.value.status?.name);
 
 const getMessageTimeIcon = computed(() => {
   switch (dealType.value) {
-    case DealEnum.confirmationApplication:
+    case DealEnum.pending:
       return ClockIcon;
-    case DealEnum.confirmationPayment:
+    case DealEnum.payed:
       return ExclamationIcon;
     case DealEnum.completed:
       return CheckMarkIcon;
-    case DealEnum.canceled:
+    case DealEnum.expired:
+    case DealEnum.payment_confirmation_expired:
+    case DealEnum.cancelled:
+    case DealEnum.error:
+    case DealEnum.declined:
       return CrossIcon;
-    case DealEnum.dispute:
-      return DisputeIcon;
+    // case DealEnum.dispute:
+    //   return DisputeIcon;
   }
 });
-
-const transactionInfo = computed(() => store.state.transactions.transactionInfo);
 
 const getDate = computed(() => transactionInfo.value.createdAt?.split('|'))
 </script>

@@ -25,6 +25,8 @@ export interface IAd {
   activeAmount: number;
   innerCurrency: string;
   outerCurrency: string;
+  price_type: string;
+  price_percent: number | null;
 }
 
 export interface IAds {

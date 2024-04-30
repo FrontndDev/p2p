@@ -55,7 +55,7 @@ const routes = [
             }
           },
           {
-            path: 'edit-ad',
+            path: 'edit-ad/:id',
             name: 'edit-ad',
             component: PlaceAd,
             meta: {

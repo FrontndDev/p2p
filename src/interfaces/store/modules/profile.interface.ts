@@ -35,3 +35,9 @@ export interface IProfile {
   userCanCreateAds: IUserCanCreateAds;
   statistics: IStatistics;
 }
+
+export interface IInteractionWithWallet {
+  amount: number;
+  action: string;
+  currency: string;
+}

@@ -54,7 +54,6 @@
 import Tabs from "@/components/UI/Tabs/Tabs.vue";
 import {
   onBeforeMount,
-  onMounted,
   reactive,
   ref,
   Ref
@@ -69,9 +68,6 @@ import InformationAboutTransfers from "@/components/InformationAboutTransfers/In
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import AddRequisitesModal from "@/components/Modals/Contents/AddRequisitesModal/AddRequisitesModal.vue";
 import RemoveRequisitesModal from "@/components/Modals/Contents/RemoveRequisitesModal/RemoveRequisitesModal.vue";
-import { useStore } from "vuex";
-
-const store = useStore();
 
 const tabs = reactive([
   {

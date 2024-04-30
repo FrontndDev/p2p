@@ -19,8 +19,8 @@ export default {
     getTransactionInfo({ commit }: TCtx, id: number) {
       API.getTransactionInfo(id).then(response => commit('SET_TRANSACTION_INFO', response.data.transaction))
     },
-    createDeal(_: TCtx, data: ICreateDealParams) {
-      API.createDeal(data).then(response => console.log('createDeal response', response))
+    async createDeal(_: TCtx, data: ICreateDealParams) {
+      return await API.createDeal(data)
     },
   },
   mutations: {

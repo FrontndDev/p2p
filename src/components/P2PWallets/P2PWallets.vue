@@ -31,10 +31,33 @@
       </div>
 
       <div class="p2p-wallets__item-buttons">
-        <MyButton type="neutral-btn" width="100%" name="Вывести"/>
-        <MyButton type="second-primary-btn" width="100%" name="Пополнить"/>
+        <MyButton
+            type="neutral-btn"
+            width="100%"
+            name="Вывести"
+            @click="withdraw(wallet)"
+        />
+        <MyButton
+            type="second-primary-btn"
+            width="100%"
+            name="Пополнить"
+            @click="replenish(wallet)"
+        />
       </div>
     </div>
+
+    <!--  Пополнение кошелька   -->
+    <WalletReplenishmentModal
+        :selected-wallet="selectedWallet"
+        v-if="showWalletReplenishmentModal && selectedWallet"
+        @close-modal="showWalletReplenishmentModal = false"
+    />
+    <!--  Вывод средств   -->
+    <WithdrawalFundsModal
+        :selected-wallet="selectedWallet"
+        v-if="showWithdrawalFundsModal && selectedWallet"
+        @close-modal="showWithdrawalFundsModal = false"
+    />
   </div>
 </template>
 
@@ -43,13 +66,35 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { useStore } from "vuex";
 import {
   computed,
-  ComputedRef
+  ComputedRef,
+  Ref,
+  ref
 } from "vue";
-import { IWallets } from "@/interfaces/store/modules/profile.interface.ts";
+import {
+  IWallet,
+  IWallets
+} from "@/interfaces/store/modules/profile.interface.ts";
+import WithdrawalFundsModal from "@/components/Modals/Contents/WithdrawalFundsModal/WithdrawalFundsModal.vue";
+import WalletReplenishmentModal
+  from "@/components/Modals/Contents/WalletReplenishmentModal/WalletReplenishmentModal.vue";
 
 const store = useStore();
 
-const wallets: ComputedRef<IWallets> = computed(() => store.state.profile.profile.wallets)
+const selectedWallet: Ref<IWallet | null> = ref(null);
+const showWalletReplenishmentModal = ref(false);
+const showWithdrawalFundsModal = ref(false);
+
+const wallets: ComputedRef<IWallets> = computed(() => store.state.profile.profile.wallets);
+
+const withdraw = (wallet: IWallet) => {
+  selectedWallet.value = wallet
+  showWithdrawalFundsModal.value = true
+}
+
+const replenish = (wallet: IWallet) => {
+  selectedWallet.value = wallet
+  showWalletReplenishmentModal.value = true
+}
 </script>
 
 <style scoped lang="scss">

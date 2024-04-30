@@ -1,7 +1,11 @@
 export enum DealEnum {
-  confirmationApplication = 'confirmationApplication',
-  confirmationPayment = 'confirmationPayment',
+  pending = 'pending',
+  accepted = 'accepted',
   completed = 'completed',
-  canceled = 'canceled',
-  dispute = 'dispute',
+  cancelled = 'cancelled',
+  declined = 'declined',
+  payed = 'payed',
+  error = 'error',
+  expired = 'expired',
+  payment_confirmation_expired = 'payment_confirmation_expired'
 }

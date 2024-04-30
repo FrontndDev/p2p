@@ -168,14 +168,14 @@ const selectPaymentMethod = (paymentMethod: ISelect) => {
   selectedPaymentMethod.value = paymentMethod
 }
 
-const openDeal = () => {
+const openDeal = async () => {
   const data: ICreateDealParams = {
     adsId: selectedDeal.value.id,
     amount: +imGiving.value,
     comment: selectedDeal.value.authorComment
   }
-  store.dispatch('transactions/createDeal', data)
-  router.push({ name: 'deal' })
+  const response = await store.dispatch('transactions/createDeal', data)
+  await router.push({ name: 'deal', params: { transactionId: response.data.transaction.id } })
 }
 
 onMounted(() => {

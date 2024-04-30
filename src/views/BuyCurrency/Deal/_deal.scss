@@ -41,11 +41,11 @@
     height: 24px;
     border-radius: 50%;
 
-    &.confirmationApplication {
+    &.pending {
       background: $bg-base-contrast;
     }
 
-    &.confirmationPayment {
+    &.payed {
       background: $bg-orange;
     }
 
@@ -53,7 +53,11 @@
       background: $bg-green;
     }
 
-    &.canceled {
+    &.expired,
+    &.payment_confirmation_expired,
+    &.cancelled,
+    &.error,
+    &.declined {
       background: $bg-red;
     }
 

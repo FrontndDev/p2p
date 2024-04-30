@@ -19,6 +19,11 @@
     display: none;
   }
 
+  &__content {
+    max-height: 490px;
+    overflow-y: auto;
+  }
+
   &__item {
     display: grid;
     justify-content: space-between;

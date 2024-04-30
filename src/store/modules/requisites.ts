@@ -1,27 +1,24 @@
 import * as API from '@/api';
 import { TCtx } from "@/types/types";
-import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
+import {
+  ICreateRequisiteParams,
+  IUpdateRequisiteParams
+} from "@/interfaces/store/modules/requisites.interface.ts";
 
 export default {
   namespaced: true,
-  state: {
-
-  },
   actions: {
-    async createRequisite(_: TCtx, data: ICreateRequisiteParams) {
+    async createRequisite({ commit }: TCtx, data: ICreateRequisiteParams) {
       return await API.createRequisite(data).then(response => {
-        console.log('createRequisite response', response)
+        commit('profile/ADD_REQUISITE', response.data.requisite, { root: true })
         return response
       })
     },
-    updateRequisite(_: TCtx, { id, data }: any) {
-      API.updateRequisite(id, data).then(response => console.log('updateRequisite response', response))
+    updateRequisite({ commit }: TCtx, { id, data }: IUpdateRequisiteParams) {
+      API.updateRequisite(id, data).then(response => commit('profile/UPDATE_REQUISITE', response.data.requisite, { root: true }))
     },
-    deleteRequisite(_: TCtx, id: number) {
-      API.deleteRequisite(id).then(response => console.log('deleteRequisite response', response))
+    deleteRequisite({ commit }: TCtx, id: number) {
+      API.deleteRequisite(id).then(() => commit('profile/DELETE_REQUISITE', id, { root: true }))
     }
   },
-  mutations: {
-
-  }
 }

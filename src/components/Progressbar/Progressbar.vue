@@ -23,29 +23,63 @@ import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
 // @ts-ignore
 import CrossIcon from '@/assets/svg/deal/cross.svg?component';
 
-import { reactive } from "vue";
+import {
+  computed,
+  PropType,
+} from "vue";
+import { TDealType } from "@/views/BuyCurrency/Deal/deal.interface.ts";
+import { DealEnum } from "@/views/BuyCurrency/Deal/deal.enum.ts";
 
-const steps = reactive([
-  {
-    id: 1,
-    name: 'Оплата сделки покупателем',
-    type: 'completed',
-  },
-  {
-    id: 2,
-    name: 'Подтверждение оплаты продавцом',
-    type: 'active',
-  },
-  {
-    id: 3,
-    name: 'Завершено',
+const props = defineProps({
+  status: {
+    type: String as PropType<TDealType>,
+    required: true,
   }
-]);
+})
+
+// const steps = reactive([
+//   {
+//     id: 1,
+//     name: 'Оплата сделки покупателем',
+//     type: 'active',
+//   },
+//   {
+//     id: 2,
+//     name: 'Подтверждение оплаты продавцом',
+//   },
+//   {
+//     id: 3,
+//     name: 'Завершено',
+//   }
+// ]);
+
+const steps = computed(() => {
+  let steps: { name: string; type?: string; }[] = [];
+
+  switch (props.status) {
+    case DealEnum.payed:
+      steps = [
+        {
+          name: 'Оплата сделки покупателем',
+          type: 'active',
+        },
+        {
+          name: 'Подтверждение оплаты продавцом',
+        },
+        {
+          name: 'Завершено',
+        }
+      ]
+      break;
+  }
+
+  return steps.map((step, idx) => ({ id: idx + 1, ...step }))
+})
 
 const getIcon = (step: any) => {
-  const index = steps.map(step => step.id).indexOf(step.id)
+  const index = steps.value.map(step => step.id).indexOf(step.id)
 
-  if (steps[index + 1]?.type === 'canceled') {
+  if (steps.value[index + 1]?.type === 'canceled') {
     return CheckMarkIcon
   } else {
     switch (step.type) {

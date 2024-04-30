@@ -14,10 +14,6 @@
     padding: 17px 24px;
     transition: .25s all ease;
 
-    &:not(.my-table__row_headers):hover {
-      background: $bg-base-secondary;
-    }
-
     &_headers {
       padding: 16px 24px;
       border-top: 1px solid $border-base-light;
