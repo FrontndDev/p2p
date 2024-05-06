@@ -45,6 +45,15 @@
               type="neutral-btn"
               name="Подробнее"
               :legend="row?.legend"
+              v-if="props.type === 'purchases'"
+              @click="emit('more-details', row.orderId)"
+          />
+          <MyButton
+              width="100%"
+              type="primary-btn"
+              name="Принять"
+              :legend="row?.legend"
+              v-if="props.type === 'deals'"
               @click="emit('more-details', row.orderId)"
           />
         </div>
@@ -79,6 +88,7 @@ import Pagination from "@/components/UI/Pagination/Pagination.vue";
 import { useStore } from "vuex";
 import { ITransactionsHistory } from "@/interfaces/store/modules/transactions.interface.ts";
 import Preloader from "@/components/UI/Preloader/Preloader.vue";
+import { IProfileAds } from "@/interfaces/store/modules/profile.interface.ts";
 
 const props = defineProps({
   type: {
@@ -94,6 +104,7 @@ const store = useStore();
 const selectedPage = ref(1);
 
 const transactionsHistory: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.transactionsHistory);
+const profileAds: ComputedRef<IProfileAds> = computed(() => store.state.profile.ads);
 
 const showTable = computed(() => {
   switch (props.type) {
@@ -150,23 +161,25 @@ const data = computed(() => {
           time: getTime(transaction.createdAt)[1],
           legend: 0,
         }))
-
-        // id: 1,
-        // wallet: 'TON',
-        // name: 'Константин Константинопольский',
-        // count: 1000000,
-        // sum: 999999999,
-        // status: SecondStatusesEnum["in-process"],
-        // orderId: '121 456 789 001',
-        // date: '28.02.2024',
-        // time: '23:30',
-        // legend: 1,
       };
     case 'deals':
       return {
         currentPage: 1,
         totalPages: 1,
-        list: [],
+        list: profileAds.value.ads.map(ad => ({
+          id: ad.id,
+          wallet: ad.innerCurrency,
+          name: `${ad.adsAuthor.first_name} ${ad.adsAuthor.last_name}`,
+          avatar: ad.adsAuthor.avatar,
+          count: ad.activeAmount,
+          sum: ad.priceToShow,
+          status: '',
+          statusTranslate: '',
+          orderId: ad.id,
+          date: '',
+          time: '',
+          legend: 0,
+        })),
       };
   }
 });
@@ -191,6 +204,7 @@ const loadData = () => {
       store.dispatch('transactions/getTransactionsHistory')
       break;
     case 'deals':
+      store.dispatch('profile/getAds')
       break;
   }
 }

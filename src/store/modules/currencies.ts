@@ -10,6 +10,7 @@ export default {
     outerCurrencies: [] as string[],
     innerCurrency: {} as ISelect,
     outerCurrency: {} as ISelect,
+    telegramBotUrl: '',
     currentRate: 0 as number,
   },
   actions: {
@@ -19,11 +20,13 @@ export default {
       if (data) {
         commit('SET_INNER_CURRENCIES', data.inner_currencies)
         commit('SET_OUTER_CURRENCIES', data.outer_currencies)
+        commit('SET_TELEGRAM_BOT_URL', data.telegramBotUrl)
       }
 
       return await API.getServiceInformation().then(response => {
         commit('SET_INNER_CURRENCIES', response.data.inner_currencies)
         commit('SET_OUTER_CURRENCIES', response.data.outer_currencies)
+        commit('SET_TELEGRAM_BOT_URL', response.data.telegramBotUrl)
         API.setDataToLS(key, response.data)
 
         return response
@@ -48,6 +51,9 @@ export default {
     },
     SET_CURRENT_RATE(state: any, rate: any) {
       state.currentRate = rate
+    },
+    SET_TELEGRAM_BOT_URL(state: any, url: string) {
+      state.telegramBotUrl = url
     }
   },
 }

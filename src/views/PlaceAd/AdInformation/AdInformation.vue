@@ -44,7 +44,13 @@
             <MyButton size="big" width="100%" name="Разместить объявление" @click="emit('create-ad')"/>
           </template>
           <div class="ad-information__buttons" v-else-if="route.name === 'edit-ad'">
-            <MyButton type="neutral-btn" size="big" width="100%" name="Удалить">
+            <MyButton
+                type="neutral-btn"
+                size="big"
+                width="100%"
+                name="Удалить"
+                @click="deleteAd"
+            >
               <template #icon-left>
                 <TrashIcon/>
               </template>
@@ -68,13 +74,18 @@ import TrashIcon from '@/assets/svg/trash.svg?component';
 import PauseIcon from '@/assets/svg/pause.svg?component';
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import {
+  computed,
   PropType,
   ref
 } from "vue";
 import MyCheckbox from "@/components/UI/MyCheckbox/MyCheckbox.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
-import { useRoute } from "vue-router";
+import {
+  useRoute,
+  useRouter
+} from "vue-router";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
+import { useStore } from "vuex";
 
 const props = defineProps({
   selectedInnerCurrency: {
@@ -103,11 +114,20 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['create-ad'])
+const emit = defineEmits(['create-ad']);
 
+const store = useStore();
+const router = useRouter();
 const route = useRoute();
 
 const conditions = ref(false);
+
+const adId = computed(() => +route.params.id)
+
+const deleteAd = async () => {
+  await store.dispatch('profile/deleteAd', adId.value)
+  await router.push({ name: 'sale' })
+}
 </script>
 
 <style scoped lang="scss">

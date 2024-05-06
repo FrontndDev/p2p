@@ -41,3 +41,35 @@ export interface IInteractionWithWallet {
   action: string;
   currency: string;
 }
+
+export interface AdsAuthor {
+  id: number;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
+
+export interface IProfileAd {
+  id: number;
+  price: string;
+  paymentMethod: string;
+  adsAuthor: AdsAuthor;
+  availableValue: string;
+  authorComment: string;
+  priceToShow: string;
+  currencyForBuy: string;
+  currencyForSell: string;
+  minAmount: string;
+  maxAmount: string;
+  activeAmount: number;
+  innerCurrency: string;
+  outerCurrency: string;
+  priceType: string;
+  pricePercent: number;
+}
+
+export interface IProfileAds {
+  ads: IProfileAd[];
+  currentPage: number;
+  totalPages: number;
+}

@@ -1,9 +1,7 @@
 import * as API from '@/api';
 import { TCtx } from "@/types/types";
 import {
-  IAdParams,
   IGetAdsParams,
-  IUpdateAd
 } from "@/interfaces/store/modules/ads.interface.ts";
 import {
   IAds,
@@ -29,15 +27,6 @@ export default {
       }
       API.getAds(data).then(response => commit('SET_ADS', response.data))
     },
-    createAd(_: TCtx, data: IAdParams) {
-      API.createAd(data).then(response => console.log('createAd response', response))
-    },
-    updateAd(_: TCtx, { id, data }: IUpdateAd) {
-      API.updateAd(id, data).then(response => console.log('updateAd response', response))
-    },
-    deleteAd(_: TCtx, id: number) {
-      API.deleteAd(id).then(response => console.log('deleteAd response', response))
-    }
   },
   mutations: {
     SET_ADS(state: any, ads: IAds) {

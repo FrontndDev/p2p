@@ -127,7 +127,7 @@ const data: ComputedRef<IAdParams> = computed(() => ({
 }));
 
 const createAd = async () => {
-  await store.dispatch('ads/createAd', data.value)
+  await store.dispatch('profile/createAd', data.value)
   await router.push({ name: 'sale' })
 }
 

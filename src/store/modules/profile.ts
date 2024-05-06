@@ -6,7 +6,11 @@ import {
   IRequisite,
   IWallet
 } from "@/interfaces/store/modules/profile.interface.ts";
-import { IAds } from "@/interfaces/store/modules/ads.interface.ts";
+import {
+  IAdParams,
+  IAds,
+  IUpdateAd
+} from "@/interfaces/store/modules/ads.interface.ts";
 
 export default {
   namespaced: true,
@@ -21,6 +25,15 @@ export default {
     },
     getAds({ commit, state }: TCtx) {
       API.getProfileAds(state.page).then(response => commit('SET_ADS', response.data))
+    },
+    async createAd(_: TCtx, data: IAdParams) {
+      return await API.createAd(data).then(response => response)
+    },
+    updateAd(_: TCtx, { id, data }: IUpdateAd) {
+      API.updateAd(id, data).then(response => console.log('updateAd response', response))
+    },
+    async deleteAd(_: TCtx, id: number) {
+      return await API.deleteAd(id).then(response => response)
     },
     topUpWallet({ commit }: TCtx, data: IInteractionWithWallet) {
       API.topUpWallet(data).then(response => commit('UPDATE_WALLET', response.wallet))

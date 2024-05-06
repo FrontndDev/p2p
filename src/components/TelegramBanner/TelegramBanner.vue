@@ -5,8 +5,10 @@
     <div class="telegram-banner__button">
       <MyButton
           width="100%"
-          :type="telegramActive ? 'neutral-btn' : 'second-success-btn'"
-          :name="telegramActive ? 'Отвязать' : 'Привязать'"
+          type="second-success-btn"
+          name="Привязать"
+          v-if="!telegramActive"
+          @click="bindTelegramBot"
       />
     </div>
   </div>
@@ -19,7 +21,13 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const telegramActive = computed(() => store.state.profile.profile.telegramActive)
+const telegramActive = computed(() => store.state.profile.profile.telegramActive);
+
+const telegramBotUrl = computed(() => store.state.currencies.telegramBotUrl);
+
+const bindTelegramBot = () => {
+  window.location.href = telegramBotUrl.value
+}
 </script>
 
 <style scoped lang="scss">
