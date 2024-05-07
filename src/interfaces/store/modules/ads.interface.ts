@@ -16,6 +16,8 @@ export interface IAd {
   paymentMethod: string;
   adsAuthor: AdsAuthor;
   availableValue: string;
+  isActive: number;
+  createdAt: string;
   authorComment: string;
   priceToShow: string;
   currencyForBuy: string;

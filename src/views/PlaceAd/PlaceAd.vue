@@ -41,6 +41,7 @@ import { useStore } from "vuex";
 import {
   computed,
   ComputedRef,
+  onMounted,
   reactive,
   Ref,
   ref,
@@ -50,12 +51,14 @@ import {
   IAdParams,
 } from "@/interfaces/store/modules/ads.interface.ts";
 import {
+  useRoute,
   useRouter
 } from "vue-router";
+import { getAd } from "@/api";
 
 const store = useStore();
 const router = useRouter();
-// const route = useRoute();
+const route = useRoute();
 
 const selectedInnerCurrency: Ref<ISelect | null> = ref(null);
 const selectedOuterCurrency: Ref<ISelect | null> = ref(null);
@@ -78,32 +81,6 @@ const priceTypes = reactive([
     name: 'Динамическая'
   }
 ]);
-
-// const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
-//     store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
-// );
-// const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
-//     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
-// );
-// const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
-//     store.state.profile.profile?.requisites?.map((method: IRequisite) => ({ id: method.id, name: method.paymentMethod }))
-// );
-//
-// const editableAd: ComputedRef<IAdParams> = computed(() => {
-//   const ad: IAd = store.state.profile.ads.ads?.find((ad: IAd) => ad.id === +route.params?.id);
-//
-//   return {
-//     inner_currency: ad?.innerCurrency,
-//     outer_currency: ad?.outerCurrency,
-//     requisite_id: -1,
-//     min_amount: getAmountInNumber(ad?.minAmount),
-//     max_amount: getAmountInNumber(ad?.maxAmount),
-//     comment: ad?.authorComment,
-//     factor: undefined, // if price_type == float
-//     price: undefined, // if price_type == fixed
-//     price_type: '' // percent | float
-//   }
-// });
 
 const priceType = computed(() => {
   switch (selectedPriceType.value?.id) {
@@ -131,34 +108,12 @@ const createAd = async () => {
   await router.push({ name: 'sale' })
 }
 
-// const getAmountInNumber = (str: string) => {
-//   return str?.replace(/\s|₽/g, '')
-// }
-
-// const setDataForEditAd = () => {
-//   const getCurrency = (currencies: ISelect[], key: 'inner_currency' | 'outer_currency') => {
-//     return currencies.find(cur => cur.name === editableAd.value[key]) ?? currencies[0]
-//   }
-//   // const selectedInnerCurrency: Ref<ISelect | null> = ref(null);
-//   // const selectedOuterCurrency: Ref<ISelect | null> = ref(null);
-//   // const selectedPriceType: Ref<ISelect | null> = ref(null);
-//   // const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
-//   // const minAmount = ref(10);
-//   // const maxAmount = ref(20);
-//   // const comment = ref('');
-//   // const factor: Ref<number | undefined> = ref(undefined);
-//   // const price: Ref<number | undefined> = ref(undefined);
-//   // const amountOfCurrency: Ref<number | undefined> = ref(undefined);
-//   selectedInnerCurrency.value = getCurrency(innerCurrencies.value, 'inner_currency');
-//   selectedOuterCurrency.value = getCurrency(outerCurrencies.value, 'outer_currency');
-//   // selectedPriceType.value = editableAd.value.price_type
-// }
-//
-// onMounted(() => {
-//   if (route.params.id) {
-//     setDataForEditAd()
-//   }
-// })
+onMounted(async () => {
+  if (route.params.id) {
+    const data = await getAd(+route.params.id)
+    console.log('getAd(route.params.id)', data)
+  }
+})
 </script>
 
 <style scoped lang="scss">

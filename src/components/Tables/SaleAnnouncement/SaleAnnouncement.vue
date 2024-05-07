@@ -33,10 +33,10 @@
             {{ ad.minAmount }} - {{ ad.maxAmount }}
           </div>
         </div>
-        <div class="sale-announcement__status" :class="'completed'">STATUS</div>
+        <div class="sale-announcement__status" :class="ad.isActive ? 'completed' : 'canceled'">{{ ad.isActive ? 'Активен' : 'Не активен' }}</div>
         <div class="sale-announcement__date">
           <span>Дата</span>
-          <span>28.02.2024</span>|<span>23:30</span>
+          <span>{{ getDateSecond(ad.createdAt)[0] }}</span>|<span>{{ getDateSecond(ad.createdAt)[1] }}</span>
         </div>
         <div class="sale-announcement__edit-button" @click="$router.push({ name: 'edit-ad', params: { id: ad.id } })">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,6 +87,13 @@ const getIcon = (type: string) => {
     case 'TON':
       return TONIcon
   }
+}
+
+const getDateSecond = (date: string) => {
+  const splitted = date.split(' ')
+  const num = splitted[0].split('-').reverse().join('.')
+  const time = splitted[1].slice(3)
+  return [num, time];
 }
 
 // const getPaymentMethods = (paymentMethods: any[]) => {

@@ -1,0 +1,77 @@
+@import "@/assets/scss/mixins";
+@import "@/assets/scss/variables";
+
+.select-payment-method-modal {
+  @include flexbox(column);
+  row-gap: 24px;
+  margin-top: 24px;
+
+  &__content {
+    @include flexbox(column);
+    row-gap: 8px;
+    width: 100%;
+    max-height: 389px;
+    overflow-y: auto;
+  }
+
+  &__item {
+    @include flexbox(row, space-between, center);
+    column-gap: 12px;
+    padding: 13px 16px;
+    width: 100%;
+    border: 1px solid $border-base-light;
+    border-radius: 16px;
+    transition: .25s all ease;
+    cursor: pointer;
+
+    &.active {
+      background: $bg-base-secondary;
+    }
+
+    &-left {
+      @include flexbox(column);
+      row-gap: 2px;
+    }
+
+    &-checkbox {
+      @include flex-center;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      border: 1px solid $border-base-bright;
+      border-radius: 4px;
+      background: $bg-base;
+      transition: .25s all ease;
+
+      &.active {
+        background: $bg-primary-default;
+        border: none;
+      }
+    }
+
+    &-title {
+      @include get-font(12px, 500, 16px, $text-base-light);
+    }
+
+    &-info {
+      @include flexbox(row, flex-start, center);
+      column-gap: 8px;
+    }
+
+    &-icon {
+      width: 16px;
+      height: 16px;
+      object-fit: cover;
+    }
+
+    &-num {
+      @include get-font(14px, 500, 20px, $text-base);
+    }
+  }
+
+  &__buttons {
+    @include flexbox(row);
+    column-gap: 16px;
+    width: 100%;
+  }
+}

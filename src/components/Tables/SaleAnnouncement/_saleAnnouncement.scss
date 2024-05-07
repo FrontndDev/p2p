@@ -110,16 +110,20 @@
       left: 9px;
     }
 
-    &.completed::before {
-      background: $bg-green;
+    &.completed {
+      &::before {
+        background: $bg-green;
+      }
     }
 
     &.in-process::before {
       background: $bg-orange;
     }
 
-    &.canceled::before {
-      background: $bg-red;
+    &.canceled {
+      &::before {
+        background: $bg-red;
+      }
     }
   }
 

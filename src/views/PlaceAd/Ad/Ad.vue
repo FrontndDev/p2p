@@ -91,11 +91,11 @@
             <div class="ad__row-input-info">
               <div>
                 <span>Для продажи</span>
-                <span>1 000 TON</span>
+                <span>{{ props.amountOfCurrency }} {{ props.selectedInnerCurrency?.name }}</span>
               </div>
               <div>
                 <span>Комиссия</span>
-                <span>100 TON</span>
+                <span>{{ amountOfCurrency && transactionFee ? +props.amountOfCurrency / transactionFee : 0 }} {{ props.selectedInnerCurrency?.name }}</span>
                 <InfoIcon/>
               </div>
             </div>
@@ -123,27 +123,27 @@
       </div>
       <div class="ad__row">
         <div class="ad__row-title">Способ оплаты</div>
-        <div class="ad__row-content">
+        <div class="ad__row-content" :class="{ 'column-reverse': route.name === 'edit-ad' }">
+          <PaymentMethods class="flex-start" :payment-methods="paymentMethods"/>
           <MyButton
               class="ad__row-button ad__row-button_first"
               type="second-primary-btn"
               size="big"
               width="100%"
-              name="Управление реквизитами"
-              v-if="route.name === 'edit-ad'"
+              :name="route.name === 'edit-ad' ? 'Управление реквизитами' : 'Выберите способ оплаты'"
+              @click="showSelectPaymentMethod = true"
           >
             <template #icon-left>
               <AddIcon/>
             </template>
           </MyButton>
-          <PaymentMethods class="flex-start" :payment-methods="paymentMethods"/>
-          <Select
-              title="Выберите способ оплаты"
-              :items="paymentMethods"
-              :selected-item="selectedPaymentMethod"
-              v-if="route.name === 'place-ad'"
-              @select="selectPaymentMethod"
-          />
+<!--          <Select-->
+<!--              title="Выберите способ оплаты"-->
+<!--              :items="paymentMethods"-->
+<!--              :selected-item="selectedPaymentMethod"-->
+<!--              v-if="route.name === 'place-ad'"-->
+<!--              @select="selectPaymentMethod"-->
+<!--          />-->
         </div>
       </div>
       <div class="ad__row">
@@ -172,6 +172,13 @@
         </div>
       </div>
     </div>
+
+    <SelectPaymentMethodModal
+        :selected-payment-method="props.selectedPaymentMethod"
+        v-if="showSelectPaymentMethod"
+        @select-payment-method="selectPaymentMethod"
+        @close-modal="showSelectPaymentMethod = false"
+    />
   </div>
 </template>
 
@@ -195,6 +202,7 @@ import {
   ComputedRef,
   onMounted,
   PropType,
+  ref,
   watch
 } from "vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
@@ -206,6 +214,8 @@ import { useStore } from "vuex";
 import {
   IRequisite,
 } from "@/interfaces/store/modules/profile.interface.ts";
+import SelectPaymentMethodModal
+  from "@/components/Modals/Contents/SelectPaymentMethodModal/SelectPaymentMethodModal.vue";
 
 const props = defineProps({
   priceTypes: {
@@ -244,7 +254,7 @@ const props = defineProps({
   comment: {
     type: String,
   },
-})
+});
 
 const emit = defineEmits([
   'select-inner-currency',
@@ -261,6 +271,10 @@ const emit = defineEmits([
 
 const route = useRoute();
 const store = useStore();
+
+const showSelectPaymentMethod = ref(false);
+
+const transactionFee = computed(() => store.state.currencies.transactionFee);
 
 const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))

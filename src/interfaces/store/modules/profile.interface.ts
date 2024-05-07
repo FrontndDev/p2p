@@ -66,6 +66,8 @@ export interface IProfileAd {
   outerCurrency: string;
   priceType: string;
   pricePercent: number;
+  createdAt: string;
+  isActive: number;
 }
 
 export interface IProfileAds {

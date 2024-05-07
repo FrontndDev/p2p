@@ -5,7 +5,6 @@
   @include flexbox(column);
   row-gap: 40px;
   padding: 0 16px;
-  width: 100%;
 
   &__content {
     @include flexbox(column, center, center);

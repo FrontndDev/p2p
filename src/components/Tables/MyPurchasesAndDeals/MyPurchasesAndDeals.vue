@@ -14,6 +14,7 @@
           <Seller
               :name="getName(row.name)"
               :avatar="row.avatar"
+              :statistics="row.statistics"
           />
         </div>
         <div class="my-purchases-and-deals__info">
@@ -21,7 +22,7 @@
             {{ row.count }}
             <img alt="icon" :src="getIcon(row.wallet)">
           </div>
-          <div class="my-purchases-and-deals__info-sum">{{ row.sum }} RUB</div>
+          <div class="my-purchases-and-deals__info-sum">{{ row.sum }}</div>
         </div>
         <div class="my-purchases-and-deals__status" :class="row.status">{{ row.statusTranslate }}</div>
         <div class="my-purchases-and-deals__order-id">
@@ -140,7 +141,13 @@ const getPaginationInfo = (obj: { currentPage: number; totalPages: number; }) =>
   }
 }
 
-const getTime = (date: string) => date.split('|');
+const getDate = (date: string) => date.split('|');
+const getDateSecond = (date: string) => {
+  const splitted = date.split(' ')
+  const num = splitted[0].split('-').reverse().join('.')
+  const time = splitted[1].slice(3)
+  return [num, time];
+}
 
 const data = computed(() => {
   switch (props.type) {
@@ -153,19 +160,19 @@ const data = computed(() => {
           name: `${transaction.seller.firstName} ${transaction.seller.lastName}`,
           avatar: transaction.seller.avatar,
           count: transaction.amount,
-          sum: transaction.price,
+          sum: `${transaction.price} ${transaction.outerCurrency}`,
           status: transaction.status.name,
           statusTranslate: transaction.statusTransaction?.split(' ')?.[0],
           orderId: transaction.id,
-          date: getTime(transaction.createdAt)[0],
-          time: getTime(transaction.createdAt)[1],
+          date: getDate(transaction.createdAt)[0],
+          time: getDate(transaction.createdAt)[1],
           legend: 0,
+          statistics: transaction.seller.statistics
         }))
       };
     case 'deals':
       return {
-        currentPage: 1,
-        totalPages: 1,
+        ...getPaginationInfo(profileAds.value),
         list: profileAds.value.ads.map(ad => ({
           id: ad.id,
           wallet: ad.innerCurrency,
@@ -173,12 +180,13 @@ const data = computed(() => {
           avatar: ad.adsAuthor.avatar,
           count: ad.activeAmount,
           sum: ad.priceToShow,
-          status: '',
-          statusTranslate: '',
+          status: ad.isActive ? 'completed' : 'canceled',
+          statusTranslate: ad.isActive ? 'Активен' : 'Не активен',
           orderId: ad.id,
-          date: '',
-          time: '',
+          date: getDateSecond(ad.createdAt)[0],
+          time: getDateSecond(ad.createdAt)[1],
           legend: 0,
+          statistics: null
         })),
       };
   }

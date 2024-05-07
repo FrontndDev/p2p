@@ -1,15 +1,26 @@
+import { IStatistics } from "@/interfaces/store/modules/profile.interface.ts";
+
 export interface IStatus {
   name: string;
   isBad: boolean;
   expiredIn: number;
 }
 
-export interface IUser {
+export interface IBuyer {
   id: number;
   firstName: string;
   lastName: string;
   avatar: string;
   canChangeStatus: boolean;
+}
+
+export interface ISeller {
+  id: number;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  canChangeStatus: boolean;
+  statistics: IStatistics;
 }
 
 export interface ITransaction {
@@ -23,8 +34,8 @@ export interface ITransaction {
   innerCurrency: string;
   outerCurrency: string;
   createdAt: string;
-  seller: IUser;
-  buyer: IUser;
+  seller: ISeller;
+  buyer: IBuyer;
 }
 
 export interface ITransactionsHistory {

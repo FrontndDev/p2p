@@ -54,6 +54,10 @@
           @include get-font(16px, 500, 24px, $text-base-light);
         }
       }
+
+      &.column-reverse {
+        @include flexbox(column-reverse);
+      }
     }
 
     &-select {
@@ -111,6 +115,11 @@
         width: 100%;
         border-radius: 8px;
         background: $bg-blue-light;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+          height: 0;
+        }
 
         & > div {
           @include flexbox(row, flex-start, center);
@@ -118,6 +127,7 @@
 
           & > span {
             @include get-font(12px, 500, 16px, $text-base-light);
+            white-space: nowrap;
 
             &:last-child {
               color: $text-base-disable;

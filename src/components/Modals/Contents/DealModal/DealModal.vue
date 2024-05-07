@@ -57,8 +57,8 @@
                   title="Я отдаю"
                   wallet="RUB"
                   :value="imGiving"
-                  @input-value="(value: string) => imGiving = value"
-                  @all="imGiving = getAmountInNumber(selectedDeal.maxAmount)"
+                  @input-value="setImGiving"
+                  @all="setImGiving(getAmountInNumber(selectedDeal.maxAmount))"
               />
               <MyInput
                   type="number"
@@ -66,8 +66,8 @@
                   title="Я получу"
                   wallet="USD"
                   :value="iWillGet"
-                  @input-value="(value: string) => iWillGet = value"
-                  @all="iWillGet = String(selectedDeal.activeAmount)"
+                  @input-value="setIWillGet"
+                  @all="setIWillGet(String(selectedDeal.activeAmount))"
               />
               <Select
                   class="no-media"
@@ -166,6 +166,16 @@ const iWillGet = ref('');
 
 const selectPaymentMethod = (paymentMethod: ISelect) => {
   selectedPaymentMethod.value = paymentMethod
+}
+
+const setImGiving = (value: string) => {
+  imGiving.value = value
+  iWillGet.value = String((+imGiving.value / +selectedDeal.value.price).toFixed(4))
+}
+
+const setIWillGet = (value: string) => {
+  iWillGet.value = value
+  imGiving.value = String((+iWillGet.value * +selectedDeal.value.price).toFixed(4))
 }
 
 const openDeal = async () => {

@@ -9,12 +9,9 @@
     <div class="seller__info">
       <div class="seller__name" :title="getNameWithoutHTMLTags" v-html="props.name"/>
       <div class="seller__description">
-        <div>{{ props.successfulNum }} <template v-if="typeof props.doneNum !== 'number'">успешных</template> сделок</div>
-
-        <template v-if="typeof doneNum === 'number'">
-          <span>|</span>
-          <div>{{ props.doneNum }}% выполнено</div>
-        </template>
+        <div>{{ props.statistics?.transactionsCount ?? 0 }} сделок</div>
+        <span>|</span>
+        <div>{{ props.statistics?.successPercent ?? 0 }}% выполнено</div>
       </div>
     </div>
   </div>
@@ -25,6 +22,7 @@ import {
   computed,
   PropType
 } from "vue";
+import { IStatistics } from "@/interfaces/store/modules/profile.interface.ts";
 
 const props = defineProps({
   type: {
@@ -39,14 +37,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  successfulNum: {
-    type: Number,
-    default: 0
+  statistics: {
+    type: Object as PropType<IStatistics | null>,
+    required: true,
   },
-  doneNum: {
-    type: (Number || String) as PropType<number | string>,
-    default: 0
-  }
 })
 
 const getNameWithoutHTMLTags = computed(() => props.name?.replace(/(<([^>]+)>)/gi, ''))
