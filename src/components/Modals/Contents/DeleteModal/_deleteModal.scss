@@ -9,11 +9,13 @@
   }
 
   &__title {
-    @include get-font(22px, 500, 36px, $text-base)
+    @include get-font(22px, 500, 36px, $text-base);
+    text-align: center;
   }
 
   &__description {
     @include get-font(14px, 500, 20px, $text-base-secondary);
+    text-align: center;
   }
 
   &__buttons {
