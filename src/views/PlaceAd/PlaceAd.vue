@@ -6,8 +6,8 @@
         :selected-outer-currency="selectedOuterCurrency"
         :selected-price-type="selectedPriceType"
         :selected-payment-method="selectedPaymentMethod"
+        :selected-time="selectedTime"
         :selling-price="price"
-        :amount-of-currency="amountOfCurrency ?? 0"
         :min-amount="String(minAmount)"
         :max-amount="String(maxAmount)"
         :comment="comment"
@@ -15,17 +15,17 @@
         @select-outer-currency="(item: ISelect) => selectedOuterCurrency = item"
         @select-price-type="(item: ISelect) => selectedPriceType = item"
         @input-selling-price="(value: string) => price = +value"
-        @input-amount-of-currency="(value: string) => amountOfCurrency = +value"
         @input-min-transfer="(value: string) => minAmount = +value"
         @input-max-transfer="(value: string) => maxAmount = +value"
         @select-payment-method="(item: ISelect) => selectedPaymentMethod = item"
+        @select-time="(item: ISelect) => selectedTime = item"
         @input-comment="(value: string) => comment = value"
     />
     <AdInformation
+        :show-save-btn="!_.isEqual(data, copyData)"
         :selected-inner-currency="selectedInnerCurrency"
         :selected-outer-currency="selectedOuterCurrency"
         :selling-price="price"
-        :amount-of-currency="amountOfCurrency"
         :min-amount="minAmount"
         :max-amount="maxAmount"
         :selected-payment-method="selectedPaymentMethod"
@@ -41,10 +41,10 @@ import { useStore } from "vuex";
 import {
   computed,
   ComputedRef,
-  onMounted,
   reactive,
   Ref,
   ref,
+  watch,
 } from "vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import {
@@ -54,7 +54,8 @@ import {
   useRoute,
   useRouter
 } from "vue-router";
-import { getAd } from "@/api";
+import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
+import _ from 'lodash';
 
 const store = useStore();
 const router = useRouter();
@@ -64,12 +65,14 @@ const selectedInnerCurrency: Ref<ISelect | null> = ref(null);
 const selectedOuterCurrency: Ref<ISelect | null> = ref(null);
 const selectedPriceType: Ref<ISelect | null> = ref(null);
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
+const selectedTime: Ref<ISelect | null> = ref(null);
 const minAmount = ref(10);
 const maxAmount = ref(20);
 const comment = ref('');
 const factor: Ref<number | undefined> = ref(undefined);
 const price: Ref<number | undefined> = ref(undefined);
-const amountOfCurrency: Ref<number | undefined> = ref(undefined);
+
+const copyData = ref({});
 
 const priceTypes = reactive([
   {
@@ -82,6 +85,8 @@ const priceTypes = reactive([
   }
 ]);
 
+const detailAd = computed(() => store.state.profile.detailAd);
+
 const priceType = computed(() => {
   switch (selectedPriceType.value?.id) {
     case 1:
@@ -90,6 +95,28 @@ const priceType = computed(() => {
       return 'float'
   }
 });
+
+const getPriceTypeId = (name: 'fixed' | 'float') => {
+  switch (name) {
+    case 'fixed':
+      return priceTypes[0]
+    case 'float':
+      return priceTypes[1]
+  }
+}
+
+const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
+    store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+);
+const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
+    store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+);
+const requisites = computed(() =>
+    store.state.profile.profile?.requisites?.map((requisite: IRequisite) => ({ id: requisite.id, name: requisite.paymentMethod }))
+);
+const times: ComputedRef<ISelect[]> = computed(() =>
+    store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))
+);
 
 const data: ComputedRef<IAdParams> = computed(() => ({
   inner_currency: selectedInnerCurrency.value?.name ?? '',
@@ -100,18 +127,39 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   comment: comment.value,
   factor: priceType.value === 'float' ? factor.value : undefined, // if price_type == float
   price: priceType.value === 'fixed' ? price.value : undefined, // if price_type == fixed
-  price_type: priceType.value ?? '' // percent | float
+  price_type: priceType.value ?? '', // percent | float
+  payment_window: +selectedTime.value?.name,
 }));
 
 const createAd = async () => {
-  await store.dispatch('profile/createAd', data.value)
+  route.name === 'edit-ad' ?
+      await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value }) :
+      await store.dispatch('profile/createAd', data.value)
   await router.push({ name: 'sale' })
 }
 
-onMounted(async () => {
-  if (route.params.id) {
-    const data = await getAd(+route.params.id)
-    console.log('getAd(route.params.id)', data)
+const setDefaultValues = () => {
+  price.value = +detailAd.value.price.amount
+  minAmount.value = +detailAd.value.minAmount.amount
+  maxAmount.value = +detailAd.value.maxAmount.amount
+  comment.value = detailAd.value.authorComment
+  const requisite: ISelect | undefined = requisites.value?.find((requisite: IRequisite) => requisite.id === detailAd.value.requisite.id)
+  const innerCurrency = innerCurrencies.value?.find(currency => currency.name === detailAd.value.currencyForBuy)
+  const outerCurrency = outerCurrencies.value?.find(currency => currency.name === detailAd.value.currencyForSell)
+  const time = times.value?.find(time => +time.name === detailAd.value.paymentWindow);
+  console.log('time', time)
+
+  if (requisite) selectedPaymentMethod.value = requisite
+  if (innerCurrency) selectedInnerCurrency.value = innerCurrency
+  if (outerCurrency) selectedOuterCurrency.value = outerCurrency
+  if (time) selectedTime.value = time
+  selectedPriceType.value = getPriceTypeId(detailAd.value.priceType)
+  copyData.value = data.value
+}
+
+watch(() => requisites.value && detailAd.value?.id, () => {
+  if (route.name === 'edit-ad') {
+    setDefaultValues()
   }
 })
 </script>

@@ -19,7 +19,7 @@
           </div>
           <div class="ad-information__row">
             <div>Общее колличество</div>
-            <div>{{ props.amountOfCurrency ?? 0 }} {{ props.selectedInnerCurrency?.name }}</div>
+            <div>{{ amountOfCurrency ?? 0 }} {{ props.selectedInnerCurrency?.name }}</div>
           </div>
           <div class="ad-information__row">
             <div>Лимиты</div>
@@ -43,27 +43,53 @@
             </div>
             <MyButton size="big" width="100%" name="Разместить объявление" @click="emit('create-ad')"/>
           </template>
-          <div class="ad-information__buttons" v-else-if="route.name === 'edit-ad'">
-            <MyButton
-                type="neutral-btn"
-                size="big"
-                width="100%"
-                name="Удалить"
-                @click="deleteAd"
-            >
-              <template #icon-left>
-                <TrashIcon/>
-              </template>
-            </MyButton>
-            <MyButton size="big" width="100%" name="Остановить">
-              <template #icon-left>
-                <PauseIcon/>
-              </template>
-            </MyButton>
-          </div>
+          <template v-else-if="route.name === 'edit-ad'">
+            <div class="ad-information__buttons">
+              <MyButton
+                  type="neutral-btn"
+                  size="big"
+                  width="100%"
+                  name="Удалить"
+                  @click="showDeleteAdModal = true"
+              >
+                <template #icon-left>
+                  <TrashIcon/>
+                </template>
+              </MyButton>
+              <MyButton
+                  size="big"
+                  width="100%"
+                  :name="detailAd.isActive ? 'Остановить' : 'Запустить'"
+                  v-if="!props.showSaveBtn"
+                  @click="toggleStatusAd"
+              >
+                <template #icon-left>
+                  <PauseIcon v-if="detailAd.isActive"/>
+                  <PlayIcon v-else/>
+                </template>
+              </MyButton>
+              <MyButton
+                  size="big"
+                  width="100%"
+                  name="Сохранить"
+                  v-else
+                  @click="emit('create-ad')"
+              >
+                <template #icon-left>
+                  <CheckMarkIcon/>
+                </template>
+              </MyButton>
+            </div>
+          </template>
         </div>
       </div>
     </div>
+
+    <DeleteModal
+        v-if="showDeleteAdModal"
+        @close-modal="showDeleteAdModal = false"
+        @delete="deleteAd"
+    />
   </div>
 </template>
 
@@ -72,6 +98,10 @@
 import TrashIcon from '@/assets/svg/trash.svg?component';
 // @ts-ignore
 import PauseIcon from '@/assets/svg/pause.svg?component';
+// @ts-ignore
+import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
+// @ts-ignore
+import PlayIcon from '@/assets/svg/play.svg?component';
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import {
   computed,
@@ -86,6 +116,7 @@ import {
 } from "vue-router";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import { useStore } from "vuex";
+import DeleteModal from "@/components/Modals/Contents/DeleteModal/DeleteModal.vue";
 
 const props = defineProps({
   selectedInnerCurrency: {
@@ -99,9 +130,6 @@ const props = defineProps({
   sellingPrice: {
     type: Number,
   },
-  amountOfCurrency: {
-    type: Number,
-  },
   minAmount: {
     type: Number,
   },
@@ -111,6 +139,10 @@ const props = defineProps({
   selectedPaymentMethod: {
     type: Object as PropType<ISelect | null>,
     required: true,
+  },
+  showSaveBtn: {
+    type: Boolean,
+    default: false,
   }
 })
 
@@ -121,12 +153,19 @@ const router = useRouter();
 const route = useRoute();
 
 const conditions = ref(false);
+const showDeleteAdModal = ref(false);
 
-const adId = computed(() => +route.params.id)
+const detailAd = computed(() => store.state.profile.detailAd)
+const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.realAmount);
 
 const deleteAd = async () => {
-  await store.dispatch('profile/deleteAd', adId.value)
+  showDeleteAdModal.value = false
+  await store.dispatch('profile/deleteAd', detailAd.value.id)
   await router.push({ name: 'sale' })
+}
+
+const toggleStatusAd = () => {
+  store.dispatch('profile/updateAdStatus', detailAd.value.id)
 }
 </script>
 

@@ -1,0 +1,23 @@
+@import "@/assets/scss/mixins";
+@import "@/assets/scss/variables";
+
+.delete-modal {
+  &__content {
+    @include flexbox(column, center, center);
+    row-gap: 8px;
+    margin: 52px 0 96px;
+  }
+
+  &__title {
+    @include get-font(22px, 500, 36px, $text-base)
+  }
+
+  &__description {
+    @include get-font(14px, 500, 20px, $text-base-secondary);
+  }
+
+  &__buttons {
+    @include flexbox(row);
+    column-gap: 16px;
+  }
+}

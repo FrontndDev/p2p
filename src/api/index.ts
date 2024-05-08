@@ -88,6 +88,10 @@ export async function updateAd(id: number, data: any) {
   return putAsync(`/api/v1/p2p/profile/ads/${id}`, data)
 }
 
+export async function updateAdStatus(id: number) {
+  return putAsync(`/api/v1/p2p/profile/ads/status/${id}`, {})
+}
+
 // DELETE
 
 export async function deleteRequisite(id: number) {

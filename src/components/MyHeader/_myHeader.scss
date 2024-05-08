@@ -49,8 +49,7 @@
     }
 
     &__title {
-      font-size: 22px;
-      line-height: 36px;
+      @include get-font(22px, 500, 36px, $text-base);
       white-space: nowrap;
     }
   }

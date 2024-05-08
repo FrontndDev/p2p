@@ -29,6 +29,7 @@ export interface IStatistics {
 }
 
 export interface IProfile {
+  allowedPaymentWindow: number[];
   requisites: IRequisite[];
   wallets: IWallets;
   telegramActive: boolean;

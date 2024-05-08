@@ -47,7 +47,6 @@
   </div>
 
   <AddRequisitesModal v-if="showAddRequisitesModal" @close-modal="showAddRequisitesModal = false"/>
-  <RemoveRequisitesModal v-if="showRemoveRequisitesModal" @close-modal="showRemoveRequisitesModal = false"/>
 </template>
 
 <script setup lang="ts">
@@ -67,7 +66,6 @@ import TelegramBanner from "@/components/TelegramBanner/TelegramBanner.vue";
 import InformationAboutTransfers from "@/components/InformationAboutTransfers/InformationAboutTransfers.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import AddRequisitesModal from "@/components/Modals/Contents/AddRequisitesModal/AddRequisitesModal.vue";
-import RemoveRequisitesModal from "@/components/Modals/Contents/RemoveRequisitesModal/RemoveRequisitesModal.vue";
 
 const tabs = reactive([
   {
@@ -81,7 +79,6 @@ const tabs = reactive([
 ]);
 
 const showAddRequisitesModal = ref(false);
-const showRemoveRequisitesModal = ref(false);
 
 const activeTab: Ref<ITabs> = ref(tabs[0]);
 

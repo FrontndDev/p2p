@@ -29,7 +29,7 @@
               size="big"
               name="Удалить"
               width="100%"
-              @click="deleteRequisite"
+              @click="showDeleteRequisitesModal = true"
           />
           <MyButton
               :disabled="requestInProcess"
@@ -42,6 +42,13 @@
       </div>
     </template>
   </Modal>
+  <DeleteModal
+      title="Удаление реквизитов"
+      :description="`Вы уверены что хотие удалить реквизиты ${props.selectedRequisite.requisite}?`"
+      v-if="showDeleteRequisitesModal"
+      @close-modal="showDeleteRequisitesModal = false"
+      @delete="deleteRequisite"
+  />
 </template>
 
 <script setup lang="ts">
@@ -63,6 +70,7 @@ import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import { getPaymentMethodsByCurrency } from "@/api";
 import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
 import { IUpdateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
+import DeleteModal from "@/components/Modals/Contents/DeleteModal/DeleteModal.vue";
 
 const props = defineProps({
   selectedRequisite: {
@@ -74,6 +82,8 @@ const props = defineProps({
 const emit = defineEmits(['close-modal']);
 
 const store = useStore();
+
+const showDeleteRequisitesModal = ref(true);
 
 const requestInProcess = ref(false);
 let paymentMethods: Ref<ISelect[]> = ref([]);
@@ -111,6 +121,7 @@ const selectWallet = (item: ISelect) => {
 }
 
 const deleteRequisite = () => {
+  showDeleteRequisitesModal.value = false
   store.dispatch('requisites/deleteRequisite', props.selectedRequisite?.id)
   emit('close-modal')
 }

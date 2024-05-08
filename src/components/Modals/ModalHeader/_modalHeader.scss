@@ -12,7 +12,9 @@
 
   &__back {
     @include flexbox(row, flex-start, center);
+    column-gap: 8px;
     @include get-font(14px, 500, 20px, $text-link);
+    cursor: pointer;
   }
 
   &__title {

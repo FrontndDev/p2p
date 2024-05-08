@@ -5,7 +5,12 @@
         <div class="title-h2 fw-700">Объявление</div>
         <Badge name="Продажа"/>
       </div>
-      <AdditionalInfo date="28.02.2024" time="18:01" id="12357413255"/>
+      <AdditionalInfo
+          :date="detailAdTime.date"
+          :time="detailAdTime.time"
+          :id="detailAd.id"
+          v-if="route.name === 'edit-ad'"
+      />
     </div>
 
     <div class="ad__content">
@@ -81,21 +86,19 @@
                 class="my-input-second"
                 placeholder="Доступно 1 000 000"
                 title="Количество на продажу"
-                wallet="TON"
+                :disabled="true"
                 :icon="TONIcon"
                 :value="String(amountOfCurrency)"
-                @input-value="inputAmountOfCurrency"
-                @all="inputAmountOfCurrency(props.maxAmount?.split('Р')[0] ?? '')"
             />
 
             <div class="ad__row-input-info">
               <div>
                 <span>Для продажи</span>
-                <span>{{ props.amountOfCurrency }} {{ props.selectedInnerCurrency?.name }}</span>
+                <span>{{ amountOfCurrency }} {{ props.selectedInnerCurrency?.name }}</span>
               </div>
               <div>
                 <span>Комиссия</span>
-                <span>{{ amountOfCurrency && transactionFee ? +props.amountOfCurrency / transactionFee : 0 }} {{ props.selectedInnerCurrency?.name }}</span>
+                <span>{{ amountOfCurrency && transactionFee ? amountOfCurrency / transactionFee : 0 }} {{ props.selectedInnerCurrency?.name }}</span>
                 <InfoIcon/>
               </div>
             </div>
@@ -137,13 +140,17 @@
               <AddIcon/>
             </template>
           </MyButton>
-<!--          <Select-->
-<!--              title="Выберите способ оплаты"-->
-<!--              :items="paymentMethods"-->
-<!--              :selected-item="selectedPaymentMethod"-->
-<!--              v-if="route.name === 'place-ad'"-->
-<!--              @select="selectPaymentMethod"-->
-<!--          />-->
+        </div>
+      </div>
+      <div class="ad__row">
+        <div class="ad__row-title">Время</div>
+        <div class="ad__row-content">
+          <Select
+              title="Время в минутах"
+              :items="times"
+              :selected-item="props.selectedTime"
+              @select="selectTime"
+          />
         </div>
       </div>
       <div class="ad__row">
@@ -238,8 +245,8 @@ const props = defineProps({
     type: Object as PropType<ISelect | null>,
     required: true,
   },
-  amountOfCurrency: {
-    type: Number,
+  selectedTime: {
+    type: Object as PropType<ISelect | null>,
     required: true,
   },
   sellingPrice: {
@@ -266,6 +273,7 @@ const emit = defineEmits([
   'input-min-transfer',
   'input-max-transfer',
   'select-payment-method',
+  'select-time',
   'input-comment',
 ]);
 
@@ -274,6 +282,7 @@ const store = useStore();
 
 const showSelectPaymentMethod = ref(false);
 
+const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.realAmount);
 const transactionFee = computed(() => store.state.currencies.transactionFee);
 
 const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
@@ -285,6 +294,18 @@ const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
 const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
     store.state.profile.profile?.requisites?.map((method: IRequisite) => ({ id: method.id, name: method.paymentMethod }))
 );
+const times: ComputedRef<ISelect[]> = computed(() =>
+    store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))
+);
+const detailAd = computed(() => store.state.profile.detailAd);
+
+const detailAdTime = computed(() => {
+  const time = detailAd.value.createdAt?.split(' ')
+  return {
+    date: time?.[0]?.split('-').reverse().join('.'),
+    time: time?.[1]?.slice(0, 5),
+  }
+})
 
 const currentRate: ComputedRef<number> = computed(() => store.state.currencies.currentRate)
 const telegramActive = computed(() => store.state.profile.profile.telegramActive)
@@ -311,10 +332,6 @@ const inputSellingPrice = (item: ISelect) => {
   emit('input-selling-price', item)
 }
 
-const inputAmountOfCurrency = (value: string) => {
-  emit('input-amount-of-currency', value)
-}
-
 const inputMinTransfer = (item: ISelect) => {
   emit('input-min-transfer', item)
 }
@@ -325,6 +342,10 @@ const inputMaxTransfer = (item: ISelect) => {
 
 const selectPaymentMethod = (item: ISelect) => {
   emit('select-payment-method', item)
+}
+
+const selectTime = (item: ISelect) => {
+  emit('select-time', item)
 }
 
 const inputComment = (e: Event) => {
@@ -338,7 +359,15 @@ const getCurrentRate = (from?: string, to?: string) => {
 }
 
 watch(() => paymentMethods.value?.length, () => {
-  selectPaymentMethod(paymentMethods.value[0])
+  if (route.name === 'place-ad') {
+    selectPaymentMethod(paymentMethods.value[0]);
+  }
+});
+
+watch(() => times.value?.length, () => {
+  if (route.name === 'place-ad') {
+    selectTime(times.value[0]);
+  }
 });
 
 onMounted(() => {
@@ -346,8 +375,11 @@ onMounted(() => {
   selectInnerCurrency(innerCurrencies.value[0])
   selectOuterCurrency(outerCurrencies.value[0])
   getCurrentRate(innerCurrencies.value[0].name, outerCurrencies.value[0].name)
-  if (paymentMethods.value) {
-    selectPaymentMethod(paymentMethods.value[0])
+  if (paymentMethods.value) selectPaymentMethod(paymentMethods.value[0])
+  if (times.value) selectTime(times.value[0])
+
+  if (route.name === 'edit-ad' && route.params.id) {
+    store.dispatch('profile/getDetailAd', +route.params.id)
   }
 })
 </script>

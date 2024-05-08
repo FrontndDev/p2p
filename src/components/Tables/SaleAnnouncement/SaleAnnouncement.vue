@@ -19,7 +19,7 @@
         <div class="sale-announcement__payment-methods">
           <PaymentMethods
               class="flex-start"
-              :payment-methods="[{ id: 1, name: ad.paymentMethod }]"
+              :payment-methods="[{ id: 1, name: ad.paymentMethod.name }]"
           />
         </div>
         <div class="sale-announcement__info">
@@ -30,7 +30,7 @@
           </div>
           <div class="sale-announcement__info-limits">
             <span>Лимиты</span>
-            {{ ad.minAmount }} - {{ ad.maxAmount }}
+            {{ Object.values(ad.minAmount).join(' ') }} - {{ Object.values(ad.maxAmount).join(' ') }}
           </div>
         </div>
         <div class="sale-announcement__status" :class="ad.isActive ? 'completed' : 'canceled'">{{ ad.isActive ? 'Активен' : 'Не активен' }}</div>
@@ -92,7 +92,7 @@ const getIcon = (type: string) => {
 const getDateSecond = (date: string) => {
   const splitted = date.split(' ')
   const num = splitted[0].split('-').reverse().join('.')
-  const time = splitted[1].slice(3)
+  const time = splitted[1].slice(0, 5)
   return [num, time];
 }
 

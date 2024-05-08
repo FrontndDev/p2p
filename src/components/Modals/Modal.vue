@@ -3,7 +3,12 @@
     <Transition name="modal">
       <div class="my-modal">
         <div class="my-modal__content" :style="`padding: ${props.padding}; max-width: ${width};`">
-          <ModalHeader :title="props.title" :show-title="props.showTitle" :action="props.actionInHeader"/>
+          <ModalHeader
+              :title="props.title"
+              :show-title="props.showTitle"
+              :action="props.actionInHeader"
+              @back="emit('close-modal')"
+          />
 
           <slot name="content"/>
 

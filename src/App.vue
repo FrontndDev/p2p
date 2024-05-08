@@ -6,7 +6,7 @@
 import {
   computed,
   ComputedRef,
-  onMounted
+  onBeforeMount,
 } from "vue";
 import { useStore } from "vuex";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
@@ -36,7 +36,7 @@ const getPaymentMethodsByCurrency = () => {
   })
 }
 
-onMounted( () => {
+onBeforeMount(() => {
   store.dispatch('currencies/getCurrencies').then(() => {
     setCurrencies()
     getPaymentMethodsByCurrency()

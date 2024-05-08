@@ -8,7 +8,7 @@
 
     <div class="seller__info">
       <div class="seller__name" :title="getNameWithoutHTMLTags" v-html="props.name"/>
-      <div class="seller__description">
+      <div class="seller__description" v-if="props.statistics">
         <div>{{ props.statistics?.transactionsCount ?? 0 }} сделок</div>
         <span>|</span>
         <div>{{ props.statistics?.successPercent ?? 0 }}% выполнено</div>

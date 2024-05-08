@@ -17,10 +17,9 @@
       >
         <div class="purchase-announcement__seller">
           <Seller
-              :successful-num="-1"
-              :done-num="-1"
               :name="getName(ad.adsAuthor.first_name + ' ' + ad.adsAuthor.last_name)"
               :avatar="ad.adsAuthor.avatar"
+              :statistics="ad.adsAuthor.statistics"
           />
         </div>
         <div class="purchase-announcement__wallet">
@@ -31,7 +30,7 @@
         <div class="purchase-announcement__payment-methods">
           <PaymentMethods
               class="flex-start"
-              :payment-methods="getPaymentMethods([{ id: 1, name: ad.paymentMethod }])"
+              :payment-methods="getPaymentMethods([{ id: 1, name: ad.paymentMethod.name }])"
           />
         </div>
         <div class="purchase-announcement__info">
@@ -42,7 +41,7 @@
           </div>
           <div class="purchase-announcement__info-limits">
             <span>Лимит</span>
-            {{ ad.minAmount }} - {{ ad.maxAmount }}
+            {{ Object.values(ad.minAmount).join(' ') }} - {{ Object.values(ad.maxAmount).join(' ') }}
           </div>
         </div>
         <div class="purchase-announcement__button">

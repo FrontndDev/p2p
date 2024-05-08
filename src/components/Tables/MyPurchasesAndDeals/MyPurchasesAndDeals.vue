@@ -112,7 +112,7 @@ const showTable = computed(() => {
     case 'purchases':
       return transactionsHistory.value?.transactions?.length
     case 'deals':
-      return true
+      return profileAds.value?.ads?.length
   }
 })
 
@@ -121,7 +121,7 @@ const isLoading = computed(() => {
     case 'purchases':
       return !transactionsHistory.value?.transactions
     case 'deals':
-      return true
+      return !profileAds.value?.ads
   }
 })
 
@@ -145,7 +145,7 @@ const getDate = (date: string) => date.split('|');
 const getDateSecond = (date: string) => {
   const splitted = date.split(' ')
   const num = splitted[0].split('-').reverse().join('.')
-  const time = splitted[1].slice(3)
+  const time = splitted[1].slice(0, 5)
   return [num, time];
 }
 
