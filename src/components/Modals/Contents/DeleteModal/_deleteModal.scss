@@ -23,3 +23,13 @@
     column-gap: 16px;
   }
 }
+
+@media screen and (max-width: 756px) {
+  .delete-modal {
+    &__buttons {
+      & > .my-button.neutral-btn {
+        display: none;
+      }
+    }
+  }
+}
