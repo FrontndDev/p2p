@@ -69,6 +69,7 @@
             size="big"
             width="50%"
             name="Отменить сделку"
+            :disabled="!transactionInfo.canBeCanceled"
             @click="cancelDeal"
         />
         <MyButton
@@ -177,8 +178,10 @@ const getDescription = computed(() => {
 });
 
 const cancelDeal = async () => {
-  await store.dispatch('profile/cancelDeal', +route.params.transactionId);
-  await router.push({ name: 'purchase' })
+  if (transactionInfo.value.canBeCanceled) {
+    await store.dispatch('profile/cancelDeal', +route.params.transactionId);
+    await router.push({ name: 'purchase' })
+  }
 }
 </script>
 

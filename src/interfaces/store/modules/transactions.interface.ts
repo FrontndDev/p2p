@@ -42,6 +42,7 @@ export interface ITransaction {
   seller: ISeller;
   buyer: IBuyer;
   requisite: IRequisite;
+  canBeCanceled: boolean;
 }
 
 export interface ITransactionsHistory {
