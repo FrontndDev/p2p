@@ -43,7 +43,7 @@
     </div>
 
     <SaleAnnouncement v-if="activeTab.id === 1"/>
-    <MyPurchasesAndDeals type="deals" v-else-if="activeTab.id === 2"/>
+    <MyPurchasesAndDeals type="deals" v-else-if="activeTab.id === 2" @accept="acceptDeal"/>
   </div>
 
   <AddRequisitesModal v-if="showAddRequisitesModal" @close-modal="showAddRequisitesModal = false"/>
@@ -66,6 +66,9 @@ import TelegramBanner from "@/components/TelegramBanner/TelegramBanner.vue";
 import InformationAboutTransfers from "@/components/InformationAboutTransfers/InformationAboutTransfers.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import AddRequisitesModal from "@/components/Modals/Contents/AddRequisitesModal/AddRequisitesModal.vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const tabs = reactive([
   {
@@ -90,6 +93,10 @@ const setTab = (tab: ITabs) => {
 
 const setWindowWidth = () => {
   windowWidth.value = window.innerWidth
+}
+
+const acceptDeal = (id: number) => {
+  store.dispatch('profile/acceptDeal', id)
 }
 
 onBeforeMount(() => {

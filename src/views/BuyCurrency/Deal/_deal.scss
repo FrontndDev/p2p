@@ -45,7 +45,7 @@
       background: $bg-base-contrast;
     }
 
-    &.payed {
+    &.accepted, .payed {
       background: $bg-orange;
     }
 

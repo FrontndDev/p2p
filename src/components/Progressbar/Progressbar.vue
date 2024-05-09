@@ -57,7 +57,7 @@ const steps = computed(() => {
   let steps: { name: string; type?: string; }[] = [];
 
   switch (props.status) {
-    case DealEnum.payed:
+    case DealEnum.accepted:
       steps = [
         {
           name: 'Оплата сделки покупателем',
@@ -65,6 +65,21 @@ const steps = computed(() => {
         },
         {
           name: 'Подтверждение оплаты продавцом',
+        },
+        {
+          name: 'Завершено',
+        }
+      ]
+      break;
+    case DealEnum.payed:
+      steps = [
+        {
+          name: 'Оплата сделки покупателем',
+          type: 'completed',
+        },
+        {
+          name: 'Подтверждение оплаты продавцом',
+          type: 'active',
         },
         {
           name: 'Завершено',

@@ -44,15 +44,20 @@
       left: 9px;
     }
 
-    &.completed::before {
-      background: $bg-green;
+    &.completed {
+      &::before {
+        background: $bg-green;
+      }
     }
 
-    &.pending::before {
-      background: $bg-orange;
+    &.pending,
+    &.accepted {
+      &::before {
+        background: $bg-orange;
+      }
     }
 
-    &.cancelled::before {
+    &.canceled::before {
       background: $bg-red;
     }
   }

@@ -16,8 +16,8 @@ export default {
     getTransactionsHistory({ commit }: TCtx) {
       API.getTransactionsHistory().then(response => commit('SET_TRANSACTIONS_HISTORY', response.data))
     },
-    getTransactionInfo({ commit }: TCtx, id: number) {
-      API.getTransactionInfo(id).then(response => commit('SET_TRANSACTION_INFO', response.data.transaction))
+    async getTransactionInfo({ commit }: TCtx, id: number) {
+      return await API.getTransactionInfo(id).then(response => commit('SET_TRANSACTION_INFO', response.data.transaction))
     },
     async createDeal(_: TCtx, data: ICreateDealParams) {
       return await API.createDeal(data)

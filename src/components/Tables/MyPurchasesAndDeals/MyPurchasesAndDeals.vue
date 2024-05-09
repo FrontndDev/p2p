@@ -55,7 +55,7 @@
               name="Принять"
               :legend="row?.legend"
               v-if="props.type === 'deals'"
-              @click="emit('more-details', row.orderId)"
+              @click="emit('accept', row.orderId)"
           />
         </div>
       </div>
@@ -98,7 +98,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['more-details'])
+const emit = defineEmits(['more-details', 'accept'])
 
 const store = useStore();
 
@@ -160,7 +160,7 @@ const data = computed(() => {
           name: `${transaction.seller.firstName} ${transaction.seller.lastName}`,
           avatar: transaction.seller.avatar,
           count: transaction.amount,
-          sum: `${transaction.price} ${transaction.outerCurrency}`,
+          sum: `${transaction.price.amount} ${transaction.price.currency}`,
           status: transaction.status.name,
           statusTranslate: transaction.statusTransaction?.split(' ')?.[0],
           orderId: transaction.id,

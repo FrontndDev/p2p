@@ -49,6 +49,9 @@ export default {
     withdrawWallet({ commit }: TCtx, data: IInteractionWithWallet) {
       API.withdrawWallet(data).then(response => commit('UPDATE_WALLET', response.wallet))
     },
+    async acceptDeal(_: TCtx, id: number) {
+      return await API.acceptDeal(id).then(response => console.log('acceptDeal', response))
+    },
   },
   mutations: {
     SET_PROFILE(state: any, profile: IProfile) {

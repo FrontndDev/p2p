@@ -1,4 +1,8 @@
-import { IStatistics } from "@/interfaces/store/modules/profile.interface.ts";
+import {
+  IRequisite,
+  IStatistics
+} from "@/interfaces/store/modules/profile.interface.ts";
+import { IPrice } from "@/interfaces/store/modules/ads.interface.ts";
 
 export interface IStatus {
   name: string;
@@ -30,12 +34,13 @@ export interface ITransaction {
   statusTransaction: string;
   status: IStatus;
   comment: string;
-  price: number;
+  price: IPrice;
   innerCurrency: string;
   outerCurrency: string;
   createdAt: string;
   seller: ISeller;
   buyer: IBuyer;
+  requisite: IRequisite;
 }
 
 export interface ITransactionsHistory {
@@ -48,4 +53,5 @@ export interface ICreateDealParams {
   adsId: number;
   amount: number;
   comment: string;
+  payment_window: number;
 }

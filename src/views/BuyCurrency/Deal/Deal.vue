@@ -8,14 +8,14 @@
           </div>
           {{ transactionInfo.statusTransaction ?? 'Загрузка...' }}
         </div>
-        <div class="deal__timer">
-          <div class="deal__timer-item">14</div>
+        <div class="deal__timer" v-if="props.expiredIn">
+          <div class="deal__timer-item">{{ minutes }}</div>
           <div class="deal__timer-colon">
             <svg width="2" height="2" viewBox="0 0 2 2" fill="none" xmlns="http://www.w3.org/2000/svg" v-for="item in 2" :key="item">
               <circle cx="1" cy="1" r="1" fill="#191B2A"/>
             </svg>
           </div>
-          <div class="deal__timer-item">59</div>
+          <div class="deal__timer-item">{{ seconds }}</div>
         </div>
       </div>
       <div class="deal__text">Для осуществления сделки необходимо дождаться подтверждение продавца в течении 15 минут</div>
@@ -28,7 +28,10 @@
         />
       </div>
       <SellerDetails
-          :name="`${transactionInfo.seller?.firstName} ${transactionInfo.seller?.lastName}`"
+          :payment-method="transactionInfo.requisite.paymentMethod"
+          :price="transactionInfo.price"
+          :seller="transactionInfo.seller"
+          v-if="['accepted'].includes(transactionInfo.status?.name)"
       />
     </div>
 
@@ -40,7 +43,7 @@
 
       <div class="deal__info-item">
         <div class="deal__info-item-title">Вы отдаете</div>
-        <div class="deal__info-item-value price">1 000 000 RUB</div>
+        <div class="deal__info-item-value price">{{ transactionInfo.price?.amount }} {{ transactionInfo.price?.currency }}</div>
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Вы получаете</div>
@@ -51,20 +54,23 @@
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Способ оплаты</div>
-        <PaymentMethods :payment-methods="[{ id: 1, name: 'Сбербанк' }]"/>
+        <PaymentMethods
+            :payment-methods="[{ id: transactionInfo.requisite.id, name: transactionInfo.requisite.paymentMethod }]"
+            v-if="transactionInfo.requisite"
+        />
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Окно оплаты</div>
-        <div class="deal__info-item-value">15 минут</div>
+        <div class="deal__info-item-value">{{ transactionInfo.status?.expiredIn }} минут</div>
       </div>
 
       <div class="deal__buttons">
         <MyButton type="neutral-btn" size="big" width="50%" name="Отменить сделку"/>
         <MyButton
-            type="neutral-btn"
             size="big"
             width="50%"
             name="Вернуться к объявлениям"
+            :type="activeBtn ? 'second-primary-btn' : 'neutral-btn'"
             @click="$router.push({ name: 'purchase' })"
         />
       </div>
@@ -100,16 +106,38 @@ import AdditionalInfo from "@/components/UI/AdditionalInfo/AdditionalInfo.vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import { useStore } from "vuex";
 
+const props = defineProps({
+  expiredIn: {
+    type: Number,
+    default: 0,
+  }
+});
+
 const store = useStore();
 
 const transactionInfo = computed(() => store.state.transactions.transactionInfo);
 
+const minutes = computed(() => {
+  const min = Math.floor(props.expiredIn / 60)
+  return min < 10 ? `0${min}` : min
+});
+
+const seconds = computed(() => {
+  const sec = props.expiredIn % 60
+  return sec < 10 ? `0${sec}` : sec
+})
+
 const dealType: Ref<TDealType> = computed(() => transactionInfo.value.status?.name);
+
+const activeBtn = computed(() =>
+    [DealEnum.completed, DealEnum.cancelled, DealEnum.declined, DealEnum.expired, DealEnum.error].includes(transactionInfo.value.status?.name)
+);
 
 const getMessageTimeIcon = computed(() => {
   switch (dealType.value) {
     case DealEnum.pending:
       return ClockIcon;
+    case DealEnum.accepted:
     case DealEnum.payed:
       return ExclamationIcon;
     case DealEnum.completed:
@@ -125,7 +153,7 @@ const getMessageTimeIcon = computed(() => {
   }
 });
 
-const getDate = computed(() => transactionInfo.value.createdAt?.split('|'))
+const getDate = computed(() => transactionInfo.value.createdAt?.split('|'));
 </script>
 
 <style scoped lang="scss">

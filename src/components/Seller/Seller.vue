@@ -39,7 +39,6 @@ const props = defineProps({
   },
   statistics: {
     type: Object as PropType<IStatistics | null>,
-    required: true,
   },
 })
 

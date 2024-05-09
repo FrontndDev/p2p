@@ -8,8 +8,6 @@
               <div class="deal-modal__seller">
                 <Seller
                     type="seller-modal"
-                    :successful-num="-1"
-                    :done-num="-1"
                     :name="`${selectedDeal.adsAuthor?.first_name} ${selectedDeal.adsAuthor?.last_name}`"
                     :avatar="selectedDeal.adsAuthor?.avatar"
                 />
@@ -18,7 +16,9 @@
               <div class="deal-modal__info">
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Цена</div>
-                  <div class="deal-modal__info-item-value deal-modal__info-item-value_price">{{ selectedDeal.price }} {{ selectedDeal.outerCurrency }}</div>
+                  <div class="deal-modal__info-item-value deal-modal__info-item-value_price">
+                    {{ selectedDeal.price.amount }} {{ selectedDeal.price.currency }}
+                  </div>
                 </div>
                 <div class="deal-modal__info-item deal-modal__info-item_payment-methods">
                   <div class="deal-modal__info-item-title">Способ оплаты</div>
@@ -35,7 +35,11 @@
                 </div>
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Лимиты</div>
-                  <div class="deal-modal__info-item-value">{{ selectedDeal.minAmount }} - {{ selectedDeal.maxAmount }}</div>
+                  <div class="deal-modal__info-item-value">
+                    {{ selectedDeal.minAmount.amount }} {{ selectedDeal.minAmount.currency }}
+                    -
+                    {{ selectedDeal.maxAmount.amount }} {{ selectedDeal.maxAmount.currency }}
+                  </div>
                 </div>
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Окно оплаты</div>
@@ -58,7 +62,7 @@
                   wallet="RUB"
                   :value="imGiving"
                   @input-value="setImGiving"
-                  @all="setImGiving(getAmountInNumber(selectedDeal.maxAmount))"
+                  @all="setImGiving(getAmountInNumber(selectedDeal.maxAmount.amount))"
               />
               <MyInput
                   type="number"
@@ -75,6 +79,12 @@
                   :items="paymentMethods"
                   :selected-item="selectedPaymentMethod"
                   @select="selectPaymentMethod"
+              />
+              <Select
+                  title="Время в минутах"
+                  :items="times"
+                  :selected-item="selectedTime"
+                  @select="selectTime"
               />
             </div>
 
@@ -103,7 +113,8 @@ import {
   onMounted,
   reactive,
   Ref,
-  ref
+  ref,
+  watch
 } from "vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 // @ts-ignore
@@ -154,8 +165,13 @@ const paymentMethods = reactive([
 ]);
 
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
+const selectedTime: Ref<ISelect | null> = ref(null);
 
 const selectedDeal: ComputedRef<IAd> = computed(() => store.state.ads.ads.ads.find((ad: IAd) => ad.id === props.dealId));
+
+const times: ComputedRef<ISelect[]> = computed(() =>
+    store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))
+);
 
 const getAmountInNumber = (str: string) => {
   return str.replace(/\s|₽/g, '')
@@ -169,27 +185,37 @@ const selectPaymentMethod = (paymentMethod: ISelect) => {
 }
 
 const setImGiving = (value: string) => {
+  console.log('value', value)
   imGiving.value = value
-  iWillGet.value = String((+imGiving.value / +selectedDeal.value.price).toFixed(4))
+  iWillGet.value = String((+imGiving.value / +selectedDeal.value.price.amount).toFixed(4))
 }
 
 const setIWillGet = (value: string) => {
   iWillGet.value = value
-  imGiving.value = String((+iWillGet.value * +selectedDeal.value.price).toFixed(4))
+  imGiving.value = String((+iWillGet.value * +selectedDeal.value.price.amount).toFixed(4))
+}
+
+const selectTime = (time: ISelect) => {
+  selectedTime.value = time
 }
 
 const openDeal = async () => {
   const data: ICreateDealParams = {
     adsId: selectedDeal.value.id,
     amount: +imGiving.value,
-    comment: selectedDeal.value.authorComment
+    comment: selectedDeal.value.authorComment,
+    payment_window: +selectedTime.value.name
   }
   const response = await store.dispatch('transactions/createDeal', data)
-  await router.push({ name: 'deal', params: { transactionId: response.data.transaction.id } })
+  if (response?.data?.transaction?.id) {
+    emit('close-modal')
+    await router.push({ name: 'deal', params: { transactionId: response.data.transaction.id } })
+  }
 }
 
 onMounted(() => {
   selectedPaymentMethod.value = paymentMethods[0]
+  selectTime(times.value[0]);
 })
 </script>
 
