@@ -8,6 +8,7 @@ export interface IStatus {
   name: string;
   isBad: boolean;
   expiredIn: number;
+  expirationTime: number;
 }
 
 export interface IBuyer {

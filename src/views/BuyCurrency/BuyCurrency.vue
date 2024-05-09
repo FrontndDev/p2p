@@ -31,7 +31,7 @@ watch(() => expiredIn.value, () => {
 
 onMounted(async () => {
   await store.dispatch('transactions/getTransactionInfo', route.params.transactionId);
-  expiredIn.value = store.state.transactions.transactionInfo.status.expiredIn * 60;
+  expiredIn.value = store.state.transactions.transactionInfo.status.expiredIn;
   console.log('expiredIn', expiredIn.value)
   interval.value = setInterval(() => {
     if (expiredIn.value) expiredIn.value--

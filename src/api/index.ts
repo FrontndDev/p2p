@@ -96,6 +96,10 @@ export async function acceptDeal(id: number) {
   return putAsync(`/api/v1/p2p/profile/transaction/status/${id}`, {})
 }
 
+export async function cancelDeal(id: number) {
+  return putAsync(`/api/v1/p2p/transaction/decline/${id}`, {})
+}
+
 // DELETE
 
 export async function deleteRequisite(id: number) {

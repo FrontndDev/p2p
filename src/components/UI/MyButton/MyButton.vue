@@ -2,9 +2,10 @@
   <div
       class="my-button"
       :style="`width: ${props.width};`"
-      :class="[props.type, props.size, { disabled }]"
+      :class="[props.type, props.size, { disabled }, { loading }]"
   >
     <slot name="icon-left"/>
+
     {{ props.name }}
     <slot name="icon-right"/>
 
@@ -19,6 +20,10 @@ const props = defineProps({
   type: {
     type: String as PropType<'primary-btn' | 'second-primary-btn' | 'success-btn' | 'second-success-btn' | 'neutral-btn'>,
     default: 'primary-btn'
+  },
+  loading: {
+    type: Boolean,
+    default: false,
   },
   size: {
     type: String as PropType<'' | 'big'>,

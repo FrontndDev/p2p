@@ -52,6 +52,9 @@ export default {
     async acceptDeal(_: TCtx, id: number) {
       return await API.acceptDeal(id).then(response => console.log('acceptDeal', response))
     },
+    async cancelDeal(_: TCtx, id: number) {
+      return await API.cancelDeal(id).then(response => console.log('cancelDeal', response))
+    },
   },
   mutations: {
     SET_PROFILE(state: any, profile: IProfile) {

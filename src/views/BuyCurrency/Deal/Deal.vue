@@ -18,8 +18,7 @@
           <div class="deal__timer-item">{{ seconds }}</div>
         </div>
       </div>
-      <div class="deal__text">Для осуществления сделки необходимо дождаться подтверждение продавца в течении 15 минут</div>
-      <div class="deal__text">Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок</div>
+      <div class="deal__text" v-for="item in getDescription">{{ item }}</div>
 
       <div class="deal__progressbar my-content-container">
         <Progressbar
@@ -61,11 +60,17 @@
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Окно оплаты</div>
-        <div class="deal__info-item-value">{{ transactionInfo.status?.expiredIn }} минут</div>
+        <div class="deal__info-item-value">{{ transactionInfo.status?.expirationTime }} минут</div>
       </div>
 
       <div class="deal__buttons">
-        <MyButton type="neutral-btn" size="big" width="50%" name="Отменить сделку"/>
+        <MyButton
+            type="neutral-btn"
+            size="big"
+            width="50%"
+            name="Отменить сделку"
+            @click="cancelDeal"
+        />
         <MyButton
             size="big"
             width="50%"
@@ -105,6 +110,10 @@ import SellerDetails from "@/components/SellerDetails/SellerDetails.vue";
 import AdditionalInfo from "@/components/UI/AdditionalInfo/AdditionalInfo.vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import { useStore } from "vuex";
+import {
+  useRoute,
+  useRouter
+} from "vue-router";
 
 const props = defineProps({
   expiredIn: {
@@ -114,6 +123,8 @@ const props = defineProps({
 });
 
 const store = useStore();
+const router = useRouter();
+const route = useRoute();
 
 const transactionInfo = computed(() => store.state.transactions.transactionInfo);
 
@@ -125,7 +136,7 @@ const minutes = computed(() => {
 const seconds = computed(() => {
   const sec = props.expiredIn % 60
   return sec < 10 ? `0${sec}` : sec
-})
+});
 
 const dealType: Ref<TDealType> = computed(() => transactionInfo.value.status?.name);
 
@@ -154,6 +165,21 @@ const getMessageTimeIcon = computed(() => {
 });
 
 const getDate = computed(() => transactionInfo.value.createdAt?.split('|'));
+
+const getDescription = computed(() => {
+  switch (transactionInfo.value.status?.name) {
+    default:
+      return [
+          `Для осуществления сделки необходимо дождаться подтверждение продавца в течении ${transactionInfo.value.status?.expirationTime ?? 15} минут`,
+          'Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок'
+      ];
+  }
+});
+
+const cancelDeal = async () => {
+  await store.dispatch('profile/cancelDeal', +route.params.transactionId);
+  await router.push({ name: 'purchase' })
+}
 </script>
 
 <style scoped lang="scss">
