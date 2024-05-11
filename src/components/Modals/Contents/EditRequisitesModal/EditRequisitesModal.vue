@@ -1,5 +1,5 @@
 <template>
-  <Modal width="560px" padding="24px" title="Редактировать реквизиты" @close-modal="emit('close-modal')">
+  <Modal width="560px" padding="24px" title="Редактировать реквизиты" :hide-overlay="showDeleteRequisitesModal" @close-modal="emit('close-modal')">
     <template #content>
       <div class="edit-requisites-modal">
         <div class="edit-requisites-modal__content">
@@ -83,7 +83,7 @@ const emit = defineEmits(['close-modal']);
 
 const store = useStore();
 
-const showDeleteRequisitesModal = ref(true);
+const showDeleteRequisitesModal = ref(false);
 
 const requestInProcess = ref(false);
 let paymentMethods: Ref<ISelect[]> = ref([]);

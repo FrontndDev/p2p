@@ -14,7 +14,7 @@
 
           <ModalCloseIcon size="little" @click="emit('close-modal')"/>
         </div>
-        <div class="my-modal__overlay" @click="emit('close-modal')"/>
+        <div class="my-modal__overlay" v-if="!props.hideOverlay" @click="emit('close-modal')"/>
       </div>
     </Transition>
   </Teleport>
@@ -50,6 +50,10 @@ const props = defineProps({
     type: String,
     default: '560px'
   },
+  hideOverlay: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 const emit = defineEmits(['close-modal']);
