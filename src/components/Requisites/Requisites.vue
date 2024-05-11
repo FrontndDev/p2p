@@ -13,8 +13,7 @@
           v-for="requisite in requisites"
           :key="requisite.id"
       >
-        <div class="requisites__item-wallet">
-          <img src="@/assets/images/rub.png" alt="icon">
+        <div class="requisites__item-wallet bg-currency" :class="`currency-${requisite.currency}`">
           {{ requisite.currency }}
         </div>
 

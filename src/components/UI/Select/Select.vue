@@ -5,7 +5,7 @@
         <div class="my-select__title" v-if="props.title">
           {{ props.title }}
         </div>
-        <div class="my-select__text">
+        <div class="my-select__text" :class="props.isCurrency ? `currency-${props.selectedItem?.name} bg-currency small-icon` : ''">
           <template v-if="props.selectedItem?.icon">
             <img :src="props.selectedItem?.icon" :alt="props.selectedItem?.name" v-if="typeof props.selectedItem?.icon === 'string'">
             <template>{{ props.selectedItem?.icon }}</template>
@@ -24,16 +24,18 @@
     <div class="my-select__down" v-if="showDropdown">
       <div
           class="my-select__item"
-          :class="{ active: props.selectedItem?.id === item.id }"
+          :class="[{ active: props.selectedItem?.id === item.id }]"
           v-for="item in props.items"
           :key="item.id"
           @click="selectItem(item)"
       >
-        <template v-if="item?.icon">
-          <img :src="item?.icon" :alt="item?.icon" v-if="typeof item?.icon === 'string'">
-          <template>{{ item?.icon }}</template>
-        </template>
-        {{ item.name }}
+        <div :class="props.isCurrency ? `currency-${item.name} bg-currency small-icon` : ''">
+          <template v-if="item?.icon">
+            <img :src="item?.icon" :alt="item?.icon" v-if="typeof item?.icon === 'string'">
+            <template>{{ item?.icon }}</template>
+          </template>
+          {{ item.name }}
+        </div>
       </div>
     </div>
   </div>
@@ -63,6 +65,10 @@ const props = defineProps({
     type: Object as PropType<ISelect | null>,
     default: null,
   },
+  isCurrency: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const emit = defineEmits(['select']);

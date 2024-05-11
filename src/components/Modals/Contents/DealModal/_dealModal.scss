@@ -96,7 +96,9 @@
       &-value {
         @include flexbox(row, flex-end, center);
         column-gap: 8px;
+        padding-right: 24px;
         width: 248px;
+        background-position: right;
         color: $text-base;
         text-align: end;
 

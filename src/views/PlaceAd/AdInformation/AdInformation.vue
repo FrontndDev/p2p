@@ -6,8 +6,7 @@
       <div class="ad-information__content">
         <div class="ad-information__content-header">
           <div class="ad-information__content-title">Продажа</div>
-          <div class="ad-information__content-wallet">
-            <img src="@/assets/images/ton.png" alt="icon">
+          <div class="ad-information__content-wallet bg-currency" :class="`currency-${props.selectedInnerCurrency?.name}`">
             {{ props.selectedInnerCurrency?.name }}
           </div>
         </div>

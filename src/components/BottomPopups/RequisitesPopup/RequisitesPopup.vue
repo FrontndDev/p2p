@@ -11,7 +11,7 @@
             <div class="requisites-popup__left">
               <div class="requisites-popup__item-bank">Сбербанк</div>
               <div class="requisites-popup__item-down">
-                <img src="@/assets/images/rub.png" alt="rub" class="requisites-popup__item-wallet">
+<!--                <img src="@/assets/images/rub.png" alt="rub" class="requisites-popup__item-wallet">-->
                 <div class="requisites-popup__item-card-num">4523 *** **** 0254</div>
               </div>
             </div>

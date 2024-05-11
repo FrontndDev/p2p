@@ -36,6 +36,7 @@ export interface ITransaction {
   status: IStatus;
   comment: string;
   price: IPrice;
+  outerCurrencyAmount: IPrice;
   innerCurrency: string;
   outerCurrency: string;
   createdAt: string;

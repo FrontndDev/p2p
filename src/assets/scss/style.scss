@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 @import "variables";
 @import "mixins";
+@import "currencies.css";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -135,6 +136,16 @@ button {
 
 .fw-700 {
   font-weight: 700 !important;
+}
+
+.bg-currency {
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: left center;
+
+  &.small-icon {
+    background-size: 16px;
+  }
 }
 
 @media screen and (max-width: 756px) {

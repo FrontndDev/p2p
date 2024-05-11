@@ -7,6 +7,7 @@
               title="Валюта"
               :items="wallets"
               :selected-item="selectedWallet"
+              :is-currency="true"
               @select="selectWallet"
           />
           <Select

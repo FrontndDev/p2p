@@ -28,9 +28,8 @@
                 </div>
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Доступно</div>
-                  <div class="deal-modal__info-item-value">
+                  <div class="deal-modal__info-item-value bg-currency small-icon" :class="`currency-${selectedDeal.innerCurrency}`">
                     {{ selectedDeal.activeAmount }} {{ selectedDeal.innerCurrency }}
-                    <USDIcon/>
                   </div>
                 </div>
                 <div class="deal-modal__info-item">
@@ -114,7 +113,6 @@ import {
   reactive,
   Ref,
   ref,
-  watch
 } from "vue";
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 // @ts-ignore

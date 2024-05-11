@@ -22,14 +22,16 @@
                 title="Продаю"
                 :items="innerCurrencies"
                 :selected-item="props.selectedInnerCurrency"
+                :is-currency="true"
                 @select="selectInnerCurrency"
             />
-            <span>Всего доступно <span>1 000 000 TON</span></span>
+            <span>Всего доступно <span>{{ amountOfCurrency }} {{ props.selectedInnerCurrency?.name }}</span></span>
           </div>
           <Select
               title="За валюту"
               :items="outerCurrencies"
               :selected-item="props.selectedOuterCurrency"
+              :is-currency="true"
               @select="selectOuterCurrency"
           />
         </div>
@@ -61,7 +63,7 @@
                 class="my-input-second"
                 placeholder="100"
                 title="Множитель"
-                :value="''"
+                :value="String(props.factor)"
                 @input-value="inputFactor"
             />
             <StarIcon/>
@@ -72,7 +74,7 @@
                 title="Актуальный курс"
                 :value="String(currentRate)"
                 :disabled="true"
-                :icon="TONIcon"
+                :currency="props.selectedOuterCurrency.name"
             />
           </div>
         </div>
@@ -87,8 +89,8 @@
                 placeholder="Доступно 1 000 000"
                 title="Количество на продажу"
                 :disabled="true"
-                :icon="TONIcon"
                 :value="String(amountOfCurrency)"
+                :currency="props.selectedOuterCurrency.name"
             />
 
             <div class="ad__row-input-info">
@@ -109,8 +111,8 @@
               class="my-input-second"
               placeholder="10"
               title="Минимальный перевод"
-              :icon="TONIcon"
               :value="props.minAmount"
+              :currency="props.selectedOuterCurrency.name"
               @input-value="inputMinTransfer"
           />
           <MyInput
@@ -118,8 +120,8 @@
               class="my-input-second"
               placeholder="1 000 000"
               title="Максимальный перевод"
-              :icon="TONIcon"
               :value="props.maxAmount"
+              :currency="props.selectedOuterCurrency.name"
               @input-value="inputMaxTransfer"
           />
         </div>
@@ -261,6 +263,9 @@ const props = defineProps({
   comment: {
     type: String,
   },
+  factor: {
+    type: Number,
+  }
 });
 
 const emit = defineEmits([

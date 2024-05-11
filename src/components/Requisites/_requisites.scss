@@ -34,6 +34,7 @@
     &-wallet {
       @include flexbox(row, flex-start, center);
       column-gap: 16px;
+      padding-left: 40px;
       @include get-font(16px, 500, 24px, $text-base-secondary);
 
       & > img {

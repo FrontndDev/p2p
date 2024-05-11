@@ -22,8 +22,7 @@
               :statistics="ad.adsAuthor.statistics"
           />
         </div>
-        <div class="purchase-announcement__wallet">
-          <img alt="icon" :src="getIcon(ad.currencyForBuy)">
+        <div class="purchase-announcement__wallet bg-currency small-icon" :class="`currency-${ad.currencyForBuy}`">
           {{ ad.currencyForBuy }}
         </div>
         <div class="purchase-announcement__price">{{ ad.priceToShow }}</div>
@@ -34,10 +33,9 @@
           />
         </div>
         <div class="purchase-announcement__info">
-          <div class="purchase-announcement__info-available">
+          <div class="purchase-announcement__info-available bg-currency small-icon" :class="`currency-${ad.outerCurrency}`">
             <span>Сумма</span>
             {{ ad.activeAmount }}
-            <img alt="icon" :src="getIcon(ad.outerCurrency)">
           </div>
           <div class="purchase-announcement__info-limits">
             <span>Лимит</span>
@@ -63,8 +61,6 @@
 </template>
 
 <script setup lang="ts">
-import USDIcon from '@/assets/svg/wallets/usd.svg';
-import TONIcon from '@/assets/svg/wallets/ton.svg';
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import {
   computed,
@@ -84,15 +80,6 @@ const store = useStore();
 
 const ads: ComputedRef<IAds> = computed(() => store.state.ads.ads)
 const selectedPage: ComputedRef<number> = computed(() => store.state.ads.page)
-
-const getIcon = (type: string) => {
-  switch (type) {
-    case 'USD':
-      return USDIcon
-    case 'TON':
-      return TONIcon
-  }
-}
 
 const getName = (name: string) => {
   const array = name.split(' ')

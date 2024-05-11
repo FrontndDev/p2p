@@ -18,9 +18,8 @@
           />
         </div>
         <div class="my-purchases-and-deals__info">
-          <div class="my-purchases-and-deals__info-count">
+          <div class="my-purchases-and-deals__info-count bg-currency small-icon" :class="`currency-${row.wallet}`">
             {{ row.count }}
-            <img alt="icon" :src="getIcon(row.wallet)">
           </div>
           <div class="my-purchases-and-deals__info-sum">{{ row.sum }}</div>
         </div>
@@ -74,8 +73,6 @@
 </template>
 
 <script setup lang="ts">
-import USDIcon from '@/assets/svg/wallets/usd.svg';
-import TONIcon from '@/assets/svg/wallets/ton.svg';
 import {
   computed,
   ComputedRef,
@@ -191,15 +188,6 @@ const data = computed(() => {
       };
   }
 });
-
-const getIcon = (type: string) => {
-  switch (type) {
-    case 'USD':
-      return USDIcon
-    case 'TON':
-      return TONIcon
-  }
-}
 
 const getName = (name: string) => {
   const array = name.split(' ')

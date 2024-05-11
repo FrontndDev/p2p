@@ -149,7 +149,12 @@
       &-value {
         @include flex-center;
         column-gap: 8px;
+        background-position: right;
         @include get-font(14px, 500, 20px, $text-base);
+
+        &.bg-currency {
+          padding-right: 24px;
+        }
 
         &.price {
           font-weight: 700;

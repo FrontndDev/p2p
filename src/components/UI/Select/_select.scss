@@ -46,6 +46,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
+    &.bg-currency {
+      padding-left: 24px;
+    }
+
     & > img {
       width: 16px;
       height: 16px;
@@ -84,6 +88,12 @@
     @include get-font(14px, 500, 20px, $text-base-secondary);
     transition: .25s all ease;
     cursor: pointer;
+
+    & > div {
+      &.bg-currency {
+        padding-left: 24px;
+      }
+    }
 
     &:hover,
     &.active {

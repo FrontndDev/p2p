@@ -19,6 +19,7 @@
           :title="select.title"
           :items="select.items"
           :selected-item="select.selectedItem.value"
+          :is-currency="[1, 2].includes(select.id)"
           @select="selectItem"
       />
       <MyInput

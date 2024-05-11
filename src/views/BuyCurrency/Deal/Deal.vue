@@ -46,9 +46,8 @@
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Вы получаете</div>
-        <div class="deal__info-item-value">
-          1 000 000 RUB
-          <USDIcon/>
+        <div class="deal__info-item-value bg-currency small-icon" :class="`currency-${transactionInfo.outerCurrencyAmount?.currency}`">
+          {{ transactionInfo.outerCurrencyAmount?.amount }}
         </div>
       </div>
       <div class="deal__info-item">
@@ -97,8 +96,6 @@ import CrossIcon from '@/assets/svg/deal/cross.svg?component';
 // @ts-ignore
 import DisputeIcon from '@/assets/svg/deal/dispute.svg?component';
 //
-// @ts-ignore
-import USDIcon from '@/assets/svg/wallets/usd.svg?component';
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { TDealType } from "@/views/BuyCurrency/Deal/deal.interface.ts";
 import {

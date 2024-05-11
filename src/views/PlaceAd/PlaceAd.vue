@@ -8,6 +8,7 @@
         :selected-payment-method="selectedPaymentMethod"
         :selected-time="selectedTime"
         :selling-price="price"
+        :factor="factor"
         :min-amount="String(minAmount)"
         :max-amount="String(maxAmount)"
         :comment="comment"
@@ -20,6 +21,7 @@
         @select-payment-method="(item: ISelect) => selectedPaymentMethod = item"
         @select-time="(item: ISelect) => selectedTime = item"
         @input-comment="(value: string) => comment = value"
+        @input-factor="(value: string) => factor = +value"
     />
     <AdInformation
         :show-save-btn="!_.isEqual(data, copyData)"

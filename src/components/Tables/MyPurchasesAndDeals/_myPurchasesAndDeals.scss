@@ -13,7 +13,8 @@
     &-count {
       @include flex-center;
       column-gap: 8px;
-      @include get-font(14px, 500, 20px, $text-base);
+      padding-left: 24px;
+      @include get-font(14px, 700, 20px, $text-base);
     }
 
     &-sum {

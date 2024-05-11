@@ -1,7 +1,7 @@
 <template>
   <div class="my-input">
     <div class="my-input__title" v-if="props.title">{{ props.title }}</div>
-    <div class="my-input__field">
+    <div class="my-input__field" :class="props.currency ? `currency-${props.currency} bg-currency small-icon` : ''">
       <template v-if="props.icon">
         <img :src="props.icon" alt="icon" ref="icon" v-if="typeof props.icon === 'string'">
         <component ref="icon" :is="props.icon" v-else/>
@@ -56,6 +56,9 @@ const props = defineProps({
   },
   icon: {
     type: String as PropType<string | SVGAElement>,
+  },
+  currency: {
+    type: String,
   },
   disabled: {
     type: Boolean,

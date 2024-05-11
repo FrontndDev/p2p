@@ -25,6 +25,10 @@
     width: 100%;
     position: relative;
 
+    &.bg-currency {
+      padding-left: 24px;
+    }
+
     & > svg,
     & > img {
       width: 16px;

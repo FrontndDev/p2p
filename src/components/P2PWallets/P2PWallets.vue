@@ -3,9 +3,7 @@
     <div class="p2p-card__header title-h2">P2P кошельки</div>
 
     <div class="p2p-wallets__item" v-for="wallet in wallets" :key="wallet.id">
-      <div class="p2p-wallets__item-wallet">
-        <img src="@/assets/svg/wallets/ton.svg" alt="icon">
-
+      <div class="p2p-wallets__item-wallet bg-currency" :class="`currency-${wallet.currency}`">
         <div class="p2p-wallets__item-wallet-info">
           <div class="p2p-wallets__item-wallet-count">{{ wallet.realAmount }}</div>
           <div class="p2p-wallets__item-wallet-name">{{ wallet.currency }}</div>

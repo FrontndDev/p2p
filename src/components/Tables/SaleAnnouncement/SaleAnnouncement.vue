@@ -11,8 +11,7 @@
       </div>
 
       <div class="sale-announcement__row my-table__row" v-for="ad in ads.ads" :key="ad.id">
-        <div class="sale-announcement__wallet">
-          <img alt="icon" :src="getIcon(ad.innerCurrency)">
+        <div class="sale-announcement__wallet bg-currency small-icon" :class="`currency-${ad.innerCurrency}`">
           {{ ad.innerCurrency }}
         </div>
         <div class="sale-announcement__price">{{ ad.priceToShow }}</div>
@@ -23,10 +22,9 @@
           />
         </div>
         <div class="sale-announcement__info">
-          <div class="sale-announcement__info-available">
+          <div class="sale-announcement__info-available bg-currency small-icon" :class="`currency-${ad.innerCurrency}`">
             <span>Остаток</span>
             {{ ad.activeAmount }}
-            <img alt="icon" :src="getIcon(ad.innerCurrency)">
           </div>
           <div class="sale-announcement__info-limits">
             <span>Лимиты</span>
@@ -61,8 +59,6 @@
 </template>
 
 <script setup lang="ts">
-import USDIcon from '@/assets/svg/wallets/usd.svg';
-import TONIcon from '@/assets/svg/wallets/ton.svg';
 import {
   computed,
   ComputedRef,
@@ -79,15 +75,6 @@ const store = useStore();
 const ads: ComputedRef<IAds> = computed(() => store.state.profile.ads);
 
 const selectedPage: ComputedRef<number> = computed(() => store.state.profile.page)
-
-const getIcon = (type: string) => {
-  switch (type) {
-    case 'USD':
-      return USDIcon
-    case 'TON':
-      return TONIcon
-  }
-}
 
 const getDateSecond = (date: string) => {
   const splitted = date.split(' ')
