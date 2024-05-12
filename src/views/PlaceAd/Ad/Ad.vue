@@ -74,7 +74,7 @@
                 title="Актуальный курс"
                 :value="String(currentRate)"
                 :disabled="true"
-                :currency="props.selectedOuterCurrency.name"
+                :currency="props.selectedOuterCurrency?.name"
             />
           </div>
         </div>
@@ -90,7 +90,7 @@
                 title="Количество на продажу"
                 :disabled="true"
                 :value="String(amountOfCurrency)"
-                :currency="props.selectedOuterCurrency.name"
+                :currency="props.selectedOuterCurrency?.name"
             />
 
             <div class="ad__row-input-info">
@@ -112,7 +112,7 @@
               placeholder="10"
               title="Минимальный перевод"
               :value="props.minAmount"
-              :currency="props.selectedOuterCurrency.name"
+              :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMinTransfer"
           />
           <MyInput
@@ -121,7 +121,7 @@
               placeholder="1 000 000"
               title="Максимальный перевод"
               :value="props.maxAmount"
-              :currency="props.selectedOuterCurrency.name"
+              :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMaxTransfer"
           />
         </div>

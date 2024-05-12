@@ -13,7 +13,7 @@
       <div class="p2p-wallets__item-info">
         <div class="p2p-wallets__item-action">
           <span>Для продажи</span>
-          <span>{{ wallet.realAmount }}</span>
+          <span>{{ systemWallets[wallet.currency].amount }}</span>
         </div>
         <div class="p2p-wallets__item-commission">
           <span>Комиссия</span>
@@ -49,12 +49,14 @@
         :selected-wallet="selectedWallet"
         v-if="showWalletReplenishmentModal && selectedWallet"
         @close-modal="showWalletReplenishmentModal = false"
+        @select-wallet="(wallet: IWallet) => selectedWallet = wallet"
     />
     <!--  Вывод средств   -->
     <WithdrawalFundsModal
         :selected-wallet="selectedWallet"
         v-if="showWithdrawalFundsModal && selectedWallet"
         @close-modal="showWithdrawalFundsModal = false"
+        @select-wallet="(wallet: IWallet) => selectedWallet = wallet"
     />
   </div>
 </template>
@@ -69,6 +71,7 @@ import {
   ref
 } from "vue";
 import {
+  ISystemWallets,
   IWallet,
   IWallets
 } from "@/interfaces/store/modules/profile.interface.ts";
@@ -83,6 +86,7 @@ const showWalletReplenishmentModal = ref(false);
 const showWithdrawalFundsModal = ref(false);
 
 const wallets: ComputedRef<IWallets> = computed(() => store.state.profile.profile.wallets);
+const systemWallets: ComputedRef<ISystemWallets> = computed(() => store.state.profile.profile.systemWallets);
 
 const withdraw = (wallet: IWallet) => {
   selectedWallet.value = wallet

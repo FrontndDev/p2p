@@ -1,6 +1,5 @@
 import * as API from '@/api';
 import { TCtx } from "@/types/types";
-import { ICurrency } from "@/interfaces/store/modules/ads.interface.ts";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 
 export default {
@@ -18,18 +17,30 @@ export default {
     async getCurrencies({ commit }: TCtx) {
       const key = '/api/v1/p2p'
       const data = API.getDataFromLS(key)
-      if (data) {
+
+      const setData = (data: any) => {
         commit('SET_INNER_CURRENCIES', data.inner_currencies)
         commit('SET_OUTER_CURRENCIES', data.outer_currencies)
         commit('SET_TELEGRAM_BOT_URL', data.telegramBotUrl)
         commit('SET_TRANSACTION_FEE', data.transactionFee)
+        const setDefaultCurrency = () => {
+          commit('SET_INNER_CURRENCY', {
+            id: data.inner_currencies.indexOf(data.defaultInnerCurrency),
+            name: data.defaultInnerCurrency
+          })
+          commit('SET_OUTER_CURRENCY', {
+            id: data.outer_currencies.indexOf(data.defaultOuterCurrency),
+            name: data.defaultOuterCurrency
+          })
+        }
+
+        setDefaultCurrency()
       }
 
+      if (data) setData(data)
+
       return await API.getServiceInformation().then(response => {
-        commit('SET_INNER_CURRENCIES', response.data.inner_currencies)
-        commit('SET_OUTER_CURRENCIES', response.data.outer_currencies)
-        commit('SET_TELEGRAM_BOT_URL', response.data.telegramBotUrl)
-        commit('SET_TRANSACTION_FEE', response.data.transactionFee)
+        setData(response.data)
 
         API.setDataToLS(key, response.data)
 
@@ -47,10 +58,10 @@ export default {
     SET_OUTER_CURRENCIES(state: any, currencies: string[]) {
       state.outerCurrencies = currencies
     },
-    SET_INNER_CURRENCY(state: any, currency: ICurrency) {
+    SET_INNER_CURRENCY(state: any, currency: ISelect) {
       state.innerCurrency = currency
     },
-    SET_OUTER_CURRENCY(state: any, currency: ICurrency) {
+    SET_OUTER_CURRENCY(state: any, currency: ISelect) {
       state.outerCurrency = currency
     },
     SET_CURRENT_RATE(state: any, rate: any) {

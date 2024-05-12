@@ -58,6 +58,7 @@ import {
 } from "vue-router";
 import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
 import _ from 'lodash';
+import { useShowMessage } from "@/composables/useShowMessage.ts";
 
 const store = useStore();
 const router = useRouter();
@@ -133,11 +134,31 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   payment_window: +selectedTime.value?.name,
 }));
 
+const adValid = computed(() => {
+  let copyData = _.cloneDeep(data.value);
+  delete copyData.comment
+
+  const valuesToCheck = [null, undefined, ''];
+
+  switch (priceType.value) {
+    case 'float':
+      delete copyData.price
+      return !Object.values(copyData).some(value => valuesToCheck.includes(value))
+    case 'fixed':
+      delete copyData.factor
+      return !Object.values(copyData).some(value => valuesToCheck.includes(value))
+  }
+})
+
 const createAd = async () => {
-  route.name === 'edit-ad' ?
-      await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value }) :
-      await store.dispatch('profile/createAd', data.value)
-  await router.push({ name: 'sale' })
+  if (adValid.value) {
+    route.name === 'edit-ad' ?
+        await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value }) :
+        await store.dispatch('profile/createAd', data.value)
+    await router.push({ name: 'sale' })
+  } else {
+    useShowMessage('red', 'Заполните все обязательные поля', 'Ошибка:')
+  }
 }
 
 const setDefaultValues = () => {

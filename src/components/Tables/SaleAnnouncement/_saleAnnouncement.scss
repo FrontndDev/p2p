@@ -3,7 +3,7 @@
 
 .sale-announcement {
   &__row {
-    grid-template-columns: 104px 160px 200px 200px 112px 120px 16px;
+    grid-template-columns: 130px 114px 160px 180px 180px 112px 120px 16px;
 
     &:not(.sale-announcement__row_headers):hover {
 
@@ -11,6 +11,17 @@
         background: $bg-green-secondary-default;
         color: $text-base;
       }
+    }
+  }
+
+  &__ad-id {
+    @include flex-center;
+    column-gap: 4px;
+    @include get-font(12px, 500, 16px, $text-link);
+    cursor: pointer;
+
+    & > span {
+      display: none;
     }
   }
 
@@ -154,16 +165,20 @@
   .sale-announcement {
     &__row {
       display: grid;
-      grid-template-columns: 153px 107px 16px;
+      grid-template-columns: 153px 107px max-content;
       grid-template-areas:
               "price status edit-button"
               "wallet status edit-button"
               "info info info"
-              "date date date"
+              "date date ad-id"
               "payment-methods payment-methods payment-methods";
       padding: 16px;
       width: 100%;
       border-radius: 16px;
+    }
+
+    &__ad-id {
+      grid-area: ad-id;
     }
 
     &__wallet {
@@ -190,6 +205,8 @@
     &__info {
       grid-area: info;
       row-gap: 0;
+      margin-top: 16px;
+      border-top: 1px solid $border-base-light;
 
       &-available,
       &-limits {
@@ -200,6 +217,7 @@
         color: $text-base;
 
         & > span {
+          display: block;
           color: $text-base-light;
 
           &:first-child {
@@ -211,9 +229,7 @@
 
       &-available {
         justify-content: flex-start;
-        padding-top: 16px;
-        width: 100%;
-        border-top: 1px solid $border-base-light;
+        width: fit-content;
       }
     }
 

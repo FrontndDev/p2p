@@ -105,6 +105,10 @@
           @include get-font(12px, 500, 16px, $text-base-light);
         }
       }
+
+      &-available {
+        background-position: right;
+      }
     }
 
     &__button {

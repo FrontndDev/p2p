@@ -9,7 +9,7 @@
     display: grid;
     justify-content: space-between;
     align-items: center;
-    grid-template-columns: 132px 182px 182px;
+    grid-template-columns: 132px 202px 182px;
     padding: 11px 24px;
 
     &-wallet {
@@ -78,7 +78,7 @@
 @media screen and (max-width: 756px) {
   .p2p-wallets {
     &__item {
-      grid-template-columns: 110px 162px;
+      grid-template-columns: 110px 192px;
       grid-template-areas: "wallet info" "buttons buttons";
       padding: 16px;
 

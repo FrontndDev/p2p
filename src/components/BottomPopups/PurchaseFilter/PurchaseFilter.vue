@@ -74,9 +74,9 @@ onMounted(() => {
   const paymentMethod = store.state.paymentMethods.selectedPaymentMethod
   const amount = store.state.ads.minAmount
 
-  if (innerCurrency?.id) selectedInnerCurrency.value = innerCurrency
-  if (outerCurrency?.id) selectedOuterCurrency.value = outerCurrency
-  if (paymentMethod?.id) selectedPaymentMethod.value = paymentMethod
+  if (innerCurrency?.id !== undefined) selectedInnerCurrency.value = innerCurrency
+  if (outerCurrency?.id !== undefined) selectedOuterCurrency.value = outerCurrency
+  if (paymentMethod?.id !== undefined) selectedPaymentMethod.value = paymentMethod
   if (amount) minAmount.value = amount
 })
 </script>

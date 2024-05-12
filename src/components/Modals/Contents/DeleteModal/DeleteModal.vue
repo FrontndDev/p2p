@@ -39,11 +39,11 @@ const emit = defineEmits(['close-modal', 'delete']);
 const props = defineProps({
   title: {
     type: String,
-    default: 'Удаление сделки',
+    default: 'Удаление объявления',
   },
   description: {
     type: String,
-    default: 'Вы уверены, что хотите удалить сделку?',
+    default: 'Вы уверены, что хотите удалить объявление?',
   }
 });
 </script>

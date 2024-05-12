@@ -1,3 +1,5 @@
+import { IPrice } from "@/interfaces/store/modules/ads.interface.ts";
+
 export interface IWallet {
   currency: string;
   amount: number;
@@ -7,6 +9,10 @@ export interface IWallet {
 
 export interface IWallets {
   [currency: string]: IWallet
+}
+
+export interface ISystemWallets {
+  [currency: string]: IPrice
 }
 
 export interface IRequisite {
@@ -31,10 +37,11 @@ export interface IStatistics {
 export interface IProfile {
   allowedPaymentWindow: number[];
   requisites: IRequisite[];
-  wallets: IWallets;
+  statistics: IStatistics;
   telegramActive: boolean;
   userCanCreateAds: IUserCanCreateAds;
-  statistics: IStatistics;
+  systemWallets: ISystemWallets;
+  wallets: IWallets;
 }
 
 export interface IInteractionWithWallet {

@@ -7,7 +7,7 @@
               class="no-media"
               title="Валюта"
               :items="wallets"
-              :selected-item="selectedWallet"
+              :selected-item="selectedWalletForSelect"
               @select="selectWallet"
           />
           <MyInput
@@ -46,10 +46,8 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import {
   computed,
   ComputedRef,
-  onMounted,
   PropType,
   ref,
-  Ref
 } from "vue";
 import {
   IInteractionWithWallet,
@@ -67,36 +65,42 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['close-modal']);
+const emit = defineEmits(['close-modal', 'select-wallet']);
 
 const store = useStore();
 
-let selectedWallet: Ref<ISelect | null> = ref(null);
 const withdrawalAmount = ref('');
 
-const wallets: ComputedRef<ISelect[]> = computed(() =>
-    store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
-);
+const wallets: ComputedRef<ISelect[]> = computed(() => Object.values(store.state.profile.profile.wallets).map((wallet: IWallet) => ({
+  id: wallet.id,
+  name: wallet.currency
+})));
+
+const selectedWalletForSelect = computed(() => ({
+  id: props.selectedWallet.id,
+  name: props.selectedWallet.currency
+}));
 
 const selectWallet = (wallet: ISelect) => {
-  selectedWallet.value = wallet
+  const selectedWallet = store.state.profile.profile.wallets[wallet.name]
+
+  if (+withdrawalAmount.value > selectedWallet.realAmount) {
+    withdrawalAmount.value = String(selectedWallet.realAmount)
+  }
+  emit('select-wallet', selectedWallet);
 }
 
 const withdrawal = async () => {
-  if (selectedWallet.value && withdrawalAmount.value) {
+  if (withdrawalAmount.value) {
     const data: IInteractionWithWallet = {
       amount: +withdrawalAmount.value,
       action: 'topup',
-      currency: selectedWallet.value?.name
+      currency: props.selectedWallet.currency
     }
     await store.dispatch('profile/withdrawWallet', data)
     emit('close-modal')
   }
 }
-
-onMounted(() => {
-  selectedWallet.value = wallets.value.find(wallet => wallet.name === props.selectedWallet?.currency) ?? wallets.value[0]
-})
 </script>
 
 <style scoped lang="scss">

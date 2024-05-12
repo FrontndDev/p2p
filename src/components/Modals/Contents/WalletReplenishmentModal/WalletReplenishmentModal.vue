@@ -7,17 +7,17 @@
               class="no-media"
               title="Валюта"
               :items="wallets"
-              :selected-item="selectedWallet"
+              :selected-item="selectedWalletForSelect"
               @select="selectWallet"
           />
           <MyInput
               type="number"
               class="no-media"
               title="Сумма для пополнения"
-              :wallet="props.selectedWallet?.currency"
+              :wallet="props.selectedWallet.currency"
               :value="replenishmentAmount"
               @input-value="(value: string) => replenishmentAmount = value"
-              @all="replenishmentAmount = String(props.selectedWallet?.realAmount)"
+              @all="replenishmentAmount = selectedSystemWallet.amount"
           />
         </div>
         <div class="wallet-replenishment-modal__buttons">
@@ -46,9 +46,7 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import {
   computed,
   ComputedRef,
-  onMounted,
   PropType,
-  Ref,
   ref,
 } from "vue";
 import {
@@ -67,36 +65,44 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['close-modal']);
+const emit = defineEmits(['close-modal', 'select-wallet']);
 
 const store = useStore();
 
-let selectedWallet: Ref<ISelect | null> = ref(null);
 const replenishmentAmount = ref('');
 
-const wallets: ComputedRef<ISelect[]> = computed(() =>
-    store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
-);
+const wallets: ComputedRef<ISelect[]> = computed(() => Object.values(store.state.profile.profile.systemWallets).map((wallet: IWallet, idx) => ({
+  id: idx + 1,
+  name: wallet.currency
+})));
+
+const selectedSystemWallet = computed(() => store.state.profile.profile.systemWallets[props.selectedWallet.currency])
+
+const selectedWalletForSelect = computed(() => ({
+  id: props.selectedWallet.id,
+  name: props.selectedWallet.currency
+}));
 
 const selectWallet = (wallet: ISelect) => {
-  selectedWallet.value = wallet
+  const selectedWallet = store.state.profile.profile.wallets[wallet.name];
+
+  if (+replenishmentAmount.value > +selectedSystemWallet.value.amount) {
+    replenishmentAmount.value = String(selectedSystemWallet.value.amount)
+  }
+  emit('select-wallet', selectedWallet);
 }
 
 const replenish = async () => {
-  if (selectedWallet.value && replenishmentAmount.value) {
+  if (replenishmentAmount.value) {
     const data: IInteractionWithWallet = {
       amount: +replenishmentAmount.value,
       action: 'topup',
-      currency: selectedWallet.value?.name
+      currency: props.selectedWallet.currency
     }
     await store.dispatch('profile/topUpWallet', data)
     emit('close-modal')
   }
 }
-
-onMounted(() => {
-  selectedWallet.value = wallets.value.find(wallet => wallet.name === props.selectedWallet?.currency) ?? wallets.value[0]
-})
 </script>
 
 <style scoped lang="scss">

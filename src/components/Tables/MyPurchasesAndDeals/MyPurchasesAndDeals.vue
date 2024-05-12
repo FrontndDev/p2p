@@ -2,7 +2,7 @@
   <template v-if="showTable">
     <div class="my-table my-purchases-and-deals">
       <div class="my-purchases-and-deals__row my-table__row my-table__row_headers">
-        <div>Продавец</div>
+        <div>{{ props.type === 'purchases' ? 'Продавец' : 'Покупатель' }}</div>
         <div>Количество / Сумма</div>
         <div>Статус</div>
         <div>ID ордера</div>
@@ -211,9 +211,7 @@ const selectPage = (page: number) => {
 }
 
 onMounted(() => {
-  if (isLoading.value) {
-    loadData()
-  }
+  loadData()
 })
 </script>
 

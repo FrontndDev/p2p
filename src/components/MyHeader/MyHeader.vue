@@ -41,8 +41,8 @@ import Select from "@/components/UI/Select/Select.vue";
 import {
   computed,
   ComputedRef,
-  onMounted,
   PropType,
+  watch,
 } from "vue";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
@@ -127,13 +127,15 @@ const selects: ComputedRef<ISelects[]> = computed(() => [
 
 const setValue = (callback: Function) => {
   // Если это хедер, сразу выполняем переданный запрос/метод
-  if (props.tabs) {
+  if (props.tabs && window.innerWidth > 608) {
     callback()
   }
 }
 
 const selectItem = async (item: ISelect, id: number) => {
-  setValue(() => store.commit('ads/SET_ADS', null))
+  setValue(() => {
+    store.commit('ads/SET_ADS', null)
+  })
 
   switch (id) {
     case 1:
@@ -169,36 +171,6 @@ const getAds = async () => {
 const setTab = (tab: ITabs) => {
   emit('set-tab', tab)
 }
-
-const setCurrencies = () => {
-  store.commit('currencies/SET_INNER_CURRENCY', innerCurrencies.value[0])
-  store.commit('currencies/SET_OUTER_CURRENCY', outerCurrencies.value[0])
-  emit('set-inner-currency', innerCurrencies.value[0])
-  emit('set-outer-currency', outerCurrencies.value[0])
-}
-
-const getPaymentMethodsByCurrency = () => {
-  // Получаем доступные способы оплаты выбранной валюты
-  store.dispatch('paymentMethods/getPaymentMethodsByCurrency', outerCurrencies.value[0].name).then(() => {
-    store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
-    emit('set-payment-method', paymentMethods.value[0])
-
-    setValue(() => store.dispatch('ads/getAds'))
-  })
-}
-
-onMounted( () => {
-  if (outerCurrencies.value?.length) {
-    setValue(() => setCurrencies())
-    setValue(() => getPaymentMethodsByCurrency())
-  } else {
-    // Получаем списки валют
-    store.dispatch('currencies/getCurrencies').then(() => {
-      setCurrencies()
-      getPaymentMethodsByCurrency()
-    })
-  }
-})
 </script>
 
 <style scoped lang="scss">
