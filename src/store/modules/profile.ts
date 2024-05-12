@@ -43,8 +43,11 @@ export default {
     async deleteAd(_: TCtx, id: number) {
       return await API.deleteAd(id).then(response => response)
     },
-    topUpWallet({ commit }: TCtx, data: IInteractionWithWallet) {
-      API.topUpWallet(data).then(response => commit('UPDATE_WALLET', response.wallet))
+    topUpWallet({ commit, dispatch }: TCtx, data: IInteractionWithWallet) {
+      API.topUpWallet(data).then(response => {
+        commit('UPDATE_WALLET', response.wallet)
+        dispatch('getProfile', {})
+      })
     },
     withdrawWallet({ commit }: TCtx, data: IInteractionWithWallet) {
       API.withdrawWallet(data).then(response => commit('UPDATE_WALLET', response.wallet))
