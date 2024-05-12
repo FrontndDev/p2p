@@ -25,11 +25,11 @@ export default {
         commit('SET_TRANSACTION_FEE', data.transactionFee)
         const setDefaultCurrency = () => {
           commit('SET_INNER_CURRENCY', {
-            id: data.inner_currencies.indexOf(data.defaultInnerCurrency),
+            id: data.inner_currencies.indexOf(data.defaultInnerCurrency) + 1,
             name: data.defaultInnerCurrency
           })
           commit('SET_OUTER_CURRENCY', {
-            id: data.outer_currencies.indexOf(data.defaultOuterCurrency),
+            id: data.outer_currencies.indexOf(data.defaultOuterCurrency) + 1,
             name: data.defaultOuterCurrency
           })
         }
