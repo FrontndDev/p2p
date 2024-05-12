@@ -89,7 +89,9 @@ export default {
       state.profile.requisites.splice(index, 1)
     },
     UPDATE_WALLET(state: any, wallet: IWallet) {
-      state.profile.wallets[wallet.currency] = wallet
+      if (wallet?.currency) {
+        state.profile.wallets[wallet.currency] = wallet
+      }
     },
     SET_PAGE(state: any, page: number) {
       state.page = page

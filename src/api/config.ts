@@ -110,6 +110,7 @@ export async function postAsync(url: string, data = {}, checkError = true): Prom
 
         try {
             let response = await axios.post(BASE_URL + url, data, { headers: setGlobalConfig() })
+            console.log('response try', response)
 
             if (response?.data?.error_code !== undefined) {
                 const error = response.data
@@ -127,10 +128,12 @@ export async function postAsync(url: string, data = {}, checkError = true): Prom
             }
         } catch (e) {
             const error = e as AxiosError
+
+            checkUserIsModer(error)
+
             if (checkError && error.response) {
                 return error.response
             }
-            checkUserIsModer(error)
 
             const setSeconds = () => {
                 // Присваиваем в переменную кол-во секунд в зависимости от итерации
