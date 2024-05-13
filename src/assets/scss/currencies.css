@@ -1,533 +1,533 @@
-.currency-1000SATS { background-image: url('../images/currencies/1000SATS.png') }
-.currency-AOA { background-image: url('../images/currencies/AOA.png') }
-.currency-BDT { background-image: url('../images/currencies/BDT.webp') }
-.currency-BOB { background-image: url('../images/currencies/BOB.png') }
-.currency-BSD { background-image: url('../images/currencies/BSD.png') }
-.currency-CNY { background-image: url('../images/currencies/CNY.png') }
-.currency-GMD { background-image: url('../images/currencies/GMD.png') }
-.currency-THB { background-image: url('../images/currencies/THB.webp') }
-.currency-PGK { background-image: url('../images/currencies/PGK.webp') }
-.currency-1INCH { background-image: url('../images/currencies/1INCH.png') }
-.currency-AAVE { background-image: url('../images/currencies/AAVE.png') }
-.currency-ACA { background-image: url('../images/currencies/ACA.png') }
-.currency-ACE { background-image: url('../images/currencies/ACE.png') }
-.currency-ACH { background-image: url('../images/currencies/ACH.png') }
-.currency-ACM { background-image: url('../images/currencies/ACM.png') }
-.currency-ADA { background-image: url('../images/currencies/ADA.png') }
-.currency-ADX { background-image: url('../images/currencies/ADX.png') }
-.currency-AED { background-image: url('../images/currencies/AED.png') }
-.currency-AERGO { background-image: url('../images/currencies/AERGO.png') }
-.currency-AEUR { background-image: url('../images/currencies/AEUR.png') }
-.currency-AEVO { background-image: url('../images/currencies/AEVO.png') }
-.currency-AFN { background-image: url('../images/currencies/AFN.png') }
-.currency-AGIX { background-image: url('../images/currencies/AGIX.png') }
-.currency-AGLD { background-image: url('../images/currencies/AGLD.png') }
-.currency-AI { background-image: url('../images/currencies/AI.png') }
-.currency-AKRO { background-image: url('../images/currencies/AKRO.png') }
-.currency-ALCX { background-image: url('../images/currencies/ALCX.png') }
-.currency-ALGO { background-image: url('../images/currencies/ALGO.png') }
-.currency-ALICE { background-image: url('../images/currencies/ALICE.png') }
-.currency-ALPACA { background-image: url('../images/currencies/ALPACA.png') }
-.currency-ALPHA { background-image: url('../images/currencies/ALPHA.png') }
-.currency-ALPINE { background-image: url('../images/currencies/ALPINE.png') }
-.currency-ALT { background-image: url('../images/currencies/ALT.png') }
-.currency-AMB { background-image: url('../images/currencies/AMB.png') }
-.currency-AMD { background-image: url('../images/currencies/AMD.png') }
-.currency-AMP { background-image: url('../images/currencies/AMP.png') }
-.currency-ANKR { background-image: url('../images/currencies/ANKR.png') }
-.currency-ANT { background-image: url('../images/currencies/ANT.png') }
-.currency-APE { background-image: url('../images/currencies/APE.png') }
-.currency-API3 { background-image: url('../images/currencies/API3.png') }
-.currency-APT { background-image: url('../images/currencies/APT.png') }
-.currency-AR { background-image: url('../images/currencies/AR.png') }
-.currency-ARB { background-image: url('../images/currencies/ARB.png') }
-.currency-ARBUSDCE { background-image: url('../images/currencies/ARBUSDCE.png') }
-.currency-ARDR { background-image: url('../images/currencies/ARDR.png') }
-.currency-ARK { background-image: url('../images/currencies/ARK.png') }
-.currency-ARKM { background-image: url('../images/currencies/ARKM.png') }
-.currency-ARPA { background-image: url('../images/currencies/ARPA.png') }
-.currency-ARS { background-image: url('../images/currencies/ARS.png') }
-.currency-ASR { background-image: url('../images/currencies/ASR.png') }
-.currency-AST { background-image: url('../images/currencies/AST.png') }
-.currency-ASTR { background-image: url('../images/currencies/ASTR.png') }
-.currency-ATA { background-image: url('../images/currencies/ATA.png') }
-.currency-ATM { background-image: url('../images/currencies/ATM.png') }
-.currency-ATOM { background-image: url('../images/currencies/ATOM.png') }
-.currency-AUCTION { background-image: url('../images/currencies/AUCTION.png') }
-.currency-AUD { background-image: url('../images/currencies/AUD.png') }
-.currency-AUDIO { background-image: url('../images/currencies/AUDIO.png') }
-.currency-AVA { background-image: url('../images/currencies/AVA.png') }
-.currency-AVAOLD { background-image: url('../images/currencies/AVAOLD.png') }
-.currency-AVAX { background-image: url('../images/currencies/AVAX.png') }
-.currency-AXL { background-image: url('../images/currencies/AXL.png') }
-.currency-AXS { background-image: url('../images/currencies/AXS.png') }
-.currency-AZN { background-image: url('../images/currencies/AZN.png') }
-.currency-BADGER { background-image: url('../images/currencies/BADGER.png') }
-.currency-BAKE { background-image: url('../images/currencies/BAKE.png') }
-.currency-BAL { background-image: url('../images/currencies/BAL.png') }
-.currency-BAND { background-image: url('../images/currencies/BAND.png') }
-.currency-BAR { background-image: url('../images/currencies/BAR.png') }
-.currency-BAT { background-image: url('../images/currencies/BAT.png') }
-.currency-BB { background-image: url('../images/currencies/BB.png') }
-.currency-BCH { background-image: url('../images/currencies/BCH.png') }
-.currency-BCHA { background-image: url('../images/currencies/BCHA.png') }
-.currency-BDOT { background-image: url('../images/currencies/BDOT.png') }
-.currency-BEAMX { background-image: url('../images/currencies/BEAMX.png') }
-.currency-BEL { background-image: url('../images/currencies/BEL.png') }
-.currency-BETA { background-image: url('../images/currencies/BETA.png') }
-.currency-BETH { background-image: url('../images/currencies/BETH.png') }
-.currency-BGBP { background-image: url('../images/currencies/BGBP.png') }
-.currency-BGN { background-image: url('../images/currencies/BGN.png') }
-.currency-BHD { background-image: url('../images/currencies/BHD.png') }
-.currency-BICO { background-image: url('../images/currencies/BICO.png') }
-.currency-BIDR { background-image: url('../images/currencies/BIDR.png') }
-.currency-BIFI { background-image: url('../images/currencies/BIFI.png') }
-.currency-BLUR { background-image: url('../images/currencies/BLUR.png') }
-.currency-BLZ { background-image: url('../images/currencies/BLZ.png') }
-.currency-BNB { background-image: url('../images/currencies/BNB.png') }
-.currency-BNBDOWN { background-image: url('../images/currencies/BNBDOWN.png') }
-.currency-BNBUP { background-image: url('../images/currencies/BNBUP.png') }
-.currency-BNC { background-image: url('../images/currencies/BNC.png') }
-.currency-BND { background-image: url('../images/currencies/BND.png') }
-.currency-BNT { background-image: url('../images/currencies/BNT.png') }
-.currency-BNX { background-image: url('../images/currencies/BNX.png') }
-.currency-BOME { background-image: url('../images/currencies/BOME.png') }
-.currency-BOND { background-image: url('../images/currencies/BOND.png') }
-.currency-BONK { background-image: url('../images/currencies/BONK.png') }
-.currency-BRL { background-image: url('../images/currencies/BRL.png') }
-.currency-BSW { background-image: url('../images/currencies/BSW.png') }
-.currency-BTC { background-image: url('../images/currencies/BTC.png') }
-.currency-BTCDOWN { background-image: url('../images/currencies/BTCDOWN.png') }
-.currency-BTCUP { background-image: url('../images/currencies/BTCUP.png') }
-.currency-BTS { background-image: url('../images/currencies/BTS.png') }
-.currency-BTTC { background-image: url('../images/currencies/BTTC.png') }
-.currency-BTTOLD { background-image: url('../images/currencies/BTTOLD.png') }
-.currency-BURGER { background-image: url('../images/currencies/BURGER.png') }
-.currency-BUSD { background-image: url('../images/currencies/BUSD.png') }
-.currency-BWP { background-image: url('../images/currencies/BWP.png') }
-.currency-BYN { background-image: url('../images/currencies/BYN.png') }
-.currency-C98 { background-image: url('../images/currencies/C98.png') }
-.currency-CAD { background-image: url('../images/currencies/CAD.png') }
-.currency-CAKE { background-image: url('../images/currencies/CAKE.png') }
-.currency-CAN { background-image: url('../images/currencies/CAN.png') }
-.currency-CELO { background-image: url('../images/currencies/CELO.png') }
-.currency-CELR { background-image: url('../images/currencies/CELR.png') }
-.currency-CFX { background-image: url('../images/currencies/CFX.png') }
-.currency-CHESS { background-image: url('../images/currencies/CHESS.png') }
-.currency-CHF { background-image: url('../images/currencies/CHF.png') }
-.currency-CHR { background-image: url('../images/currencies/CHR.png') }
-.currency-CHZ { background-image: url('../images/currencies/CHZ.png') }
-.currency-CITY { background-image: url('../images/currencies/CITY.png') }
-.currency-CKB { background-image: url('../images/currencies/CKB.png') }
-.currency-CLP { background-image: url('../images/currencies/CLP.png') }
-.currency-CLV { background-image: url('../images/currencies/CLV.png') }
-.currency-COMBO { background-image: url('../images/currencies/COMBO.png') }
-.currency-COMP { background-image: url('../images/currencies/COMP.png') }
-.currency-COP { background-image: url('../images/currencies/COP.png') }
-.currency-COS { background-image: url('../images/currencies/COS.png') }
-.currency-COTI { background-image: url('../images/currencies/COTI.png') }
-.currency-CRC { background-image: url('../images/currencies/CRC.png') }
-.currency-CREAM { background-image: url('../images/currencies/CREAM.png') }
-.currency-CRV { background-image: url('../images/currencies/CRV.png') }
-.currency-CTK { background-image: url('../images/currencies/CTK.png') }
-.currency-CTSI { background-image: url('../images/currencies/CTSI.png') }
-.currency-CTXC { background-image: url('../images/currencies/CTXC.png') }
-.currency-CVC { background-image: url('../images/currencies/CVC.png') }
-.currency-CVP { background-image: url('../images/currencies/CVP.png') }
-.currency-CVX { background-image: url('../images/currencies/CVX.png') }
-.currency-CYBER { background-image: url('../images/currencies/CYBER.png') }
-.currency-CZK { background-image: url('../images/currencies/CZK.png') }
-.currency-DAI { background-image: url('../images/currencies/DAI.png') }
-.currency-DAR { background-image: url('../images/currencies/DAR.png') }
-.currency-DASH { background-image: url('../images/currencies/DASH.png') }
-.currency-DATA { background-image: url('../images/currencies/DATA.png') }
-.currency-DCR { background-image: url('../images/currencies/DCR.png') }
-.currency-DEGO { background-image: url('../images/currencies/DEGO.png') }
-.currency-DENT { background-image: url('../images/currencies/DENT.png') }
-.currency-DEXE { background-image: url('../images/currencies/DEXE.png') }
-.currency-DF { background-image: url('../images/currencies/DF.png') }
-.currency-DGB { background-image: url('../images/currencies/DGB.png') }
-.currency-DIA { background-image: url('../images/currencies/DIA.png') }
-.currency-DKK { background-image: url('../images/currencies/DKK.png') }
-.currency-DOCK { background-image: url('../images/currencies/DOCK.png') }
-.currency-DODO { background-image: url('../images/currencies/DODO.png') }
-.currency-DOGE { background-image: url('../images/currencies/DOGE.png') }
-.currency-DOP { background-image: url('../images/currencies/DOP.png') }
-.currency-DOT { background-image: url('../images/currencies/DOT.png') }
-.currency-DREP { background-image: url('../images/currencies/DREP.png') }
-.currency-DUSK { background-image: url('../images/currencies/DUSK.png') }
-.currency-DYDX { background-image: url('../images/currencies/DYDX.png') }
-.currency-DYM { background-image: url('../images/currencies/DYM.png') }
-.currency-DZD { background-image: url('../images/currencies/DZD.png') }
-.currency-EDU { background-image: url('../images/currencies/EDU.png') }
-.currency-EFI { background-image: url('../images/currencies/EFI.png') }
-.currency-EGLD { background-image: url('../images/currencies/EGLD.png') }
-.currency-EGP { background-image: url('../images/currencies/EGP.png') }
-.currency-ELF { background-image: url('../images/currencies/ELF.png') }
-.currency-ENA { background-image: url('../images/currencies/ENA.png') }
-.currency-ENJ { background-image: url('../images/currencies/ENJ.png') }
-.currency-ENS { background-image: url('../images/currencies/ENS.png') }
-.currency-EOS { background-image: url('../images/currencies/EOS.png') }
-.currency-EPS { background-image: url('../images/currencies/EPS.png') }
-.currency-EPX { background-image: url('../images/currencies/EPX.png') }
-.currency-ERN { background-image: url('../images/currencies/ERN.png') }
-.currency-ETB { background-image: url('../images/currencies/ETB.png') }
-.currency-ETC { background-image: url('../images/currencies/ETC.png') }
-.currency-ETH { background-image: url('../images/currencies/ETH.png') }
-.currency-ETHDOWN { background-image: url('../images/currencies/ETHDOWN.png') }
-.currency-ETHFI { background-image: url('../images/currencies/ETHFI.png') }
-.currency-ETHUP { background-image: url('../images/currencies/ETHUP.png') }
-.currency-ETHW { background-image: url('../images/currencies/ETHW.png') }
-.currency-EUR { background-image: url('../images/currencies/EUR.png') }
-.currency-EURPS { background-image: url('../images/currencies/EURPS.png') }
-.currency-EVX { background-image: url('../images/currencies/EVX.png') }
-.currency-FARM { background-image: url('../images/currencies/FARM.png') }
-.currency-FDUSD { background-image: url('../images/currencies/FDUSD.png') }
-.currency-FET { background-image: url('../images/currencies/FET.png') }
-.currency-FIDA { background-image: url('../images/currencies/FIDA.png') }
-.currency-FIL { background-image: url('../images/currencies/FIL.png') }
-.currency-FIO { background-image: url('../images/currencies/FIO.png') }
-.currency-FIRO { background-image: url('../images/currencies/FIRO.png') }
-.currency-FIS { background-image: url('../images/currencies/FIS.png') }
-.currency-FLM { background-image: url('../images/currencies/FLM.png') }
-.currency-FLOKI { background-image: url('../images/currencies/FLOKI.png') }
-.currency-FLOW { background-image: url('../images/currencies/FLOW.png') }
-.currency-FLR { background-image: url('../images/currencies/FLR.png') }
-.currency-FLUX { background-image: url('../images/currencies/FLUX.png') }
-.currency-FOR { background-image: url('../images/currencies/FOR.png') }
-.currency-FORTH { background-image: url('../images/currencies/FORTH.png') }
-.currency-FRONT { background-image: url('../images/currencies/FRONT.png') }
-.currency-FTM { background-image: url('../images/currencies/FTM.png') }
-.currency-FTT { background-image: url('../images/currencies/FTT.png') }
-.currency-FUN { background-image: url('../images/currencies/FUN.png') }
-.currency-FUSDC { background-image: url('../images/currencies/FUSDC.png') }
-.currency-FXS { background-image: url('../images/currencies/FXS.png') }
-.currency-GAL { background-image: url('../images/currencies/GAL.png') }
-.currency-GALA { background-image: url('../images/currencies/GALA.png') }
-.currency-GAS { background-image: url('../images/currencies/GAS.png') }
-.currency-GBP { background-image: url('../images/currencies/GBP.png') }
-.currency-GEL { background-image: url('../images/currencies/GEL.png') }
-.currency-GFT { background-image: url('../images/currencies/GFT.png') }
-.currency-GHS { background-image: url('../images/currencies/GHS.png') }
-.currency-GHST { background-image: url('../images/currencies/GHST.png') }
-.currency-GLM { background-image: url('../images/currencies/GLM.png') }
-.currency-GLMR { background-image: url('../images/currencies/GLMR.png') }
-.currency-GMT { background-image: url('../images/currencies/GMT.png') }
-.currency-GMX { background-image: url('../images/currencies/GMX.png') }
-.currency-GNF { background-image: url('../images/currencies/GNF.png') }
-.currency-GNO { background-image: url('../images/currencies/GNO.png') }
-.currency-GNS { background-image: url('../images/currencies/GNS.png') }
-.currency-GRT { background-image: url('../images/currencies/GRT.png') }
-.currency-GTC { background-image: url('../images/currencies/GTC.png') }
-.currency-GYEN { background-image: url('../images/currencies/GYEN.png') }
-.currency-HARD { background-image: url('../images/currencies/HARD.png') }
-.currency-HBAR { background-image: url('../images/currencies/HBAR.png') }
-.currency-HFT { background-image: url('../images/currencies/HFT.png') }
-.currency-HIFI { background-image: url('../images/currencies/HIFI.png') }
-.currency-HIGH { background-image: url('../images/currencies/HIGH.png') }
-.currency-HIVE { background-image: url('../images/currencies/HIVE.png') }
-.currency-HKD { background-image: url('../images/currencies/HKD.png') }
-.currency-HOOK { background-image: url('../images/currencies/HOOK.png') }
-.currency-HOT { background-image: url('../images/currencies/HOT.png') }
-.currency-HRK { background-image: url('../images/currencies/HRK.png') }
-.currency-HUF { background-image: url('../images/currencies/HUF.png') }
-.currency-ICP { background-image: url('../images/currencies/ICP.png') }
-.currency-ICX { background-image: url('../images/currencies/ICX.png') }
-.currency-ID { background-image: url('../images/currencies/ID.png') }
-.currency-IDEX { background-image: url('../images/currencies/IDEX.png') }
-.currency-IDR { background-image: url('../images/currencies/IDR.png') }
-.currency-IDRT { background-image: url('../images/currencies/IDRT.png') }
-.currency-ILS { background-image: url('../images/currencies/ILS.png') }
-.currency-ILV { background-image: url('../images/currencies/ILV.png') }
-.currency-IMX { background-image: url('../images/currencies/IMX.png') }
-.currency-INJ { background-image: url('../images/currencies/INJ.png') }
-.currency-IOST { background-image: url('../images/currencies/IOST.png') }
-.currency-IOTA { background-image: url('../images/currencies/IOTA.png') }
-.currency-IOTX { background-image: url('../images/currencies/IOTX.png') }
-.currency-IQ { background-image: url('../images/currencies/IQ.png') }
-.currency-IRIS { background-image: url('../images/currencies/IRIS.png') }
-.currency-ISK { background-image: url('../images/currencies/ISK.png') }
-.currency-JASMY { background-image: url('../images/currencies/JASMY.png') }
-.currency-JEX { background-image: url('../images/currencies/JEX.png') }
-.currency-JOD { background-image: url('../images/currencies/JOD.png') }
-.currency-JOE { background-image: url('../images/currencies/JOE.png') }
-.currency-JPY { background-image: url('../images/currencies/JPY.png') }
-.currency-JST { background-image: url('../images/currencies/JST.png') }
-.currency-JTO { background-image: url('../images/currencies/JTO.png') }
-.currency-JUP { background-image: url('../images/currencies/JUP.png') }
-.currency-JUV { background-image: url('../images/currencies/JUV.png') }
-.currency-KAVA { background-image: url('../images/currencies/KAVA.png') }
-.currency-KDA { background-image: url('../images/currencies/KDA.png') }
-.currency-KES { background-image: url('../images/currencies/KES.png') }
-.currency-KEY { background-image: url('../images/currencies/KEY.png') }
-.currency-KEYFI { background-image: url('../images/currencies/KEYFI.png') }
-.currency-KGS { background-image: url('../images/currencies/KGS.png') }
-.currency-KHR { background-image: url('../images/currencies/KHR.png') }
-.currency-KLAY { background-image: url('../images/currencies/KLAY.png') }
-.currency-KMD { background-image: url('../images/currencies/KMD.png') }
-.currency-KNC { background-image: url('../images/currencies/KNC.png') }
-.currency-KP3R { background-image: url('../images/currencies/KP3R.png') }
-.currency-KSM { background-image: url('../images/currencies/KSM.png') }
-.currency-KWD { background-image: url('../images/currencies/KWD.png') }
-.currency-KZT { background-image: url('../images/currencies/KZT.png') }
-.currency-LAK { background-image: url('../images/currencies/LAK.png') }
-.currency-LAZIO { background-image: url('../images/currencies/LAZIO.png') }
-.currency-LBA { background-image: url('../images/currencies/LBA.png') }
-.currency-LDO { background-image: url('../images/currencies/LDO.png') }
-.currency-LEVER { background-image: url('../images/currencies/LEVER.png') }
-.currency-LINA { background-image: url('../images/currencies/LINA.png') }
-.currency-LINK { background-image: url('../images/currencies/LINK.png') }
-.currency-LIT { background-image: url('../images/currencies/LIT.png') }
-.currency-LOKA { background-image: url('../images/currencies/LOKA.png') }
-.currency-LOOM { background-image: url('../images/currencies/LOOM.png') }
-.currency-LOOMOLD { background-image: url('../images/currencies/LOOMOLD.png') }
-.currency-LPT { background-image: url('../images/currencies/LPT.png') }
-.currency-LQTY { background-image: url('../images/currencies/LQTY.png') }
-.currency-LRC { background-image: url('../images/currencies/LRC.png') }
-.currency-LSK { background-image: url('../images/currencies/LSK.png') }
-.currency-LTC { background-image: url('../images/currencies/LTC.png') }
-.currency-LTO { background-image: url('../images/currencies/LTO.png') }
-.currency-LUNA { background-image: url('../images/currencies/LUNA.png') }
-.currency-LUNC { background-image: url('../images/currencies/LUNC.png') }
-.currency-LYD { background-image: url('../images/currencies/LYD.png') }
-.currency-MAD { background-image: url('../images/currencies/MAD.png') }
-.currency-MAGIC { background-image: url('../images/currencies/MAGIC.png') }
-.currency-MANA { background-image: url('../images/currencies/MANA.png') }
-.currency-MANTA { background-image: url('../images/currencies/MANTA.png') }
-.currency-MASK { background-image: url('../images/currencies/MASK.png') }
-.currency-MATIC { background-image: url('../images/currencies/MATIC.png') }
-.currency-MATICUSDCE { background-image: url('../images/currencies/MATICUSDCE.png') }
-.currency-MAV { background-image: url('../images/currencies/MAV.png') }
-.currency-MBL { background-image: url('../images/currencies/MBL.png') }
-.currency-MBOX { background-image: url('../images/currencies/MBOX.png') }
-.currency-MDL { background-image: url('../images/currencies/MDL.png') }
-.currency-MDT { background-image: url('../images/currencies/MDT.png') }
-.currency-MDX { background-image: url('../images/currencies/MDX.png') }
-.currency-MEME { background-image: url('../images/currencies/MEME.png') }
-.currency-METIS { background-image: url('../images/currencies/METIS.png') }
-.currency-MINA { background-image: url('../images/currencies/MINA.png') }
-.currency-MKR { background-image: url('../images/currencies/MKR.png') }
-.currency-MLN { background-image: url('../images/currencies/MLN.png') }
-.currency-MMK { background-image: url('../images/currencies/MMK.png') }
-.currency-MNT { background-image: url('../images/currencies/MNT.png') }
-.currency-MOB { background-image: url('../images/currencies/MOB.png') }
-.currency-MOVR { background-image: url('../images/currencies/MOVR.png') }
-.currency-MTL { background-image: url('../images/currencies/MTL.png') }
-.currency-MTLX { background-image: url('../images/currencies/MTLX.png') }
-.currency-MULTI { background-image: url('../images/currencies/MULTI.png') }
-.currency-MXN { background-image: url('../images/currencies/MXN.png') }
-.currency-NEAR { background-image: url('../images/currencies/NEAR.png') }
-.currency-NEO { background-image: url('../images/currencies/NEO.png') }
-.currency-NEXO { background-image: url('../images/currencies/NEXO.png') }
-.currency-NFP { background-image: url('../images/currencies/NFP.png') }
-.currency-NFT { background-image: url('../images/currencies/NFT.png') }
-.currency-NGN { background-image: url('../images/currencies/NGN.png') }
-.currency-NKN { background-image: url('../images/currencies/NKN.png') }
-.currency-NMR { background-image: url('../images/currencies/NMR.png') }
-.currency-NOK { background-image: url('../images/currencies/NOK.png') }
-.currency-NOT { background-image: url('../images/currencies/NOT.png') }
-.currency-NTRN { background-image: url('../images/currencies/NTRN.png') }
-.currency-NULS { background-image: url('../images/currencies/NULS.png') }
-.currency-NVT { background-image: url('../images/currencies/NVT.png') }
-.currency-NZD { background-image: url('../images/currencies/NZD.png') }
-.currency-OAX { background-image: url('../images/currencies/OAX.png') }
-.currency-OCEAN { background-image: url('../images/currencies/OCEAN.png') }
-.currency-OG { background-image: url('../images/currencies/OG.png') }
-.currency-OGN { background-image: url('../images/currencies/OGN.png') }
-.currency-OM { background-image: url('../images/currencies/OM.png') }
-.currency-OMG { background-image: url('../images/currencies/OMG.png') }
-.currency-OMNI { background-image: url('../images/currencies/OMNI.png') }
-.currency-OMR { background-image: url('../images/currencies/OMR.png') }
-.currency-ONE { background-image: url('../images/currencies/ONE.png') }
-.currency-ONG { background-image: url('../images/currencies/ONG.png') }
-.currency-ONT { background-image: url('../images/currencies/ONT.png') }
-.currency-OOKI { background-image: url('../images/currencies/OOKI.png') }
-.currency-OP { background-image: url('../images/currencies/OP.png') }
-.currency-OPUSDCE { background-image: url('../images/currencies/OPUSDCE.png') }
-.currency-TON { background-image: url('../images/currencies/TON.png') }
-.currency-USD { background-image: url('../images/currencies/USD.png') }
-.currency-ORDI { background-image: url('../images/currencies/ORDI.png') }
-.currency-ORN { background-image: url('../images/currencies/ORN.png') }
-.currency-OSMO { background-image: url('../images/currencies/OSMO.png') }
-.currency-OXT { background-image: url('../images/currencies/OXT.png') }
-.currency-PAB { background-image: url('../images/currencies/PAB.png') }
-.currency-PARA { background-image: url('../images/currencies/PARA.png') }
-.currency-PAX { background-image: url('../images/currencies/PAX.png') }
-.currency-PAXG { background-image: url('../images/currencies/PAXG.png') }
-.currency-PDA { background-image: url('../images/currencies/PDA.png') }
-.currency-PEN { background-image: url('../images/currencies/PEN.png') }
-.currency-PENDLE { background-image: url('../images/currencies/PENDLE.png') }
-.currency-PEOPLE { background-image: url('../images/currencies/PEOPLE.png') }
-.currency-PEPE { background-image: url('../images/currencies/PEPE.png') }
-.currency-PERL { background-image: url('../images/currencies/PERL.png') }
-.currency-PERP { background-image: url('../images/currencies/PERP.png') }
-.currency-PGALA { background-image: url('../images/currencies/PGALA.png') }
-.currency-PHA { background-image: url('../images/currencies/PHA.png') }
-.currency-PHB { background-image: url('../images/currencies/PHB.png') }
-.currency-PHP { background-image: url('../images/currencies/PHP.png') }
-.currency-PIVX { background-image: url('../images/currencies/PIVX.png') }
-.currency-PIXEL { background-image: url('../images/currencies/PIXEL.png') }
-.currency-PKR { background-image: url('../images/currencies/PKR.png') }
-.currency-PLN { background-image: url('../images/currencies/PLN.png') }
-.currency-PNT { background-image: url('../images/currencies/PNT.png') }
-.currency-POLS { background-image: url('../images/currencies/POLS.png') }
-.currency-POLYX { background-image: url('../images/currencies/POLYX.png') }
-.currency-POND { background-image: url('../images/currencies/POND.png') }
-.currency-PORTAL { background-image: url('../images/currencies/PORTAL.png') }
-.currency-PORTO { background-image: url('../images/currencies/PORTO.png') }
-.currency-POWR { background-image: url('../images/currencies/POWR.png') }
-.currency-PROM { background-image: url('../images/currencies/PROM.png') }
-.currency-PROS { background-image: url('../images/currencies/PROS.png') }
-.currency-PSG { background-image: url('../images/currencies/PSG.png') }
-.currency-PUNDIX { background-image: url('../images/currencies/PUNDIX.png') }
-.currency-PYR { background-image: url('../images/currencies/PYR.png') }
-.currency-PYTH { background-image: url('../images/currencies/PYTH.png') }
-.currency-QAR { background-image: url('../images/currencies/QAR.png') }
-.currency-QI { background-image: url('../images/currencies/QI.png') }
-.currency-QKC { background-image: url('../images/currencies/QKC.png') }
-.currency-QNT { background-image: url('../images/currencies/QNT.png') }
-.currency-QTUM { background-image: url('../images/currencies/QTUM.png') }
-.currency-QUICK { background-image: url('../images/currencies/QUICK.png') }
-.currency-QUICKOLD { background-image: url('../images/currencies/QUICKOLD.png') }
-.currency-RAD { background-image: url('../images/currencies/RAD.png') }
-.currency-RARE { background-image: url('../images/currencies/RARE.png') }
-.currency-RAY { background-image: url('../images/currencies/RAY.png') }
-.currency-RCN { background-image: url('../images/currencies/RCN.png') }
-.currency-RDNT { background-image: url('../images/currencies/RDNT.png') }
-.currency-RDNTOLD { background-image: url('../images/currencies/RDNTOLD.png') }
-.currency-REEF { background-image: url('../images/currencies/REEF.png') }
-.currency-REI { background-image: url('../images/currencies/REI.png') }
-.currency-REN { background-image: url('../images/currencies/REN.png') }
-.currency-REQ { background-image: url('../images/currencies/REQ.png') }
-.currency-REZ { background-image: url('../images/currencies/REZ.png') }
-.currency-RIF { background-image: url('../images/currencies/RIF.png') }
-.currency-RLC { background-image: url('../images/currencies/RLC.png') }
-.currency-RNDR { background-image: url('../images/currencies/RNDR.png') }
-.currency-RON { background-image: url('../images/currencies/RON.png') }
-.currency-RONIN { background-image: url('../images/currencies/RONIN.png') }
-.currency-ROSE { background-image: url('../images/currencies/ROSE.png') }
-.currency-RPL { background-image: url('../images/currencies/RPL.png') }
-.currency-RSR { background-image: url('../images/currencies/RSR.png') }
-.currency-RUB { background-image: url('../images/currencies/RUB.png') }
-.currency-RUNE { background-image: url('../images/currencies/RUNE.png') }
-.currency-RVN { background-image: url('../images/currencies/RVN.png') }
-.currency-SAGA { background-image: url('../images/currencies/SAGA.png') }
-.currency-SAND { background-image: url('../images/currencies/SAND.png') }
-.currency-SANTOS { background-image: url('../images/currencies/SANTOS.png') }
-.currency-SAR { background-image: url('../images/currencies/SAR.png') }
-.currency-SC { background-image: url('../images/currencies/SC.png') }
-.currency-SCRT { background-image: url('../images/currencies/SCRT.png') }
-.currency-SDG { background-image: url('../images/currencies/SDG.png') }
-.currency-SEI { background-image: url('../images/currencies/SEI.png') }
-.currency-SEK { background-image: url('../images/currencies/SEK.png') }
-.currency-SFP { background-image: url('../images/currencies/SFP.png') }
-.currency-SHIB { background-image: url('../images/currencies/SHIB.png') }
-.currency-SKL { background-image: url('../images/currencies/SKL.png') }
-.currency-SLP { background-image: url('../images/currencies/SLP.png') }
-.currency-SNT { background-image: url('../images/currencies/SNT.png') }
-.currency-SNX { background-image: url('../images/currencies/SNX.png') }
-.currency-SOL { background-image: url('../images/currencies/SOL.png') }
-.currency-SOLO { background-image: url('../images/currencies/SOLO.png') }
-.currency-SPELL { background-image: url('../images/currencies/SPELL.png') }
-.currency-SSV { background-image: url('../images/currencies/SSV.png') }
-.currency-STEEM { background-image: url('../images/currencies/STEEM.png') }
-.currency-STG { background-image: url('../images/currencies/STG.png') }
-.currency-STMX { background-image: url('../images/currencies/STMX.png') }
-.currency-STORJ { background-image: url('../images/currencies/STORJ.png') }
-.currency-STPT { background-image: url('../images/currencies/STPT.png') }
-.currency-STRAX { background-image: url('../images/currencies/STRAX.png') }
-.currency-STRK { background-image: url('../images/currencies/STRK.png') }
-.currency-STX { background-image: url('../images/currencies/STX.png') }
-.currency-SUI { background-image: url('../images/currencies/SUI.png') }
-.currency-SUN { background-image: url('../images/currencies/SUN.png') }
-.currency-SUPER { background-image: url('../images/currencies/SUPER.png') }
-.currency-SUSHI { background-image: url('../images/currencies/SUSHI.png') }
-.currency-SXP { background-image: url('../images/currencies/SXP.png') }
-.currency-SYN { background-image: url('../images/currencies/SYN.png') }
-.currency-SYS { background-image: url('../images/currencies/SYS.png') }
-.currency-T { background-image: url('../images/currencies/T.png') }
-.currency-TAO { background-image: url('../images/currencies/TAO.png') }
-.currency-TCT { background-image: url('../images/currencies/TCT.png') }
-.currency-TFUEL { background-image: url('../images/currencies/TFUEL.png') }
-.currency-THETA { background-image: url('../images/currencies/THETA.png') }
-.currency-TIA { background-image: url('../images/currencies/TIA.png') }
-.currency-TJS { background-image: url('../images/currencies/TJS.png') }
-.currency-TKO { background-image: url('../images/currencies/TKO.png') }
-.currency-TLM { background-image: url('../images/currencies/TLM.png') }
-.currency-TMT { background-image: url('../images/currencies/TMT.png') }
-.currency-TND { background-image: url('../images/currencies/TND.png') }
-.currency-TNSR { background-image: url('../images/currencies/TNSR.png') }
-.currency-TORN { background-image: url('../images/currencies/TORN.png') }
-.currency-TRB { background-image: url('../images/currencies/TRB.png') }
-.currency-TROY { background-image: url('../images/currencies/TROY.png') }
-.currency-TRU { background-image: url('../images/currencies/TRU.png') }
-.currency-TRX { background-image: url('../images/currencies/TRX.png') }
-.currency-TRXOLD { background-image: url('../images/currencies/TRXOLD.png') }
-.currency-TRY { background-image: url('../images/currencies/TRY.png') }
-.currency-TUSD { background-image: url('../images/currencies/TUSD.png') }
-.currency-TUSDOLD { background-image: url('../images/currencies/TUSDOLD.png') }
-.currency-TWD { background-image: url('../images/currencies/TWD.png') }
-.currency-TWT { background-image: url('../images/currencies/TWT.png') }
-.currency-TZS { background-image: url('../images/currencies/TZS.png') }
-.currency-UAH { background-image: url('../images/currencies/UAH.png') }
-.currency-UFT { background-image: url('../images/currencies/UFT.png') }
-.currency-UGX { background-image: url('../images/currencies/UGX.png') }
-.currency-UMA { background-image: url('../images/currencies/UMA.png') }
-.currency-UNFI { background-image: url('../images/currencies/UNFI.png') }
-.currency-UNI { background-image: url('../images/currencies/UNI.png') }
-.currency-USDC { background-image: url('../images/currencies/USDC.png') }
-.currency-USDP { background-image: url('../images/currencies/USDP.png') }
-.currency-USDT { background-image: url('../images/currencies/USDT.png') }
-.currency-USTC { background-image: url('../images/currencies/USTC.png') }
-.currency-UTK { background-image: url('../images/currencies/UTK.png') }
-.currency-UYU { background-image: url('../images/currencies/UYU.png') }
-.currency-UZS { background-image: url('../images/currencies/UZS.png') }
-.currency-VAI { background-image: url('../images/currencies/VAI.png') }
-.currency-VANRY { background-image: url('../images/currencies/VANRY.png') }
-.currency-VET { background-image: url('../images/currencies/VET.png') }
-.currency-VGX { background-image: url('../images/currencies/VGX.png') }
-.currency-VIB { background-image: url('../images/currencies/VIB.png') }
-.currency-VIC { background-image: url('../images/currencies/VIC.png') }
-.currency-VIDT { background-image: url('../images/currencies/VIDT.png') }
-.currency-VITE { background-image: url('../images/currencies/VITE.png') }
-.currency-VND { background-image: url('../images/currencies/VND.png') }
-.currency-VOXEL { background-image: url('../images/currencies/VOXEL.png') }
-.currency-VRT { background-image: url('../images/currencies/VRT.png') }
-.currency-VTHO { background-image: url('../images/currencies/VTHO.png') }
-.currency-W { background-image: url('../images/currencies/W.png') }
-.currency-WAN { background-image: url('../images/currencies/WAN.png') }
-.currency-WAVES { background-image: url('../images/currencies/WAVES.png') }
-.currency-WAXP { background-image: url('../images/currencies/WAXP.png') }
-.currency-WBETH { background-image: url('../images/currencies/WBETH.png') }
-.currency-WBNB { background-image: url('../images/currencies/WBNB.png') }
-.currency-WBTC { background-image: url('../images/currencies/WBTC.png') }
-.currency-WETH { background-image: url('../images/currencies/WETH.png') }
-.currency-WIF { background-image: url('../images/currencies/WIF.png') }
-.currency-WIN { background-image: url('../images/currencies/WIN.png') }
-.currency-WING { background-image: url('../images/currencies/WING.png') }
-.currency-WLD { background-image: url('../images/currencies/WLD.png') }
-.currency-WNXM { background-image: url('../images/currencies/WNXM.png') }
-.currency-WOO { background-image: url('../images/currencies/WOO.png') }
-.currency-WRX { background-image: url('../images/currencies/WRX.png') }
-.currency-WSOL { background-image: url('../images/currencies/WSOL.png') }
-.currency-WTC { background-image: url('../images/currencies/WTC.png') }
-.currency-XAF { background-image: url('../images/currencies/XAF.png') }
-.currency-XAI { background-image: url('../images/currencies/XAI.png') }
-.currency-XEC { background-image: url('../images/currencies/XEC.png') }
-.currency-XEM { background-image: url('../images/currencies/XEM.png') }
-.currency-XLM { background-image: url('../images/currencies/XLM.png') }
-.currency-XMR { background-image: url('../images/currencies/XMR.png') }
-.currency-XNO { background-image: url('../images/currencies/XNO.png') }
-.currency-XOF { background-image: url('../images/currencies/XOF.png') }
-.currency-XRP { background-image: url('../images/currencies/XRP.png') }
-.currency-XTZ { background-image: url('../images/currencies/XTZ.png') }
-.currency-XVG { background-image: url('../images/currencies/XVG.png') }
-.currency-XVS { background-image: url('../images/currencies/XVS.png') }
-.currency-YFI { background-image: url('../images/currencies/YFI.png') }
-.currency-YFII { background-image: url('../images/currencies/YFII.png') }
-.currency-YGG { background-image: url('../images/currencies/YGG.png') }
-.currency-ZAR { background-image: url('../images/currencies/ZAR.png') }
-.currency-ZEC { background-image: url('../images/currencies/ZEC.png') }
-.currency-ZEN { background-image: url('../images/currencies/ZEN.png') }
-.currency-ZIL { background-image: url('../images/currencies/ZIL.png') }
-.currency-ZRX { background-image: url('../images/currencies/ZRX.png') }
+.currency-1000SATS { background-image: url('../images/currencies/1000SATS.png') !important }
+.currency-AOA { background-image: url('../images/currencies/AOA.png') !important }
+.currency-BDT { background-image: url('../images/currencies/BDT.webp') !important }
+.currency-BOB { background-image: url('../images/currencies/BOB.png') !important }
+.currency-BSD { background-image: url('../images/currencies/BSD.png') !important }
+.currency-CNY { background-image: url('../images/currencies/CNY.png') !important }
+.currency-GMD { background-image: url('../images/currencies/GMD.png') !important }
+.currency-THB { background-image: url('../images/currencies/THB.webp') !important }
+.currency-PGK { background-image: url('../images/currencies/PGK.webp') !important }
+.currency-1INCH { background-image: url('../images/currencies/1INCH.png') !important }
+.currency-AAVE { background-image: url('../images/currencies/AAVE.png') !important }
+.currency-ACA { background-image: url('../images/currencies/ACA.png') !important }
+.currency-ACE { background-image: url('../images/currencies/ACE.png') !important }
+.currency-ACH { background-image: url('../images/currencies/ACH.png') !important }
+.currency-ACM { background-image: url('../images/currencies/ACM.png') !important }
+.currency-ADA { background-image: url('../images/currencies/ADA.png') !important }
+.currency-ADX { background-image: url('../images/currencies/ADX.png') !important }
+.currency-AED { background-image: url('../images/currencies/AED.png') !important }
+.currency-AERGO { background-image: url('../images/currencies/AERGO.png') !important }
+.currency-AEUR { background-image: url('../images/currencies/AEUR.png') !important }
+.currency-AEVO { background-image: url('../images/currencies/AEVO.png') !important }
+.currency-AFN { background-image: url('../images/currencies/AFN.png') !important }
+.currency-AGIX { background-image: url('../images/currencies/AGIX.png') !important }
+.currency-AGLD { background-image: url('../images/currencies/AGLD.png') !important }
+.currency-AI { background-image: url('../images/currencies/AI.png') !important }
+.currency-AKRO { background-image: url('../images/currencies/AKRO.png') !important }
+.currency-ALCX { background-image: url('../images/currencies/ALCX.png') !important }
+.currency-ALGO { background-image: url('../images/currencies/ALGO.png') !important }
+.currency-ALICE { background-image: url('../images/currencies/ALICE.png') !important }
+.currency-ALPACA { background-image: url('../images/currencies/ALPACA.png') !important }
+.currency-ALPHA { background-image: url('../images/currencies/ALPHA.png') !important }
+.currency-ALPINE { background-image: url('../images/currencies/ALPINE.png') !important }
+.currency-ALT { background-image: url('../images/currencies/ALT.png') !important }
+.currency-AMB { background-image: url('../images/currencies/AMB.png') !important }
+.currency-AMD { background-image: url('../images/currencies/AMD.png') !important }
+.currency-AMP { background-image: url('../images/currencies/AMP.png') !important }
+.currency-ANKR { background-image: url('../images/currencies/ANKR.png') !important }
+.currency-ANT { background-image: url('../images/currencies/ANT.png') !important }
+.currency-APE { background-image: url('../images/currencies/APE.png') !important }
+.currency-API3 { background-image: url('../images/currencies/API3.png') !important }
+.currency-APT { background-image: url('../images/currencies/APT.png') !important }
+.currency-AR { background-image: url('../images/currencies/AR.png') !important }
+.currency-ARB { background-image: url('../images/currencies/ARB.png') !important }
+.currency-ARBUSDCE { background-image: url('../images/currencies/ARBUSDCE.png') !important }
+.currency-ARDR { background-image: url('../images/currencies/ARDR.png') !important }
+.currency-ARK { background-image: url('../images/currencies/ARK.png') !important }
+.currency-ARKM { background-image: url('../images/currencies/ARKM.png') !important }
+.currency-ARPA { background-image: url('../images/currencies/ARPA.png') !important }
+.currency-ARS { background-image: url('../images/currencies/ARS.png') !important }
+.currency-ASR { background-image: url('../images/currencies/ASR.png') !important }
+.currency-AST { background-image: url('../images/currencies/AST.png') !important }
+.currency-ASTR { background-image: url('../images/currencies/ASTR.png') !important }
+.currency-ATA { background-image: url('../images/currencies/ATA.png') !important }
+.currency-ATM { background-image: url('../images/currencies/ATM.png') !important }
+.currency-ATOM { background-image: url('../images/currencies/ATOM.png') !important }
+.currency-AUCTION { background-image: url('../images/currencies/AUCTION.png') !important }
+.currency-AUD { background-image: url('../images/currencies/AUD.png') !important }
+.currency-AUDIO { background-image: url('../images/currencies/AUDIO.png') !important }
+.currency-AVA { background-image: url('../images/currencies/AVA.png') !important }
+.currency-AVAOLD { background-image: url('../images/currencies/AVAOLD.png') !important }
+.currency-AVAX { background-image: url('../images/currencies/AVAX.png') !important }
+.currency-AXL { background-image: url('../images/currencies/AXL.png') !important }
+.currency-AXS { background-image: url('../images/currencies/AXS.png') !important }
+.currency-AZN { background-image: url('../images/currencies/AZN.png') !important }
+.currency-BADGER { background-image: url('../images/currencies/BADGER.png') !important }
+.currency-BAKE { background-image: url('../images/currencies/BAKE.png') !important }
+.currency-BAL { background-image: url('../images/currencies/BAL.png') !important }
+.currency-BAND { background-image: url('../images/currencies/BAND.png') !important }
+.currency-BAR { background-image: url('../images/currencies/BAR.png') !important }
+.currency-BAT { background-image: url('../images/currencies/BAT.png') !important }
+.currency-BB { background-image: url('../images/currencies/BB.png') !important }
+.currency-BCH { background-image: url('../images/currencies/BCH.png') !important }
+.currency-BCHA { background-image: url('../images/currencies/BCHA.png') !important }
+.currency-BDOT { background-image: url('../images/currencies/BDOT.png') !important }
+.currency-BEAMX { background-image: url('../images/currencies/BEAMX.png') !important }
+.currency-BEL { background-image: url('../images/currencies/BEL.png') !important }
+.currency-BETA { background-image: url('../images/currencies/BETA.png') !important }
+.currency-BETH { background-image: url('../images/currencies/BETH.png') !important }
+.currency-BGBP { background-image: url('../images/currencies/BGBP.png') !important }
+.currency-BGN { background-image: url('../images/currencies/BGN.png') !important }
+.currency-BHD { background-image: url('../images/currencies/BHD.png') !important }
+.currency-BICO { background-image: url('../images/currencies/BICO.png') !important }
+.currency-BIDR { background-image: url('../images/currencies/BIDR.png') !important }
+.currency-BIFI { background-image: url('../images/currencies/BIFI.png') !important }
+.currency-BLUR { background-image: url('../images/currencies/BLUR.png') !important }
+.currency-BLZ { background-image: url('../images/currencies/BLZ.png') !important }
+.currency-BNB { background-image: url('../images/currencies/BNB.png') !important }
+.currency-BNBDOWN { background-image: url('../images/currencies/BNBDOWN.png') !important }
+.currency-BNBUP { background-image: url('../images/currencies/BNBUP.png') !important }
+.currency-BNC { background-image: url('../images/currencies/BNC.png') !important }
+.currency-BND { background-image: url('../images/currencies/BND.png') !important }
+.currency-BNT { background-image: url('../images/currencies/BNT.png') !important }
+.currency-BNX { background-image: url('../images/currencies/BNX.png') !important }
+.currency-BOME { background-image: url('../images/currencies/BOME.png') !important }
+.currency-BOND { background-image: url('../images/currencies/BOND.png') !important }
+.currency-BONK { background-image: url('../images/currencies/BONK.png') !important }
+.currency-BRL { background-image: url('../images/currencies/BRL.png') !important }
+.currency-BSW { background-image: url('../images/currencies/BSW.png') !important }
+.currency-BTC { background-image: url('../images/currencies/BTC.png') !important }
+.currency-BTCDOWN { background-image: url('../images/currencies/BTCDOWN.png') !important }
+.currency-BTCUP { background-image: url('../images/currencies/BTCUP.png') !important }
+.currency-BTS { background-image: url('../images/currencies/BTS.png') !important }
+.currency-BTTC { background-image: url('../images/currencies/BTTC.png') !important }
+.currency-BTTOLD { background-image: url('../images/currencies/BTTOLD.png') !important }
+.currency-BURGER { background-image: url('../images/currencies/BURGER.png') !important }
+.currency-BUSD { background-image: url('../images/currencies/BUSD.png') !important }
+.currency-BWP { background-image: url('../images/currencies/BWP.png') !important }
+.currency-BYN { background-image: url('../images/currencies/BYN.png') !important }
+.currency-C98 { background-image: url('../images/currencies/C98.png') !important }
+.currency-CAD { background-image: url('../images/currencies/CAD.png') !important }
+.currency-CAKE { background-image: url('../images/currencies/CAKE.png') !important }
+.currency-CAN { background-image: url('../images/currencies/CAN.png') !important }
+.currency-CELO { background-image: url('../images/currencies/CELO.png') !important }
+.currency-CELR { background-image: url('../images/currencies/CELR.png') !important }
+.currency-CFX { background-image: url('../images/currencies/CFX.png') !important }
+.currency-CHESS { background-image: url('../images/currencies/CHESS.png') !important }
+.currency-CHF { background-image: url('../images/currencies/CHF.png') !important }
+.currency-CHR { background-image: url('../images/currencies/CHR.png') !important }
+.currency-CHZ { background-image: url('../images/currencies/CHZ.png') !important }
+.currency-CITY { background-image: url('../images/currencies/CITY.png') !important }
+.currency-CKB { background-image: url('../images/currencies/CKB.png') !important }
+.currency-CLP { background-image: url('../images/currencies/CLP.png') !important }
+.currency-CLV { background-image: url('../images/currencies/CLV.png') !important }
+.currency-COMBO { background-image: url('../images/currencies/COMBO.png') !important }
+.currency-COMP { background-image: url('../images/currencies/COMP.png') !important }
+.currency-COP { background-image: url('../images/currencies/COP.png') !important }
+.currency-COS { background-image: url('../images/currencies/COS.png') !important }
+.currency-COTI { background-image: url('../images/currencies/COTI.png') !important }
+.currency-CRC { background-image: url('../images/currencies/CRC.png') !important }
+.currency-CREAM { background-image: url('../images/currencies/CREAM.png') !important }
+.currency-CRV { background-image: url('../images/currencies/CRV.png') !important }
+.currency-CTK { background-image: url('../images/currencies/CTK.png') !important }
+.currency-CTSI { background-image: url('../images/currencies/CTSI.png') !important }
+.currency-CTXC { background-image: url('../images/currencies/CTXC.png') !important }
+.currency-CVC { background-image: url('../images/currencies/CVC.png') !important }
+.currency-CVP { background-image: url('../images/currencies/CVP.png') !important }
+.currency-CVX { background-image: url('../images/currencies/CVX.png') !important }
+.currency-CYBER { background-image: url('../images/currencies/CYBER.png') !important }
+.currency-CZK { background-image: url('../images/currencies/CZK.png') !important }
+.currency-DAI { background-image: url('../images/currencies/DAI.png') !important }
+.currency-DAR { background-image: url('../images/currencies/DAR.png') !important }
+.currency-DASH { background-image: url('../images/currencies/DASH.png') !important }
+.currency-DATA { background-image: url('../images/currencies/DATA.png') !important }
+.currency-DCR { background-image: url('../images/currencies/DCR.png') !important }
+.currency-DEGO { background-image: url('../images/currencies/DEGO.png') !important }
+.currency-DENT { background-image: url('../images/currencies/DENT.png') !important }
+.currency-DEXE { background-image: url('../images/currencies/DEXE.png') !important }
+.currency-DF { background-image: url('../images/currencies/DF.png') !important }
+.currency-DGB { background-image: url('../images/currencies/DGB.png') !important }
+.currency-DIA { background-image: url('../images/currencies/DIA.png') !important }
+.currency-DKK { background-image: url('../images/currencies/DKK.png') !important }
+.currency-DOCK { background-image: url('../images/currencies/DOCK.png') !important }
+.currency-DODO { background-image: url('../images/currencies/DODO.png') !important }
+.currency-DOGE { background-image: url('../images/currencies/DOGE.png') !important }
+.currency-DOP { background-image: url('../images/currencies/DOP.png') !important }
+.currency-DOT { background-image: url('../images/currencies/DOT.png') !important }
+.currency-DREP { background-image: url('../images/currencies/DREP.png') !important }
+.currency-DUSK { background-image: url('../images/currencies/DUSK.png') !important }
+.currency-DYDX { background-image: url('../images/currencies/DYDX.png') !important }
+.currency-DYM { background-image: url('../images/currencies/DYM.png') !important }
+.currency-DZD { background-image: url('../images/currencies/DZD.png') !important }
+.currency-EDU { background-image: url('../images/currencies/EDU.png') !important }
+.currency-EFI { background-image: url('../images/currencies/EFI.png') !important }
+.currency-EGLD { background-image: url('../images/currencies/EGLD.png') !important }
+.currency-EGP { background-image: url('../images/currencies/EGP.png') !important }
+.currency-ELF { background-image: url('../images/currencies/ELF.png') !important }
+.currency-ENA { background-image: url('../images/currencies/ENA.png') !important }
+.currency-ENJ { background-image: url('../images/currencies/ENJ.png') !important }
+.currency-ENS { background-image: url('../images/currencies/ENS.png') !important }
+.currency-EOS { background-image: url('../images/currencies/EOS.png') !important }
+.currency-EPS { background-image: url('../images/currencies/EPS.png') !important }
+.currency-EPX { background-image: url('../images/currencies/EPX.png') !important }
+.currency-ERN { background-image: url('../images/currencies/ERN.png') !important }
+.currency-ETB { background-image: url('../images/currencies/ETB.png') !important }
+.currency-ETC { background-image: url('../images/currencies/ETC.png') !important }
+.currency-ETH { background-image: url('../images/currencies/ETH.png') !important }
+.currency-ETHDOWN { background-image: url('../images/currencies/ETHDOWN.png') !important }
+.currency-ETHFI { background-image: url('../images/currencies/ETHFI.png') !important }
+.currency-ETHUP { background-image: url('../images/currencies/ETHUP.png') !important }
+.currency-ETHW { background-image: url('../images/currencies/ETHW.png') !important }
+.currency-EUR { background-image: url('../images/currencies/EUR.png') !important }
+.currency-EURPS { background-image: url('../images/currencies/EURPS.png') !important }
+.currency-EVX { background-image: url('../images/currencies/EVX.png') !important }
+.currency-FARM { background-image: url('../images/currencies/FARM.png') !important }
+.currency-FDUSD { background-image: url('../images/currencies/FDUSD.png') !important }
+.currency-FET { background-image: url('../images/currencies/FET.png') !important }
+.currency-FIDA { background-image: url('../images/currencies/FIDA.png') !important }
+.currency-FIL { background-image: url('../images/currencies/FIL.png') !important }
+.currency-FIO { background-image: url('../images/currencies/FIO.png') !important }
+.currency-FIRO { background-image: url('../images/currencies/FIRO.png') !important }
+.currency-FIS { background-image: url('../images/currencies/FIS.png') !important }
+.currency-FLM { background-image: url('../images/currencies/FLM.png') !important }
+.currency-FLOKI { background-image: url('../images/currencies/FLOKI.png') !important }
+.currency-FLOW { background-image: url('../images/currencies/FLOW.png') !important }
+.currency-FLR { background-image: url('../images/currencies/FLR.png') !important }
+.currency-FLUX { background-image: url('../images/currencies/FLUX.png') !important }
+.currency-FOR { background-image: url('../images/currencies/FOR.png') !important }
+.currency-FORTH { background-image: url('../images/currencies/FORTH.png') !important }
+.currency-FRONT { background-image: url('../images/currencies/FRONT.png') !important }
+.currency-FTM { background-image: url('../images/currencies/FTM.png') !important }
+.currency-FTT { background-image: url('../images/currencies/FTT.png') !important }
+.currency-FUN { background-image: url('../images/currencies/FUN.png') !important }
+.currency-FUSDC { background-image: url('../images/currencies/FUSDC.png') !important }
+.currency-FXS { background-image: url('../images/currencies/FXS.png') !important }
+.currency-GAL { background-image: url('../images/currencies/GAL.png') !important }
+.currency-GALA { background-image: url('../images/currencies/GALA.png') !important }
+.currency-GAS { background-image: url('../images/currencies/GAS.png') !important }
+.currency-GBP { background-image: url('../images/currencies/GBP.png') !important }
+.currency-GEL { background-image: url('../images/currencies/GEL.png') !important }
+.currency-GFT { background-image: url('../images/currencies/GFT.png') !important }
+.currency-GHS { background-image: url('../images/currencies/GHS.png') !important }
+.currency-GHST { background-image: url('../images/currencies/GHST.png') !important }
+.currency-GLM { background-image: url('../images/currencies/GLM.png') !important }
+.currency-GLMR { background-image: url('../images/currencies/GLMR.png') !important }
+.currency-GMT { background-image: url('../images/currencies/GMT.png') !important }
+.currency-GMX { background-image: url('../images/currencies/GMX.png') !important }
+.currency-GNF { background-image: url('../images/currencies/GNF.png') !important }
+.currency-GNO { background-image: url('../images/currencies/GNO.png') !important }
+.currency-GNS { background-image: url('../images/currencies/GNS.png') !important }
+.currency-GRT { background-image: url('../images/currencies/GRT.png') !important }
+.currency-GTC { background-image: url('../images/currencies/GTC.png') !important }
+.currency-GYEN { background-image: url('../images/currencies/GYEN.png') !important }
+.currency-HARD { background-image: url('../images/currencies/HARD.png') !important }
+.currency-HBAR { background-image: url('../images/currencies/HBAR.png') !important }
+.currency-HFT { background-image: url('../images/currencies/HFT.png') !important }
+.currency-HIFI { background-image: url('../images/currencies/HIFI.png') !important }
+.currency-HIGH { background-image: url('../images/currencies/HIGH.png') !important }
+.currency-HIVE { background-image: url('../images/currencies/HIVE.png') !important }
+.currency-HKD { background-image: url('../images/currencies/HKD.png') !important }
+.currency-HOOK { background-image: url('../images/currencies/HOOK.png') !important }
+.currency-HOT { background-image: url('../images/currencies/HOT.png') !important }
+.currency-HRK { background-image: url('../images/currencies/HRK.png') !important }
+.currency-HUF { background-image: url('../images/currencies/HUF.png') !important }
+.currency-ICP { background-image: url('../images/currencies/ICP.png') !important }
+.currency-ICX { background-image: url('../images/currencies/ICX.png') !important }
+.currency-ID { background-image: url('../images/currencies/ID.png') !important }
+.currency-IDEX { background-image: url('../images/currencies/IDEX.png') !important }
+.currency-IDR { background-image: url('../images/currencies/IDR.png') !important }
+.currency-IDRT { background-image: url('../images/currencies/IDRT.png') !important }
+.currency-ILS { background-image: url('../images/currencies/ILS.png') !important }
+.currency-ILV { background-image: url('../images/currencies/ILV.png') !important }
+.currency-IMX { background-image: url('../images/currencies/IMX.png') !important }
+.currency-INJ { background-image: url('../images/currencies/INJ.png') !important }
+.currency-IOST { background-image: url('../images/currencies/IOST.png') !important }
+.currency-IOTA { background-image: url('../images/currencies/IOTA.png') !important }
+.currency-IOTX { background-image: url('../images/currencies/IOTX.png') !important }
+.currency-IQ { background-image: url('../images/currencies/IQ.png') !important }
+.currency-IRIS { background-image: url('../images/currencies/IRIS.png') !important }
+.currency-ISK { background-image: url('../images/currencies/ISK.png') !important }
+.currency-JASMY { background-image: url('../images/currencies/JASMY.png') !important }
+.currency-JEX { background-image: url('../images/currencies/JEX.png') !important }
+.currency-JOD { background-image: url('../images/currencies/JOD.png') !important }
+.currency-JOE { background-image: url('../images/currencies/JOE.png') !important }
+.currency-JPY { background-image: url('../images/currencies/JPY.png') !important }
+.currency-JST { background-image: url('../images/currencies/JST.png') !important }
+.currency-JTO { background-image: url('../images/currencies/JTO.png') !important }
+.currency-JUP { background-image: url('../images/currencies/JUP.png') !important }
+.currency-JUV { background-image: url('../images/currencies/JUV.png') !important }
+.currency-KAVA { background-image: url('../images/currencies/KAVA.png') !important }
+.currency-KDA { background-image: url('../images/currencies/KDA.png') !important }
+.currency-KES { background-image: url('../images/currencies/KES.png') !important }
+.currency-KEY { background-image: url('../images/currencies/KEY.png') !important }
+.currency-KEYFI { background-image: url('../images/currencies/KEYFI.png') !important }
+.currency-KGS { background-image: url('../images/currencies/KGS.png') !important }
+.currency-KHR { background-image: url('../images/currencies/KHR.png') !important }
+.currency-KLAY { background-image: url('../images/currencies/KLAY.png') !important }
+.currency-KMD { background-image: url('../images/currencies/KMD.png') !important }
+.currency-KNC { background-image: url('../images/currencies/KNC.png') !important }
+.currency-KP3R { background-image: url('../images/currencies/KP3R.png') !important }
+.currency-KSM { background-image: url('../images/currencies/KSM.png') !important }
+.currency-KWD { background-image: url('../images/currencies/KWD.png') !important }
+.currency-KZT { background-image: url('../images/currencies/KZT.png') !important }
+.currency-LAK { background-image: url('../images/currencies/LAK.png') !important }
+.currency-LAZIO { background-image: url('../images/currencies/LAZIO.png') !important }
+.currency-LBA { background-image: url('../images/currencies/LBA.png') !important }
+.currency-LDO { background-image: url('../images/currencies/LDO.png') !important }
+.currency-LEVER { background-image: url('../images/currencies/LEVER.png') !important }
+.currency-LINA { background-image: url('../images/currencies/LINA.png') !important }
+.currency-LINK { background-image: url('../images/currencies/LINK.png') !important }
+.currency-LIT { background-image: url('../images/currencies/LIT.png') !important }
+.currency-LOKA { background-image: url('../images/currencies/LOKA.png') !important }
+.currency-LOOM { background-image: url('../images/currencies/LOOM.png') !important }
+.currency-LOOMOLD { background-image: url('../images/currencies/LOOMOLD.png') !important }
+.currency-LPT { background-image: url('../images/currencies/LPT.png') !important }
+.currency-LQTY { background-image: url('../images/currencies/LQTY.png') !important }
+.currency-LRC { background-image: url('../images/currencies/LRC.png') !important }
+.currency-LSK { background-image: url('../images/currencies/LSK.png') !important }
+.currency-LTC { background-image: url('../images/currencies/LTC.png') !important }
+.currency-LTO { background-image: url('../images/currencies/LTO.png') !important }
+.currency-LUNA { background-image: url('../images/currencies/LUNA.png') !important }
+.currency-LUNC { background-image: url('../images/currencies/LUNC.png') !important }
+.currency-LYD { background-image: url('../images/currencies/LYD.png') !important }
+.currency-MAD { background-image: url('../images/currencies/MAD.png') !important }
+.currency-MAGIC { background-image: url('../images/currencies/MAGIC.png') !important }
+.currency-MANA { background-image: url('../images/currencies/MANA.png') !important }
+.currency-MANTA { background-image: url('../images/currencies/MANTA.png') !important }
+.currency-MASK { background-image: url('../images/currencies/MASK.png') !important }
+.currency-MATIC { background-image: url('../images/currencies/MATIC.png') !important }
+.currency-MATICUSDCE { background-image: url('../images/currencies/MATICUSDCE.png') !important }
+.currency-MAV { background-image: url('../images/currencies/MAV.png') !important }
+.currency-MBL { background-image: url('../images/currencies/MBL.png') !important }
+.currency-MBOX { background-image: url('../images/currencies/MBOX.png') !important }
+.currency-MDL { background-image: url('../images/currencies/MDL.png') !important }
+.currency-MDT { background-image: url('../images/currencies/MDT.png') !important }
+.currency-MDX { background-image: url('../images/currencies/MDX.png') !important }
+.currency-MEME { background-image: url('../images/currencies/MEME.png') !important }
+.currency-METIS { background-image: url('../images/currencies/METIS.png') !important }
+.currency-MINA { background-image: url('../images/currencies/MINA.png') !important }
+.currency-MKR { background-image: url('../images/currencies/MKR.png') !important }
+.currency-MLN { background-image: url('../images/currencies/MLN.png') !important }
+.currency-MMK { background-image: url('../images/currencies/MMK.png') !important }
+.currency-MNT { background-image: url('../images/currencies/MNT.png') !important }
+.currency-MOB { background-image: url('../images/currencies/MOB.png') !important }
+.currency-MOVR { background-image: url('../images/currencies/MOVR.png') !important }
+.currency-MTL { background-image: url('../images/currencies/MTL.png') !important }
+.currency-MTLX { background-image: url('../images/currencies/MTLX.png') !important }
+.currency-MULTI { background-image: url('../images/currencies/MULTI.png') !important }
+.currency-MXN { background-image: url('../images/currencies/MXN.png') !important }
+.currency-NEAR { background-image: url('../images/currencies/NEAR.png') !important }
+.currency-NEO { background-image: url('../images/currencies/NEO.png') !important }
+.currency-NEXO { background-image: url('../images/currencies/NEXO.png') !important }
+.currency-NFP { background-image: url('../images/currencies/NFP.png') !important }
+.currency-NFT { background-image: url('../images/currencies/NFT.png') !important }
+.currency-NGN { background-image: url('../images/currencies/NGN.png') !important }
+.currency-NKN { background-image: url('../images/currencies/NKN.png') !important }
+.currency-NMR { background-image: url('../images/currencies/NMR.png') !important }
+.currency-NOK { background-image: url('../images/currencies/NOK.png') !important }
+.currency-NOT { background-image: url('../images/currencies/NOT.png') !important }
+.currency-NTRN { background-image: url('../images/currencies/NTRN.png') !important }
+.currency-NULS { background-image: url('../images/currencies/NULS.png') !important }
+.currency-NVT { background-image: url('../images/currencies/NVT.png') !important }
+.currency-NZD { background-image: url('../images/currencies/NZD.png') !important }
+.currency-OAX { background-image: url('../images/currencies/OAX.png') !important }
+.currency-OCEAN { background-image: url('../images/currencies/OCEAN.png') !important }
+.currency-OG { background-image: url('../images/currencies/OG.png') !important }
+.currency-OGN { background-image: url('../images/currencies/OGN.png') !important }
+.currency-OM { background-image: url('../images/currencies/OM.png') !important }
+.currency-OMG { background-image: url('../images/currencies/OMG.png') !important }
+.currency-OMNI { background-image: url('../images/currencies/OMNI.png') !important }
+.currency-OMR { background-image: url('../images/currencies/OMR.png') !important }
+.currency-ONE { background-image: url('../images/currencies/ONE.png') !important }
+.currency-ONG { background-image: url('../images/currencies/ONG.png') !important }
+.currency-ONT { background-image: url('../images/currencies/ONT.png') !important }
+.currency-OOKI { background-image: url('../images/currencies/OOKI.png') !important }
+.currency-OP { background-image: url('../images/currencies/OP.png') !important }
+.currency-OPUSDCE { background-image: url('../images/currencies/OPUSDCE.png') !important }
+.currency-TON { background-image: url('../images/currencies/TON.png') !important }
+.currency-USD { background-image: url('../images/currencies/USD.png') !important }
+.currency-ORDI { background-image: url('../images/currencies/ORDI.png') !important }
+.currency-ORN { background-image: url('../images/currencies/ORN.png') !important }
+.currency-OSMO { background-image: url('../images/currencies/OSMO.png') !important }
+.currency-OXT { background-image: url('../images/currencies/OXT.png') !important }
+.currency-PAB { background-image: url('../images/currencies/PAB.png') !important }
+.currency-PARA { background-image: url('../images/currencies/PARA.png') !important }
+.currency-PAX { background-image: url('../images/currencies/PAX.png') !important }
+.currency-PAXG { background-image: url('../images/currencies/PAXG.png') !important }
+.currency-PDA { background-image: url('../images/currencies/PDA.png') !important }
+.currency-PEN { background-image: url('../images/currencies/PEN.png') !important }
+.currency-PENDLE { background-image: url('../images/currencies/PENDLE.png') !important }
+.currency-PEOPLE { background-image: url('../images/currencies/PEOPLE.png') !important }
+.currency-PEPE { background-image: url('../images/currencies/PEPE.png') !important }
+.currency-PERL { background-image: url('../images/currencies/PERL.png') !important }
+.currency-PERP { background-image: url('../images/currencies/PERP.png') !important }
+.currency-PGALA { background-image: url('../images/currencies/PGALA.png') !important }
+.currency-PHA { background-image: url('../images/currencies/PHA.png') !important }
+.currency-PHB { background-image: url('../images/currencies/PHB.png') !important }
+.currency-PHP { background-image: url('../images/currencies/PHP.png') !important }
+.currency-PIVX { background-image: url('../images/currencies/PIVX.png') !important }
+.currency-PIXEL { background-image: url('../images/currencies/PIXEL.png') !important }
+.currency-PKR { background-image: url('../images/currencies/PKR.png') !important }
+.currency-PLN { background-image: url('../images/currencies/PLN.png') !important }
+.currency-PNT { background-image: url('../images/currencies/PNT.png') !important }
+.currency-POLS { background-image: url('../images/currencies/POLS.png') !important }
+.currency-POLYX { background-image: url('../images/currencies/POLYX.png') !important }
+.currency-POND { background-image: url('../images/currencies/POND.png') !important }
+.currency-PORTAL { background-image: url('../images/currencies/PORTAL.png') !important }
+.currency-PORTO { background-image: url('../images/currencies/PORTO.png') !important }
+.currency-POWR { background-image: url('../images/currencies/POWR.png') !important }
+.currency-PROM { background-image: url('../images/currencies/PROM.png') !important }
+.currency-PROS { background-image: url('../images/currencies/PROS.png') !important }
+.currency-PSG { background-image: url('../images/currencies/PSG.png') !important }
+.currency-PUNDIX { background-image: url('../images/currencies/PUNDIX.png') !important }
+.currency-PYR { background-image: url('../images/currencies/PYR.png') !important }
+.currency-PYTH { background-image: url('../images/currencies/PYTH.png') !important }
+.currency-QAR { background-image: url('../images/currencies/QAR.png') !important }
+.currency-QI { background-image: url('../images/currencies/QI.png') !important }
+.currency-QKC { background-image: url('../images/currencies/QKC.png') !important }
+.currency-QNT { background-image: url('../images/currencies/QNT.png') !important }
+.currency-QTUM { background-image: url('../images/currencies/QTUM.png') !important }
+.currency-QUICK { background-image: url('../images/currencies/QUICK.png') !important }
+.currency-QUICKOLD { background-image: url('../images/currencies/QUICKOLD.png') !important }
+.currency-RAD { background-image: url('../images/currencies/RAD.png') !important }
+.currency-RARE { background-image: url('../images/currencies/RARE.png') !important }
+.currency-RAY { background-image: url('../images/currencies/RAY.png') !important }
+.currency-RCN { background-image: url('../images/currencies/RCN.png') !important }
+.currency-RDNT { background-image: url('../images/currencies/RDNT.png') !important }
+.currency-RDNTOLD { background-image: url('../images/currencies/RDNTOLD.png') !important }
+.currency-REEF { background-image: url('../images/currencies/REEF.png') !important }
+.currency-REI { background-image: url('../images/currencies/REI.png') !important }
+.currency-REN { background-image: url('../images/currencies/REN.png') !important }
+.currency-REQ { background-image: url('../images/currencies/REQ.png') !important }
+.currency-REZ { background-image: url('../images/currencies/REZ.png') !important }
+.currency-RIF { background-image: url('../images/currencies/RIF.png') !important }
+.currency-RLC { background-image: url('../images/currencies/RLC.png') !important }
+.currency-RNDR { background-image: url('../images/currencies/RNDR.png') !important }
+.currency-RON { background-image: url('../images/currencies/RON.png') !important }
+.currency-RONIN { background-image: url('../images/currencies/RONIN.png') !important }
+.currency-ROSE { background-image: url('../images/currencies/ROSE.png') !important }
+.currency-RPL { background-image: url('../images/currencies/RPL.png') !important }
+.currency-RSR { background-image: url('../images/currencies/RSR.png') !important }
+.currency-RUB { background-image: url('../images/currencies/RUB.png') !important }
+.currency-RUNE { background-image: url('../images/currencies/RUNE.png') !important }
+.currency-RVN { background-image: url('../images/currencies/RVN.png') !important }
+.currency-SAGA { background-image: url('../images/currencies/SAGA.png') !important }
+.currency-SAND { background-image: url('../images/currencies/SAND.png') !important }
+.currency-SANTOS { background-image: url('../images/currencies/SANTOS.png') !important }
+.currency-SAR { background-image: url('../images/currencies/SAR.png') !important }
+.currency-SC { background-image: url('../images/currencies/SC.png') !important }
+.currency-SCRT { background-image: url('../images/currencies/SCRT.png') !important }
+.currency-SDG { background-image: url('../images/currencies/SDG.png') !important }
+.currency-SEI { background-image: url('../images/currencies/SEI.png') !important }
+.currency-SEK { background-image: url('../images/currencies/SEK.png') !important }
+.currency-SFP { background-image: url('../images/currencies/SFP.png') !important }
+.currency-SHIB { background-image: url('../images/currencies/SHIB.png') !important }
+.currency-SKL { background-image: url('../images/currencies/SKL.png') !important }
+.currency-SLP { background-image: url('../images/currencies/SLP.png') !important }
+.currency-SNT { background-image: url('../images/currencies/SNT.png') !important }
+.currency-SNX { background-image: url('../images/currencies/SNX.png') !important }
+.currency-SOL { background-image: url('../images/currencies/SOL.png') !important }
+.currency-SOLO { background-image: url('../images/currencies/SOLO.png') !important }
+.currency-SPELL { background-image: url('../images/currencies/SPELL.png') !important }
+.currency-SSV { background-image: url('../images/currencies/SSV.png') !important }
+.currency-STEEM { background-image: url('../images/currencies/STEEM.png') !important }
+.currency-STG { background-image: url('../images/currencies/STG.png') !important }
+.currency-STMX { background-image: url('../images/currencies/STMX.png') !important }
+.currency-STORJ { background-image: url('../images/currencies/STORJ.png') !important }
+.currency-STPT { background-image: url('../images/currencies/STPT.png') !important }
+.currency-STRAX { background-image: url('../images/currencies/STRAX.png') !important }
+.currency-STRK { background-image: url('../images/currencies/STRK.png') !important }
+.currency-STX { background-image: url('../images/currencies/STX.png') !important }
+.currency-SUI { background-image: url('../images/currencies/SUI.png') !important }
+.currency-SUN { background-image: url('../images/currencies/SUN.png') !important }
+.currency-SUPER { background-image: url('../images/currencies/SUPER.png') !important }
+.currency-SUSHI { background-image: url('../images/currencies/SUSHI.png') !important }
+.currency-SXP { background-image: url('../images/currencies/SXP.png') !important }
+.currency-SYN { background-image: url('../images/currencies/SYN.png') !important }
+.currency-SYS { background-image: url('../images/currencies/SYS.png') !important }
+.currency-T { background-image: url('../images/currencies/T.png') !important }
+.currency-TAO { background-image: url('../images/currencies/TAO.png') !important }
+.currency-TCT { background-image: url('../images/currencies/TCT.png') !important }
+.currency-TFUEL { background-image: url('../images/currencies/TFUEL.png') !important }
+.currency-THETA { background-image: url('../images/currencies/THETA.png') !important }
+.currency-TIA { background-image: url('../images/currencies/TIA.png') !important }
+.currency-TJS { background-image: url('../images/currencies/TJS.png') !important }
+.currency-TKO { background-image: url('../images/currencies/TKO.png') !important }
+.currency-TLM { background-image: url('../images/currencies/TLM.png') !important }
+.currency-TMT { background-image: url('../images/currencies/TMT.png') !important }
+.currency-TND { background-image: url('../images/currencies/TND.png') !important }
+.currency-TNSR { background-image: url('../images/currencies/TNSR.png') !important }
+.currency-TORN { background-image: url('../images/currencies/TORN.png') !important }
+.currency-TRB { background-image: url('../images/currencies/TRB.png') !important }
+.currency-TROY { background-image: url('../images/currencies/TROY.png') !important }
+.currency-TRU { background-image: url('../images/currencies/TRU.png') !important }
+.currency-TRX { background-image: url('../images/currencies/TRX.png') !important }
+.currency-TRXOLD { background-image: url('../images/currencies/TRXOLD.png') !important }
+.currency-TRY { background-image: url('../images/currencies/TRY.png') !important }
+.currency-TUSD { background-image: url('../images/currencies/TUSD.png') !important }
+.currency-TUSDOLD { background-image: url('../images/currencies/TUSDOLD.png') !important }
+.currency-TWD { background-image: url('../images/currencies/TWD.png') !important }
+.currency-TWT { background-image: url('../images/currencies/TWT.png') !important }
+.currency-TZS { background-image: url('../images/currencies/TZS.png') !important }
+.currency-UAH { background-image: url('../images/currencies/UAH.png') !important }
+.currency-UFT { background-image: url('../images/currencies/UFT.png') !important }
+.currency-UGX { background-image: url('../images/currencies/UGX.png') !important }
+.currency-UMA { background-image: url('../images/currencies/UMA.png') !important }
+.currency-UNFI { background-image: url('../images/currencies/UNFI.png') !important }
+.currency-UNI { background-image: url('../images/currencies/UNI.png') !important }
+.currency-USDC { background-image: url('../images/currencies/USDC.png') !important }
+.currency-USDP { background-image: url('../images/currencies/USDP.png') !important }
+.currency-USDT { background-image: url('../images/currencies/USDT.png') !important }
+.currency-USTC { background-image: url('../images/currencies/USTC.png') !important }
+.currency-UTK { background-image: url('../images/currencies/UTK.png') !important }
+.currency-UYU { background-image: url('../images/currencies/UYU.png') !important }
+.currency-UZS { background-image: url('../images/currencies/UZS.png') !important }
+.currency-VAI { background-image: url('../images/currencies/VAI.png') !important }
+.currency-VANRY { background-image: url('../images/currencies/VANRY.png') !important }
+.currency-VET { background-image: url('../images/currencies/VET.png') !important }
+.currency-VGX { background-image: url('../images/currencies/VGX.png') !important }
+.currency-VIB { background-image: url('../images/currencies/VIB.png') !important }
+.currency-VIC { background-image: url('../images/currencies/VIC.png') !important }
+.currency-VIDT { background-image: url('../images/currencies/VIDT.png') !important }
+.currency-VITE { background-image: url('../images/currencies/VITE.png') !important }
+.currency-VND { background-image: url('../images/currencies/VND.png') !important }
+.currency-VOXEL { background-image: url('../images/currencies/VOXEL.png') !important }
+.currency-VRT { background-image: url('../images/currencies/VRT.png') !important }
+.currency-VTHO { background-image: url('../images/currencies/VTHO.png') !important }
+.currency-W { background-image: url('../images/currencies/W.png') !important }
+.currency-WAN { background-image: url('../images/currencies/WAN.png') !important }
+.currency-WAVES { background-image: url('../images/currencies/WAVES.png') !important }
+.currency-WAXP { background-image: url('../images/currencies/WAXP.png') !important }
+.currency-WBETH { background-image: url('../images/currencies/WBETH.png') !important }
+.currency-WBNB { background-image: url('../images/currencies/WBNB.png') !important }
+.currency-WBTC { background-image: url('../images/currencies/WBTC.png') !important }
+.currency-WETH { background-image: url('../images/currencies/WETH.png') !important }
+.currency-WIF { background-image: url('../images/currencies/WIF.png') !important }
+.currency-WIN { background-image: url('../images/currencies/WIN.png') !important }
+.currency-WING { background-image: url('../images/currencies/WING.png') !important }
+.currency-WLD { background-image: url('../images/currencies/WLD.png') !important }
+.currency-WNXM { background-image: url('../images/currencies/WNXM.png') !important }
+.currency-WOO { background-image: url('../images/currencies/WOO.png') !important }
+.currency-WRX { background-image: url('../images/currencies/WRX.png') !important }
+.currency-WSOL { background-image: url('../images/currencies/WSOL.png') !important }
+.currency-WTC { background-image: url('../images/currencies/WTC.png') !important }
+.currency-XAF { background-image: url('../images/currencies/XAF.png') !important }
+.currency-XAI { background-image: url('../images/currencies/XAI.png') !important }
+.currency-XEC { background-image: url('../images/currencies/XEC.png') !important }
+.currency-XEM { background-image: url('../images/currencies/XEM.png') !important }
+.currency-XLM { background-image: url('../images/currencies/XLM.png') !important }
+.currency-XMR { background-image: url('../images/currencies/XMR.png') !important }
+.currency-XNO { background-image: url('../images/currencies/XNO.png') !important }
+.currency-XOF { background-image: url('../images/currencies/XOF.png') !important }
+.currency-XRP { background-image: url('../images/currencies/XRP.png') !important }
+.currency-XTZ { background-image: url('../images/currencies/XTZ.png') !important }
+.currency-XVG { background-image: url('../images/currencies/XVG.png') !important }
+.currency-XVS { background-image: url('../images/currencies/XVS.png') !important }
+.currency-YFI { background-image: url('../images/currencies/YFI.png') !important }
+.currency-YFII { background-image: url('../images/currencies/YFII.png') !important }
+.currency-YGG { background-image: url('../images/currencies/YGG.png') !important }
+.currency-ZAR { background-image: url('../images/currencies/ZAR.png') !important }
+.currency-ZEC { background-image: url('../images/currencies/ZEC.png') !important }
+.currency-ZEN { background-image: url('../images/currencies/ZEN.png') !important }
+.currency-ZIL { background-image: url('../images/currencies/ZIL.png') !important }
+.currency-ZRX { background-image: url('../images/currencies/ZRX.png') !important }
