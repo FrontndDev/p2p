@@ -1,4 +1,12 @@
 .currency-1000SATS { background-image: url('../images/currencies/1000SATS.png') }
+.currency-AOA { background-image: url('../images/currencies/AOA.png') }
+.currency-BDT { background-image: url('../images/currencies/BDT.webp') }
+.currency-BOB { background-image: url('../images/currencies/BOB.png') }
+.currency-BSD { background-image: url('../images/currencies/BSD.png') }
+.currency-CNY { background-image: url('../images/currencies/CNY.png') }
+.currency-GMD { background-image: url('../images/currencies/GMD.png') }
+.currency-THB { background-image: url('../images/currencies/THB.webp') }
+.currency-PGK { background-image: url('../images/currencies/PGK.webp') }
 .currency-1INCH { background-image: url('../images/currencies/1INCH.png') }
 .currency-AAVE { background-image: url('../images/currencies/AAVE.png') }
 .currency-ACA { background-image: url('../images/currencies/ACA.png') }

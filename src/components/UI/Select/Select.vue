@@ -11,7 +11,13 @@
             <template>{{ props.selectedItem?.icon }}</template>
           </template>
 
-          <span>{{ props.selectedItem?.name }}</span>
+<!--          <span>{{ props.selectedItem?.name }}</span>-->
+          <input
+              type="text"
+              ref="input"
+              @input="searchItems"
+              @blur="closeDropdown"
+          >
         </div>
       </div>
 
@@ -25,7 +31,7 @@
       <div
           class="my-select__item"
           :class="[{ active: props.selectedItem?.id === item.id }]"
-          v-for="item in props.items"
+          v-for="item in filteredDropdown"
           :key="item.id"
           @click="selectItem(item)"
       >
@@ -43,8 +49,12 @@
 
 <script setup lang="ts">
 import {
+  computed,
+  onMounted,
   PropType,
+  Ref,
   ref,
+  watch,
 } from "vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 
@@ -73,12 +83,39 @@ const props = defineProps({
 
 const emit = defineEmits(['select']);
 
+const input: Ref<HTMLInputElement> = ref();
 const showDropdown = ref(false);
+const search: Ref<string> = ref('');
+
+const filteredDropdown = computed(() => {
+  const items = props.items.filter(item => item.name.includes(search.value))
+
+  return items.length ? items : props.items
+})
+
+const closeDropdown = () => {
+  setTimeout(() => showDropdown.value = false, 250);
+}
+
+const searchItems = (event: Event) => {
+  search.value = (event.target as HTMLInputElement).value
+}
 
 const selectItem = (item: ISelect) => {
+  search.value = ''
   emit('select', item, props.id);
   showDropdown.value = false
 }
+
+watch(() => props.selectedItem?.name, () => {
+  console.log('props.selectedItem?.name', props.selectedItem?.name, input.value)
+  input.value.value = props.selectedItem?.name
+})
+
+onMounted(() => {
+  console.log('props.selectedItem?.name', props.selectedItem?.name, input.value)
+  input.value.value = props.selectedItem?.name
+})
 </script>
 
 <style scoped lang="scss">

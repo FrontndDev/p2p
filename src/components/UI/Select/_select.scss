@@ -56,6 +56,11 @@
       object-fit: cover;
     }
 
+    & > input {
+      @include get-font(16px, 500, $text-base);
+      background: transparent;
+    }
+
     & > span {
       display: block;
       overflow: hidden;
