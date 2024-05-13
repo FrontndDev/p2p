@@ -53,7 +53,7 @@ export default {
       API.withdrawWallet(data).then(response => commit('UPDATE_WALLET', response.wallet))
     },
     async acceptDeal(_: TCtx, id: number) {
-      return await API.acceptDeal(id).then(response => console.log('acceptDeal', response))
+      return await API.acceptDeal(id).then(response => response)
     },
     async cancelDeal(_: TCtx, id: number) {
       return await API.cancelDeal(id).then(response => console.log('cancelDeal', response))

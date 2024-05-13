@@ -102,8 +102,9 @@ const setWindowWidth = () => {
   windowWidth.value = window.innerWidth
 }
 
-const acceptDeal = (id: number) => {
-  store.dispatch('profile/acceptDeal', id)
+const acceptDeal = async (transactionId: number) => {
+  const response = await store.dispatch('profile/acceptDeal', transactionId)
+  if (response?.status === 200) goToDeal(transactionId)
 }
 
 const goToDeal = (transactionId: number) => {
