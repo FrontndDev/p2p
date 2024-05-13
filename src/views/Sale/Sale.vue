@@ -43,7 +43,12 @@
     </div>
 
     <SaleAnnouncement v-if="activeTab.id === 1"/>
-    <MyPurchasesAndDeals type="deals" v-else-if="activeTab.id === 2" @accept="acceptDeal"/>
+    <MyPurchasesAndDeals
+        type="deals"
+        v-else-if="activeTab.id === 2"
+        @accept="acceptDeal"
+        @more-details="goToDeal"
+    />
   </div>
 
   <AddRequisitesModal v-if="showAddRequisitesModal" @close-modal="showAddRequisitesModal = false"/>
@@ -67,8 +72,10 @@ import InformationAboutTransfers from "@/components/InformationAboutTransfers/In
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import AddRequisitesModal from "@/components/Modals/Contents/AddRequisitesModal/AddRequisitesModal.vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 const store = useStore();
+const router = useRouter();
 
 const tabs = reactive([
   {
@@ -97,6 +104,10 @@ const setWindowWidth = () => {
 
 const acceptDeal = (id: number) => {
   store.dispatch('profile/acceptDeal', id)
+}
+
+const goToDeal = (transactionId: number) => {
+  router.push({ name: 'deal', params: { transactionId } })
 }
 
 onBeforeMount(() => {

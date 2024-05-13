@@ -168,7 +168,7 @@ const selectedTime: Ref<ISelect | null> = ref(null);
 const selectedDeal: ComputedRef<IAd> = computed(() => store.state.ads.ads.ads.find((ad: IAd) => ad.id === props.dealId));
 
 const times: ComputedRef<ISelect[]> = computed(() =>
-    store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))
+    store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: String(num) }))
 );
 
 const getAmountInNumber = (str: string) => {

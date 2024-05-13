@@ -52,8 +52,12 @@ export async function getCurrencyRate(data: any) {
   return getAsync(`/api/v1/p2p/currency/rate?fromCurrency=${data.from}&toCurrency=${data.to}`)
 }
 
-export async function getTransactionsHistory() {
-  return getAsync(`/api/v1/p2p/transaction/buying-history`)
+export async function getTransactionsHistory(page: number) {
+  return getAsync(`/api/v1/p2p/transaction/buying-history?page=${page}`)
+}
+
+export async function getProfileTransactionHistory(page: number) {
+  return getAsync(`/api/v1/p2p/profile/transaction?page=${page}`)
 }
 
 // POST

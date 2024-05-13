@@ -17,6 +17,7 @@ export interface IBuyer {
   lastName: string;
   avatar: string;
   canChangeStatus: boolean;
+  statistics: IStatistics;
 }
 
 export interface ISeller {

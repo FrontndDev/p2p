@@ -45,7 +45,7 @@
               type="neutral-btn"
               name="Подробнее"
               :legend="row?.legend"
-              v-if="props.type === 'purchases'"
+              v-if="props.type === 'purchases' || row.status !== 'pending'"
               @click="emit('more-details', row.orderId)"
           />
           <MyButton
@@ -53,7 +53,7 @@
               type="primary-btn"
               name="Принять"
               :legend="row?.legend"
-              v-if="props.type === 'deals'"
+              v-if="props.type === 'deals' && row.status === 'pending'"
               @click="emit('accept', row.orderId)"
           />
         </div>
@@ -86,7 +86,6 @@ import Pagination from "@/components/UI/Pagination/Pagination.vue";
 import { useStore } from "vuex";
 import { ITransactionsHistory } from "@/interfaces/store/modules/transactions.interface.ts";
 import Preloader from "@/components/UI/Preloader/Preloader.vue";
-import { IProfileAds } from "@/interfaces/store/modules/profile.interface.ts";
 
 const props = defineProps({
   type: {
@@ -102,14 +101,14 @@ const store = useStore();
 const selectedPage = ref(1);
 
 const transactionsHistory: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.transactionsHistory);
-const profileAds: ComputedRef<IProfileAds> = computed(() => store.state.profile.ads);
+const profileTransactions: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.profileTransactionHistory);
 
 const showTable = computed(() => {
   switch (props.type) {
     case 'purchases':
       return transactionsHistory.value?.transactions?.length
     case 'deals':
-      return profileAds.value?.ads?.length
+      return profileTransactions.value?.transactions?.length
   }
 })
 
@@ -118,7 +117,7 @@ const isLoading = computed(() => {
     case 'purchases':
       return !transactionsHistory.value?.transactions
     case 'deals':
-      return !profileAds.value?.ads
+      return !profileTransactions.value?.transactions
   }
 })
 
@@ -139,12 +138,6 @@ const getPaginationInfo = (obj: { currentPage: number; totalPages: number; }) =>
 }
 
 const getDate = (date: string) => date.split('|');
-const getDateSecond = (date: string) => {
-  const splitted = date.split(' ')
-  const num = splitted[0].split('-').reverse().join('.')
-  const time = splitted[1].slice(0, 5)
-  return [num, time];
-}
 
 const data = computed(() => {
   switch (props.type) {
@@ -169,21 +162,21 @@ const data = computed(() => {
       };
     case 'deals':
       return {
-        ...getPaginationInfo(profileAds.value),
-        list: profileAds.value.ads.map(ad => ({
-          id: ad.id,
-          wallet: ad.innerCurrency,
-          name: `${ad.adsAuthor.first_name} ${ad.adsAuthor.last_name}`,
-          avatar: ad.adsAuthor.avatar,
-          count: ad.activeAmount,
-          sum: ad.priceToShow,
-          status: ad.isActive ? 'completed' : 'canceled',
-          statusTranslate: ad.isActive ? 'Активен' : 'Не активен',
-          orderId: ad.id,
-          date: getDateSecond(ad.createdAt)[0],
-          time: getDateSecond(ad.createdAt)[1],
+        ...getPaginationInfo(profileTransactions.value),
+        list: profileTransactions.value.transactions.map(transaction => ({
+          id: transaction.id,
+          wallet: transaction.innerCurrency,
+          name: `${transaction.buyer.firstName} ${transaction.buyer.lastName}`,
+          avatar: transaction.buyer.avatar,
+          count: transaction.amount,
+          sum: `${transaction.price.amount} ${transaction.price.currency}`,
+          status: transaction.status.name,
+          statusTranslate: transaction.statusTransaction?.split(' ')[0],
+          orderId: transaction.id,
+          date: getDate(transaction.createdAt)[0],
+          time: getDate(transaction.createdAt)[1],
           legend: 0,
-          statistics: null
+          statistics: transaction.buyer?.statistics
         })),
       };
   }
@@ -197,10 +190,10 @@ const getName = (name: string) => {
 const loadData = () => {
   switch (props.type) {
     case 'purchases':
-      store.dispatch('transactions/getTransactionsHistory')
+      store.dispatch('transactions/getTransactionsHistory', selectedPage.value)
       break;
     case 'deals':
-      store.dispatch('profile/getAds')
+      store.dispatch('transactions/getProfileTransactionInfo', selectedPage.value)
       break;
   }
 }

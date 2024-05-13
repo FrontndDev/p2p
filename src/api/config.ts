@@ -69,10 +69,11 @@ export async function putAsync(url: string, data: unknown, checkError = true): P
                 return true
             }
         } catch (error: any) {
+            checkUserIsModer(error)
+
             if (checkError && error.response) {
                 return error.response
             }
-            checkUserIsModer(error)
 
             const setSeconds = () => {
                 // Присваиваем в переменную кол-во секунд в зависимости от итерации
