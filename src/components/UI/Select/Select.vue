@@ -108,12 +108,10 @@ const selectItem = (item: ISelect) => {
 }
 
 watch(() => props.selectedItem?.name, () => {
-  console.log('props.selectedItem?.name', props.selectedItem?.name, input.value)
   input.value.value = props.selectedItem?.name
 })
 
 onMounted(() => {
-  console.log('props.selectedItem?.name', props.selectedItem?.name, input.value)
   input.value.value = props.selectedItem?.name
 })
 </script>
