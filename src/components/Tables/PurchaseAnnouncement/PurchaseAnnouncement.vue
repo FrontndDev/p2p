@@ -65,6 +65,7 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import {
   computed,
   ComputedRef,
+  onMounted,
 } from "vue";
 import { useDeepCopy } from "@/composables/useDeepCopy.ts";
 import Seller from "@/components/Seller/Seller.vue";
@@ -95,6 +96,10 @@ const selectPage = (page: number) => {
   store.commit('ads/SET_PAGE', page)
   store.dispatch('ads/getAds')
 }
+
+onMounted(() => {
+  store.dispatch('ads/getAds')
+})
 </script>
 
 <style scoped lang="scss">

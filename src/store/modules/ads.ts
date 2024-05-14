@@ -25,7 +25,9 @@ export default {
         min_amount: state.minAmount ? state.minAmount : 0,
         payment_method_id: rootState.paymentMethods.selectedPaymentMethod.id
       }
-      API.getAds(data).then(response => commit('SET_ADS', response.data))
+      if (!Object.values(data).includes(undefined)) {
+        API.getAds(data).then(response => commit('SET_ADS', response.data))
+      }
     },
   },
   mutations: {

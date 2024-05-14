@@ -8,13 +8,21 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import {
+  computed,
+  reactive
+} from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const statistics = computed(() => store.state.profile.profile?.statistics);
 
 const data = reactive([
   {
     id: 1,
     title: 'Всего сделок',
-    value: '194'
+    value: computed(() => statistics.value?.transactionsCount ?? 0)
   },
   {
     id: 2,
@@ -31,7 +39,7 @@ const data = reactive([
     title: 'Скорость оплаты',
     value: '2 min'
   },
-])
+]);
 
 const getTitle = (title: string) => {
   const array = title.split(' ')
