@@ -169,6 +169,8 @@ const getMessageTimeIcon = computed(() => {
     case DealEnum.error:
     case DealEnum.declined:
       return CrossIcon;
+    default:
+      return ExclamationIcon;
     // case DealEnum.dispute:
     //   return DisputeIcon;
   }

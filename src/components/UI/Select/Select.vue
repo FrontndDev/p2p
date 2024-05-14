@@ -5,7 +5,10 @@
         <div class="my-select__title" v-if="props.title">
           {{ props.title }}
         </div>
-        <div class="my-select__text" :class="props.isCurrency ? `currency-${props.selectedItem?.name} bg-currency small-icon` : ''">
+        <div
+            class="my-select__text"
+            :class="[props.isCurrency ? `currency-${props.selectedItem?.name} bg-currency small-icon` : '', { 'search-icon': showDropdown }]"
+        >
           <template v-if="props.selectedItem?.icon">
             <img :src="props.selectedItem?.icon" :alt="props.selectedItem?.name" v-if="typeof props.selectedItem?.icon === 'string'">
             <template>{{ props.selectedItem?.icon }}</template>
@@ -99,6 +102,8 @@ const closeDropdown = () => {
 
 const searchItems = (event: Event) => {
   search.value = (event.target as HTMLInputElement).value
+
+  if (!showDropdown.value) showDropdown.value = true
 }
 
 const selectItem = (item: ISelect) => {

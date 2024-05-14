@@ -143,10 +143,18 @@ button {
   background-size: 24px;
   background-repeat: no-repeat;
   background-position: left center;
+  transition: .25s all ease;
 
   &.small-icon {
     background-size: 16px;
   }
+}
+
+.search-icon {
+  padding-left: 24px;
+  background-position: left center;
+  background-image: url('../images/search.png') !important;
+  background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 756px) {
