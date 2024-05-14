@@ -72,18 +72,18 @@
             v-if="[DealEnum.pending, DealEnum.accepted].includes(dealType)"
             @click="cancelDeal"
         />
+<!--        <MyButton-->
+<!--            type="neutral-btn"-->
+<!--            size="big"-->
+<!--            width="50%"-->
+<!--            name="Обратиться в поддержку"-->
+<!--            v-else-->
+<!--            @click="cancelDeal"-->
+<!--        />-->
         <MyButton
-            type="neutral-btn"
             size="big"
-            width="50%"
-            name="Обратиться в поддержку"
-            v-else
-            @click="cancelDeal"
-        />
-        <MyButton
-            size="big"
-            width="50%"
             name="Вернуться к объявлениям"
+            :width="![DealEnum.pending, DealEnum.accepted].includes(dealType) ? '100%' : '50%'"
             :type="activeBtn ? 'second-primary-btn' : 'neutral-btn'"
             @click="$router.push({ name: 'purchase' })"
         />
