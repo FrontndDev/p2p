@@ -1,6 +1,6 @@
 <template>
-  <div class="my-select" :tabindex="1" @blur="showDropdown = false">
-    <div class="my-select__up" :class="{ opened: showDropdown }" @click="showDropdown = !showDropdown">
+  <div class="my-select">
+    <div class="my-select__up" :class="{ opened: showDropdown }" @click="input.focus()">
       <div class="my-select__info">
         <div class="my-select__title" v-if="props.title">
           {{ props.title }}
@@ -20,6 +20,7 @@
               ref="input"
               @input="searchItems"
               @blur="closeDropdown"
+              @focus="showDropdown = true"
           >
         </div>
       </div>
@@ -97,7 +98,7 @@ const filteredDropdown = computed(() => {
 })
 
 const closeDropdown = () => {
-  setTimeout(() => showDropdown.value = false, 250);
+  setTimeout(() => showDropdown.value = false, 150);
 }
 
 const searchItems = (event: Event) => {
@@ -109,7 +110,7 @@ const searchItems = (event: Event) => {
 const selectItem = (item: ISelect) => {
   search.value = ''
   emit('select', item, props.id);
-  showDropdown.value = false
+  closeDropdown()
 }
 
 watch(() => props.selectedItem?.name, () => {
