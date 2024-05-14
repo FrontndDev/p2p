@@ -20,17 +20,17 @@
       </div>
       <div class="deal__text" v-for="item in getDescription">{{ item }}</div>
 
-      <div class="deal__progressbar my-content-container">
-        <Progressbar
-            :status="dealType"
-            v-if="dealType !== DealEnum.completed && dealType !== DealEnum.pending"
-        />
+      <div
+          class="deal__progressbar my-content-container"
+          v-if="showProgressBar"
+      >
+        <Progressbar :status="dealType"/>
       </div>
       <SellerDetails
           :payment-method="transactionInfo.requisite.paymentMethod"
           :price="transactionInfo.price"
           :seller="transactionInfo.seller"
-          v-if="['accepted'].includes(transactionInfo.status?.name)"
+          v-if="[DealEnum.accepted].includes(dealType)"
       />
     </div>
 
@@ -69,6 +69,15 @@
             width="50%"
             name="Отменить сделку"
             :disabled="!transactionInfo.canBeCanceled"
+            v-if="[DealEnum.pending, DealEnum.accepted].includes(dealType)"
+            @click="cancelDeal"
+        />
+        <MyButton
+            type="neutral-btn"
+            size="big"
+            width="50%"
+            name="Обратиться в поддержку"
+            v-else
             @click="cancelDeal"
         />
         <MyButton
@@ -97,7 +106,6 @@ import CrossIcon from '@/assets/svg/deal/cross.svg?component';
 import DisputeIcon from '@/assets/svg/deal/dispute.svg?component';
 //
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
-import { TDealType } from "@/views/BuyCurrency/Deal/deal.interface.ts";
 import {
   computed,
   Ref
@@ -136,11 +144,15 @@ const seconds = computed(() => {
   return sec < 10 ? `0${sec}` : sec
 });
 
-const dealType: Ref<TDealType> = computed(() => transactionInfo.value.status?.name);
+const dealType: Ref<DealEnum> = computed(() => transactionInfo.value.status?.name);
 
 const activeBtn = computed(() =>
-    [DealEnum.completed, DealEnum.cancelled, DealEnum.declined, DealEnum.expired, DealEnum.error].includes(transactionInfo.value.status?.name)
+    [DealEnum.completed, DealEnum.cancelled, DealEnum.declined, DealEnum.expired, DealEnum.error].includes(dealType.value)
 );
+
+const showProgressBar = computed(() =>
+    [DealEnum.accepted, DealEnum.payed, DealEnum.expired, DealEnum.declined, DealEnum.payment_confirmation_expired].includes(dealType.value)
+)
 
 const getMessageTimeIcon = computed(() => {
   switch (dealType.value) {
@@ -165,12 +177,28 @@ const getMessageTimeIcon = computed(() => {
 const getDate = computed(() => transactionInfo.value.createdAt?.split('|'));
 
 const getDescription = computed(() => {
-  switch (transactionInfo.value.status?.name) {
-    default:
+  switch (dealType.value) {
+    case DealEnum.pending:
       return [
-          `Для осуществления сделки необходимо дождаться подтверждение продавца в течении ${transactionInfo.value.status?.expirationTime ?? 15} минут`,
-          'Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок'
+        `Для осуществления сделки необходимо дождаться подтверждение продавца в течении ${transactionInfo.value.status?.expirationTime ?? 15} минут`,
+        'Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок'
       ];
+    case DealEnum.accepted:
+      return [
+        'После совершения платежа, нажмите кнопку “Платеж отправлен”',
+        'Платеж будет автоматически отменен, если кнопка не будет нажата в установленные сроки'
+      ];
+    case DealEnum.payed:
+    case DealEnum.completed:
+      return [`Ваш платеж получен, актив ${transactionInfo.value.outerCurrencyAmount?.currency} был отправлен на ваш аккаунт`];
+    case DealEnum.cancelled:
+      return ['Продавец не успел подтвердить заявку в течение 15 минут'];
+    case DealEnum.error:
+      return ['Ошибка'];
+    case DealEnum.expired:
+    case DealEnum.declined:
+    case DealEnum.payment_confirmation_expired:
+      return ['Вы отметили ордер как оплаченный. Дождитесь подтверждения и перевода актива от продавца'];
   }
 });
 

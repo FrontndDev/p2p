@@ -37,22 +37,6 @@ const props = defineProps({
   }
 })
 
-// const steps = reactive([
-//   {
-//     id: 1,
-//     name: 'Оплата сделки покупателем',
-//     type: 'active',
-//   },
-//   {
-//     id: 2,
-//     name: 'Подтверждение оплаты продавцом',
-//   },
-//   {
-//     id: 3,
-//     name: 'Завершено',
-//   }
-// ]);
-
 const steps = computed(() => {
   let steps: { name: string; type?: string; }[] = [];
 
@@ -85,6 +69,23 @@ const steps = computed(() => {
           name: 'Завершено',
         }
       ]
+      break;
+    case DealEnum.expired:
+    case DealEnum.declined:
+    case DealEnum.payment_confirmation_expired:
+      steps = [
+        {
+          name: 'Оплата сделки покупателем',
+          type: 'active',
+        },
+        {
+          name: 'Подтверждение оплаты продавцом',
+          type: 'canceled',
+        },
+        {
+          name: 'Завершено',
+        }
+      ];
       break;
   }
 

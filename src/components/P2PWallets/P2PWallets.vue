@@ -13,7 +13,7 @@
       <div class="p2p-wallets__item-info">
         <div class="p2p-wallets__item-action">
           <span>Для продажи</span>
-          <span>{{ systemWallets[wallet.currency].amount }}</span>
+          <span>{{ systemWallets[wallet.currency]?.amount }}</span>
         </div>
         <div class="p2p-wallets__item-commission">
           <span>Комиссия</span>
