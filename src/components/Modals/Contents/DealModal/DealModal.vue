@@ -120,7 +120,6 @@ import {
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 // @ts-ignore
 import USDIcon from '@/assets/svg/wallets/usd.svg?component'
-import Select from "@/components/UI/Select/Select.vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
@@ -180,10 +179,6 @@ const getAmountInNumber = (str: string) => {
 
 const imGiving = ref('');
 const iWillGet = ref('');
-
-const selectPaymentMethod = (paymentMethod: ISelect) => {
-  selectedPaymentMethod.value = paymentMethod
-}
 
 const setImGiving = (value: string) => {
   console.log('value', value)
