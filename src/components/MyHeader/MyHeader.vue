@@ -29,7 +29,7 @@
           :class="{ 'no-media': !props.tabs }"
           :value="sum"
           @input-value="inputValue"
-          @keyup.enter="getAds"
+          @keyup.enter="keyUp"
       />
     </div>
   </div>
@@ -162,9 +162,14 @@ const selectItem = async (item: ISelect, id: number) => {
 }
 
 const inputValue = (value: string) => {
-  if (timeout.value) clearInterval(timeout.value)
+  if (timeout.value) clearTimeout(timeout.value)
   store.commit('ads/SET_MIN_AMOUNT', value);
   timeout.value = setTimeout(() => getAds(), 2000)
+}
+
+const keyUp = () => {
+  getAds()
+  clearTimeout(timeout.value)
 }
 
 const getAds = async () => {
