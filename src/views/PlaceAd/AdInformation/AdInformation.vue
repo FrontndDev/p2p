@@ -40,7 +40,13 @@
                 </div>
               </MyCheckbox>
             </div>
-            <MyButton size="big" width="100%" name="Разместить объявление" @click="emit('create-ad')"/>
+            <MyButton
+                size="big"
+                width="100%"
+                name="Разместить объявление"
+                :disabled="saveBtnDisabled"
+                @click="emit('create-ad')"
+            />
           </template>
           <template v-else-if="route.name === 'edit-ad'">
             <div class="ad-information__buttons">
@@ -140,6 +146,10 @@ const props = defineProps({
     required: true,
   },
   showSaveBtn: {
+    type: Boolean,
+    default: false,
+  },
+  saveBtnDisabled: {
     type: Boolean,
     default: false,
   }

@@ -7,8 +7,10 @@ import { useShowMessage } from "@/composables/useShowMessage";
 
 const __IS_DEV__ = import.meta.env.VITE_IS_DEV === 'true'
 
-const devUrl = import.meta.env.VITE_DEV_URL ?? 'https://stage2.halk.ai' // 'https://stage2.halk.ai' 'https://dev.halk.ai'
+const devUrl = import.meta.env.VITE_DEV_URL ?? 'https://stage1.halk.ai' // 'https://stage2.halk.ai' 'https://dev.halk.ai'
 const BASE_URL = __IS_DEV__ ? devUrl : window.location.origin;
+
+const getRequests: string[] = [];
 
 const checkUserIsModer = (error: AxiosError) => {
     const errorData = (error.response as AxiosResponse).data
@@ -168,12 +170,17 @@ export async function getAsync(url: string, options?: any): Promise<any> {
     const config: any = { headers: setGlobalConfig() };
     let iteration = 0; // Итерация
     let retryInterval = 0; // Интервал между повторными запросами в миллисекундах
+    if (getRequests.includes(url)) return;
+    getRequests.push(url);
 
     async function fetchAsync(): Promise<any> {
         try {
             if (options?.cancelTokenSource?.token) config.cancelToken = options.cancelTokenSource.token;
 
             let response = await axios.get(BASE_URL + url, config);
+
+            const index = getRequests.indexOf(url)
+            if (index !== -1) getRequests.splice(index, 1)
 
             if (response?.data?.error_code !== undefined) {
                 const error = response.data;
@@ -187,6 +194,9 @@ export async function getAsync(url: string, options?: any): Promise<any> {
             }
 
         } catch (e) {
+            const index = getRequests.indexOf(url)
+            if (index !== -1) getRequests.splice(index, 1)
+
             const setSeconds = () => {
                 // Присваиваем в переменную кол-во секунд в зависимости от итерации
                 const iterations = [1000, 5000, 10000, 30000, 60000]

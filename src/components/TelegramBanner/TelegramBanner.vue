@@ -6,8 +6,7 @@
       <MyButton
           width="100%"
           type="second-success-btn"
-          name="Привязать"
-          v-if="!telegramActive"
+          :name="!telegramActive ? 'Привязать' : 'Отвязать'"
           @click="bindTelegramBot"
       />
     </div>
@@ -26,7 +25,7 @@ const telegramActive = computed(() => store.state.profile.profile.telegramActive
 const telegramBotUrl = computed(() => store.state.currencies.telegramBotUrl);
 
 const bindTelegramBot = () => {
-  window.location.href = telegramBotUrl.value
+  window.location.href = !telegramActive.value ? telegramBotUrl.value : '/app/profile/edit#tab-telegram.'
 }
 </script>
 

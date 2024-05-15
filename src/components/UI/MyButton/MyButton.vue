@@ -3,6 +3,7 @@
       class="my-button"
       :style="`width: ${props.width};`"
       :class="[props.type, props.size, { disabled }, { loading }]"
+      @click="click"
   >
     <slot name="icon-left"/>
 
@@ -45,7 +46,13 @@ const props = defineProps({
     type: String,
     default: 'fit-content'
   }
-})
+});
+
+const emit = defineEmits(['click']);
+
+const click = () => {
+  if (!props.disabled) emit('click')
+}
 </script>
 
 <style scoped lang="scss">

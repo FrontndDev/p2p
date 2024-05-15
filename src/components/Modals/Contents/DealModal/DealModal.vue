@@ -23,7 +23,10 @@
                 <div class="deal-modal__info-item deal-modal__info-item_payment-methods">
                   <div class="deal-modal__info-item-title">Способ оплаты</div>
                   <div class="deal-modal__info-item-value">
-                    <PaymentMethods bg="base-light" :payment-methods="[selectedPaymentMethod]" v-if="selectedPaymentMethod"/>
+                    <PaymentMethods
+                        bg="base-light"
+                        :payment-methods="[{ id: selectedDeal.paymentMethod.id, name: selectedDeal.paymentMethod.name }]"
+                    />
                   </div>
                 </div>
                 <div class="deal-modal__info-item">
@@ -72,19 +75,19 @@
                   @input-value="setIWillGet"
                   @all="setIWillGet(String(selectedDeal.activeAmount))"
               />
-              <Select
-                  class="no-media"
-                  title="Способ оплаты"
-                  :items="paymentMethods"
-                  :selected-item="selectedPaymentMethod"
-                  @select="selectPaymentMethod"
-              />
-              <Select
-                  title="Время в минутах"
-                  :items="times"
-                  :selected-item="selectedTime"
-                  @select="selectTime"
-              />
+<!--              <Select-->
+<!--                  class="no-media"-->
+<!--                  title="Способ оплаты"-->
+<!--                  :items="paymentMethods"-->
+<!--                  :selected-item="selectedPaymentMethod"-->
+<!--                  @select="selectPaymentMethod"-->
+<!--              />-->
+<!--              <Select-->
+<!--                  title="Время в минутах"-->
+<!--                  :items="times"-->
+<!--                  :selected-item="selectedTime"-->
+<!--                  @select="selectTime"-->
+<!--              />-->
             </div>
 
             <div class="deal-modal__buttons">

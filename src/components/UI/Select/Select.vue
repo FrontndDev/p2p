@@ -18,6 +18,7 @@
           <input
               type="text"
               ref="input"
+              :disabled="input?.value === 'Загрузка...'"
               @input="searchItems"
               @blur="closeDropdown"
               @focus="showDropdown = true"
@@ -39,7 +40,7 @@
           :key="item.id"
           @click="selectItem(item)"
       >
-        <div :class="props.isCurrency ? `currency-${item.name} bg-currency small-icon` : ''">
+        <div :class="props.isCurrency && item.id !== -1 ? `currency-${item.name} bg-currency small-icon` : ''">
           <template v-if="item?.icon">
             <img :src="item?.icon" :alt="item?.icon" v-if="typeof item?.icon === 'string'">
             <template>{{ item?.icon }}</template>
@@ -92,13 +93,13 @@ const showDropdown = ref(false);
 const search: Ref<string> = ref('');
 
 const filteredDropdown = computed(() => {
-  const items = props.items.filter(item => item.name.includes(search.value))
+  const items = props.items.filter(item => item.name.includes(search.value.toUpperCase()))
 
-  return items.length ? items : props.items
+  return items.length ? items : [{ id: -1, name: 'Ничего не найдено' }]
 })
 
 const closeDropdown = () => {
-  setTimeout(() => showDropdown.value = false, 150);
+  setTimeout(() => showDropdown.value = false, 200);
 }
 
 const searchItems = (event: Event) => {
@@ -108,17 +109,19 @@ const searchItems = (event: Event) => {
 }
 
 const selectItem = (item: ISelect) => {
-  search.value = ''
-  emit('select', item, props.id);
-  closeDropdown()
+  if (item.id !== -1) {
+    search.value = ''
+    emit('select', item, props.id);
+    closeDropdown()
+  }
 }
 
 watch(() => props.selectedItem?.name, () => {
-  input.value.value = props.selectedItem?.name
+  input.value.value = props.selectedItem?.name ?? 'Загрузка...'
 })
 
 onMounted(() => {
-  input.value.value = props.selectedItem?.name
+  input.value.value = props.selectedItem?.name ?? 'Загрузка...'
 })
 </script>
 

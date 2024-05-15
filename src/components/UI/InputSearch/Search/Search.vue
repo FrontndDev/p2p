@@ -9,7 +9,7 @@
       </svg>
     </div>
 
-    <InputSearch search-desktop @hide-input="showInput = false" v-if="showInput"/>
+    <InputSearch search-desktop @search="showInput = false" v-if="showInput"/>
     <InputSearch class="search-mobile"/>
   </div>
 </template>

@@ -29,7 +29,7 @@
           :class="{ 'no-media': !props.tabs }"
           :value="sum"
           @input-value="inputValue"
-          @blur="getAds"
+          @keyup.enter="getAds"
       />
     </div>
   </div>
@@ -42,6 +42,7 @@ import {
   computed,
   ComputedRef,
   PropType,
+  ref,
 } from "vue";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
@@ -72,8 +73,9 @@ const emit = defineEmits([
 ]);
 
 const route = useRoute();
-
 const store = useStore();
+
+const timeout = ref(0);
 
 const getTabByRouteName = computed(() => {
   if (props.tabs) {
@@ -160,7 +162,9 @@ const selectItem = async (item: ISelect, id: number) => {
 }
 
 const inputValue = (value: string) => {
+  if (timeout.value) clearInterval(timeout.value)
   store.commit('ads/SET_MIN_AMOUNT', value);
+  timeout.value = setTimeout(() => getAds(), 2000)
 }
 
 const getAds = async () => {

@@ -24,6 +24,7 @@
         @input-factor="(value: string) => factor = +value"
     />
     <AdInformation
+        :save-btn-disabled="createInProcess"
         :show-save-btn="!_.isEqual(data, copyData)"
         :selected-inner-currency="selectedInnerCurrency"
         :selected-outer-currency="selectedOuterCurrency"
@@ -76,6 +77,7 @@ const factor: Ref<number | undefined> = ref(undefined);
 const price: Ref<number | undefined> = ref(undefined);
 
 const copyData = ref({});
+const createInProcess = ref(false);
 
 const priceTypes = reactive([
   {
@@ -152,6 +154,7 @@ const adValid = computed(() => {
 
 const createAd = async () => {
   if (adValid.value) {
+    createInProcess.value = true
     route.name === 'edit-ad' ?
         await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value }) :
         await store.dispatch('profile/createAd', data.value)
@@ -159,6 +162,7 @@ const createAd = async () => {
   } else {
     useShowMessage('red', 'Заполните все обязательные поля', 'Ошибка:')
   }
+  createInProcess.value = false
 }
 
 const setDefaultValues = () => {

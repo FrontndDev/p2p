@@ -58,8 +58,11 @@
       }
     }
 
-    &.canceled::before {
-      background: $bg-red;
+    &.canceled,
+    &.expired {
+      &::before {
+        background: $bg-red;
+      }
     }
   }
 
