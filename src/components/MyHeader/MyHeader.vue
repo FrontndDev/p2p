@@ -168,8 +168,8 @@ const inputValue = (value: string) => {
 }
 
 const keyUp = () => {
-  getAds()
   clearTimeout(timeout.value)
+  getAds()
 }
 
 const getAds = async () => {
