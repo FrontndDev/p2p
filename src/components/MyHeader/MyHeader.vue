@@ -29,7 +29,8 @@
           :class="{ 'no-media': !props.tabs }"
           :value="sum"
           @input-value="inputValue"
-          @keyup.enter="keyUp"
+          @keyup.enter="keyUpOrBlur"
+          @blur="keyUpOrBlur"
       />
     </div>
   </div>
@@ -55,7 +56,6 @@ import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 import { useRoute } from "vue-router";
 import { HomeRoutesEnum } from "@/enums/home-routes.enum.ts";
 import { useStore } from "vuex";
-import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
 
 const props = defineProps({
   // Если табы есть, то действуют настройки для хедера на странице Purchase.vue
@@ -169,7 +169,7 @@ const inputValue = (value: string) => {
   timeout.value = setTimeout(() => getAds(), 2000)
 }
 
-const keyUp = () => {
+const keyUpOrBlur = () => {
   clearTimeout(timeout.value)
   getAds()
 }
