@@ -94,13 +94,16 @@ const showDropdown = ref(false);
 const search: Ref<string> = ref('');
 
 const filteredDropdown = computed(() => {
-  const items = props.items.filter(item => item.name.toUpperCase().includes(search.value))
+  const items = props.items.filter(item => item.name.toLowerCase().includes(search.value.toLowerCase()))
 
   return items.length ? items : [{ id: -1, name: 'Ничего не найдено' }]
 })
 
 const closeDropdown = () => {
-  setTimeout(() => showDropdown.value = false, 200);
+  setTimeout(() => {
+    showDropdown.value = false
+    search.value = ''
+  }, 200);
 }
 
 const blur = () => {
@@ -123,7 +126,6 @@ const searchItems = (event: Event) => {
 
 const selectItem = (item: ISelect) => {
   if (item.id !== -1) {
-    search.value = ''
     emit('select', item, props.id);
     closeDropdown()
   }
