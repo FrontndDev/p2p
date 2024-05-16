@@ -2,8 +2,9 @@ import { IPrice } from "@/interfaces/store/modules/ads.interface.ts";
 
 export interface IWallet {
   currency: string;
-  amount: number;
-  realAmount: number;
+  amount: string;
+  realAmount: string;
+  feeAmount: string;
   id: number;
 }
 
