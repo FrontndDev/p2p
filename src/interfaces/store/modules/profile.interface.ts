@@ -32,6 +32,8 @@ export interface IStatistics {
   transactionsCount: number;
   goodTransactionCount: number;
   badTransactionCount: number;
+  paymentTime: number;
+  releaseTime: number;
 }
 
 export interface IProfile {

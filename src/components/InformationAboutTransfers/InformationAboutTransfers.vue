@@ -28,19 +28,20 @@ const data = reactive([
     id: 2,
     title: 'Процент успешных',
     value: computed(() => {
-      const percent = ((statistics.value?.goodTransactionCount / statistics.value?.transactionsCount) * 100).toFixed(1) + '%'
-      return statistics.value?.goodTransactionCount && statistics.value?.transactionsCount ? percent : 0 + '%'
+      const stat = statistics.value
+      const percent = ((stat?.goodTransactionCount / stat?.transactionsCount) * 100).toFixed(1) + '%'
+      return stat?.goodTransactionCount && stat?.transactionsCount ? percent : 0 + '%'
     })
   },
   {
     id: 3,
     title: 'Скорость перевода',
-    value: '1 min'
+    value: computed(() => (statistics.value?.releaseTime / 60).toFixed(0) + ' min')
   },
   {
     id: 4,
     title: 'Скорость оплаты',
-    value: '2 min'
+    value: computed(() => (statistics.value?.paymentTime / 60).toFixed(0) + ' min')
   },
 ]);
 
