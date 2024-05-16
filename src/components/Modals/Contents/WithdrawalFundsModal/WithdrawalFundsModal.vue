@@ -17,7 +17,7 @@
               :wallet="props.selectedWallet?.currency"
               :value="withdrawalAmount"
               @input-value="(value: string) => withdrawalAmount = value"
-              @all="withdrawalAmount = String(props.selectedWallet?.realAmount)"
+              @all="withdrawalAmount = selectedWallet.realAmount"
           />
         </div>
         <div class="withdrawal-funds-modal__buttons">
@@ -84,7 +84,7 @@ const selectedWalletForSelect = computed(() => ({
 const selectWallet = (wallet: ISelect) => {
   const selectedWallet = store.state.profile.profile.wallets[wallet.name]
 
-  if (+withdrawalAmount.value > selectedWallet.realAmount) {
+  if (+withdrawalAmount.value > +selectedWallet.realAmount) {
     withdrawalAmount.value = String(selectedWallet.realAmount)
   }
   emit('select-wallet', selectedWallet);

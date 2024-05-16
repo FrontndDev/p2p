@@ -17,7 +17,7 @@
               :wallet="props.selectedWallet.currency"
               :value="replenishmentAmount"
               @input-value="(value: string) => replenishmentAmount = value"
-              @all="replenishmentAmount = selectedSystemWallet.amount"
+              @all="replenishmentAmount = selectedWallet.realAmount"
           />
         </div>
         <div class="wallet-replenishment-modal__buttons">
@@ -71,12 +71,10 @@ const store = useStore();
 
 const replenishmentAmount = ref('');
 
-const wallets: ComputedRef<ISelect[]> = computed(() => Object.values(store.state.profile.profile.systemWallets).map((wallet: IWallet, idx) => ({
+const wallets: ComputedRef<ISelect[]> = computed(() => Object.values(store.state.profile.profile.wallets).map((wallet: IWallet, idx) => ({
   id: idx + 1,
   name: wallet.currency
 })));
-
-const selectedSystemWallet = computed(() => store.state.profile.profile.systemWallets[props.selectedWallet.currency])
 
 const selectedWalletForSelect = computed(() => ({
   id: props.selectedWallet.id,
@@ -86,8 +84,8 @@ const selectedWalletForSelect = computed(() => ({
 const selectWallet = (wallet: ISelect) => {
   const selectedWallet = store.state.profile.profile.wallets[wallet.name];
 
-  if (+replenishmentAmount.value > +selectedSystemWallet.value.amount) {
-    replenishmentAmount.value = String(selectedSystemWallet.value.amount)
+  if (+replenishmentAmount.value > +selectedWallet.realAmount) {
+    replenishmentAmount.value = selectedWallet.realAmount
   }
   emit('select-wallet', selectedWallet);
 }
