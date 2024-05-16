@@ -33,7 +33,7 @@
       </svg>
     </div>
 
-    <div class="my-select__down" v-if="showDropdown">
+    <div class="my-select__down" v-if="true">
       <div
           class="my-select__item"
           :class="[{ active: props.selectedItem?.id === item.id }]"
