@@ -1,6 +1,6 @@
 <template>
   <div class="my-select">
-    <div class="my-select__up" :class="{ opened: showDropdown }" @click="input.focus()">
+    <div class="my-select__up" :class="{ opened: showDropdown }" @click="toggleDropdown($event)">
       <div class="my-select__info">
         <div class="my-select__title" v-if="props.title">
           {{ props.title }}
@@ -19,8 +19,9 @@
               type="text"
               ref="input"
               :disabled="input?.value === 'Загрузка...'"
+              :value="showDropdown ? search : props.selectedItem?.name"
               @input="searchItems"
-              @blur="closeDropdown"
+              @blur="blur"
               @focus="showDropdown = true"
           >
         </div>
@@ -93,7 +94,7 @@ const showDropdown = ref(false);
 const search: Ref<string> = ref('');
 
 const filteredDropdown = computed(() => {
-  const items = props.items.filter(item => item.name.includes(search.value.toUpperCase()))
+  const items = props.items.filter(item => item.name.toUpperCase().includes(search.value))
 
   return items.length ? items : [{ id: -1, name: 'Ничего не найдено' }]
 })
@@ -102,8 +103,20 @@ const closeDropdown = () => {
   setTimeout(() => showDropdown.value = false, 200);
 }
 
+const blur = () => {
+  closeDropdown()
+}
+
+const toggleDropdown = (event: Event) => {
+  const target = event.target as HTMLUnknownElement
+  if (target.tagName !== 'INPUT') {
+    showDropdown.value ? input.value.blur() : input.value.focus()
+  }
+}
+
 const searchItems = (event: Event) => {
-  search.value = (event.target as HTMLInputElement).value
+  const target = event.target as HTMLInputElement
+  search.value = props.isCurrency ? target.value.toUpperCase() : target.value
 
   if (!showDropdown.value) showDropdown.value = true
 }
