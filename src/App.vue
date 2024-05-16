@@ -10,15 +10,15 @@ import {
 } from "vue";
 import { useStore } from "vuex";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
-import { IPaymentMethod } from "@/interfaces/store/modules/payment-methods.interface.ts";
 import { useRoute } from "vue-router";
 
 const store = useStore();
 const route = useRoute();
 
-const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
-    store.state.paymentMethods.paymentMethods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
-);
+const paymentMethods: ComputedRef<ISelect[]> = computed(() => {
+  const paymentMethods = store.getters["paymentMethods/paymentMethodsForSelect"]
+  return [{ id: '', name: 'Все способы оплаты' }, ...paymentMethods]
+});
 
 const getPaymentMethodsByCurrency = () => {
   // Получаем доступные способы оплаты выбранной валюты

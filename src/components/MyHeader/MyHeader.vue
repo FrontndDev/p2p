@@ -41,6 +41,7 @@ import Select from "@/components/UI/Select/Select.vue";
 import {
   computed,
   ComputedRef,
+  onMounted,
   PropType,
   ref,
 } from "vue";
@@ -96,9 +97,10 @@ const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
 const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
-const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
-    store.state.paymentMethods.paymentMethods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
-);
+const paymentMethods: ComputedRef<ISelect[]> = computed(() => {
+  const paymentMethods = store.getters["paymentMethods/paymentMethodsForSelect"]
+  return [{ id: '', name: 'Все способы оплаты' }, ...paymentMethods]
+});
 
 const innerCurrency: ComputedRef<ISelect> = computed(() => store.state.currencies.innerCurrency);
 const outerCurrency: ComputedRef<ISelect> = computed(() => store.state.currencies.outerCurrency);
@@ -179,6 +181,10 @@ const getAds = async () => {
 const setTab = (tab: ITabs) => {
   emit('set-tab', tab)
 }
+
+onMounted(() => {
+  store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
+})
 </script>
 
 <style scoped lang="scss">

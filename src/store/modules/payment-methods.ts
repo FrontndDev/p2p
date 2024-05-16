@@ -30,4 +30,9 @@ export default {
       state.selectedPaymentMethod = method
     }
   },
+  getters: {
+    paymentMethodsForSelect(state: any) {
+      return state.paymentMethods.map((method: IPaymentMethod) => ({ id: method.id, name: method.name }))
+    }
+  }
 }
