@@ -1,7 +1,7 @@
 <template>
-  <div class="ad">
-    <div class="ad__header">
-      <div class="ad__header-left">
+  <div class="ad-filling">
+    <div class="ad-filling__header">
+      <div class="ad-filling__header-left">
         <div class="title-h2 fw-700">Объявление</div>
         <Badge name="Продажа"/>
       </div>
@@ -13,11 +13,11 @@
       />
     </div>
 
-    <div class="ad__content">
-      <div class="ad__row">
-        <div class="ad__row-title">Тип</div>
-        <div class="ad__row-content">
-          <div class="ad__row-select">
+    <div class="ad-filling__content">
+      <div class="ad-filling__row">
+        <div class="ad-filling__row-title">Тип</div>
+        <div class="ad-filling__row-content">
+          <div class="ad-filling__row-select">
             <Select
                 title="Продаю"
                 :items="innerCurrencies"
@@ -36,9 +36,9 @@
           />
         </div>
       </div>
-      <div class="ad__row">
-        <div class="ad__row-title">Настройка цены</div>
-        <div class="ad__row-content">
+      <div class="ad-filling__row">
+        <div class="ad-filling__row-title">Настройка цены</div>
+        <div class="ad-filling__row-content">
           <Select
               title="Тип цены"
               :items="props.priceTypes"
@@ -57,7 +57,7 @@
               @input-value="inputSellingPrice"
           />
 
-          <div class="ad__row-inputs" v-if="props.selectedPriceType?.id === 2">
+          <div class="ad-filling__row-inputs" v-if="props.selectedPriceType?.id === 2">
             <MyInput
                 type="number"
                 class="my-input-second"
@@ -79,10 +79,10 @@
           </div>
         </div>
       </div>
-      <div class="ad__row">
-        <div class="ad__row-title">Параметры сделки</div>
-        <div class="ad__row-content">
-          <div class="ad__row-input">
+      <div class="ad-filling__row">
+        <div class="ad-filling__row-title">Параметры сделки</div>
+        <div class="ad-filling__row-content">
+          <div class="ad-filling__row-input">
             <MyInput
                 type="number"
                 class="my-input-second"
@@ -93,7 +93,7 @@
                 :currency="props.selectedOuterCurrency?.name"
             />
 
-            <div class="ad__row-input-info">
+            <div class="ad-filling__row-input-info">
               <div>
                 <span>Для продажи</span>
                 <span>{{ amountOfCurrency }} {{ props.selectedInnerCurrency?.name }}</span>
@@ -126,12 +126,12 @@
           />
         </div>
       </div>
-      <div class="ad__row">
-        <div class="ad__row-title">Способ оплаты</div>
-        <div class="ad__row-content" :class="{ 'column-reverse': route.name === 'edit-ad' }">
+      <div class="ad-filling__row">
+        <div class="ad-filling__row-title">Способ оплаты</div>
+        <div class="ad-filling__row-content" :class="{ 'column-reverse': route.name === 'edit-ad' }">
           <PaymentMethods class="flex-start" :payment-methods="paymentMethods"/>
           <MyButton
-              class="ad__row-button ad__row-button_first"
+              class="ad-filling__row-button ad__row-button_first"
               type="second-primary-btn"
               size="big"
               width="100%"
@@ -144,9 +144,9 @@
           </MyButton>
         </div>
       </div>
-      <div class="ad__row">
-        <div class="ad__row-title">Время</div>
-        <div class="ad__row-content">
+      <div class="ad-filling__row">
+        <div class="ad-filling__row-title">Время</div>
+        <div class="ad-filling__row-content">
           <Select
               title="Время в минутах"
               :items="times"
@@ -155,9 +155,9 @@
           />
         </div>
       </div>
-      <div class="ad__row">
-        <div class="ad__row-title">Комментарий</div>
-        <div class="ad__row-content">
+      <div class="ad-filling__row">
+        <div class="ad-filling__row-title">Комментарий</div>
+        <div class="ad-filling__row-content">
           <textarea
               placeholder="Оставьте комментарий"
               :value="props.comment"
@@ -165,18 +165,18 @@
           />
         </div>
       </div>
-      <div class="ad__row">
-        <div class="ad__row-title">Telegram Bot</div>
-        <div class="ad__row-content">
-          <div class="ad__row-mark">
+      <div class="ad-filling__row">
+        <div class="ad-filling__row-title">Telegram Bot</div>
+        <div class="ad-filling__row-content">
+          <div class="ad-filling__row-mark">
             <div>
-              <div class="ad__row-mark-circle" :class="telegramActive ? 'active' : 'no-active'">
+              <div class="ad-filling__row-mark-circle" :class="telegramActive ? 'active' : 'no-active'">
                 <component :is="telegramActive ? CheckMarkIcon : ExclamationIcon"/>
               </div>
 
               {{ telegramActive ? 'Привязан' : 'Не привязан' }}
             </div>
-            <div class="ad__row-mark-btn" v-if="!telegramActive">Привязать</div>
+            <div class="ad-filling__row-mark-btn" v-if="!telegramActive">Привязать</div>
           </div>
         </div>
       </div>
