@@ -17,8 +17,9 @@
               @select="(item: ISelect) => selectedPaymentMethod = item"
           />
           <MyInput
-              type="number"
+              type="tel"
               title="Реквизиты"
+              :reg-exp="/[^0-9\s]/g"
               :value="cardNumber"
               @input-value="setCardNumber"
           />
@@ -99,7 +100,7 @@ const addRequisite = async () => {
   if (selectedWallet.value && selectedPaymentMethod.value && cardNumber.value && !requestInProcess.value) {
     requestInProcess.value = true
     const data: ICreateRequisiteParams = {
-      requisite: cardNumber.value,
+      requisite: cardNumber.value.replace(/\s+/g, ''),
       currency: selectedWallet.value?.name,
       payment_method: selectedPaymentMethod.value?.id
     }

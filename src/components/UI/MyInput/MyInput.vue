@@ -35,7 +35,7 @@ import {
 
 const props = defineProps({
   type: {
-    type: String as PropType<'text' | 'number'>,
+    type: String as PropType<'text' | 'number' | 'tel'>,
     default: 'text'
   },
   title: {
@@ -63,6 +63,9 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  regExp: {
+    type: RegExp as PropType<RegExp>,
   }
 });
 
@@ -83,7 +86,9 @@ const getInputWidth = computed(() => {
 
 const inputValue = (e: Event) => {
   const event = e.target as HTMLInputElement
-  emit('inputValue', event.value)
+  const value = props.regExp ? event.value.replace(props.regExp, '') : event.value
+  input.value.value = value
+  emit('inputValue', value)
 }
 
 watch(() => props.value, () => {
