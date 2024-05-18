@@ -168,10 +168,14 @@ const selectItem = async (item: ISelect, id: number) => {
 const inputValue = (value: string) => {
   if (timeout.value) clearTimeout(timeout.value)
   store.commit('ads/SET_MIN_AMOUNT', value);
-  timeout.value = setTimeout(() => getAds(), 2000)
+  timeout.value = setTimeout(() => {
+    store.commit('ads/SET_ADS', null)
+    getAds()
+  }, 2000)
 }
 
 const keyUpOrBlur = () => {
+  store.commit('ads/SET_ADS', null)
   clearTimeout(timeout.value)
   getAds()
 }

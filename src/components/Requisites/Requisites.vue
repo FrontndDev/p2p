@@ -17,7 +17,7 @@
           {{ requisite.currency }}
         </div>
 
-        <div class="requisites__item-bank">{{ requisite.paymentMethod }}</div>
+        <div class="requisites__item-bank" :title="requisite.paymentMethod">{{ requisite.paymentMethod }}</div>
         <div class="requisites__item-card-num">{{ requisite.requisite }}</div>
         <div class="requisites__item-edit" @click="editRequisite(requisite)">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

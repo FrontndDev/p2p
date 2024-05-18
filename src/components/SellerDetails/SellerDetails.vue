@@ -33,7 +33,6 @@
 <!--              </div>-->
             </div>
           </li>
-          <li class="seller-details__step">3. Нажмите на кнопку “Платеж отправлен”</li>
         </ol>
       </div>
     </div>
