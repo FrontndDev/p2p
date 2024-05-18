@@ -140,6 +140,8 @@ const selectItem = async (item: ISelect, id: number) => {
     store.commit('ads/SET_ADS', null)
   })
 
+  store.commit('ads/SET_MIN_AMOUNT', '');
+
   switch (id) {
     case 1:
       // Выбираем валюту которую покупаем

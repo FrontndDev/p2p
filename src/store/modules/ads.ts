@@ -12,7 +12,7 @@ export default {
   state: {
     ads: {} as IAds,
     page: 1 as number,
-    minAmount: '10' as string,
+    minAmount: '' as string,
   },
   actions: {
     getAds({ commit, state, rootState }: TCtx) {
@@ -22,7 +22,7 @@ export default {
           outer: rootState.currencies.outerCurrency.name,
         },
         page: state.page,
-        min_amount: state.minAmount ? state.minAmount : 0,
+        min_amount: state.minAmount ? +state.minAmount : 0,
         payment_method_id: rootState.paymentMethods.selectedPaymentMethod.id
       }
       if (!Object.values(data).includes(undefined)) {
