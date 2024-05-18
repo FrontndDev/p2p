@@ -2,6 +2,7 @@
   <div class="payment-methods">
     <div
         class="payment-methods__item"
+        :title="method.name"
         v-for="method in props.paymentMethods"
         :key="method.id"
         :class="props.bg"

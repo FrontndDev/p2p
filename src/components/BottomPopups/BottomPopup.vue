@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="#p2p-app">
+  <Teleport to="body">
     <Transition name="bottom-popup">
 
     <div class="bottom-popup">

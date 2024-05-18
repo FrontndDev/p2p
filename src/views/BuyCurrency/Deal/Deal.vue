@@ -186,10 +186,7 @@ const getDescription = computed(() => {
         'Сделка будет автоматически отменена, если продавец не подтвердит ее в установленный срок'
       ];
     case DealEnum.accepted:
-      return [
-        'После совершения платежа, нажмите кнопку “Платеж отправлен”',
-        'Платеж будет автоматически отменен, если кнопка не будет нажата в установленные сроки'
-      ];
+      return [];
     case DealEnum.payed:
     case DealEnum.completed:
       return [`Ваш платеж получен, актив ${transactionInfo.value.outerCurrencyAmount?.currency} был отправлен на ваш аккаунт`];

@@ -13,7 +13,7 @@
           <MyInput
               type="number"
               class="no-media"
-              title="Сумма для пополнения"
+              title="Сумма для вывода"
               :wallet="props.selectedWallet?.currency"
               :value="withdrawalAmount"
               @input-value="(value: string) => withdrawalAmount = value"

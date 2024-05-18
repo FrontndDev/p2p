@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="#p2p-app">
+  <Teleport to="body">
     <Transition name="modal">
       <div class="my-modal">
         <div class="my-modal__content" :style="`padding: ${props.padding}; max-width: ${width};`">

@@ -11,6 +11,10 @@
   left: 0;
   z-index: 5000;
 
+  & * {
+    font-family: 'Montserrat', sans-serif !important;
+  }
+
   &__content {
     @include flexbox(column);
     width: 100%;
