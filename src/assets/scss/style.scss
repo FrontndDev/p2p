@@ -29,8 +29,17 @@ body {
   & * {
     font-family: 'Montserrat', sans-serif !important;
 
-    &::-webkit-scrollbar {
-      width: 0;
+    & *::-webkit-scrollbar {
+      width: 4px; /* Ширина всего элемента навигации */
+    }
+
+    & *::-webkit-scrollbar-track {
+      background: transparent; /* Цвет дорожки */
+    }
+
+    & *::-webkit-scrollbar-thumb {
+      background-color: rgb(226, 226, 226); /* Цвет бегунка */
+      border-radius: 20px; /* Округление бегунка */
     }
 
     &::placeholder {
