@@ -13,7 +13,7 @@
           <MyInput
               type="number"
               class="no-media"
-              title="Сумма для пополнения"
+              :title="`Сумма для пополнения. Доступный баланс: ${selectedWallet.realAmount}`"
               :wallet="props.selectedWallet.currency"
               :value="replenishmentAmount"
               @input-value="(value: string) => replenishmentAmount = value"
