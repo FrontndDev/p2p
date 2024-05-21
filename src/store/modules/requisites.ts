@@ -18,7 +18,9 @@ export default {
       API.updateRequisite(id, data).then(response => commit('profile/UPDATE_REQUISITE', response.data.requisite, { root: true }))
     },
     deleteRequisite({ commit }: TCtx, id: number) {
-      API.deleteRequisite(id).then(() => commit('profile/DELETE_REQUISITE', id, { root: true }))
+      API.deleteRequisite(id).then(response => {
+        if (response?.result === 'success') commit('profile/DELETE_REQUISITE', id, { root: true })
+      })
     }
   },
 }

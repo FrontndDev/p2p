@@ -3,6 +3,7 @@
     <div class="purchase__tabs my-container">
       <Tabs
           type="default-tabs"
+          :default-tab="activeTab"
           :tabs="tabs"
           @set-tab="setTab"
       />
@@ -25,6 +26,8 @@
 <script setup lang="ts">
 import Tabs from "@/components/UI/Tabs/Tabs.vue";
 import {
+  computed,
+  onBeforeMount,
   reactive,
   Ref,
   ref,
@@ -41,7 +44,9 @@ import { IShowModals } from "@/components/Modals/modal.interface.ts";
 import {
   useRouter
 } from "vue-router";
+import { useStore } from "vuex";
 
+const store = useStore();
 const router = useRouter();
 
 const tabs = reactive([
@@ -55,7 +60,7 @@ const tabs = reactive([
   }
 ]);
 
-const activeTab: Ref<ITabs> = ref(tabs[0]);
+const activeTab: Ref<ITabs> = computed(() => store.state.purchaseActiveTab);
 
 const selectedDeal = ref(-1)
 
@@ -66,7 +71,7 @@ const showModals: IShowModals = reactive({
 });
 
 const setTab = (tab: ITabs) => {
-  activeTab.value = tab
+  store.commit('SET_PURCHASE_ACTIVE_TAB', tab)
 }
 
 const openModal = (key: ModalsEnum) => {
@@ -90,6 +95,11 @@ const openDeal = (id: number) => {
 const goToDeal = (transactionId: number) => {
   router.push({ name: 'deal', params: { transactionId } })
 }
+
+onBeforeMount(() => {
+  console.log('activeTab', activeTab.value)
+  if (!activeTab.value?.id) store.commit('SET_PURCHASE_ACTIVE_TAB', tabs[0]);
+})
 </script>
 
 <style scoped lang="scss">

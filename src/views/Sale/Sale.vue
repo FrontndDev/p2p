@@ -11,6 +11,7 @@
       <div>
         <Tabs
             type="default-tabs"
+            :default-tab="activeTab"
             :tabs="tabs"
             @set-tab="setTab"
         />
@@ -57,6 +58,7 @@
 <script setup lang="ts">
 import Tabs from "@/components/UI/Tabs/Tabs.vue";
 import {
+  computed,
   onBeforeMount,
   reactive,
   ref,
@@ -90,12 +92,12 @@ const tabs = reactive([
 
 const showAddRequisitesModal = ref(false);
 
-const activeTab: Ref<ITabs> = ref(tabs[0]);
+const activeTab: Ref<ITabs> = computed(() => store.state.saleActiveTab);
 
 const windowWidth = ref(0);
 
 const setTab = (tab: ITabs) => {
-  activeTab.value = tab
+  store.commit('SET_SALE_ACTIVE_TAB', tab)
 }
 
 const setWindowWidth = () => {
@@ -112,10 +114,11 @@ const goToDeal = (transactionId: number) => {
 }
 
 onBeforeMount(() => {
+  if (!activeTab.value?.id) store.commit('SET_SALE_ACTIVE_TAB', tabs[0]);
+
   setWindowWidth();
 
   window.onresize = () => {
-    console.log('e')
     setWindowWidth();
   }
 });
