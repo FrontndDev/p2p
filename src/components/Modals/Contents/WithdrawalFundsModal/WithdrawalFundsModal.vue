@@ -97,8 +97,8 @@ const withdrawal = async () => {
       action: 'topup',
       currency: props.selectedWallet.currency
     }
-    await store.dispatch('profile/withdrawWallet', data)
-    emit('close-modal')
+    const response = await store.dispatch('profile/withdrawWallet', data)
+    if (response?.result === 'success') emit('close-modal')
   }
 }
 </script>

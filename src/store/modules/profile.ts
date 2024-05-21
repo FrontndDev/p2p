@@ -50,8 +50,11 @@ export default {
         return response
       })
     },
-    withdrawWallet({ commit }: TCtx, data: IInteractionWithWallet) {
-      API.withdrawWallet(data).then(response => commit('UPDATE_WALLET', response.wallet))
+    async withdrawWallet({ commit }: TCtx, data: IInteractionWithWallet) {
+      return await API.withdrawWallet(data).then(response => {
+        commit('UPDATE_WALLET', response.wallet)
+        return response
+      })
     },
     async acceptDeal(_: TCtx, id: number) {
       return await API.acceptDeal(id).then(response => response)
