@@ -107,8 +107,8 @@ const replenish = async () => {
       action: 'topup',
       currency: props.selectedWallet.currency
     }
-    await store.dispatch('profile/topUpWallet', data)
-    emit('close-modal')
+    const response = await store.dispatch('profile/topUpWallet', data)
+    if (response?.result === 'success') emit('close-modal')
   }
 }
 </script>
