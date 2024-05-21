@@ -13,11 +13,11 @@
           <MyInput
               type="number"
               class="no-media"
-              :title="`Сумма для пополнения. Доступный баланс: ${selectedWallet.realAmount}`"
+              :title="`Сумма для пополнения. Доступный баланс: ${systemWallet.amount}`"
               :wallet="props.selectedWallet.currency"
               :value="replenishmentAmount"
               @input-value="(value: string) => replenishmentAmount = value"
-              @all="replenishmentAmount = selectedWallet.realAmount"
+              @all="replenishmentAmount = systemWallet.amount"
           />
         </div>
         <div class="wallet-replenishment-modal__buttons">
@@ -57,6 +57,7 @@ import Select from "@/components/UI/Select/Select.vue";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import { useStore } from "vuex";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
+import { IPrice } from "@/interfaces/store/modules/ads.interface.ts";
 
 const props = defineProps({
   selectedWallet: {
@@ -75,6 +76,15 @@ const wallets: ComputedRef<ISelect[]> = computed(() => Object.values(store.state
   id: idx + 1,
   name: wallet.currency
 })));
+
+const systemWallet: ComputedRef<IPrice> = computed(() => {
+  switch (props.selectedWallet.currency) {
+    case 'USD':
+      return store.state.profile.profile.systemWallets['USDT']
+    default:
+      return store.state.profile.profile.systemWallets[props.selectedWallet.currency]
+  }
+});
 
 const selectedWalletForSelect = computed(() => ({
   id: props.selectedWallet.id,

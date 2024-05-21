@@ -34,7 +34,7 @@
         <div class="ad-information__footer">
           <template v-if="route.name === 'place-ad'">
             <div class="ad-information__conditions">
-              <MyCheckbox :active="conditions" @set-value="conditions = !conditions">
+              <MyCheckbox :active="props.agreement" @set-value="emit('set-agreement')">
                 <div class="ad-information__checkbox-text">
                   Я прочитал(-а) и соглашаюсь с <a href="#">Условиями</a> и <a href="#">Политикой конфидентиальности P2P</a>
                 </div>
@@ -152,10 +152,14 @@ const props = defineProps({
   saveBtnDisabled: {
     type: Boolean,
     default: false,
-  }
+  },
+  agreement: {
+    type: Boolean,
+    required: true,
+  },
 })
 
-const emit = defineEmits(['create-ad']);
+const emit = defineEmits(['create-ad', 'set-agreement']);
 
 const store = useStore();
 const router = useRouter();

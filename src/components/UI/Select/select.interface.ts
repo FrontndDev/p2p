@@ -9,6 +9,7 @@ export interface ISelect {
 export interface ISelects {
   id: number;
   title: string;
+  placeholder?: string;
   items: ISelect[];
   selectedItem: ComputedRef<ISelect | null>;
 }

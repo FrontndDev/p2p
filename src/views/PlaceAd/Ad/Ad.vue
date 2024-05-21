@@ -51,8 +51,8 @@
               class="my-input-second"
               placeholder="1 000 000"
               title="Цена продажи"
-              :icon="TONIcon"
               :value="String(props.sellingPrice)"
+              :currency="props.selectedOuterCurrency?.name"
               v-if="props.selectedPriceType?.id === 1"
               @input-value="inputSellingPrice"
           />
@@ -100,8 +100,7 @@
               </div>
               <div>
                 <span>Комиссия</span>
-                <span>{{ amountOfCurrency && transactionFee ? amountOfCurrency / transactionFee : 0 }} {{ props.selectedInnerCurrency?.name }}</span>
-                <InfoIcon/>
+                <span>{{ amountOfCurrency * transactionFee }} {{ props.selectedInnerCurrency?.name }}</span>
               </div>
             </div>
           </div>
@@ -129,7 +128,7 @@
       <div class="ad-filling__row">
         <div class="ad-filling__row-title">Способ оплаты</div>
         <div class="ad-filling__row-content" :class="{ 'column-reverse': route.name === 'edit-ad' }">
-          <PaymentMethods class="flex-start" :payment-methods="paymentMethods"/>
+          <PaymentMethods class="flex-start" :payment-methods="paymentMethods" v-if="paymentMethods?.length"/>
           <MyButton
               class="ad-filling__row-button ad__row-button_first"
               type="second-primary-btn"
@@ -184,6 +183,7 @@
 
     <SelectPaymentMethodModal
         :selected-payment-method="props.selectedPaymentMethod"
+        :selected-outer-currency="props.selectedOuterCurrency"
         v-if="showSelectPaymentMethod"
         @select-payment-method="selectPaymentMethod"
         @close-modal="showSelectPaymentMethod = false"
@@ -192,9 +192,6 @@
 </template>
 
 <script setup lang="ts">
-import TONIcon from '@/assets/svg/wallets/ton.svg';
-// @ts-ignore
-import InfoIcon from '@/assets/svg/info.svg?component';
 // @ts-ignore
 import AddIcon from '@/assets/svg/add.svg?component';
 // @ts-ignore
@@ -297,7 +294,9 @@ const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
 const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
-    store.state.profile.profile?.requisites?.map((method: IRequisite) => ({ id: method.id, name: method.paymentMethod }))
+    store.state.profile.profile?.requisites
+        ?.filter((method: IRequisite) => method?.currency === props.selectedOuterCurrency?.name)
+        ?.map((method: IRequisite) => ({ id: method.id, name: method.paymentMethod }))
 );
 const times: ComputedRef<ISelect[]> = computed(() =>
     store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))

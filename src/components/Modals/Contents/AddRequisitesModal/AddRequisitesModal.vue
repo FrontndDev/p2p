@@ -19,7 +19,6 @@
           <MyInput
               type="tel"
               title="Реквизиты"
-              :reg-exp="/[^0-9\s]/g"
               :value="cardNumber"
               @input-value="setCardNumber"
           />

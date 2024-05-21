@@ -32,7 +32,9 @@
         :min-amount="minAmount"
         :max-amount="maxAmount"
         :selected-payment-method="selectedPaymentMethod"
+        :agreement="agreement"
         @create-ad="createAd"
+        @set-agreement="agreement = !agreement"
     />
   </div>
 </template>
@@ -75,6 +77,8 @@ const maxAmount = ref(20);
 const comment = ref('');
 const factor: Ref<number | undefined> = ref(undefined);
 const price: Ref<number | undefined> = ref(undefined);
+
+const agreement = ref(false);
 
 const copyData = ref({});
 const createInProcess = ref(false);
@@ -126,7 +130,7 @@ const times: ComputedRef<ISelect[]> = computed(() =>
 const data: ComputedRef<IAdParams> = computed(() => ({
   inner_currency: selectedInnerCurrency.value?.name ?? '',
   outer_currency: selectedOuterCurrency.value?.name ?? '',
-  requisite_id: selectedPaymentMethod.value?.id ?? -1,
+  requisite_id: selectedPaymentMethod.value?.id ?? null,
   min_amount: minAmount.value,
   max_amount: maxAmount.value,
   comment: comment.value,
@@ -153,12 +157,12 @@ const adValid = computed(() => {
 })
 
 const createAd = async () => {
-  if (adValid.value) {
+  if (adValid.value && agreement.value) {
     createInProcess.value = true
-    route.name === 'edit-ad' ?
+    const response = route.name === 'edit-ad' ?
         await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value }) :
         await store.dispatch('profile/createAd', data.value)
-    await router.push({ name: 'sale' })
+    if (response?.result === 'success') await router.push({ name: 'sale' })
   } else {
     useShowMessage('red', 'Заполните все обязательные поля', 'Ошибка:')
   }
@@ -174,12 +178,12 @@ const setDefaultValues = () => {
   const innerCurrency = innerCurrencies.value?.find(currency => currency.name === detailAd.value.currencyForBuy)
   const outerCurrency = outerCurrencies.value?.find(currency => currency.name === detailAd.value.currencyForSell)
   const time = times.value?.find(time => +time.name === detailAd.value.paymentWindow);
-  console.log('time', time)
 
   if (requisite) selectedPaymentMethod.value = requisite
   if (innerCurrency) selectedInnerCurrency.value = innerCurrency
   if (outerCurrency) selectedOuterCurrency.value = outerCurrency
   if (time) selectedTime.value = time
+  factor.value = detailAd.value.pricePercent
   selectedPriceType.value = getPriceTypeId(detailAd.value.priceType)
   copyData.value = data.value
 }

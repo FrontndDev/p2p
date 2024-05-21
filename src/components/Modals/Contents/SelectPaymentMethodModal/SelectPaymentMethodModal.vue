@@ -12,8 +12,7 @@
           >
             <div class="select-payment-method-modal__item-left">
               <div class="select-payment-method-modal__item-title">{{ requisite.paymentMethod }}</div>
-              <div class="select-payment-method-modal__item-info">
-                <img src="" alt="wallet" class="select-payment-method-modal__item-icon">
+              <div class="select-payment-method-modal__item-info bg-currency small-icon" :class="`currency-${requisite.currency}`">
                 <div class="select-payment-method-modal__item-num">{{ requisite.requisite }}</div>
               </div>
             </div>
@@ -81,6 +80,10 @@ const props = defineProps({
     type: Object as PropType<ISelect | null>,
     required: true,
   },
+  selectedOuterCurrency: {
+    type: Object as PropType<ISelect>,
+    required: true,
+  }
 });
 
 const emit = defineEmits(['close-modal', 'select-payment-method']);
@@ -89,7 +92,9 @@ const store = useStore();
 
 const selectedPaymentMethod: Ref<ISelect | null> = ref(props.selectedPaymentMethod);
 
-const requisites = computed(() => store.state.profile.profile?.requisites);
+const requisites = computed(() =>
+    store.state.profile.profile?.requisites.filter((requisite: IRequisite) => requisite.currency === props.selectedOuterCurrency.name)
+);
 
 const setPaymentMethod = (requisite: IRequisite) => {
   selectedPaymentMethod.value = {

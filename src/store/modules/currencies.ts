@@ -23,18 +23,18 @@ export default {
         commit('SET_OUTER_CURRENCIES', data.outer_currencies)
         commit('SET_TELEGRAM_BOT_URL', data.telegramBotUrl)
         commit('SET_TRANSACTION_FEE', data.transactionFee)
-        const setDefaultCurrency = () => {
-          commit('SET_INNER_CURRENCY', {
-            id: data.inner_currencies.indexOf(data.defaultInnerCurrency) + 1,
-            name: data.defaultInnerCurrency
-          })
-          commit('SET_OUTER_CURRENCY', {
-            id: data.outer_currencies.indexOf(data.defaultOuterCurrency) + 1,
-            name: data.defaultOuterCurrency
-          })
-        }
-
-        setDefaultCurrency()
+        // const setDefaultCurrency = () => {
+        //   commit('SET_INNER_CURRENCY', {
+        //     id: data.inner_currencies.indexOf(data.defaultInnerCurrency) + 1,
+        //     name: data.defaultInnerCurrency
+        //   })
+        //   commit('SET_OUTER_CURRENCY', {
+        //     id: data.outer_currencies.indexOf(data.defaultOuterCurrency) + 1,
+        //     name: data.defaultOuterCurrency
+        //   })
+        // }
+        //
+        // setDefaultCurrency()
       }
 
       if (data) setData(data)
@@ -48,7 +48,9 @@ export default {
       })
     },
     getCurrencyRate({ commit }: TCtx, data: { from: number, to: number }) {
-      API.getCurrencyRate(data).then(response => commit('SET_CURRENT_RATE', response.data.rate))
+      API.getCurrencyRate(data).then(response => {
+        if (response?.data?.rate) commit('SET_CURRENT_RATE', response?.data?.rate)
+      })
     }
   },
   mutations: {

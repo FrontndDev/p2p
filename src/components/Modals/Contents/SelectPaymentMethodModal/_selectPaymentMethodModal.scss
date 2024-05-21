@@ -54,14 +54,7 @@
     }
 
     &-info {
-      @include flexbox(row, flex-start, center);
-      column-gap: 8px;
-    }
-
-    &-icon {
-      width: 16px;
-      height: 16px;
-      object-fit: cover;
+      padding-left: 24px;
     }
 
     &-num {

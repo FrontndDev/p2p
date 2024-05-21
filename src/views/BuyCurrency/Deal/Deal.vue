@@ -85,7 +85,7 @@
             name="Вернуться к объявлениям"
             :width="![DealEnum.pending, DealEnum.accepted].includes(dealType) ? '100%' : '50%'"
             :type="activeBtn ? 'second-primary-btn' : 'neutral-btn'"
-            @click="$router.push({ name: 'purchase' })"
+            @click="goToAds"
         />
       </div>
     </div>
@@ -207,6 +207,10 @@ const cancelDeal = async () => {
     await store.dispatch('profile/cancelDeal', +route.params.transactionId);
     await router.push({ name: 'purchase' })
   }
+}
+
+const goToAds = () => {
+  router.push(localStorage.getItem('prevPage'))
 }
 </script>
 

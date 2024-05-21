@@ -7,6 +7,7 @@ import {
   computed,
   ComputedRef,
   onBeforeMount,
+  watch,
 } from "vue";
 import { useStore } from "vuex";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
@@ -28,6 +29,14 @@ const getPaymentMethodsByCurrency = () => {
     if (route.name === 'purchase') store.dispatch('ads/getAds')
   })
 }
+
+watch(() => route.fullPath, (_, prev) => {
+  if (prev !== '/') {
+    localStorage.setItem('prevPage', prev)
+  }
+
+  store.commit('transactions/CLEAR_INTERVAL')
+})
 
 onBeforeMount(() => {
   store.dispatch('currencies/getCurrencies').then(() => {

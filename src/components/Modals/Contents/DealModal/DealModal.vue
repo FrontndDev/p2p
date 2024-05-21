@@ -75,19 +75,6 @@
                   @input-value="setIWillGet"
                   @all="setIWillGet(String(selectedDeal.activeAmount))"
               />
-<!--              <Select-->
-<!--                  class="no-media"-->
-<!--                  title="Способ оплаты"-->
-<!--                  :items="paymentMethods"-->
-<!--                  :selected-item="selectedPaymentMethod"-->
-<!--                  @select="selectPaymentMethod"-->
-<!--              />-->
-<!--              <Select-->
-<!--                  title="Время в минутах"-->
-<!--                  :items="times"-->
-<!--                  :selected-item="selectedTime"-->
-<!--                  @select="selectTime"-->
-<!--              />-->
             </div>
 
             <div class="deal-modal__buttons">

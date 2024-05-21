@@ -14,10 +14,10 @@
             <template>{{ props.selectedItem?.icon }}</template>
           </template>
 
-<!--          <span>{{ props.selectedItem?.name }}</span>-->
           <input
               type="text"
               ref="input"
+              :placeholder="props.placeholder"
               :disabled="input?.value === 'Загрузка...'"
               :value="showDropdown ? search : props.selectedItem?.name"
               @input="searchItems"
@@ -84,6 +84,10 @@ const props = defineProps({
   isCurrency: {
     type: Boolean,
     default: false,
+  },
+  placeholder: {
+    type: String,
+    default: '',
   }
 });
 
@@ -93,21 +97,23 @@ const input: Ref<HTMLInputElement> = ref();
 const showDropdown = ref(false);
 const search: Ref<string> = ref('');
 
+const timeoutForBlur = ref(0);
+
 const filteredDropdown = computed(() => {
-  const items = props.items.filter(item => item.name.toLowerCase().includes(search.value.toLowerCase()))
+  const items = props.items.filter(item => String(item.name).toLowerCase().includes(search.value.toLowerCase()))
 
   return items.length ? items : [{ id: -1, name: 'Ничего не найдено' }]
 })
 
 const closeDropdown = () => {
-  setTimeout(() => {
-    showDropdown.value = false
-    search.value = ''
-  }, 200);
+  if (timeoutForBlur.value) clearTimeout(timeoutForBlur.value)
+  showDropdown.value = false
+  search.value = ''
 }
 
 const blur = () => {
-  closeDropdown()
+  if (timeoutForBlur.value) clearTimeout(timeoutForBlur.value)
+  timeoutForBlur.value = setTimeout(() => closeDropdown(), 250);
 }
 
 const toggleDropdown = (event: Event) => {

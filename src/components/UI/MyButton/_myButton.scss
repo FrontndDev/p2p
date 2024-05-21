@@ -136,11 +136,11 @@
     }
 
     &:hover {
-      border-color: $border-tertiary-hover;
-      color: $text-base-secondary;
+      border-color: $border-tertiary-pressed;
+      color: $border-tertiary-pressed;
 
       & ::v-deep(path) {
-        fill: $text-base-secondary;
+        fill: $border-tertiary-pressed;
       }
     }
 

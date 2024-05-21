@@ -17,6 +17,7 @@
           :key="select.id"
           :id="select.id"
           :title="select.title"
+          :placeholder="select.placeholder"
           :items="select.items"
           :selected-item="select.selectedItem.value"
           :is-currency="[1, 2].includes(select.id)"
@@ -111,12 +112,14 @@ const selects: ComputedRef<ISelects[]> = computed(() => [
   {
     id: 1,
     title: 'Покупаю',
+    placeholder: 'Выберите валюту',
     items: innerCurrencies.value,
     selectedItem: computed(() => innerCurrency.value)
   },
   {
     id: 2,
     title: 'Отдаю',
+    placeholder: 'Выберите валюту',
     items: outerCurrencies.value,
     selectedItem: computed(() => outerCurrency.value)
   },

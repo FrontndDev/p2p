@@ -27,15 +27,20 @@ watch(() => expiredIn.value, () => {
     clearInterval(interval.value);
     store.dispatch('transactions/getTransactionInfo', route.params.transactionId);
   }
-})
+});
 
 onMounted(async () => {
   await store.dispatch('transactions/getTransactionInfo', route.params.transactionId);
   expiredIn.value = store.state.transactions.transactionInfo.status.expiredIn;
-  console.log('expiredIn', expiredIn.value)
   interval.value = setInterval(() => {
     if (expiredIn.value) expiredIn.value--
   }, 1000);
+
+  store.commit('transactions/SET_INTERVAL', setInterval(async () => {
+    if (route.params.transactionId) {
+      await store.dispatch('transactions/getTransactionInfo', route.params.transactionId)
+    }
+  }, 10000));
 });
 </script>
 

@@ -12,6 +12,7 @@ export default {
     transactionsHistory: {} as ITransactionsHistory,
     transactionInfo: {} as ITransaction,
     profileTransactionHistory: {} as ITransactionsHistory,
+    interval: 0,
   },
   actions: {
     getTransactionsHistory({ commit }: TCtx, page = 1) {
@@ -37,5 +38,11 @@ export default {
     SET_PROFILE_TRANSACTION_INFO(state: any, transactions: ITransactionsHistory) {
       state.profileTransactionHistory = transactions
     },
+    SET_INTERVAL(state: any, interval: number) {
+      state.interval = interval
+    },
+    CLEAR_INTERVAL(state: any) {
+      if (state.interval) clearInterval(state.interval)
+    }
   }
 }

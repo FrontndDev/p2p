@@ -9,7 +9,7 @@
       <input
           ref="input"
           :disabled="props.disabled"
-          :type="type"
+          :type="props.type"
           :style="getInputWidth"
           :placeholder="props.placeholder"
           :value="props.value"
