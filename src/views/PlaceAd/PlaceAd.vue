@@ -185,6 +185,7 @@ const setDefaultValues = () => {
   if (time) selectedTime.value = time
   factor.value = detailAd.value.pricePercent
   selectedPriceType.value = getPriceTypeId(detailAd.value.priceType)
+  agreement.value = true
   copyData.value = data.value
 }
 
