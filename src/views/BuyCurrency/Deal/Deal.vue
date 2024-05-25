@@ -30,7 +30,7 @@
           :payment-method="transactionInfo.requisite.paymentMethod"
           :price="transactionInfo.price"
           :seller="transactionInfo.seller"
-          v-if="[DealEnum.accepted].includes(dealType)"
+          v-if="DealEnum.accepted === dealType"
       />
     </div>
 
@@ -72,6 +72,13 @@
             v-if="[DealEnum.pending, DealEnum.accepted].includes(dealType)"
             @click="cancelDeal"
         />
+        <MyButton
+            size="big"
+            name="Платеж отправлен"
+            width="50%"
+            v-if="DealEnum.accepted === dealType"
+            @click="paymentBeenSent"
+        />
 <!--        <MyButton-->
 <!--            type="neutral-btn"-->
 <!--            size="big"-->
@@ -85,6 +92,7 @@
             name="Вернуться к объявлениям"
             :width="![DealEnum.pending, DealEnum.accepted].includes(dealType) ? '100%' : '50%'"
             :type="activeBtn ? 'second-primary-btn' : 'neutral-btn'"
+            v-else
             @click="goToAds"
         />
       </div>
@@ -207,6 +215,10 @@ const cancelDeal = async () => {
     await store.dispatch('profile/cancelDeal', +route.params.transactionId);
     await router.push({ name: 'purchase' })
   }
+}
+
+const paymentBeenSent = () => {
+
 }
 
 const goToAds = () => {
