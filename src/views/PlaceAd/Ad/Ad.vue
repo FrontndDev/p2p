@@ -128,7 +128,7 @@
       <div class="ad-filling__row">
         <div class="ad-filling__row-title">Способ оплаты</div>
         <div class="ad-filling__row-content" :class="{ 'column-reverse': route.name === 'edit-ad' }">
-          <PaymentMethods class="flex-start" :payment-methods="paymentMethods" v-if="paymentMethods?.length"/>
+          <PaymentMethods class="flex-start" :payment-methods="paymentMethodsForDisplay" v-if="paymentMethods?.length"/>
           <MyButton
               class="ad-filling__row-button ad__row-button_first"
               type="second-primary-btn"
@@ -144,7 +144,7 @@
         </div>
       </div>
       <div class="ad-filling__row">
-        <div class="ad-filling__row-title">Время</div>
+        <div class="ad-filling__row-title">Таймер подтверждений</div>
         <div class="ad-filling__row-content">
           <Select
               title="Время в минутах"
@@ -298,6 +298,11 @@ const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
         ?.filter((method: IRequisite) => method?.currency === props.selectedOuterCurrency?.name)
         ?.map((method: IRequisite) => ({ id: method.id, name: method.paymentMethod }))
 );
+
+const paymentMethodsForDisplay = computed(() => {
+  const filteredMethods = Array.from(new Set(paymentMethods.value.map(method => method.name)));
+  return filteredMethods.map((name, idx) => ({ id: idx + 1, name }));
+});
 const times: ComputedRef<ISelect[]> = computed(() =>
     store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))
 );

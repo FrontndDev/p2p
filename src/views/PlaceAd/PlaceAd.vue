@@ -46,6 +46,7 @@ import { useStore } from "vuex";
 import {
   computed,
   ComputedRef,
+  onMounted,
   reactive,
   Ref,
   ref,
@@ -191,6 +192,13 @@ const setDefaultValues = () => {
 
 watch(() => requisites.value && detailAd.value?.id, () => {
   if (route.name === 'edit-ad') {
+    setDefaultValues()
+  }
+})
+
+onMounted(() => {
+  if (detailAd.value?.id === +route.params.id && route.name === 'edit-ad') {
+    console.log('detailAd.value?.id === +route.params.id && route.name === \'edit-ad\'')
     setDefaultValues()
   }
 })
