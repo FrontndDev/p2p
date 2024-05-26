@@ -30,7 +30,7 @@ const blockCatch = (error: AxiosError) => {
 
     const e = error.response as AxiosResponse
     const errorCode = e?.data?.error_code
-    if (errorCode === 401) {
+    if (errorCode === 401 && !__IS_DEV__) {
         window.open('/', '_self');
     }
 }
