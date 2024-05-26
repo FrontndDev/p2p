@@ -25,6 +25,16 @@ const checkUserIsModer = (error: AxiosError) => {
     console.error(error)
 }
 
+const blockCatch = (error: AxiosError) => {
+    checkUserIsModer(error)
+
+    const e = error.response as AxiosResponse
+    const errorCode = e?.data?.error_code
+    if (errorCode === 401) {
+        window.open('/', '_self');
+    }
+}
+
 function setGlobalConfig() {
 
     function getCookie(name: string) {
@@ -70,8 +80,8 @@ export async function putAsync(url: string, data: unknown, checkError = true): P
             if (response.status === 204 || response.status === 201) {
                 return true
             }
-        } catch (error: any) {
-            checkUserIsModer(error)
+        } catch (error) {
+            blockCatch(error)
 
             if (checkError && error.response) {
                 return error.response
@@ -131,7 +141,7 @@ export async function postAsync(url: string, data = {}, checkError = true): Prom
         } catch (e) {
             const error = e as AxiosError
 
-            checkUserIsModer(error)
+            blockCatch(error)
 
             if (checkError && error.response) {
                 return error.response
@@ -208,7 +218,7 @@ export async function getAsync(url: string, options?: any): Promise<any> {
             const error = e as AxiosError;
 
             if (!errorCodes.includes(error.code ?? '')) {
-                checkUserIsModer(error);
+                blockCatch(error)
             } else {
                 return;
             }
@@ -260,7 +270,7 @@ export async function deleteAsync(url: string, checkError = true): Promise<any> 
             }
         } catch (e) {
             const error = e as AxiosError
-            checkUserIsModer(error)
+            blockCatch(error)
 
             if (checkError && error.response) {
                 return error.response
