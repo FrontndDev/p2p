@@ -100,7 +100,7 @@
               </div>
               <div>
                 <span>Комиссия</span>
-                <span>{{ amountOfCurrency * transactionFee }} {{ props.selectedInnerCurrency?.name }}</span>
+                <span>{{ transactionFee }} {{ props.selectedInnerCurrency?.name }}</span>
               </div>
             </div>
           </div>
@@ -284,14 +284,27 @@ const store = useStore();
 
 const showSelectPaymentMethod = ref(false);
 
+const currencies = computed(() => store.state.currencies)
+
 const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.realAmount);
-const transactionFee = computed(() => store.state.currencies.transactionFee);
+const transactionFee = computed(() => {
+  const transactionFee = (num: number) => (amountOfCurrency.value * currencies.value.transactionFee).toFixed(num)
+
+  switch (props.selectedInnerCurrency?.name) {
+    case 'USDT':
+      return transactionFee(2)
+    case 'TON':
+      return transactionFee(4)
+    default:
+      return transactionFee(0)
+  }
+});
 
 const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
-    store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+    currencies.value.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
 const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
-    store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+    currencies.value.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
 const paymentMethods: ComputedRef<ISelect[]> = computed(() =>
     store.state.profile.profile?.requisites
@@ -316,7 +329,7 @@ const detailAdTime = computed(() => {
   }
 })
 
-const currentRate: ComputedRef<number> = computed(() => store.state.currencies.currentRate)
+const currentRate: ComputedRef<number> = computed(() => currencies.value.currentRate)
 const telegramActive = computed(() => store.state.profile.profile.telegramActive)
 
 const selectInnerCurrency = (item: ISelect) => {

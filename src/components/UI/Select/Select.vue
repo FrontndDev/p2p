@@ -140,10 +140,6 @@ const selectItem = (item: ISelect) => {
 watch(() => props.selectedItem?.name, () => {
   input.value.value = props.selectedItem?.name ?? 'Загрузка...'
 })
-
-onMounted(() => {
-  input.value.value = props.selectedItem?.name ?? 'Загрузка...'
-})
 </script>
 
 <style scoped lang="scss">

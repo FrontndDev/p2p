@@ -14,7 +14,7 @@
           <Seller
               :name="getName(row.name)"
               :avatar="row.avatar"
-              :statistics="row.statistics"
+              :statistics="props.type === 'deals' ? null : row.statistics"
           />
         </div>
         <div class="my-purchases-and-deals__info">
