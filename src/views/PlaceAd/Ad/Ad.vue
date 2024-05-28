@@ -51,7 +51,7 @@
               class="my-input-second"
               placeholder="1 000 000"
               title="Цена продажи"
-              :error="inputError('price')"
+              :error="isError('price')"
               :value="String(props.sellingPrice)"
               :currency="props.selectedOuterCurrency?.name"
               v-if="props.selectedPriceType?.id === 1"
@@ -64,7 +64,7 @@
                 class="my-input-second"
                 placeholder="100"
                 title="Множитель"
-                :error="inputError('factor')"
+                :error="isError('factor')"
                 :value="String(props.factor)"
                 @input-value="inputFactor"
             />
@@ -112,7 +112,7 @@
               class="my-input-second"
               placeholder="10"
               title="Минимальный перевод"
-              :error="inputError('min_amount')"
+              :error="isError('min_amount')"
               :value="props.minAmount"
               :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMinTransfer"
@@ -122,7 +122,7 @@
               class="my-input-second"
               placeholder="1 000 000"
               title="Максимальный перевод"
-              :error="inputError('max_amount')"
+              :error="isError('max_amount')"
               :value="props.maxAmount"
               :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMaxTransfer"
@@ -138,6 +138,7 @@
               type="second-primary-btn"
               size="big"
               width="100%"
+              :error="isError('requisite_id')"
               :name="route.name === 'edit-ad' ? 'Управление реквизитами' : 'Выберите способ оплаты'"
               @click="showSelectPaymentMethod = true"
           >
@@ -349,7 +350,7 @@ const selectOuterCurrency = async (item: ISelect) => {
   getCurrentRate(props.selectedInnerCurrency?.name, item.name)
 }
 
-const inputError = (key: string) => props.invalidFields.includes(key)
+const isError = (key: string) => props.invalidFields.includes(key)
 
 const selectPriceType = (item: ISelect) => {
   emit('select-price-type', item)

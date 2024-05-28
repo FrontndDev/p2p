@@ -2,7 +2,7 @@
   <div
       class="my-button"
       :style="`width: ${props.width};`"
-      :class="[props.type, props.size, { disabled }, { loading }]"
+      :class="[props.type, props.size, { disabled }, { loading }, { 'button-error': props.error }]"
       @click="click"
   >
     <slot name="icon-left"/>
@@ -45,6 +45,10 @@ const props = defineProps({
   width: {
     type: String,
     default: 'fit-content'
+  },
+  error: {
+    type: Boolean,
+    default: false,
   }
 });
 

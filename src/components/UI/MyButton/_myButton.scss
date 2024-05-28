@@ -159,6 +159,15 @@
     }
   }
 
+  &.button-error {
+    border-color: $border-red;
+    color: $text-red;
+
+    &:not(:hover) ::v-deep(path) {
+      fill: $text-red;
+    }
+  }
+
   &.disabled {
     cursor: not-allowed;
   }
