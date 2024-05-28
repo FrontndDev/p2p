@@ -77,14 +77,9 @@ const wallets: ComputedRef<ISelect[]> = computed(() => Object.values(store.state
   name: wallet.currency
 })));
 
-const systemWallet: ComputedRef<IPrice> = computed(() => {
-  switch (props.selectedWallet.currency) {
-    case 'USD':
-      return store.state.profile.profile.systemWallets['USDT']
-    default:
-      return store.state.profile.profile.systemWallets[props.selectedWallet.currency]
-  }
-});
+const systemWallet: ComputedRef<IPrice> = computed(() =>
+    store.state.profile.profile.systemWallets[props.selectedWallet.currency]
+);
 
 const selectedWalletForSelect = computed(() => ({
   id: props.selectedWallet.id,
