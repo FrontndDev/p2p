@@ -1,5 +1,5 @@
 <template>
-  <div class="my-input">
+  <div class="my-input" :class="{ 'input-error': props.error }">
     <div class="my-input__title" v-if="props.title">{{ props.title }}</div>
     <div class="my-input__field" :class="props.currency ? `currency-${props.currency} bg-currency small-icon` : ''">
       <template v-if="props.icon">
@@ -66,6 +66,10 @@ const props = defineProps({
   },
   regExp: {
     type: RegExp as PropType<RegExp>,
+  },
+  error: {
+    type: Boolean,
+    default: false,
   }
 });
 

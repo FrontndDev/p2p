@@ -10,6 +10,11 @@
   background: $bg-base-secondary;
   @include get-font(16px, 500, 24px, $text-base);
   position: relative;
+  transition: .25s all ease;
+
+  &.input-error {
+    background: $bg-red-light;
+  }
 
   &.bg-blue {
     background: $bg-blue-light;

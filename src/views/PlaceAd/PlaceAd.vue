@@ -12,12 +12,13 @@
         :min-amount="String(minAmount)"
         :max-amount="String(maxAmount)"
         :comment="comment"
+        :invalid-fields="invalidFields"
         @select-inner-currency="(item: ISelect) => selectedInnerCurrency = item"
         @select-outer-currency="(item: ISelect) => selectedOuterCurrency = item"
         @select-price-type="(item: ISelect) => selectedPriceType = item"
-        @input-selling-price="(value: string) => price = +value"
-        @input-min-transfer="(value: string) => minAmount = +value"
-        @input-max-transfer="(value: string) => maxAmount = +value"
+        @input-selling-price="(value: string) => price = value ? +value : undefined"
+        @input-min-transfer="(value: string) => minAmount = value ? +value : undefined"
+        @input-max-transfer="(value: string) => maxAmount = value ? +value : undefined"
         @select-payment-method="(item: ISelect) => selectedPaymentMethod = item"
         @select-time="(item: ISelect) => selectedTime = item"
         @input-comment="(value: string) => comment = value"
@@ -33,6 +34,7 @@
         :max-amount="maxAmount"
         :selected-payment-method="selectedPaymentMethod"
         :agreement="agreement"
+        :invalid-fields="invalidFields"
         @create-ad="createAd"
         @set-agreement="agreement = !agreement"
     />
@@ -83,6 +85,8 @@ const agreement = ref(false);
 
 const copyData = ref({});
 const createInProcess = ref(false);
+
+const invalidFields = ref([]);
 
 const priceTypes = reactive([
   {
@@ -141,31 +145,50 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   payment_window: +selectedTime.value?.name,
 }));
 
-const adValid = computed(() => {
-  let copyData = _.cloneDeep(data.value);
+const setInvalidFields = () => {
+  let copyData = {
+    ..._.cloneDeep(data.value),
+    agreement: agreement.value
+  }
+  console.log('copyData', copyData)
   delete copyData.comment
-
-  const valuesToCheck = [null, undefined, ''];
 
   switch (priceType.value) {
     case 'float':
       delete copyData.price
-      return !Object.values(copyData).some(value => valuesToCheck.includes(value))
+      break;
     case 'fixed':
       delete copyData.factor
-      return !Object.values(copyData).some(value => valuesToCheck.includes(value))
+      break;
   }
-})
+
+  const fields = [];
+  const valuesToCheck = [null, undefined, '', false];
+
+  for (const key in copyData) {
+    if (copyData.hasOwnProperty(key)) {
+      const value = copyData[key];
+
+      if (valuesToCheck.includes(value)) {
+        fields.push(key);
+      }
+    }
+  }
+
+  if (fields.length) useShowMessage('red', 'Заполните все обязательные поля', 'Ошибка:')
+
+  invalidFields.value = fields;
+}
 
 const createAd = async () => {
-  if (adValid.value && agreement.value) {
+  setInvalidFields()
+
+  if (!Object.keys(invalidFields.value)?.length && agreement.value) {
     createInProcess.value = true
     const response = route.name === 'edit-ad' ?
         await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value }) :
         await store.dispatch('profile/createAd', data.value)
     if (response?.result === 'success') await router.push({ name: 'sale' })
-  } else {
-    useShowMessage('red', 'Заполните все обязательные поля', 'Ошибка:')
   }
   createInProcess.value = false
 }

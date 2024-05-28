@@ -34,7 +34,11 @@
         <div class="ad-information__footer">
           <template v-if="route.name === 'place-ad'">
             <div class="ad-information__conditions">
-              <MyCheckbox :active="props.agreement" @set-value="emit('set-agreement')">
+              <MyCheckbox
+                  :error="props.invalidFields.includes('agreement')"
+                  :active="props.agreement"
+                  @set-value="emit('set-agreement')"
+              >
                 <div class="ad-information__checkbox-text">
                   Я прочитал(-а) и соглашаюсь с <a href="#">Условиями</a> и <a href="#">Политикой конфидентиальности P2P</a>
                 </div>
@@ -157,6 +161,9 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  invalidFields: {
+    type: Array as PropType<any[]>,
+  }
 })
 
 const emit = defineEmits(['create-ad', 'set-agreement']);
@@ -165,7 +172,6 @@ const store = useStore();
 const router = useRouter();
 const route = useRoute();
 
-const conditions = ref(false);
 const showDeleteAdModal = ref(false);
 
 const detailAd = computed(() => store.state.profile.detailAd)

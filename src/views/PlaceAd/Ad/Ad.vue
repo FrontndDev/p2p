@@ -51,6 +51,7 @@
               class="my-input-second"
               placeholder="1 000 000"
               title="Цена продажи"
+              :error="inputError('price')"
               :value="String(props.sellingPrice)"
               :currency="props.selectedOuterCurrency?.name"
               v-if="props.selectedPriceType?.id === 1"
@@ -63,6 +64,7 @@
                 class="my-input-second"
                 placeholder="100"
                 title="Множитель"
+                :error="inputError('factor')"
                 :value="String(props.factor)"
                 @input-value="inputFactor"
             />
@@ -110,6 +112,7 @@
               class="my-input-second"
               placeholder="10"
               title="Минимальный перевод"
+              :error="inputError('min_amount')"
               :value="props.minAmount"
               :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMinTransfer"
@@ -119,6 +122,7 @@
               class="my-input-second"
               placeholder="1 000 000"
               title="Максимальный перевод"
+              :error="inputError('max_amount')"
               :value="props.maxAmount"
               :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMaxTransfer"
@@ -262,6 +266,9 @@ const props = defineProps({
   },
   factor: {
     type: Number,
+  },
+  invalidFields: {
+    type: Array as PropType<any[]>,
   }
 });
 
@@ -341,6 +348,8 @@ const selectOuterCurrency = async (item: ISelect) => {
   emit('select-outer-currency', item)
   getCurrentRate(props.selectedInnerCurrency?.name, item.name)
 }
+
+const inputError = (key: string) => props.invalidFields.includes(key)
 
 const selectPriceType = (item: ISelect) => {
   emit('select-price-type', item)
