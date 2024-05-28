@@ -52,7 +52,11 @@
       </div>
     </template>
   </Modal>
-  <AddRequisitesModal v-if="showAddRequisitesModal" @close-modal="closeShowAddRequisitesModal"/>
+  <AddRequisitesModal
+      :selected-outer-currency="props.selectedOuterCurrency"
+      v-if="showAddRequisitesModal"
+      @close-modal="closeShowAddRequisitesModal"
+  />
 </template>
 
 <script setup lang="ts">

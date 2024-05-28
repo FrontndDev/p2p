@@ -53,6 +53,7 @@ import {
   computed,
   ComputedRef,
   onMounted,
+  PropType,
   Ref,
   ref,
 } from "vue";
@@ -62,6 +63,12 @@ import { useStore } from "vuex";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
 import { getPaymentMethodsByCurrency } from "@/api";
+
+const props = defineProps({
+  selectedOuterCurrency: {
+    type: Object as PropType<ISelect>,
+  }
+});
 
 const emit = defineEmits(['close-modal']);
 
@@ -113,7 +120,7 @@ const addRequisite = async () => {
 }
 
 onMounted(async () => {
-  selectedWallet.value = wallets.value[0];
+  selectedWallet.value = props.selectedOuterCurrency ?? wallets.value[0];
   await setPaymentMethods()
   selectedPaymentMethod.value = paymentMethods.value[0];
 });

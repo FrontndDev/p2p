@@ -90,7 +90,7 @@
                 title="Количество на продажу"
                 :disabled="true"
                 :value="String(amountOfCurrency)"
-                :currency="props.selectedOuterCurrency?.name"
+                :currency="props.selectedInnerCurrency?.name"
             />
 
             <div class="ad-filling__row-input-info">
@@ -286,7 +286,7 @@ const showSelectPaymentMethod = ref(false);
 
 const currencies = computed(() => store.state.currencies)
 
-const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.realAmount);
+const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.amount);
 const transactionFee = computed(() => {
   const transactionFee = (num: number) => (amountOfCurrency.value * currencies.value.transactionFee).toFixed(num)
 
