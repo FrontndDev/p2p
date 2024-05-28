@@ -10,9 +10,11 @@
   background: $bg-base-secondary;
   @include get-font(16px, 500, 24px, $text-base);
   position: relative;
-  transition: .25s all ease;
+  transition: .25s background-color ease;
 
   &.input-error {
+    padding: 10px 15px;
+    border: 1px solid $border-red;
     background: $bg-red-light;
   }
 
