@@ -104,6 +104,10 @@ export async function cancelDeal(id: number) {
   return putAsync(`/api/v1/p2p/transaction/decline/${id}`, {})
 }
 
+export async function payedDeal(id: number) {
+  return putAsync(`/api/v1/p2p/transaction/payed/${id}`, {})
+}
+
 // DELETE
 
 export async function deleteRequisite(id: number) {

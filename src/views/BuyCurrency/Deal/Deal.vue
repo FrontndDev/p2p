@@ -76,8 +76,9 @@
             size="big"
             name="Платеж отправлен"
             width="50%"
+            :disabled="payedDealButtonDisabled"
             v-if="DealEnum.accepted === dealType"
-            @click="paymentBeenSent"
+            @click="payedDeal"
         />
 <!--        <MyButton-->
 <!--            type="neutral-btn"-->
@@ -116,6 +117,7 @@ import DisputeIcon from '@/assets/svg/deal/dispute.svg?component';
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import {
   computed,
+  ref,
   Ref
 } from "vue";
 import { DealEnum } from "@/views/BuyCurrency/Deal/deal.enum.ts";
@@ -139,6 +141,8 @@ const props = defineProps({
 const store = useStore();
 const router = useRouter();
 const route = useRoute();
+
+const payedDealButtonDisabled = ref(false);
 
 const transactionInfo = computed(() => store.state.transactions.transactionInfo);
 
@@ -217,8 +221,9 @@ const cancelDeal = async () => {
   }
 }
 
-const paymentBeenSent = () => {
-
+const payedDeal = async () => {
+  payedDealButtonDisabled.value = true
+  await store.dispatch('transactions/payedDeal', +route.params.transactionId)
 }
 
 const goToAds = () => {

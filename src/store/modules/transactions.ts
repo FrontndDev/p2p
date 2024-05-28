@@ -27,6 +27,9 @@ export default {
     async createDeal(_: TCtx, data: ICreateDealParams) {
       return await API.createDeal(data)
     },
+    async payedDeal(_: TCtx, id: number) {
+      return await API.payedDeal(id)
+    }
   },
   mutations: {
     SET_TRANSACTIONS_HISTORY(state: any, transactions: ITransactionsHistory) {
