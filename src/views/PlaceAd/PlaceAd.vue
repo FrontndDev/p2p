@@ -13,8 +13,9 @@
         :max-amount="String(maxAmount)"
         :comment="comment"
         :invalid-fields="invalidFields"
+        :rateUSD="rateUSD"
         @select-inner-currency="(item: ISelect) => selectedInnerCurrency = item"
-        @select-outer-currency="(item: ISelect) => selectedOuterCurrency = item"
+        @select-outer-currency="selectOuterCurrency"
         @select-price-type="(item: ISelect) => selectedPriceType = item"
         @input-selling-price="inputSellingPrice"
         @input-min-transfer="inputMinTransfer"
@@ -23,6 +24,7 @@
         @select-time="(item: ISelect) => selectedTime = item"
         @input-comment="(value: string) => comment = value"
         @input-factor="(value: string) => factor = +value"
+        @input-min-transfer-blur="inputMinTransferBlur"
     />
     <AdInformation
         :save-btn-disabled="createInProcess"
@@ -67,6 +69,7 @@ import {
 import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
 import _ from 'lodash';
 import { useShowMessage } from "@/composables/useShowMessage.ts";
+import { getCurrencyRate } from "@/api";
 
 const store = useStore();
 const router = useRouter();
@@ -77,7 +80,7 @@ const selectedOuterCurrency: Ref<ISelect | null> = ref(null);
 const selectedPriceType: Ref<ISelect | null> = ref(null);
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
 const selectedTime: Ref<ISelect | null> = ref(null);
-const minAmount = ref(10);
+const minAmount = ref();
 const maxAmount = ref(20);
 const comment = ref('');
 const factor: Ref<number | undefined> = ref(100);
@@ -137,7 +140,8 @@ const times: ComputedRef<ISelect[]> = computed(() =>
 );
 
 const amountOfCurrency = computed(() => +profile.value.profile?.wallets?.[selectedInnerCurrency.value?.name ?? '']?.amount);
-const currentRate: ComputedRef<number> = computed(() => +currencies.value.currentRate)
+const actualCurrentRate: ComputedRef<number> = computed(() => +currencies.value.currentRate);
+const rateUSD = ref(0);
 
 const data: ComputedRef<IAdParams> = computed(() => ({
   inner_currency: selectedInnerCurrency.value?.name ?? '',
@@ -151,6 +155,19 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   price_type: priceType.value ?? '', // percent | float
   payment_window: +selectedTime.value?.name,
 }));
+
+const setRate = async (item: ISelect) => {
+  const response = await getCurrencyRate({ from: 'USD', to: item.name })
+  console.log('item', item)
+  rateUSD.value = +response.data.rate
+}
+
+const selectOuterCurrency = async (item: ISelect) => {
+  selectedOuterCurrency.value = item
+  selectedInnerCurrency.value?.name !== 'USD' ? await setRate(item) : rateUSD.value = actualCurrentRate.value
+  console.log('rateUSD.value', rateUSD.value)
+  if (!minAmount.value) minAmount.value = rateUSD.value
+}
 
 const setInvalidFields = () => {
   let copyData = {
@@ -195,6 +212,10 @@ const inputMinTransfer = (value: string) => {
   minAmount.value = value ? +value.slice(0, 12) : undefined
 }
 
+const inputMinTransferBlur = () => {
+  if (!minAmount.value || minAmount.value < rateUSD.value) minAmount.value = rateUSD.value
+}
+
 const inputMaxTransfer = (value: string) => {
   const getValue = (formula: number) => +(value ? +value <= formula ? +value : formula : undefined).toFixed(4)
 
@@ -203,7 +224,7 @@ const inputMaxTransfer = (value: string) => {
       maxAmount.value = getValue(price.value * amountOfCurrency.value)
       break;
     case 'float':
-      maxAmount.value = getValue((factor.value / 100) * currentRate.value * amountOfCurrency.value)
+      maxAmount.value = getValue((factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value)
       break;
   }
   // maxAmount.value = value ? +value.slice(0, 12) : undefined

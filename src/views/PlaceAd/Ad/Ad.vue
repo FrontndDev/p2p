@@ -74,7 +74,7 @@
                 class="my-input-second bg-blue"
                 placeholder="1 000 000"
                 title="Актуальный курс"
-                :value="String(currentRate)"
+                :value="String(actualCurrentRate)"
                 :disabled="true"
                 :currency="props.selectedOuterCurrency?.name"
             />
@@ -110,12 +110,13 @@
           <MyInput
               type="number"
               class="my-input-second"
-              placeholder="10"
               title="Минимальный перевод"
+              :placeholder="String(props.rateUSD)"
               :error="isError('min_amount')"
               :value="props.minAmount"
               :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMinTransfer"
+              @blur="emit('input-min-transfer-blur')"
           />
           <MyInput
               type="number"
@@ -227,6 +228,7 @@ import {
 } from "@/interfaces/store/modules/profile.interface.ts";
 import SelectPaymentMethodModal
   from "@/components/Modals/Contents/SelectPaymentMethodModal/SelectPaymentMethodModal.vue";
+import { getCurrencyRate } from "@/api";
 
 const props = defineProps({
   priceTypes: {
@@ -270,7 +272,11 @@ const props = defineProps({
   },
   invalidFields: {
     type: Array as PropType<any[]>,
-  }
+  },
+  rateUSD: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const emit = defineEmits([
@@ -285,6 +291,7 @@ const emit = defineEmits([
   'select-payment-method',
   'select-time',
   'input-comment',
+  'input-min-transfer-blur',
 ]);
 
 const route = useRoute();
@@ -300,7 +307,7 @@ const transactionFee = computed(() => {
   const transactionFee = (num: number) => (amountOfCurrency.value * currencies.value.transactionFee).toFixed(num)
 
   switch (props.selectedInnerCurrency?.name) {
-    case 'USDT':
+    case 'USD':
       return transactionFee(2)
     case 'TON':
       return transactionFee(4)
@@ -338,7 +345,7 @@ const detailAdTime = computed(() => {
   }
 })
 
-const currentRate: ComputedRef<number> = computed(() => currencies.value.currentRate)
+const actualCurrentRate: ComputedRef<number> = computed(() => currencies.value.currentRate)
 const telegramActive = computed(() => store.state.profile.profile.telegramActive)
 
 const selectInnerCurrency = (item: ISelect) => {
