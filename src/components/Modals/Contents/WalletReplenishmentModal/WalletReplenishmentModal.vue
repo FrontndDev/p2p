@@ -8,6 +8,7 @@
               title="Валюта"
               :items="wallets"
               :selected-item="selectedWalletForSelect"
+              :is-currency="true"
               @select="selectWallet"
           />
           <MyInput

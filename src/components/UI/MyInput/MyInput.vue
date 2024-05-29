@@ -93,6 +93,8 @@ const inputValue = (e: Event) => {
   const value = props.regExp ? event.value.replace(props.regExp, '') : event.value
   input.value.value = value
   emit('inputValue', value)
+
+  input.value.value = props.value
 }
 
 watch(() => props.value, () => {

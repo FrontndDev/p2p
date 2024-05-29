@@ -102,7 +102,7 @@
               </div>
               <div>
                 <span>Комиссия</span>
-                <span>{{ transactionFee }} {{ props.selectedInnerCurrency?.name }}</span>
+                <span>{{ parseFloat(transactionFee) }} {{ props.selectedInnerCurrency?.name }}</span>
               </div>
             </div>
           </div>
@@ -293,8 +293,9 @@ const store = useStore();
 const showSelectPaymentMethod = ref(false);
 
 const currencies = computed(() => store.state.currencies)
+const profile = computed(() => store.state.profile)
 
-const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.amount);
+const amountOfCurrency = computed(() => profile.value.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.amount);
 const transactionFee = computed(() => {
   const transactionFee = (num: number) => (amountOfCurrency.value * currencies.value.transactionFee).toFixed(num)
 

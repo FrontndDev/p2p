@@ -14,10 +14,10 @@
         <div class="ad-information__rows">
           <div class="ad-information__row">
             <div>Цена</div>
-            <div class="fw-700">{{ props.sellingPrice ?? 0 }} {{ selectedOuterCurrency?.name }}</div>
+            <div class="fw-700">{{ getPrice }} {{ selectedOuterCurrency?.name }}</div>
           </div>
           <div class="ad-information__row">
-            <div>Общее колличество</div>
+            <div>Общее количество</div>
             <div>{{ amountOfCurrency ?? 0 }} {{ props.selectedInnerCurrency?.name }}</div>
           </div>
           <div class="ad-information__row">
@@ -44,13 +44,24 @@
                 </div>
               </MyCheckbox>
             </div>
-            <MyButton
-                size="big"
-                width="100%"
-                name="Разместить объявление"
-                :disabled="saveBtnDisabled"
-                @click="emit('create-ad')"
-            />
+
+            <div class="ad-information__buttons">
+              <MyButton
+                  type="second-primary-btn"
+                  size="big"
+                  width="100%"
+                  name="Назад"
+                  :disabled="saveBtnDisabled"
+                  @click="goBack"
+              />
+              <MyButton
+                  size="big"
+                  width="100%"
+                  name="Разместить объявление"
+                  :disabled="saveBtnDisabled"
+                  @click="emit('create-ad')"
+              />
+            </div>
           </template>
           <template v-else-if="route.name === 'edit-ad'">
             <div class="ad-information__buttons">
@@ -114,6 +125,7 @@ import PlayIcon from '@/assets/svg/play.svg?component';
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import {
   computed,
+  ComputedRef,
   PropType,
   ref
 } from "vue";
@@ -137,6 +149,9 @@ const props = defineProps({
     required: true,
   },
   sellingPrice: {
+    type: Number,
+  },
+  factor: {
     type: Number,
   },
   minAmount: {
@@ -163,6 +178,10 @@ const props = defineProps({
   },
   invalidFields: {
     type: Array as PropType<any[]>,
+  },
+  priceType: {
+    type: String,
+    required: true,
   }
 })
 
@@ -174,8 +193,17 @@ const route = useRoute();
 
 const showDeleteAdModal = ref(false);
 
+const currencies = computed(() => store.state.currencies)
 const detailAd = computed(() => store.state.profile.detailAd)
+
 const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.realAmount);
+const currentRate: ComputedRef<number> = computed(() => currencies.value.currentRate)
+
+const getPrice = computed(() =>
+    props.priceType === 'fixed' ?
+        props.sellingPrice ?? 0 :
+        parseFloat((currentRate.value * (props.factor / 100)).toFixed(4))
+);
 
 const deleteAd = async () => {
   showDeleteAdModal.value = false
@@ -185,6 +213,10 @@ const deleteAd = async () => {
 
 const toggleStatusAd = () => {
   store.dispatch('profile/updateAdStatus', detailAd.value.id)
+}
+
+const goBack = () => {
+  router.push(localStorage.getItem('prevPage'))
 }
 </script>
 

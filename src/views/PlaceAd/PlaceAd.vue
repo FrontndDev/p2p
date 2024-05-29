@@ -16,9 +16,9 @@
         @select-inner-currency="(item: ISelect) => selectedInnerCurrency = item"
         @select-outer-currency="(item: ISelect) => selectedOuterCurrency = item"
         @select-price-type="(item: ISelect) => selectedPriceType = item"
-        @input-selling-price="(value: string) => price = value ? +value : undefined"
-        @input-min-transfer="(value: string) => minAmount = value ? +value : undefined"
-        @input-max-transfer="(value: string) => maxAmount = value ? +value : undefined"
+        @input-selling-price="inputSellingPrice"
+        @input-min-transfer="inputMinTransfer"
+        @input-max-transfer="inputMaxTransfer"
         @select-payment-method="(item: ISelect) => selectedPaymentMethod = item"
         @select-time="(item: ISelect) => selectedTime = item"
         @input-comment="(value: string) => comment = value"
@@ -30,11 +30,13 @@
         :selected-inner-currency="selectedInnerCurrency"
         :selected-outer-currency="selectedOuterCurrency"
         :selling-price="price"
+        :factor="factor ? factor : 100"
         :min-amount="minAmount"
         :max-amount="maxAmount"
         :selected-payment-method="selectedPaymentMethod"
         :agreement="agreement"
         :invalid-fields="invalidFields"
+        :price-type="priceType"
         @create-ad="createAd"
         @set-agreement="agreement = !agreement"
     />
@@ -78,7 +80,7 @@ const selectedTime: Ref<ISelect | null> = ref(null);
 const minAmount = ref(10);
 const maxAmount = ref(20);
 const comment = ref('');
-const factor: Ref<number | undefined> = ref(undefined);
+const factor: Ref<number | undefined> = ref(100);
 const price: Ref<number | undefined> = ref(undefined);
 
 const agreement = ref(false);
@@ -100,6 +102,8 @@ const priceTypes = reactive([
 ]);
 
 const detailAd = computed(() => store.state.profile.detailAd);
+const currencies = computed(() => store.state.currencies);
+const profile = computed(() => store.state.profile);
 
 const priceType = computed(() => {
   switch (selectedPriceType.value?.id) {
@@ -120,17 +124,20 @@ const getPriceTypeId = (name: 'fixed' | 'float') => {
 }
 
 const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
-    store.state.currencies.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+    currencies.value.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
 const outerCurrencies: ComputedRef<ISelect[]> = computed(() =>
-    store.state.currencies.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
+    currencies.value.outerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))
 );
 const requisites = computed(() =>
-    store.state.profile.profile?.requisites?.map((requisite: IRequisite) => ({ id: requisite.id, name: requisite.paymentMethod }))
+    profile.value.profile?.requisites?.map((requisite: IRequisite) => ({ id: requisite.id, name: requisite.paymentMethod }))
 );
 const times: ComputedRef<ISelect[]> = computed(() =>
-    store.state.profile.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))
+    profile.value.profile?.allowedPaymentWindow?.map((num: number, idx: number) => ({ id: idx, name: num }))
 );
+
+const amountOfCurrency = computed(() => +profile.value.profile?.wallets?.[selectedInnerCurrency.value?.name ?? '']?.amount);
+const currentRate: ComputedRef<number> = computed(() => +currencies.value.currentRate)
 
 const data: ComputedRef<IAdParams> = computed(() => ({
   inner_currency: selectedInnerCurrency.value?.name ?? '',
@@ -178,6 +185,28 @@ const setInvalidFields = () => {
   if (fields.length) useShowMessage('red', 'Заполните все обязательные поля', 'Ошибка:')
 
   invalidFields.value = fields;
+}
+
+const inputSellingPrice = (value: string) => {
+  price.value = value ? +value.slice(0, 12) : undefined
+}
+
+const inputMinTransfer = (value: string) => {
+  minAmount.value = value ? +value.slice(0, 12) : undefined
+}
+
+const inputMaxTransfer = (value: string) => {
+  const getValue = (formula: number) => +(value ? +value <= formula ? +value : formula : undefined).toFixed(4)
+
+  switch (priceType.value) {
+    case 'fixed':
+      maxAmount.value = getValue(price.value * amountOfCurrency.value)
+      break;
+    case 'float':
+      maxAmount.value = getValue((factor.value / 100) * currentRate.value * amountOfCurrency.value)
+      break;
+  }
+  // maxAmount.value = value ? +value.slice(0, 12) : undefined
 }
 
 const createAd = async () => {

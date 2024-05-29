@@ -12,11 +12,13 @@ export default {
   },
   actions: {
     async getPaymentMethodsByCurrency({ commit }: TCtx, currency: string) {
-      return await API.getPaymentMethodsByCurrency(currency).then(response => {
-        commit('SET_PAYMENT_METHODS', response.data.payment_methods)
+      if (currency) {
+        return await API.getPaymentMethodsByCurrency(currency).then(response => {
+          commit('SET_PAYMENT_METHODS', response.data.payment_methods)
 
-        return response
-      })
+          return response
+        })
+      }
     },
   },
   mutations: {

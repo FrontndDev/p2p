@@ -10,7 +10,7 @@ export default {
   actions: {
     async createRequisite({ commit }: TCtx, data: ICreateRequisiteParams) {
       return await API.createRequisite(data).then(response => {
-        commit('profile/ADD_REQUISITE', response.data.requisite, { root: true })
+        if (response) commit('profile/ADD_REQUISITE', response?.data?.requisite, { root: true })
         return response
       })
     },
