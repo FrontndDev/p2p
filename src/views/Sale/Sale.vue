@@ -4,7 +4,7 @@
     <TelegramBanner/>
     <InformationAboutTransfers/>
   </div>
-  <Requisites @add-requisites="showAddRequisitesModal = true"/>
+  <Requisites @add-requisites="openMessageBox(() => showAddRequisitesModal = true)"/>
 
   <div class="sale">
     <div class="sale-tabs my-container">
@@ -32,7 +32,7 @@
       </div>
 
       <div class="sale-tabs-button">
-        <MyButton width="100%" size="big" name="Добавить объявление" @click="$router.push({ name: 'place-ad' })">
+        <MyButton width="100%" size="big" name="Добавить объявление" @click="openMessageBox(() => router.push({ name: 'place-ad' }))">
           <template #icon-right>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M8 1.5C8.27614 1.5 8.5 1.72386 8.5 2V14C8.5 14.2761 8.27614 14.5 8 14.5C7.72386 14.5 7.5 14.2761 7.5 14V2C7.5 1.72386 7.72386 1.5 8 1.5Z" fill="white"/>
@@ -75,6 +75,7 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import AddRequisitesModal from "@/components/Modals/Contents/AddRequisitesModal/AddRequisitesModal.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useMessageBox } from "@/composables/useMessageBox.ts";
 
 const store = useStore();
 const router = useRouter();
@@ -93,6 +94,11 @@ const tabs = reactive([
 const showAddRequisitesModal = ref(false);
 
 const activeTab: Ref<ITabs> = computed(() => store.state.saleActiveTab);
+const profile = computed(() => store.state.profile);
+const currencies = computed(() => store.state.currencies);
+
+const telegramActive = computed(() => profile.value.profile.telegramActive);
+const telegramBotUrl = computed(() => currencies.value.telegramBotUrl);
 
 const windowWidth = ref(0);
 
@@ -102,6 +108,12 @@ const setTab = (tab: ITabs) => {
 
 const setWindowWidth = () => {
   windowWidth.value = window.innerWidth
+}
+
+const openMessageBox = (callback) => {
+  !telegramActive.value ? useMessageBox('Для добавления реквизитов необходимо подключение к Telegram Bot').then(() => {
+    window.open(telegramBotUrl.value, '_self')
+  }) : callback()
 }
 
 const acceptDeal = async (transactionId: number) => {
