@@ -35,6 +35,7 @@
           <template v-if="route.name === 'place-ad'">
             <div class="ad-information__conditions">
               <MyCheckbox
+                  id="agreement"
                   :error="props.invalidFields.includes('agreement')"
                   :active="props.agreement"
                   @set-value="emit('set-agreement')"

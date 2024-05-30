@@ -25,6 +25,7 @@
         @input-comment="(value: string) => comment = value"
         @input-factor="(value: string) => factor = +value"
         @input-min-transfer-blur="inputMinTransferBlur"
+        @input-max-transfer-blur="inputMaxTransferBlur"
     />
     <AdInformation
         :save-btn-disabled="createInProcess"
@@ -81,9 +82,9 @@ const selectedPriceType: Ref<ISelect | null> = ref(null);
 const selectedPaymentMethod: Ref<ISelect | null> = ref(null);
 const selectedTime: Ref<ISelect | null> = ref(null);
 const minAmount = ref();
-const maxAmount = ref(20);
+const maxAmount = ref();
 const comment = ref('');
-const factor: Ref<number | undefined> = ref(100);
+const factor: Ref<number | undefined> = ref(110);
 const price: Ref<number | undefined> = ref(undefined);
 
 const agreement = ref(false);
@@ -205,6 +206,8 @@ const setInvalidFields = () => {
 }
 
 const inputSellingPrice = (value: string) => {
+  const index = invalidFields.value.findIndex(field => field === 'price')
+  if (index !== -1) invalidFields.value.splice(index, 1)
   price.value = value ? +value.slice(0, 12) : undefined
 }
 
@@ -212,22 +215,31 @@ const inputMinTransfer = (value: string) => {
   minAmount.value = value ? +value.slice(0, 12) : undefined
 }
 
+const inputMaxTransfer = (value: string) => {
+  maxAmount.value = value ? +value.slice(0, 12) : undefined
+}
+
 const inputMinTransferBlur = () => {
   if (!minAmount.value || minAmount.value < rateUSD.value) minAmount.value = rateUSD.value
 }
 
-const inputMaxTransfer = (value: string) => {
-  const getValue = (formula: number) => +(value ? +value <= formula ? +value : formula : undefined).toFixed(4)
+const inputMaxTransferBlur = () => {
+  if (price.value) {
+    const getValue = (formula: number) => +(maxAmount.value ? maxAmount.value <= formula ? maxAmount.value : formula : undefined).toFixed(4)
 
-  switch (priceType.value) {
-    case 'fixed':
-      maxAmount.value = getValue(price.value * amountOfCurrency.value)
-      break;
-    case 'float':
-      maxAmount.value = getValue((factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value)
-      break;
+    switch (priceType.value) {
+      case 'fixed':
+        maxAmount.value = getValue(price.value * amountOfCurrency.value)
+        break;
+      case 'float':
+        maxAmount.value = getValue((factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value)
+        break;
+    }
+  } else {
+    invalidFields.value = ['price']
+    useShowMessage('red', 'Пожалуйста, сперва выставьте цену продажи')
+    maxAmount.value = undefined
   }
-  // maxAmount.value = value ? +value.slice(0, 12) : undefined
 }
 
 const createAd = async () => {
@@ -271,7 +283,6 @@ watch(() => requisites.value && detailAd.value?.id, () => {
 
 onMounted(() => {
   if (detailAd.value?.id === +route.params.id && route.name === 'edit-ad') {
-    console.log('detailAd.value?.id === +route.params.id && route.name === \'edit-ad\'')
     setDefaultValues()
   }
 })

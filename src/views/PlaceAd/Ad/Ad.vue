@@ -49,6 +49,7 @@
           <MyInput
               type="number"
               class="my-input-second"
+              id="price"
               placeholder="1 000 000"
               title="Цена продажи"
               :error="isError('price')"
@@ -62,6 +63,7 @@
             <MyInput
                 type="number"
                 class="my-input-second"
+                id="factor"
                 placeholder="100"
                 title="Множитель"
                 :error="isError('factor')"
@@ -110,6 +112,7 @@
           <MyInput
               type="number"
               class="my-input-second"
+              id="min_amount"
               title="Минимальный перевод"
               :placeholder="String(props.rateUSD)"
               :error="isError('min_amount')"
@@ -119,14 +122,16 @@
               @blur="emit('input-min-transfer-blur')"
           />
           <MyInput
-              type="number"
+              type="number" 
               class="my-input-second"
+              id="max_amount"
               placeholder="1 000 000"
               title="Максимальный перевод"
               :error="isError('max_amount')"
               :value="props.maxAmount"
               :currency="props.selectedOuterCurrency?.name"
               @input-value="inputMaxTransfer"
+              @blur="emit('input-max-transfer-blur')"
           />
         </div>
       </div>
@@ -135,7 +140,7 @@
         <div class="ad-filling__row-content" :class="{ 'column-reverse': route.name === 'edit-ad' }">
           <PaymentMethods class="flex-start" :payment-methods="paymentMethodsForDisplay" v-if="paymentMethods?.length"/>
           <MyButton
-              class="ad-filling__row-button ad__row-button_first"
+              class="ad-filling__row-button ad__row-button_first requisite_id"
               type="second-primary-btn"
               size="big"
               width="100%"
@@ -209,6 +214,7 @@ import StarIcon from '@/assets/svg/star.svg?component';
 import Badge from "@/components/UI/Badge/Badge.vue";
 import AdditionalInfo from "@/components/UI/AdditionalInfo/AdditionalInfo.vue";
 import Select from "@/components/UI/Select/Select.vue";
+import _ from 'lodash';
 import {
   computed,
   ComputedRef,
@@ -228,7 +234,6 @@ import {
 } from "@/interfaces/store/modules/profile.interface.ts";
 import SelectPaymentMethodModal
   from "@/components/Modals/Contents/SelectPaymentMethodModal/SelectPaymentMethodModal.vue";
-import { getCurrencyRate } from "@/api";
 
 const props = defineProps({
   priceTypes: {
@@ -292,6 +297,7 @@ const emit = defineEmits([
   'select-time',
   'input-comment',
   'input-min-transfer-blur',
+  'input-max-transfer-blur',
 ]);
 
 const route = useRoute();
@@ -407,6 +413,13 @@ watch(() => paymentMethods.value?.length, () => {
 watch(() => times.value?.length, () => {
   if (route.name === 'place-ad') {
     selectTime(times.value[0]);
+  }
+});
+
+watch(() => props.invalidFields.join(''), () => {
+  if (props.invalidFields.length) {
+    const block = document.querySelector(`#${props.invalidFields[0]}`)
+    if (block) setTimeout(() => block.scrollIntoView({ block: 'center', behavior: 'smooth' }), 0)
   }
 });
 

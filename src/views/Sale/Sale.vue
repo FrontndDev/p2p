@@ -110,7 +110,7 @@ const setWindowWidth = () => {
   windowWidth.value = window.innerWidth
 }
 
-const openMessageBox = (callback) => {
+const openMessageBox = (callback: Function) => {
   !telegramActive.value ? useMessageBox('Для добавления реквизитов необходимо подключение к Telegram Bot').then(() => {
     window.open(telegramBotUrl.value, '_self')
   }) : callback()

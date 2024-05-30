@@ -88,13 +88,14 @@ const getInputWidth = computed(() => {
   return `width: calc(100% - ${width}px);`
 });
 
-const inputValue = (e: Event) => {
-  const event = e.target as HTMLInputElement
-  const value = props.regExp ? event.value.replace(props.regExp, '') : event.value
-  input.value.value = value
-  emit('inputValue', value)
+const inputValue = (e: InputEvent) => {
+  const target = e.target as HTMLInputElement
 
-  input.value.value = props.value
+  if (!['.', ','].includes(e.data)) {
+    const value = props.regExp ? target.value.replace(props.regExp, '') : target.value
+    emit('inputValue', value)
+    input.value.value = props.value
+  }
 }
 
 watch(() => props.value, () => {
