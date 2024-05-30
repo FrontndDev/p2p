@@ -26,6 +26,7 @@
         @input-factor="(value: string) => factor = +value"
         @input-min-transfer-blur="inputMinTransferBlur"
         @input-max-transfer-blur="inputMaxTransferBlur"
+        @input-selling-price-blur="inputSellingPriceBlur"
     />
     <AdInformation
         :save-btn-disabled="createInProcess"
@@ -240,6 +241,10 @@ const inputMaxTransferBlur = () => {
     useShowMessage('red', 'Пожалуйста, сперва выставьте цену продажи')
     maxAmount.value = undefined
   }
+}
+
+const inputSellingPriceBlur = () => {
+  if (maxAmount.value) inputMaxTransferBlur()
 }
 
 const createAd = async () => {

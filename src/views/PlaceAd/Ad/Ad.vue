@@ -25,7 +25,7 @@
                 :is-currency="true"
                 @select="selectInnerCurrency"
             />
-            <span>Всего доступно <span>{{ amountOfCurrency }} {{ props.selectedInnerCurrency?.name }}</span></span>
+            <span>Всего доступно <span>{{ selectedCurrency?.amount }} {{ props.selectedInnerCurrency?.name }}</span></span>
           </div>
           <Select
               title="За валюту"
@@ -57,6 +57,7 @@
               :currency="props.selectedOuterCurrency?.name"
               v-if="props.selectedPriceType?.id === 1"
               @input-value="inputSellingPrice"
+              @blur="emit('input-selling-price-blur')"
           />
 
           <div class="ad-filling__row-inputs" v-if="props.selectedPriceType?.id === 2">
@@ -93,18 +94,18 @@
                 placeholder="Доступно 1 000 000"
                 title="Количество на продажу"
                 :disabled="true"
-                :value="String(amountOfCurrency)"
+                :value="String(selectedCurrency?.amount)"
                 :currency="props.selectedInnerCurrency?.name"
             />
 
             <div class="ad-filling__row-input-info">
               <div>
                 <span>Для продажи</span>
-                <span>{{ amountOfCurrency }} {{ props.selectedInnerCurrency?.name }}</span>
+                <span>{{ selectedCurrency?.amount }} {{ props.selectedInnerCurrency?.name }}</span>
               </div>
               <div>
                 <span>Комиссия</span>
-                <span>{{ parseFloat(transactionFee) }} {{ props.selectedInnerCurrency?.name }}</span>
+                <span>{{ selectedCurrency?.feeAmount }} {{ props.selectedInnerCurrency?.name }}</span>
               </div>
             </div>
           </div>
@@ -231,6 +232,7 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import {
   IRequisite,
+  IWallet,
 } from "@/interfaces/store/modules/profile.interface.ts";
 import SelectPaymentMethodModal
   from "@/components/Modals/Contents/SelectPaymentMethodModal/SelectPaymentMethodModal.vue";
@@ -298,6 +300,7 @@ const emit = defineEmits([
   'input-comment',
   'input-min-transfer-blur',
   'input-max-transfer-blur',
+  'input-selling-price-blur',
 ]);
 
 const route = useRoute();
@@ -308,19 +311,7 @@ const showSelectPaymentMethod = ref(false);
 const currencies = computed(() => store.state.currencies)
 const profile = computed(() => store.state.profile)
 
-const amountOfCurrency = computed(() => profile.value.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.amount);
-const transactionFee = computed(() => {
-  const transactionFee = (num: number) => (amountOfCurrency.value * currencies.value.transactionFee).toFixed(num)
-
-  switch (props.selectedInnerCurrency?.name) {
-    case 'USD':
-      return transactionFee(2)
-    case 'TON':
-      return transactionFee(4)
-    default:
-      return transactionFee(0)
-  }
-});
+const selectedCurrency: ComputedRef<IWallet> = computed(() => profile.value.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']);
 
 const innerCurrencies: ComputedRef<ISelect[]> = computed(() =>
     currencies.value.innerCurrencies.map((currency: string, idx: number) => ({ id: idx + 1, name: currency }))

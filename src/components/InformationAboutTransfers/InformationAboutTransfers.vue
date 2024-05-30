@@ -36,12 +36,18 @@ const data = reactive([
   {
     id: 3,
     title: 'Скорость перевода',
-    value: computed(() => (statistics.value?.releaseTime / 60).toFixed(0) + ' min')
+    value: computed(() => {
+      const value = (statistics.value?.releaseTime / 60).toFixed(0)
+      return +value ? value + ' min' : '0 min'
+    })
   },
   {
     id: 4,
     title: 'Скорость оплаты',
-    value: computed(() => (statistics.value?.paymentTime / 60).toFixed(0) + ' min')
+    value: computed(() => {
+      const value = (statistics.value?.paymentTime / 60).toFixed(0)
+      return +value ? value + ' min' : '0 min'
+    })
   },
 ]);
 

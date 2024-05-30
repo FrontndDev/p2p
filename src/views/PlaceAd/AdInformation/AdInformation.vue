@@ -22,7 +22,11 @@
           </div>
           <div class="ad-information__row">
             <div>Лимиты</div>
-            <div>{{ props.minAmount ?? 0}}Р - {{ props.maxAmount ?? 0 }}Р</div>
+            <div>
+              {{ +props.minAmount ? props.minAmount : 0 }}{{ selectedOuterCurrency?.name }}
+              -
+              {{ +props.maxAmount ? props.maxAmount : 0 }}{{ selectedOuterCurrency?.name }}
+            </div>
           </div>
           <div class="ad-information__row">
             <div>Способ оплаты</div>
