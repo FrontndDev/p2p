@@ -16,7 +16,7 @@
         :rateUSD="rateUSD"
         @select-inner-currency="(item: ISelect) => selectedInnerCurrency = item"
         @select-outer-currency="selectOuterCurrency"
-        @select-price-type="(item: ISelect) => selectedPriceType = item"
+        @select-price-type="selectPriceType"
         @input-selling-price="inputSellingPrice"
         @input-min-transfer="inputMinTransfer"
         @input-max-transfer="inputMaxTransfer"
@@ -158,17 +158,30 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   payment_window: +selectedTime.value?.name,
 }));
 
+const floatPriceTypeMaxAmount = computed(() => (factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value)
+
 const setRate = async (item: ISelect) => {
   const response = await getCurrencyRate({ from: 'USD', to: item.name })
-  console.log('item', item)
   rateUSD.value = +response.data.rate
 }
 
 const selectOuterCurrency = async (item: ISelect) => {
   selectedOuterCurrency.value = item
   selectedInnerCurrency.value?.name !== 'USD' ? await setRate(item) : rateUSD.value = actualCurrentRate.value
-  console.log('rateUSD.value', rateUSD.value)
-  if (!minAmount.value) minAmount.value = rateUSD.value
+  minAmount.value = rateUSD.value
+  if (priceType.value === 'float') maxAmount.value = floatPriceTypeMaxAmount.value
+}
+
+const selectPriceType = (item: ISelect) => {
+  selectedPriceType.value = item
+  switch (item.id) {
+    case 1:
+      maxAmount.value = undefined
+      break;
+    case 2:
+      maxAmount.value = floatPriceTypeMaxAmount.value
+      break;
+  }
 }
 
 const setInvalidFields = () => {
@@ -176,7 +189,6 @@ const setInvalidFields = () => {
     ..._.cloneDeep(data.value),
     agreement: agreement.value
   }
-  console.log('copyData', copyData)
   delete copyData.comment
 
   switch (priceType.value) {
@@ -221,25 +233,28 @@ const inputMaxTransfer = (value: string) => {
 }
 
 const inputMinTransferBlur = () => {
-  if (!minAmount.value || minAmount.value < rateUSD.value) minAmount.value = rateUSD.value
+  if (!minAmount.value || minAmount.value < rateUSD.value) {
+    useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
+    minAmount.value = rateUSD.value
+  }
 }
 
 const inputMaxTransferBlur = () => {
-  if (price.value) {
-    const getValue = (formula: number) => +(maxAmount.value ? maxAmount.value <= formula ? maxAmount.value : formula : undefined).toFixed(4)
+  const getValue = (formula: number) => +(maxAmount.value ? maxAmount.value <= formula ? maxAmount.value : formula : undefined)?.toFixed(4)
 
-    switch (priceType.value) {
-      case 'fixed':
+  switch (priceType.value) {
+    case 'fixed':
+      if (price.value) {
         maxAmount.value = getValue(price.value * amountOfCurrency.value)
-        break;
-      case 'float':
-        maxAmount.value = getValue((factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value)
-        break;
-    }
-  } else {
-    invalidFields.value = ['price']
-    useShowMessage('red', 'Пожалуйста, сперва выставьте цену продажи')
-    maxAmount.value = undefined
+      } else {
+        invalidFields.value = ['price']
+        useShowMessage('red', 'Пожалуйста, сперва выставьте цену продажи')
+        maxAmount.value = undefined
+      }
+      break;
+    case 'float':
+      maxAmount.value = getValue(floatPriceTypeMaxAmount.value)
+      break;
   }
 }
 

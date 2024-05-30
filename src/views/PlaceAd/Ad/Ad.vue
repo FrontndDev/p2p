@@ -160,6 +160,7 @@
         <div class="ad-filling__row-content">
           <Select
               title="Время в минутах"
+              :search="false"
               :items="times"
               :selected-item="props.selectedTime"
               @select="selectTime"

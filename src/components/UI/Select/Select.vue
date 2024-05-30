@@ -1,5 +1,5 @@
 <template>
-  <div class="my-select">
+  <div class="my-select" :tabindex="+!props.search" @blur="showDropdown = false">
     <div class="my-select__up" :class="{ opened: showDropdown }" @click="toggleDropdown($event)">
       <div class="my-select__info">
         <div class="my-select__title" v-if="props.title">
@@ -18,12 +18,14 @@
               type="text"
               ref="input"
               :placeholder="props.placeholder"
-              :disabled="input?.value === 'Загрузка...'"
+              :disabled="input?.value === 'Загрузка...' || !props.search"
               :value="showDropdown ? search : props.selectedItem?.name"
+              v-if="props.search"
               @input="searchItems"
               @blur="blur"
               @focus="showDropdown = true"
           >
+          <template v-else>{{ props.selectedItem?.name }}</template>
         </div>
       </div>
 
@@ -56,7 +58,6 @@
 <script setup lang="ts">
 import {
   computed,
-  onMounted,
   PropType,
   Ref,
   ref,
@@ -88,12 +89,16 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: '',
-  }
+  },
+  search: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const emit = defineEmits(['select']);
 
-const input: Ref<HTMLInputElement> = ref();
+const input: Ref<HTMLInputElement | undefined> = ref();
 const showDropdown = ref(false);
 const search: Ref<string> = ref('');
 
@@ -118,9 +123,11 @@ const blur = () => {
 
 const toggleDropdown = (event: Event) => {
   const target = event.target as HTMLUnknownElement
-  if (target.tagName !== 'INPUT') {
+  if (target.tagName !== 'INPUT' && input.value) {
     showDropdown.value ? input.value.blur() : input.value.focus()
   }
+
+  if (!props.search) showDropdown.value = !showDropdown.value
 }
 
 const searchItems = (event: Event) => {
@@ -138,7 +145,7 @@ const selectItem = (item: ISelect) => {
 }
 
 watch(() => props.selectedItem?.name, () => {
-  input.value.value = props.selectedItem?.name ?? 'Загрузка...'
+  if (input.value) input.value.value = props.selectedItem?.name ?? 'Загрузка...'
 })
 </script>
 
