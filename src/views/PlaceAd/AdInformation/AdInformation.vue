@@ -201,7 +201,7 @@ const showDeleteAdModal = ref(false);
 const currencies = computed(() => store.state.currencies)
 const detailAd = computed(() => store.state.profile.detailAd)
 
-const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.realAmount);
+const amountOfCurrency = computed(() => store.state.profile.profile?.wallets?.[props.selectedInnerCurrency?.name ?? '']?.amount);
 const currentRate: ComputedRef<number> = computed(() => currencies.value.currentRate)
 
 const getPrice = computed(() =>
