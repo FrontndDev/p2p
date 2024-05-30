@@ -7,7 +7,7 @@
         </div>
         <div
             class="my-select__text"
-            :class="[props.isCurrency ? `currency-${props.selectedItem?.name} bg-currency small-icon` : '', { 'search-icon': showDropdown }]"
+            :class="[props.isCurrency ? `currency-${props.selectedItem?.name} bg-currency small-icon` : '', { 'search-icon': showDropdown && props.search }]"
         >
           <template v-if="props.selectedItem?.icon">
             <img :src="props.selectedItem?.icon" :alt="props.selectedItem?.name" v-if="typeof props.selectedItem?.icon === 'string'">
