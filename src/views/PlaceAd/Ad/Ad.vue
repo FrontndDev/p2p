@@ -188,7 +188,7 @@
 
               {{ telegramActive ? 'Привязан' : 'Не привязан' }}
             </div>
-            <div class="ad-filling__row-mark-btn" v-if="!telegramActive">Привязать</div>
+            <div class="ad-filling__row-mark-btn" v-if="!telegramActive" @click="bindTelegramBot">Привязать</div>
           </div>
         </div>
       </div>
@@ -388,6 +388,10 @@ const selectTime = (item: ISelect) => {
 
 const inputComment = (e: Event) => {
   emit('input-comment', (e.target as HTMLTextAreaElement).value)
+}
+
+const bindTelegramBot = () => {
+  window.open('/app/profile/edit#tab-telegram.', '_blank')
 }
 
 const getCurrentRate = (from?: string, to?: string) => {

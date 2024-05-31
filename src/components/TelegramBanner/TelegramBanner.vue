@@ -22,10 +22,10 @@ const store = useStore();
 
 const telegramActive = computed(() => store.state.profile.profile.telegramActive);
 
-const telegramBotUrl = computed(() => store.state.currencies.telegramBotUrl);
+// const telegramBotUrl = computed(() => store.state.currencies.telegramBotUrl);
 
 const bindTelegramBot = () => {
-  window.open(!telegramActive.value ? telegramBotUrl.value : '/app/profile/edit#tab-telegram.', telegramActive.value ? '_blank' : '_self')
+  window.open('/app/profile/edit#tab-telegram.', '_blank')
 }
 </script>
 
