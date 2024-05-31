@@ -91,10 +91,19 @@ const getInputWidth = computed(() => {
 const inputValue = (e: InputEvent) => {
   const target = e.target as HTMLInputElement
 
-  if (!['.', ','].includes(e.data)) {
+  const setValue = () => {
     const value = props.regExp ? target.value.replace(props.regExp, '') : target.value
     emit('inputValue', value)
     input.value.value = props.value
+  }
+
+  switch (props.type) {
+    case 'number':
+      if (!['.', ','].includes(e.data)) setValue()
+      break;
+    default:
+      setValue()
+      break;
   }
 }
 
