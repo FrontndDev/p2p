@@ -203,7 +203,7 @@ const getDescription = computed(() => {
     case DealEnum.completed:
       return [`Ваш платеж получен, актив ${transactionInfo.value.outerCurrencyAmount?.currency} был отправлен на ваш аккаунт`];
     case DealEnum.cancelled:
-      return ['Продавец не успел подтвердить заявку в течение 15 минут'];
+      return [`Продавец не успел подтвердить заявку в течение ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
     case DealEnum.error:
       return ['Ошибка'];
     case DealEnum.declined:

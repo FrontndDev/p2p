@@ -19,7 +19,7 @@
             <div class="seller-details__step-content">
               <div class="seller-details__step-content-item">
                 <div>Имя</div>
-                <div>
+                <div @click="useCopy(`${props.seller.firstName} ${props.seller.lastName}`)">
                   {{ props.seller.firstName }} {{ props.seller.lastName }}
                   <CopyIcon/>
                 </div>
@@ -46,6 +46,7 @@ import RadioButton from "@/components/UI/RadioButton/RadioButton.vue";
 import { PropType } from "vue";
 import { IPrice } from "@/interfaces/store/modules/ads.interface.ts";
 import { ISeller } from "@/interfaces/store/modules/transactions.interface.ts";
+import { useCopy } from "@/composables/useCopy.ts";
 
 const props = defineProps({
   seller: {

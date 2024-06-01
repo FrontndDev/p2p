@@ -167,15 +167,30 @@ const getAmountInNumber = (str: string) => {
 const imGiving = ref('');
 const iWillGet = ref('');
 
+const removeZeros = (value: number | string) => {
+  const convertedValue = String(value)
+  const formattedValue = String(parseInt(parseFloat(convertedValue).toFixed(4)))
+  return +formattedValue ? formattedValue : ''
+}
+
 const setImGiving = (value: string) => {
-  console.log('value', value)
-  imGiving.value = value
-  iWillGet.value = String((+imGiving.value / +selectedDeal.value.price.amount).toFixed(4))
+  const maxAmount = selectedDeal.value.maxAmount.amount
+  imGiving.value = +value <= +maxAmount ? value : maxAmount
+  iWillGet.value = removeZeros(+imGiving.value / +selectedDeal.value.price.amount)
 }
 
 const setIWillGet = (value: string) => {
-  iWillGet.value = value
-  imGiving.value = String((+iWillGet.value * +selectedDeal.value.price.amount).toFixed(4))
+  // iWillGet.value = value
+  const givingValue = removeZeros(+value * +selectedDeal.value.price.amount)
+  const maxAmount = selectedDeal.value.maxAmount.amount
+
+  if (+givingValue <= +maxAmount) {
+    imGiving.value = givingValue
+    iWillGet.value = removeZeros(value)
+  } else {
+    imGiving.value = maxAmount
+    iWillGet.value = removeZeros(+imGiving.value / +selectedDeal.value.price.amount)
+  }
 }
 
 const selectTime = (time: ISelect) => {

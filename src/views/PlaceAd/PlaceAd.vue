@@ -148,13 +148,13 @@ const rateUSD = ref(0);
 const data: ComputedRef<IAdParams> = computed(() => ({
   inner_currency: selectedInnerCurrency.value?.name ?? '',
   outer_currency: selectedOuterCurrency.value?.name ?? '',
-  requisite_id: selectedPaymentMethod.value?.id ?? null,
+  price_type: priceType.value ?? '', // percent | float
+  price: priceType.value === 'fixed' ? price.value : undefined, // if price_type == fixed
+  factor: priceType.value === 'float' ? factor.value : undefined, // if price_type == float
   min_amount: minAmount.value,
   max_amount: maxAmount.value,
+  requisite_id: selectedPaymentMethod.value?.id ?? null,
   comment: comment.value,
-  factor: priceType.value === 'float' ? factor.value : undefined, // if price_type == float
-  price: priceType.value === 'fixed' ? price.value : undefined, // if price_type == fixed
-  price_type: priceType.value ?? '', // percent | float
   payment_window: +selectedTime.value?.name,
 }));
 
@@ -186,8 +186,8 @@ const selectPriceType = (item: ISelect) => {
 
 const setInvalidFields = () => {
   let copyData = {
+    agreement: agreement.value,
     ..._.cloneDeep(data.value),
-    agreement: agreement.value
   }
   delete copyData.comment
 

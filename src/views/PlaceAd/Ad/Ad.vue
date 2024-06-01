@@ -141,7 +141,8 @@
         <div class="ad-filling__row-content" :class="{ 'column-reverse': route.name === 'edit-ad' }">
           <PaymentMethods class="flex-start" :payment-methods="paymentMethodsForDisplay" v-if="paymentMethods?.length"/>
           <MyButton
-              class="ad-filling__row-button ad__row-button_first requisite_id"
+              class="ad-filling__row-button ad__row-button_first"
+              id="requisite_id"
               type="second-primary-btn"
               size="big"
               width="100%"
@@ -160,7 +161,6 @@
         <div class="ad-filling__row-content">
           <Select
               title="Время в минутах"
-              :search="false"
               :items="times"
               :selected-item="props.selectedTime"
               @select="selectTime"

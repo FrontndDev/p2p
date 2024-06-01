@@ -59,6 +59,7 @@
     }
 
     &.canceled,
+    &.cancelled,
     &.expired {
       &::before {
         background: $bg-red;

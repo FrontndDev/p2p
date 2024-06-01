@@ -27,11 +27,7 @@ const data = reactive([
   {
     id: 2,
     title: 'Процент успешных',
-    value: computed(() => {
-      const stat = statistics.value
-      const percent = ((stat?.goodTransactionCount / stat?.transactionsCount) * 100).toFixed(1) + '%'
-      return stat?.goodTransactionCount && stat?.transactionsCount ? percent : 0 + '%'
-    })
+    value: computed(() => statistics.value?.successPercent + '%')
   },
   {
     id: 3,
