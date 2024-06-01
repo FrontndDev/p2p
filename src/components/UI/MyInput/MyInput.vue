@@ -13,7 +13,7 @@
           :style="getInputWidth"
           :placeholder="props.placeholder"
           :value="props.value"
-          @input="inputValue($event)"
+          @input="inputValue"
           @blur="emit('blur')"
       >
     </div>
