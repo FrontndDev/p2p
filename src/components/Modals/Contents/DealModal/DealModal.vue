@@ -169,13 +169,13 @@ const iWillGet = ref('');
 
 const removeZeros = (value: number | string) => {
   const convertedValue = String(value)
-  const formattedValue = String(parseInt(parseFloat(convertedValue).toFixed(4)))
+  const formattedValue = String(parseFloat(convertedValue).toFixed(4).replace(/\.?0+$/, ''))
   return +formattedValue ? formattedValue : ''
 }
 
 const setImGiving = (value: string) => {
   const maxAmount = selectedDeal.value.maxAmount.amount
-  imGiving.value = +value <= +maxAmount ? value : maxAmount
+  imGiving.value = removeZeros(+value <= +maxAmount ? value : maxAmount)
   iWillGet.value = removeZeros(+imGiving.value / +selectedDeal.value.price.amount)
 }
 
