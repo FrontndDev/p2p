@@ -42,12 +42,12 @@
 
       <div class="deal__info-item">
         <div class="deal__info-item-title">Вы отдаете</div>
-        <div class="deal__info-item-value price">{{ transactionInfo.price?.amount }} {{ transactionInfo.price?.currency }}</div>
+        <div class="deal__info-item-value price">{{ transactionInfo.outerCurrencyAmount?.amount }} {{ transactionInfo.outerCurrencyAmount?.currency }}</div>
       </div>
       <div class="deal__info-item">
         <div class="deal__info-item-title">Вы получаете</div>
-        <div class="deal__info-item-value bg-currency small-icon" :class="`currency-${transactionInfo.outerCurrencyAmount?.currency}`">
-          {{ transactionInfo.outerCurrencyAmount?.amount }}
+        <div class="deal__info-item-value bg-currency small-icon" :class="`currency-${transactionInfo.innerCurrency}`">
+          {{ transactionInfo.amount }}
         </div>
       </div>
       <div class="deal__info-item">
