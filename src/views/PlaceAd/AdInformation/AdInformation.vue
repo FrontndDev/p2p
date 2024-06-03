@@ -3,7 +3,7 @@
     <div class="ad-information__title title-h2 fw-700">
       Размещаемое объявление
 
-      <CrossIcon/>
+      <CrossIcon @click="goBack"/>
     </div>
 
     <div class="ad-information__body">
