@@ -63,6 +63,7 @@ import { useStore } from "vuex";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
 import { getPaymentMethodsByCurrency } from "@/api";
+import { useShowMessage } from "@/composables/useShowMessage.ts";
 
 const props = defineProps({
   selectedOuterCurrency: {
@@ -103,6 +104,11 @@ const selectWallet = (item: ISelect) => {
 }
 
 const addRequisite = async () => {
+  if (cardNumber.value.length < 5) {
+    useShowMessage('red', 'Минимальная длина реквизита 5 символов')
+    return
+  }
+
   if (selectedWallet.value && selectedPaymentMethod.value && cardNumber.value && !requestInProcess.value) {
     requestInProcess.value = true
     const data: ICreateRequisiteParams = {

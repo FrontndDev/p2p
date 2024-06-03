@@ -70,6 +70,7 @@
                 :error="isError('factor')"
                 :value="String(props.factor)"
                 @input-value="inputFactor"
+                @blur="emit('input-factor-blur')"
             />
             <StarIcon/>
             <MyInput
@@ -302,6 +303,7 @@ const emit = defineEmits([
   'input-min-transfer-blur',
   'input-max-transfer-blur',
   'input-selling-price-blur',
+  'input-factor-blur',
 ]);
 
 const route = useRoute();

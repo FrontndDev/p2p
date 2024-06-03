@@ -23,7 +23,8 @@
         @select-payment-method="(item: ISelect) => selectedPaymentMethod = item"
         @select-time="(item: ISelect) => selectedTime = item"
         @input-comment="(value: string) => comment = value"
-        @input-factor="(value: string) => factor = +value"
+        @input-factor="inputFactor"
+        @input-factor-blur="inputFactorBlur"
         @input-min-transfer-blur="inputMinTransferBlur"
         @input-max-transfer-blur="inputMaxTransferBlur"
         @input-selling-price-blur="inputSellingPriceBlur"
@@ -93,7 +94,7 @@ const agreement = ref(false);
 const copyData = ref({});
 const createInProcess = ref(false);
 
-const invalidFields = ref([]);
+const invalidFields: Ref<string[]> = ref([]);
 
 const priceTypes = reactive([
   {
@@ -218,9 +219,18 @@ const setInvalidFields = () => {
   invalidFields.value = fields;
 }
 
-const inputSellingPrice = (value: string) => {
-  const index = invalidFields.value.findIndex(field => field === 'price')
+const addError = (field: string, text: string) => {
+  if (field) invalidFields.value = [field]
+  if (text) useShowMessage('red', text)
+}
+
+const removeError = (field: string) => {
+  const index = invalidFields.value.findIndex(value => value === field)
   if (index !== -1) invalidFields.value.splice(index, 1)
+}
+
+const inputSellingPrice = (value: string) => {
+  removeError('price')
   price.value = value ? +value.slice(0, 12) : undefined
 }
 
@@ -230,6 +240,17 @@ const inputMinTransfer = (value: string) => {
 
 const inputMaxTransfer = (value: string) => {
   maxAmount.value = value ? +value.slice(0, 12) : undefined
+}
+
+const inputFactor = (value: string) => {
+  if (value.length > 3) return
+  factor.value = +value ? +value : undefined
+}
+
+const inputFactorBlur = () => {
+  factor.value < 50 || factor.value > 150 ?
+      addError('factor', 'Значение множителя должно быть в диапозоне от 50 до 150') :
+      removeError('factor')
 }
 
 const inputMinTransferBlur = () => {
@@ -245,10 +266,14 @@ const inputMaxTransferBlur = () => {
   switch (priceType.value) {
     case 'fixed':
       if (price.value) {
-        maxAmount.value = getValue(price.value * amountOfCurrency.value)
+        if (maxAmount.value < minAmount.value) {
+          addError('max_amount', 'Максимальный перевод не может быть меньше минимального')
+        } else {
+          removeError('max_amount')
+          maxAmount.value = getValue(price.value * amountOfCurrency.value)
+        }
       } else {
-        invalidFields.value = ['price']
-        useShowMessage('red', 'Пожалуйста, сперва выставьте цену продажи')
+        addError('price', 'Пожалуйста, сперва выставьте цену продажи')
         maxAmount.value = undefined
       }
       break;

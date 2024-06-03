@@ -1,6 +1,10 @@
 <template>
   <div class="ad-information">
-    <div class="ad-information__title title-h2 fw-700">Размещаемое объявление</div>
+    <div class="ad-information__title title-h2 fw-700">
+      Размещаемое объявление
+
+      <CrossIcon/>
+    </div>
 
     <div class="ad-information__body">
       <div class="ad-information__content">
@@ -127,6 +131,8 @@ import PauseIcon from '@/assets/svg/pause.svg?component';
 import CheckMarkIcon from '@/assets/svg/deal/check-mark.svg?component';
 // @ts-ignore
 import PlayIcon from '@/assets/svg/play.svg?component';
+// @ts-ignore
+import CrossIcon from '@/assets/svg/cross.svg?component';
 import PaymentMethods from "@/components/UI/PaymentMethods/PaymentMethods.vue";
 import {
   computed,

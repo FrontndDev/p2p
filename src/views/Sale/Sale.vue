@@ -98,7 +98,6 @@ const profile = computed(() => store.state.profile);
 const currencies = computed(() => store.state.currencies);
 
 const telegramActive = computed(() => profile.value.profile.telegramActive);
-const telegramBotUrl = computed(() => currencies.value.telegramBotUrl);
 
 const windowWidth = ref(0);
 
@@ -112,7 +111,7 @@ const setWindowWidth = () => {
 
 const openMessageBox = (callback: Function) => {
   !telegramActive.value ? useMessageBox('Для добавления реквизитов необходимо подключение к Telegram Bot').then(() => {
-    window.open(telegramBotUrl.value, '_self')
+    window.open('/app/profile/edit#tab-telegram.', '_self')
   }) : callback()
 }
 

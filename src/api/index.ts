@@ -20,7 +20,7 @@ export function getDataFromLS(key: string) {
 // GET
 
 export async function getServiceInformation() {
-  return getAsync('/api/v1/p2p');
+  return getAsync('/api/v1/p2p/config');
 }
 
 export async function getAds({ currency, page, min_amount, payment_method_id }: IGetAdsParams) {
