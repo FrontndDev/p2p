@@ -67,7 +67,7 @@ export default {
     SET_PROFILE(state: any, profile: IProfile) {
       state.profile = profile
     },
-    SET_ADS(state: any, ads: any) {
+    SET_ADS(state: any, ads: IAds) {
       state.ads = ads
     },
     SET_DETAIL_AD(state: any, ad: IAd) {
