@@ -29,7 +29,7 @@ export async function getAds({ currency, page, min_amount, payment_method_id }: 
 }
 
 export async function getAd(id: number) {
-  return getAsync(`/api/v1/p2p/ads/${id}`)
+  return getAsync(`/api/v1/p2p/ads/${id}/deals`)
 }
 
 export async function getProfileAds(page: number) {
@@ -63,7 +63,7 @@ export async function getProfileTransactionHistory(page: number) {
 // POST
 
 export async function createRequisite(data: ICreateRequisiteParams) {
-  return postAsync('/api/v1/p2p/profile/requisite', data)
+  return postAsync('/api/v1/p2p/profile/requisites', data)
 }
 
 export async function topUpWallet(data: any) {
@@ -85,7 +85,7 @@ export async function createDeal(data: any) {
 // PUT
 
 export async function updateRequisite(id: number, data: any) {
-  return putAsync(`/api/v1/p2p/profile/requisite/${id}`, data)
+  return putAsync(`/api/v1/p2p/profile/requisites/${id}`, data)
 }
 
 export async function updateAd(id: number, data: any) {
@@ -111,7 +111,7 @@ export async function payedDeal(id: number) {
 // DELETE
 
 export async function deleteRequisite(id: number) {
-  return deleteAsync(`/api/v1/p2p/profile/requisite/${id}`)
+  return deleteAsync(`/api/v1/p2p/profile/requisites/${id}`)
 }
 
 export async function deleteAd(id: number) {
