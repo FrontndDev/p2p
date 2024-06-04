@@ -95,7 +95,6 @@ const showAddRequisitesModal = ref(false);
 
 const activeTab: Ref<ITabs> = computed(() => store.state.saleActiveTab);
 const profile = computed(() => store.state.profile);
-const currencies = computed(() => store.state.currencies);
 
 const telegramActive = computed(() => profile.value.profile.telegramActive);
 

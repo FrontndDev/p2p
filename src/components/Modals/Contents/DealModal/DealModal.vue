@@ -112,7 +112,6 @@ import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { useStore } from "vuex";
 import { IAd } from "@/interfaces/store/modules/ads.interface.ts";
-import { ICreateDealParams } from "@/interfaces/store/modules/transactions.interface.ts";
 import { useRouter } from "vue-router";
 
 const props = defineProps({
@@ -198,13 +197,10 @@ const selectTime = (time: ISelect) => {
 }
 
 const openDeal = async () => {
-  const data: ICreateDealParams = {
-    adsId: selectedDeal.value.id,
-    amount: +imGiving.value,
-    comment: selectedDeal.value.authorComment,
-    payment_window: +selectedTime.value.name
-  }
-  const response = await store.dispatch('transactions/createDeal', data)
+  const response = await store.dispatch('transactions/createDeal', {
+    data: { amount: +imGiving.value },
+    adId: selectedDeal.value.id
+  })
   if (response?.data?.transaction?.id) {
     emit('close-modal')
     await router.push({ name: 'deal', params: { transactionId: response.data.transaction.id } })

@@ -24,8 +24,8 @@ export default {
     getProfileTransactionInfo({ commit }: TCtx, page = 1) {
       API.getProfileTransactionHistory(page).then(response => commit('SET_PROFILE_TRANSACTION_INFO', response.data))
     },
-    async createDeal(_: TCtx, data: ICreateDealParams) {
-      return await API.createDeal(data)
+    async createDeal(_: TCtx, { data, adId }: { data: ICreateDealParams, adId: number }) {
+      return await API.createDeal(data, adId)
     },
     async payedDeal(_: TCtx, id: number) {
       return await API.payedDeal(id)

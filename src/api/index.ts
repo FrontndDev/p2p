@@ -6,6 +6,7 @@ import {
 } from "@/api/config.ts";
 import { IGetAdsParams } from "@/interfaces/store/modules/ads.interface.ts";
 import { ICreateRequisiteParams } from "@/interfaces/store/modules/requisites.interface.ts";
+import { ICreateDealParams } from "@/interfaces/store/modules/transactions.interface.ts";
 
 export function setDataToLS(key: string, data: any) {
   localStorage.setItem(key, JSON.stringify(data));
@@ -29,7 +30,7 @@ export async function getAds({ currency, page, min_amount, payment_method_id }: 
 }
 
 export async function getAd(id: number) {
-  return getAsync(`/api/v1/p2p/ads/${id}/deals`)
+  return getAsync(`/api/v1/p2p/ads/${id}`)
 }
 
 export async function getProfileAds(page: number) {
@@ -78,8 +79,8 @@ export async function createAd(data: any) {
   return postAsync(`/api/v1/p2p/profile/ads`, data)
 }
 
-export async function createDeal(data: any) {
-  return postAsync(`/api/v1/p2p/transaction`, data)
+export async function createDeal(data: ICreateDealParams, adId: number) {
+  return postAsync(`/api/v1/p2p/ads/${adId}/deals`, data)
 }
 
 // PUT
