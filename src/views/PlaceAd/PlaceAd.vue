@@ -254,10 +254,15 @@ const inputFactorBlur = () => {
 }
 
 const inputMinTransferBlur = () => {
+  const getValue = (formula: number) => +(maxAmount.value ? maxAmount.value <= formula ? maxAmount.value : formula : undefined)?.toFixed(4)
+
   if (!minAmount.value || minAmount.value < rateUSD.value) {
     useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
     minAmount.value = rateUSD.value
   }
+
+  const value = getValue(price.value * amountOfCurrency.value)
+  if (minAmount.value > value) minAmount.value = value
 }
 
 const inputMaxTransferBlur = () => {
@@ -270,7 +275,9 @@ const inputMaxTransferBlur = () => {
           addError('max_amount', 'Максимальный перевод не может быть меньше минимального')
         } else {
           removeError('max_amount')
-          maxAmount.value = getValue(price.value * amountOfCurrency.value)
+          const value = getValue(price.value * amountOfCurrency.value)
+          if (value < minAmount.value) addError('max_amount', 'Максимальный перевод не может быть меньше минимального')
+          maxAmount.value = value
         }
       } else {
         addError('price', 'Пожалуйста, сперва выставьте цену продажи')

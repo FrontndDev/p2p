@@ -16,6 +16,8 @@ import { useRoute } from "vue-router";
 const store = useStore();
 const route = useRoute();
 
+const transactions = computed(() => store.state.transactions)
+
 const paymentMethods: ComputedRef<ISelect[]> = computed(() => {
   const paymentMethods = store.getters["paymentMethods/paymentMethodsForSelect"]
   return [{ id: '', name: 'Все способы оплаты' }, ...paymentMethods]
@@ -35,7 +37,8 @@ watch(() => route.fullPath, (_, prev) => {
     localStorage.setItem('prevPage', prev)
   }
 
-  store.commit('transactions/CLEAR_INTERVAL')
+  if (transactions.value.interval) store.commit('transactions/CLEAR_INTERVAL')
+  if (store.state.interval) store.commit('CLEAR_INTERVAL')
 })
 
 onBeforeMount(() => {

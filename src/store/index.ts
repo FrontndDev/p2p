@@ -1,5 +1,5 @@
 import {
-    createStore
+  createStore
 } from "vuex";
 import paymentMethods from "@/store/modules/payment-methods";
 import currencies from "@/store/modules/currencies";
@@ -10,27 +10,32 @@ import profile from "@/store/modules/profile.ts";
 import { ITabs } from "@/components/UI/Tabs/tabs.interface.ts";
 
 export default createStore({
-    modules: {
-        currencies,
-        paymentMethods,
-        ads,
-        transactions,
-        requisites,
-        profile,
+  modules: {
+    currencies,
+    paymentMethods,
+    ads,
+    transactions,
+    requisites,
+    profile,
+  },
+  state: {
+    purchaseActiveTab: {} as ITabs,
+    saleActiveTab: {} as ITabs,
+    interval: 0,
+  },
+  actions: {},
+  mutations: {
+    SET_PURCHASE_ACTIVE_TAB(state: any, tab: ITabs) {
+      state.purchaseActiveTab = tab
     },
-    state: {
-        purchaseActiveTab: {} as ITabs,
-        saleActiveTab: {} as ITabs,
+    SET_SALE_ACTIVE_TAB(state: any, tab: ITabs) {
+      state.saleActiveTab = tab
     },
-    actions: {
-
+    SET_INTERVAL(state: any, interval: number) {
+      state.interval = interval
     },
-    mutations: {
-        SET_PURCHASE_ACTIVE_TAB(state: any, tab: ITabs) {
-          state.purchaseActiveTab = tab
-        },
-        SET_SALE_ACTIVE_TAB(state: any, tab: ITabs) {
-          state.saleActiveTab = tab
-        },
+    CLEAR_INTERVAL(state: any) {
+      if (state.interval) clearInterval(state.interval)
     }
+  }
 });
