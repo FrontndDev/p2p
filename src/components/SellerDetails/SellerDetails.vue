@@ -14,7 +14,7 @@
           </li>
           <li class="seller-details__step">
             <div class="seller-details__step-line"/>
-            2. Переведите продавцу<span><span>{{ props.price.amount }} {{ props.price.currency }}</span><CopyIcon/></span>
+            2. Переведите продавцу<span @click="useCopy(props.price.amount)"><span>{{ props.price.amount }} {{ props.price.currency }}</span><CopyIcon/></span>
 
             <div class="seller-details__step-content">
               <div class="seller-details__step-content-item">
