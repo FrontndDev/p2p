@@ -117,7 +117,6 @@ const addRequisite = async () => {
       payment_method: selectedPaymentMethod.value?.id
     }
     const response = await store.dispatch('requisites/createRequisite', data)
-    console.log('response', response)
 
     requestInProcess.value = false
     if (response?.data?.error_code === undefined) {

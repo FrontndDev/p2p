@@ -31,14 +31,17 @@ export default {
     async createAd(_: TCtx, data: IAdParams) {
       return await API.createAd(data).then(response => response)
     },
-    updateAd({ commit }: TCtx, { id, data }: IUpdateAd) {
-      API.updateAd(id, data).then(response => commit('UPDATE_AD', response.data))
+    async updateAd({ commit }: TCtx, { id, data }: IUpdateAd) {
+      return await API.updateAd(id, data).then(response => {
+        commit('UPDATE_AD', response.data)
+        return response
+      })
     },
     async getDetailAd({ commit }: TCtx, id: number) {
       return await API.getAd(id).then(response => commit('SET_DETAIL_AD', response.data.ad))
     },
     updateAdStatus({ commit }: TCtx, id: number) {
-      API.updateAdStatus(id).then(response => commit('UPDATE_DETAIL_AD', response.data.ad))
+      API.updateAdStatus(id).then(() => commit('TOGGLE_DETAIL_AD_STATUS'))
     },
     async deleteAd(_: TCtx, id: number) {
       return await API.deleteAd(id).then(response => response)
@@ -80,6 +83,9 @@ export default {
     UPDATE_DETAIL_AD(state: any, ad: IAd) {
       const index = state.ads?.ads?.findIndex((adSecond: IAd) => ad.id === adSecond.id)
       if (index !== -1 && state.ads?.ads) state.ads.ads[index] = ad
+    },
+    TOGGLE_DETAIL_AD_STATUS(state: any) {
+      state.detailAd.isActive = !state.detailAd.isActive
     },
     ADD_REQUISITE(state: any, requisite: IRequisite) {
       state.profile.requisites.push(requisite)

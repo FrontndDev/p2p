@@ -85,8 +85,6 @@ export async function putAsync(url: string, data: unknown, checkError = true): P
         useShowMessage('red', error.error_message, 'Ошибка:')
       }
 
-      console.log('response', response.data.data)
-
       if (response?.data?.data?.message || response?.data?.message) {
         useShowMessage('green', response?.data?.data?.message || response?.data?.message)
       }

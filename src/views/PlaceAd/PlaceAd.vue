@@ -264,10 +264,10 @@ const inputMinTransferBlur = () => {
     }
 
     const value = getValue(price.value * amountOfCurrency.value)
-    if (minAmount.value > value) minAmount.value = rateUSD.value
+    if (minAmount.value > value) minAmount.value = value
   } else {
     addError('price', 'Пожалуйста, сперва выставьте цену продажи')
-    minAmount.value = undefined
+    minAmount.value = rateUSD.value
   }
 }
 
@@ -305,10 +305,22 @@ const createAd = async () => {
 
   if (!Object.keys(invalidFields.value)?.length && agreement.value) {
     createInProcess.value = true
-    const response = route.name === 'edit-ad' ?
-        await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value }) :
-        await store.dispatch('profile/createAd', data.value)
-    if (response?.result === 'success') await router.push({ name: 'sale' })
+    let response;
+
+    switch (route.name) {
+      case 'place-ad':
+        response = await store.dispatch('profile/createAd', data.value)
+        if (response?.result === 'success') await router.push({ name: 'sale' })
+        break
+      case 'edit-ad':
+        response = await store.dispatch('profile/updateAd', { id: route.params.id, data: data.value })
+        if (response?.result === 'success') {
+          store.commit('profile/SET_DETAIL_AD', response?.data?.ad)
+          setDefaultValues()
+        }
+        console.log('response', response)
+        break;
+    }
   }
   createInProcess.value = false
 }
