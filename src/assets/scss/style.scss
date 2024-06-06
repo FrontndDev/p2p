@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 @import "variables";
 @import "mixins";
-@import "currencies.css";
+@import "currencies";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,9 +152,31 @@ button {
   background-repeat: no-repeat;
   background-position: left center;
   transition: .25s all ease;
+  position: relative;
+
+  &::before {
+    content: '₿';
+    @include flex-center;
+    margin: auto;
+    width: 24px;
+    height: 24px;
+    background: #f79413;
+    @include get-font(10px, 500, .5);
+    border-radius: 50%;
+    color: $text-base-on-color;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
 
   &.small-icon {
     background-size: 16px;
+
+    &::before {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 
