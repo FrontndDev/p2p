@@ -20,11 +20,10 @@ const store = useStore();
 const route = useRoute();
 
 const expiredIn = ref(0);
-const interval = ref(0);
 
 watch(() => expiredIn.value, () => {
   if (!expiredIn.value) {
-    clearInterval(interval.value);
+    store.commit('transactions/CLEAR_SECOND_INTERVAL')
     store.dispatch('transactions/getTransactionInfo', route.params.transactionId);
   }
 });
@@ -32,9 +31,9 @@ watch(() => expiredIn.value, () => {
 onMounted(async () => {
   await store.dispatch('transactions/getTransactionInfo', route.params.transactionId);
   expiredIn.value = store.state.transactions.transactionInfo.status.expiredIn;
-  interval.value = setInterval(() => {
+  store.commit('transactions/SET_SECOND_INTERVAL', setInterval(() => {
     if (expiredIn.value) expiredIn.value--
-  }, 1000);
+  }, 1000))
 
   store.commit('transactions/SET_INTERVAL', setInterval(async () => {
     if (route.params.transactionId) {
