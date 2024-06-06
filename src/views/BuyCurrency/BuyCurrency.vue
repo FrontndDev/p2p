@@ -8,18 +8,23 @@
 <script setup lang="ts">
 import Deal from "@/views/BuyCurrency/Deal/Deal.vue";
 import {
+  computed,
   onMounted,
+  Ref,
   ref,
   watch
 } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
+import { DealEnum } from "@/views/BuyCurrency/Deal/deal.enum.ts";
 // import Chat from "@/components/Chat/Chat.vue";
 
 const store = useStore();
 const route = useRoute();
 
 const expiredIn = ref(0);
+const transactionInfo = computed(() => store.state.transactions.transactionInfo);
+const dealType: Ref<DealEnum> = computed(() => transactionInfo.value.status?.name);
 
 watch(() => expiredIn.value, () => {
   if (!expiredIn.value) {
@@ -35,11 +40,15 @@ onMounted(async () => {
     if (expiredIn.value) expiredIn.value--
   }, 1000))
 
-  store.commit('transactions/SET_INTERVAL', setInterval(async () => {
-    if (route.params.transactionId) {
-      await store.dispatch('transactions/getTransactionInfo', route.params.transactionId)
-    }
-  }, 10000));
+  const exceptions = [DealEnum.completed, DealEnum.cancelled, DealEnum.expired, DealEnum.declined, DealEnum.payment_confirmation_expired]
+
+  if (!exceptions.includes(dealType.value)) {
+    store.commit('transactions/SET_INTERVAL', setInterval(async () => {
+      if (route.params.transactionId) {
+        await store.dispatch('transactions/getTransactionInfo', route.params.transactionId)
+      }
+    }, 10000));
+  }
 });
 </script>
 

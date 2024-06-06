@@ -231,7 +231,7 @@ const payedDeal = async () => {
 }
 
 const goToAds = () => {
-  router.push(localStorage.getItem('prevPage'))
+  router.push({ name: 'sale' })
 }
 </script>
 
