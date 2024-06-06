@@ -116,7 +116,7 @@ const openMessageBox = (callback: Function) => {
 
 const acceptDeal = async (transactionId: number) => {
   const response = await store.dispatch('profile/acceptDeal', transactionId)
-  if (response?.status === 200) goToDeal(transactionId)
+  if (response?.result === 'success') goToDeal(transactionId)
 }
 
 const goToDeal = (transactionId: number) => {

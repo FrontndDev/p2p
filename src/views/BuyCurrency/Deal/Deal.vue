@@ -28,7 +28,7 @@
       </div>
       <SellerDetails
           :payment-method="transactionInfo.requisite.paymentMethod"
-          :price="transactionInfo.price"
+          :price="transactionInfo.outerCurrencyAmount"
           :seller="transactionInfo.seller"
           v-if="DealEnum.accepted === dealType"
       />
@@ -200,8 +200,9 @@ const getDescription = computed(() => {
     case DealEnum.accepted:
       return [];
     case DealEnum.payed:
+      return ['Вы отметили ордер как оплаченный. Дождитесь подтверждения и перевода актива от продавца'];
     case DealEnum.completed:
-      return [`Ваш платеж получен, актив ${transactionInfo.value.outerCurrencyAmount?.currency} был отправлен на ваш аккаунт`];
+      return [`Ваш платеж получен, актив ${transactionInfo.value.innerCurrency} был отправлен на ваш аккаунт`];
     case DealEnum.cancelled:
       return [`Продавец не успел подтвердить заявку в течение ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
     case DealEnum.error:
