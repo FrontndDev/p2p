@@ -113,6 +113,7 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import { useStore } from "vuex";
 import { IAd } from "@/interfaces/store/modules/ads.interface.ts";
 import { useRouter } from "vue-router";
+import { useShowMessage } from "@/composables/useShowMessage.ts";
 
 const props = defineProps({
   dealId: {
@@ -197,13 +198,17 @@ const selectTime = (time: ISelect) => {
 }
 
 const openDeal = async () => {
-  const response = await store.dispatch('transactions/createDeal', {
-    data: { amount: +imGiving.value },
-    adId: selectedDeal.value.id
-  })
-  if (response?.data?.transaction?.id) {
-    emit('close-modal')
-    await router.push({ name: 'deal', params: { transactionId: response.data.transaction.id } })
+  if (imGiving.value) {
+    const response = await store.dispatch('transactions/createDeal', {
+      data: { amount: +imGiving.value },
+      adId: selectedDeal.value.id
+    })
+    if (response?.data?.transaction?.id) {
+      emit('close-modal')
+      await router.push({ name: 'deal', params: { transactionId: response.data.transaction.id } })
+    }
+  } else {
+    useShowMessage('red', 'Заполните все поля')
   }
 }
 
