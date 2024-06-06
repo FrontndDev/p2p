@@ -116,15 +116,15 @@ const priceType = computed(() => {
     case 1:
       return 'fixed'
     case 2:
-      return 'float'
+      return 'dynamic'
   }
 });
 
-const getPriceTypeId = (name: 'fixed' | 'float') => {
+const getPriceTypeId = (name: 'fixed' | 'dynamic') => {
   switch (name) {
     case 'fixed':
       return priceTypes[0]
-    case 'float':
+    case 'dynamic':
       return priceTypes[1]
   }
 }
@@ -151,7 +151,7 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   outer_currency: selectedOuterCurrency.value?.name ?? '',
   price_type: priceType.value ?? '', // percent | float
   price: priceType.value === 'fixed' ? price.value : undefined, // if price_type == fixed
-  factor: priceType.value === 'float' ? factor.value : undefined, // if price_type == float
+  factor: priceType.value === 'dynamic' ? factor.value : undefined, // if price_type == float
   min_amount: minAmount.value,
   max_amount: maxAmount.value,
   requisite_id: selectedPaymentMethod.value?.id ?? null,
@@ -170,7 +170,7 @@ const selectOuterCurrency = async (item: ISelect) => {
   selectedOuterCurrency.value = item
   selectedInnerCurrency.value?.name !== 'USD' ? await setRate(item) : rateUSD.value = actualCurrentRate.value
   minAmount.value = rateUSD.value
-  if (priceType.value === 'float') maxAmount.value = floatPriceTypeMaxAmount.value
+  if (priceType.value === 'dynamic') maxAmount.value = floatPriceTypeMaxAmount.value
 }
 
 const selectPriceType = (item: ISelect) => {
@@ -193,7 +193,7 @@ const setInvalidFields = () => {
   delete copyData.comment
 
   switch (priceType.value) {
-    case 'float':
+    case 'dynamic':
       delete copyData.price
       break;
     case 'fixed':
@@ -290,7 +290,7 @@ const inputMaxTransferBlur = () => {
         maxAmount.value = undefined
       }
       break;
-    case 'float':
+    case 'dynamic':
       maxAmount.value = getValue(floatPriceTypeMaxAmount.value)
       break;
   }
