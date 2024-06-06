@@ -13,7 +13,7 @@ const BASE_URL = __IS_DEV__ ? devUrl : window.location.origin;
 const getRequests: string[] = [];
 
 const checkUserIsModer = (error: AxiosError) => {
-  const errorData = (error.response as AxiosResponse).data
+  const errorData = (error.response as AxiosResponse)?.data
   const showMessage = () => {
     const getMessage = () => {
       switch (typeof errorData.error_message) {
@@ -83,6 +83,12 @@ export async function putAsync(url: string, data: unknown, checkError = true): P
       if (response?.data?.error_code !== undefined) {
         const error = response.data
         useShowMessage('red', error.error_message, 'Ошибка:')
+      }
+
+      console.log('response', response.data.data)
+
+      if (response?.data?.data?.message || response?.data?.message) {
+        useShowMessage('green', response?.data?.data?.message || response?.data?.message)
       }
 
       if (response.status === 200 || response.status === 202) {

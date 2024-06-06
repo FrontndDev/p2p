@@ -24,7 +24,7 @@
           <div class="my-purchases-and-deals__info-sum">{{ row.sum }}</div>
         </div>
         <div class="my-purchases-and-deals__status" :class="row.status">{{ row.statusTranslate }}</div>
-        <div class="my-purchases-and-deals__order-id">
+        <div class="my-purchases-and-deals__order-id" @click="useCopy(row.orderId)">
           <span>ID ордера</span>
 
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,6 +86,7 @@ import Pagination from "@/components/UI/Pagination/Pagination.vue";
 import { useStore } from "vuex";
 import { ITransactionsHistory } from "@/interfaces/store/modules/transactions.interface.ts";
 import Preloader from "@/components/UI/Preloader/Preloader.vue";
+import { useCopy } from "@/composables/useCopy.ts";
 
 const props = defineProps({
   type: {

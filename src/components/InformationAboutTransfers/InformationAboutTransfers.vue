@@ -29,22 +29,6 @@ const data = reactive([
     title: 'Процент успешных',
     value: computed(() => statistics.value?.successPercent + '%')
   },
-  {
-    id: 3,
-    title: 'Скорость перевода',
-    value: computed(() => {
-      const value = (statistics.value?.releaseTime / 60).toFixed(0)
-      return +value ? value + ' min' : '0 min'
-    })
-  },
-  {
-    id: 4,
-    title: 'Скорость оплаты',
-    value: computed(() => {
-      const value = (statistics.value?.paymentTime / 60).toFixed(0)
-      return +value ? value + ' min' : '0 min'
-    })
-  },
 ]);
 
 const getTitle = (title: string) => {
@@ -66,12 +50,12 @@ const getTitle = (title: string) => {
     @include flexbox(column);
     row-gap: 4px;
     padding: 16px;
-    width: 25%;
+    width: 50%;
     border-radius: 16px;
     background: $bg-base;
 
     &-title {
-      @include flexbox(column);
+      //@include flexbox(column);
       @include get-font(14px, 500, 20px, $text-base-light);
     }
 

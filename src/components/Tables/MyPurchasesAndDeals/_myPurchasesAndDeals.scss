@@ -65,6 +65,10 @@
         background: $bg-red;
       }
     }
+
+    &.payment_confirmation_expired::before {
+      background: $bg-primary-default;
+    }
   }
 
   &__order-id {

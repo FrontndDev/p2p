@@ -98,7 +98,7 @@ export async function updateAdStatus(id: number) {
 }
 
 export async function acceptDeal(id: number) {
-  return putAsync(`/api/v1/p2p/profile/transaction/status/${id}`, {})
+  return putAsync(`/api/v1/p2p/profile/transaction/${id}`, {})
 }
 
 export async function cancelDeal(id: number) {

@@ -248,6 +248,7 @@ const inputFactor = (value: string) => {
 }
 
 const inputFactorBlur = () => {
+  if (factor.value < 50) factor.value = 50
   factor.value < 50 || factor.value > 150 ?
       addError('factor', 'Значение множителя должно быть в диапозоне от 50 до 150') :
       removeError('factor')
@@ -256,13 +257,18 @@ const inputFactorBlur = () => {
 const inputMinTransferBlur = () => {
   const getValue = (formula: number) => +(maxAmount.value ? maxAmount.value <= formula ? maxAmount.value : formula : undefined)?.toFixed(4)
 
-  if (!minAmount.value || minAmount.value < rateUSD.value) {
-    useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
-    minAmount.value = rateUSD.value
-  }
+  if (price.value) {
+    if (!minAmount.value || minAmount.value < rateUSD.value) {
+      useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
+      minAmount.value = rateUSD.value
+    }
 
-  const value = getValue(price.value * amountOfCurrency.value)
-  if (minAmount.value > value) minAmount.value = value
+    const value = getValue(price.value * amountOfCurrency.value)
+    if (minAmount.value > value) minAmount.value = rateUSD.value
+  } else {
+    addError('price', 'Пожалуйста, сперва выставьте цену продажи')
+    minAmount.value = undefined
+  }
 }
 
 const inputMaxTransferBlur = () => {
