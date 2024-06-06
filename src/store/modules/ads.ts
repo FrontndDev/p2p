@@ -26,7 +26,7 @@ export default {
         payment_method_id: rootState.paymentMethods.selectedPaymentMethod.id
       }
       if (!Object.values(data).includes(undefined)) {
-        API.getAds(data).then(response => commit('SET_ADS', response.data))
+        API.getAds(data).then(response => commit('SET_ADS', response?.data))
       }
     },
   },

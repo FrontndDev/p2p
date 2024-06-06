@@ -46,6 +46,7 @@ import {
   onMounted,
   PropType,
   ref,
+  watch,
 } from "vue";
 import MyInput from "@/components/UI/MyInput/MyInput.vue";
 import {
@@ -78,6 +79,7 @@ const route = useRoute();
 const store = useStore();
 
 const timeout = ref(0);
+const canSendRequest = ref(false);
 
 const getTabByRouteName = computed(() => {
   if (props.tabs) {
@@ -178,9 +180,12 @@ const inputValue = (value: string) => {
 }
 
 const keyUpOrBlur = () => {
-  store.commit('ads/SET_ADS', null)
-  clearTimeout(timeout.value)
-  getAds()
+  if (canSendRequest.value) {
+    store.commit('ads/SET_ADS', null)
+    clearTimeout(timeout.value)
+    getAds()
+    canSendRequest.value = false
+  }
 }
 
 const getAds = async () => {
@@ -190,6 +195,11 @@ const getAds = async () => {
 const setTab = (tab: ITabs) => {
   emit('set-tab', tab)
 }
+
+watch(() => sum.value, (oldV, newV) => {
+  console.log('values', oldV, newV)
+  canSendRequest.value = oldV !== newV
+})
 
 onMounted(() => {
   store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
