@@ -257,18 +257,39 @@ const inputFactorBlur = () => {
 const inputMinTransferBlur = () => {
   const getValue = (formula: number) => +(maxAmount.value ? maxAmount.value <= formula ? maxAmount.value : formula : undefined)?.toFixed(4)
 
-  if (price.value) {
-    if (!minAmount.value || minAmount.value < rateUSD.value) {
-      useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
-      minAmount.value = rateUSD.value
-    }
+  switch (priceType.value) {
+    case 'fixed':
+      if (price.value) {
+        if (!minAmount.value || minAmount.value < rateUSD.value) {
+          useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
+          minAmount.value = rateUSD.value
+        }
 
-    const value = getValue(price.value * amountOfCurrency.value)
-    if (minAmount.value > value) minAmount.value = value
-  } else if (priceType.value === 'fixed') {
-    addError('price', 'Пожалуйста, сперва выставьте цену продажи')
-    minAmount.value = rateUSD.value
+        const value = getValue(price.value * amountOfCurrency.value)
+        if (minAmount.value > value) minAmount.value = value
+      } else {
+        addError('price', 'Пожалуйста, сперва выставьте цену продажи')
+        minAmount.value = rateUSD.value
+      }
+      break;
+    case 'dynamic':
+      if (minAmount.value > floatPriceTypeMaxAmount.value) minAmount.value = floatPriceTypeMaxAmount.value;
+      if (minAmount.value > maxAmount.value) addError('max_amount', 'Максимальный перевод не может быть меньше минимального')
+      break;
   }
+
+  // if (price.value) {
+  //   if (!minAmount.value || minAmount.value < rateUSD.value) {
+  //     useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
+  //     minAmount.value = rateUSD.value
+  //   }
+  //
+  //   const value = getValue(price.value * amountOfCurrency.value)
+  //   if (minAmount.value > value) minAmount.value = value
+  // } else if (priceType.value) {
+  //   addError('price', 'Пожалуйста, сперва выставьте цену продажи')
+  //   minAmount.value = rateUSD.value
+  // }
 }
 
 const inputMaxTransferBlur = () => {
