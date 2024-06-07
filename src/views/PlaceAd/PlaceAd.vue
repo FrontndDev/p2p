@@ -277,19 +277,6 @@ const inputMinTransferBlur = () => {
       if (minAmount.value > maxAmount.value) addError('max_amount', 'Максимальный перевод не может быть меньше минимального')
       break;
   }
-
-  // if (price.value) {
-  //   if (!minAmount.value || minAmount.value < rateUSD.value) {
-  //     useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
-  //     minAmount.value = rateUSD.value
-  //   }
-  //
-  //   const value = getValue(price.value * amountOfCurrency.value)
-  //   if (minAmount.value > value) minAmount.value = value
-  // } else if (priceType.value) {
-  //   addError('price', 'Пожалуйста, сперва выставьте цену продажи')
-  //   minAmount.value = rateUSD.value
-  // }
 }
 
 const inputMaxTransferBlur = () => {
