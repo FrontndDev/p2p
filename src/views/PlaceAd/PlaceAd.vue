@@ -14,7 +14,7 @@
         :comment="comment"
         :invalid-fields="invalidFields"
         :rateUSD="rateUSD"
-        @select-inner-currency="(item: ISelect) => selectedInnerCurrency = item"
+        @select-inner-currency="selectInnerCurrency"
         @select-outer-currency="selectOuterCurrency"
         @select-price-type="selectPriceType"
         @input-selling-price="inputSellingPrice"
@@ -166,11 +166,19 @@ const setRate = async (item: ISelect) => {
   rateUSD.value = +response.data.rate
 }
 
+const selectInnerCurrency = (item: ISelect) => {
+  selectedInnerCurrency.value = item
+  if (priceType.value === 'dynamic') getCurrentRate()
+}
+
 const selectOuterCurrency = async (item: ISelect) => {
   selectedOuterCurrency.value = item
   selectedInnerCurrency.value?.name !== 'USD' ? await setRate(item) : rateUSD.value = actualCurrentRate.value
   minAmount.value = rateUSD.value
-  if (priceType.value === 'dynamic') maxAmount.value = floatPriceTypeMaxAmount.value
+  if (priceType.value === 'dynamic') {
+    maxAmount.value = floatPriceTypeMaxAmount.value
+    getCurrentRate()
+  }
 }
 
 const selectPriceType = (item: ISelect) => {
@@ -181,6 +189,7 @@ const selectPriceType = (item: ISelect) => {
       break;
     case 2:
       maxAmount.value = floatPriceTypeMaxAmount.value
+      getCurrentRate()
       break;
   }
 }
@@ -333,6 +342,18 @@ const createAd = async () => {
   createInProcess.value = false
 }
 
+const getCurrentRate = (
+    from = selectedInnerCurrency.value.name,
+    to = selectedOuterCurrency.value.name,
+) => {
+  if (from && to) {
+    store.commit('CLEAR_INTERVAL')
+    store.commit('SET_INTERVAL', setInterval(() => {
+      store.dispatch('currencies/getCurrencyRate', { from, to })
+    }, 60000))
+  }
+}
+
 const setDefaultValues = () => {
   price.value = +detailAd.value.price.amount
   minAmount.value = +detailAd.value.minAmount.amount
@@ -351,6 +372,8 @@ const setDefaultValues = () => {
   selectedPriceType.value = getPriceTypeId(detailAd.value.priceType)
   agreement.value = true
   copyData.value = data.value
+
+  if (priceType.value === 'dynamic') getCurrentRate()
 }
 
 watch(() => requisites.value && detailAd.value?.id, () => {

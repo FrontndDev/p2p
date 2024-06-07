@@ -426,9 +426,6 @@ onMounted(() => {
   selectInnerCurrency(innerCurrencies.value[0])
   selectOuterCurrency(outerCurrencies.value[0])
   getCurrentRate(innerCurrencies.value[0].name, outerCurrencies.value[0].name)
-  store.commit('SET_INTERVAL', setInterval(() => {
-    getCurrentRate(innerCurrencies.value[0].name, outerCurrencies.value[0].name)
-  }, 10000))
   if (paymentMethods.value) selectPaymentMethod(paymentMethods.value[0])
   if (times.value) selectTime(times.value[0])
 
