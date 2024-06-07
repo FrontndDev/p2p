@@ -185,11 +185,12 @@ const selectPriceType = (item: ISelect) => {
   selectedPriceType.value = item
   switch (item.id) {
     case 1:
-      maxAmount.value = undefined
+      maxAmount.value = undefined;
+      store.commit('CLEAR_INTERVAL');
       break;
     case 2:
-      maxAmount.value = floatPriceTypeMaxAmount.value
-      getCurrentRate()
+      maxAmount.value = floatPriceTypeMaxAmount.value;
+      getCurrentRate();
       break;
   }
 }
