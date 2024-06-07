@@ -265,7 +265,7 @@ const inputMinTransferBlur = () => {
 
     const value = getValue(price.value * amountOfCurrency.value)
     if (minAmount.value > value) minAmount.value = value
-  } else {
+  } else if (priceType.value === 'fixed') {
     addError('price', 'Пожалуйста, сперва выставьте цену продажи')
     minAmount.value = rateUSD.value
   }
