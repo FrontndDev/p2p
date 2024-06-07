@@ -120,7 +120,7 @@ const addRequisite = async () => {
 
     requestInProcess.value = false
     if (response?.data?.error_code === undefined) {
-      emit('close-modal')
+      emit('close-modal', response?.data?.requisite)
     }
   }
 }

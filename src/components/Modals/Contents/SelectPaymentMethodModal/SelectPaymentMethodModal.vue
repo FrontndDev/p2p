@@ -114,8 +114,9 @@ const selectPaymentMethod = () => {
   }
 };
 
-const closeShowAddRequisitesModal = () => {
+const closeShowAddRequisitesModal = (requisite?: IRequisite) => {
   showAddRequisitesModal.value = false
+  if (requisite) setPaymentMethod(requisite)
 };
 </script>
 
