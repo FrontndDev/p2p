@@ -24,13 +24,13 @@
                   <CopyIcon/>
                 </div>
               </div>
-<!--              <div class="seller-details__step-content-item">-->
-<!--                <div>Реквизиты</div>-->
-<!--                <div>-->
-<!--                  1234 4567 0000 7412-->
-<!--                  <CopyIcon/>-->
-<!--                </div>-->
-<!--              </div>-->
+              <div class="seller-details__step-content-item">
+                <div>Реквизиты</div>
+                <div @click="useCopy(props.requisite)">
+                  {{ props.requisite }}
+                  <CopyIcon/>
+                </div>
+              </div>
             </div>
           </li>
         </ol>
@@ -61,6 +61,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  requisite: {
+    type: String,
+    requited: true,
+  }
 })
 </script>
 

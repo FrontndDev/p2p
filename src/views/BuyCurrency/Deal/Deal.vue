@@ -30,6 +30,7 @@
           :payment-method="transactionInfo.requisite.paymentMethod"
           :price="transactionInfo.outerCurrencyAmount"
           :seller="transactionInfo.seller"
+          :requisite="transactionInfo.requisite.requisite"
           v-if="DealEnum.accepted === dealType"
       />
     </div>
