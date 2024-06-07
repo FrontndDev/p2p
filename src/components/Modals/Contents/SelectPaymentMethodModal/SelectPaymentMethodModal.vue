@@ -76,6 +76,7 @@ import {
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import { useStore } from "vuex";
 import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
+import { useShowMessage } from "@/composables/useShowMessage.ts";
 
 const showAddRequisitesModal = ref(false);
 
@@ -110,7 +111,9 @@ const setPaymentMethod = (requisite: IRequisite) => {
 const selectPaymentMethod = () => {
   if (selectedPaymentMethod.value) {
     emit('select-payment-method', selectedPaymentMethod.value);
-    emit('close-modal')
+    emit('close-modal');
+  } else {
+    useShowMessage('red', 'Необходимо выбрать способ оплаты');
   }
 };
 
