@@ -190,6 +190,7 @@ const selectPriceType = (item: ISelect) => {
       break;
     case 2:
       maxAmount.value = floatPriceTypeMaxAmount.value;
+      factor.value = 110;
       getCurrentRate();
       break;
   }
@@ -360,7 +361,7 @@ const setDefaultValues = () => {
   minAmount.value = +detailAd.value.minAmount.amount
   maxAmount.value = +detailAd.value.maxAmount.amount
   comment.value = detailAd.value.authorComment
-  const requisite: ISelect | undefined = requisites.value?.find((requisite: IRequisite) => requisite.id === detailAd.value.requisite.id)
+  const requisite: ISelect | undefined = requisites.value?.find((requisite: IRequisite) => requisite.id === detailAd.value?.requisite?.id)
   const innerCurrency = innerCurrencies.value?.find(currency => currency.name === detailAd.value.currencyForBuy)
   const outerCurrency = outerCurrencies.value?.find(currency => currency.name === detailAd.value.currencyForSell)
   const time = times.value?.find(time => +time.name === detailAd.value.paymentWindow);
