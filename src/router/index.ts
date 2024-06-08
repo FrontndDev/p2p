@@ -41,7 +41,7 @@ const routes = [
             name: 'deal',
             component: BuyCurrency,
             meta: {
-              title: 'Купить USD',
+              title: 'Купить ...',
               action: 'Отменить сделку'
             }
           },
@@ -50,9 +50,8 @@ const routes = [
             name: 'place-ad',
             component: PlaceAd,
             meta: {
-              title: 'Разместить объявление',
               action: ''
-            }
+            },
           },
           {
             path: 'edit-ad/:id',
