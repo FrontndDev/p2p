@@ -159,7 +159,9 @@ const data: ComputedRef<IAdParams> = computed(() => ({
   payment_window: +selectedTime.value?.name,
 }));
 
-const floatPriceTypeMaxAmount = computed(() => (factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value)
+const floatPriceTypeMaxAmount = computed(() =>
+    ((factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value).toFixed(4)
+)
 
 const setRate = async (item: ISelect) => {
   const response = await getCurrencyRate({ from: 'USD', to: item.name })
