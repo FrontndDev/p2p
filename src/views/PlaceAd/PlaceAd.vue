@@ -160,7 +160,7 @@ const data: ComputedRef<IAdParams> = computed(() => ({
 }));
 
 const floatPriceTypeMaxAmount = computed(() =>
-    ((factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value).toFixed(4)
+    +((factor.value / 100) * actualCurrentRate.value * amountOfCurrency.value).toFixed(4)
 )
 
 const setRate = async (item: ISelect) => {
