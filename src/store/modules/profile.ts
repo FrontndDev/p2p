@@ -40,8 +40,8 @@ export default {
     async getDetailAd({ commit }: TCtx, id: number) {
       return await API.getAd(id).then(response => commit('SET_DETAIL_AD', response.data.ad))
     },
-    updateAdStatus(_: TCtx, id: number) {
-      API.updateAdStatus(id)
+    async updateAdStatus(_: TCtx, id: number) {
+      return await API.updateAdStatus(id).then(response => response)
     },
     async deleteAd(_: TCtx, id: number) {
       return await API.deleteAd(id).then(response => response)

@@ -222,8 +222,9 @@ const deleteAd = async () => {
   await router.push({ name: 'sale' })
 }
 
-const toggleStatusAd = () => {
-  store.dispatch('profile/updateAdStatus', detailAd.value.id)
+const toggleStatusAd = async () => {
+  const response = await store.dispatch('profile/updateAdStatus', detailAd.value.id)
+  if (response?.result === 'success') await router.push({ name: 'sale' })
 }
 
 const goBack = () => {
