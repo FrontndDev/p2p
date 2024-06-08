@@ -164,7 +164,7 @@ const activeBtn = computed(() =>
 );
 
 const showProgressBar = computed(() =>
-    [DealEnum.accepted, DealEnum.payed, DealEnum.declined, DealEnum.payment_confirmation_expired].includes(dealType.value)
+    [DealEnum.accepted, DealEnum.payed, DealEnum.payment_confirmation_expired].includes(dealType.value)
 )
 
 const getMessageTimeIcon = computed(() => {
@@ -212,6 +212,7 @@ const getDescription = computed(() => {
     case DealEnum.error:
       return ['Ошибка'];
     case DealEnum.declined:
+      return [`Продавец не успел подтвердить заявку в течение ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
     case DealEnum.payment_confirmation_expired:
       return ['Вы отметили ордер как оплаченный. Дождитесь подтверждения и перевода актива от продавца'];
     case DealEnum.expired:
