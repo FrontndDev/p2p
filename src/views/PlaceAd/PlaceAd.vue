@@ -352,6 +352,7 @@ const getCurrentRate = (
     to = selectedOuterCurrency.value.name,
 ) => {
   if (from && to) {
+    store.dispatch('currencies/getCurrencyRate', { from, to })
     store.commit('CLEAR_INTERVAL')
     store.commit('SET_INTERVAL', setInterval(() => {
       store.dispatch('currencies/getCurrencyRate', { from, to })
