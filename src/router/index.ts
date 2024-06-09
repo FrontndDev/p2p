@@ -41,7 +41,6 @@ const routes = [
             name: 'deal',
             component: BuyCurrency,
             meta: {
-              title: 'Купить ...',
               action: 'Отменить сделку'
             }
           },

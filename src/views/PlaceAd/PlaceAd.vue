@@ -110,6 +110,7 @@ const priceTypes = reactive([
 const detailAd = computed(() => store.state.profile.detailAd);
 const currencies = computed(() => store.state.currencies);
 const profile = computed(() => store.state.profile);
+const transactions = computed(() => store.state.transactions);
 
 const priceType = computed(() => {
   switch (selectedPriceType.value?.id) {
@@ -174,7 +175,7 @@ const selectInnerCurrency = (item: ISelect) => {
 }
 
 const selectOuterCurrency = async (item: ISelect) => {
-  console.log('item', item)
+  transactions.value.transactionInfo.innerCurrency = item.name
   selectedOuterCurrency.value = item
   await setRate(item)
   minAmount.value = rateUSD.value
