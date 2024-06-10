@@ -54,7 +54,7 @@
               name="Принять"
               :legend="row?.legend"
               v-if="props.type === 'deals' && row.status === 'pending'"
-              @click="emit('accept', row.orderId)"
+              @click="accept(row.orderId)"
           />
         </div>
       </div>
@@ -95,7 +95,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['more-details', 'accept'])
+const emit = defineEmits(['more-details'])
 
 const store = useStore();
 
@@ -197,6 +197,10 @@ const loadData = () => {
       store.dispatch('transactions/getProfileTransactionInfo', selectedPage.value)
       break;
   }
+}
+
+const accept = (orderId: number) => {
+  store.dispatch('profile/acceptDeal', orderId)
 }
 
 const selectPage = (page: number) => {

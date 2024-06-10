@@ -47,7 +47,6 @@
     <MyPurchasesAndDeals
         type="deals"
         v-else-if="activeTab.id === 2"
-        @accept="acceptDeal"
         @more-details="goToDeal"
     />
   </div>
@@ -112,11 +111,6 @@ const openMessageBox = (callback: Function) => {
   !telegramActive.value ? useMessageBox('Для добавления реквизитов необходимо подключение к Telegram Bot').then(() => {
     window.open('/app/profile/edit#tab-telegram.', '_self')
   }) : callback()
-}
-
-const acceptDeal = async (transactionId: number) => {
-  const response = await store.dispatch('profile/acceptDeal', transactionId)
-  if (response?.result === 'success') goToDeal(transactionId)
 }
 
 const goToDeal = (transactionId: number) => {

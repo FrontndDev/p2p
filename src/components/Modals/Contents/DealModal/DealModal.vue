@@ -45,7 +45,7 @@
                 </div>
                 <div class="deal-modal__info-item">
                   <div class="deal-modal__info-item-title">Окно оплаты</div>
-                  <div class="deal-modal__info-item-value">15 минут</div>
+                  <div class="deal-modal__info-item-value">{{ selectedDeal.paymentWindow }} минут</div>
                 </div>
               </div>
 
