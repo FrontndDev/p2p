@@ -39,6 +39,7 @@ watch(() => route.fullPath, (_, prev) => {
 
   if (transactions.value.interval) store.commit('transactions/CLEAR_INTERVAL')
   if (store.state.interval) store.commit('CLEAR_INTERVAL')
+  setTimeout(() => window.scrollTo(0, 0))
 })
 
 onBeforeMount(() => {
