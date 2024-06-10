@@ -222,8 +222,8 @@ const getDescription = computed(() => {
 
 const cancelDeal = async () => {
   if (transactionInfo.value.canBeCanceled) {
-    await store.dispatch('profile/cancelDeal', +route.params.transactionId);
-    await router.push({ name: 'purchase' })
+    store.dispatch('profile/cancelDeal', +route.params.transactionId);
+    router.push({ name: 'purchase' })
   }
 }
 
