@@ -207,16 +207,16 @@ const getDescription = computed(() => {
       return ['Вы отметили ордер как оплаченный. Дождитесь подтверждения и перевода актива от продавца'];
     case DealEnum.completed:
       return [`Ваш платеж получен, актив ${transactionInfo.value.innerCurrency} был отправлен на ваш аккаунт`];
-    case DealEnum.cancelled:
-      return [`Продавец не успел подтвердить заявку в течение ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
-    case DealEnum.error:
-      return ['Ошибка'];
+    // case DealEnum.cancelled:
+    //   return [`Продавец не успел подтвердить заявку в течение ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
     case DealEnum.declined:
-      return [`Продавец не успел подтвердить заявку в течение ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
-    case DealEnum.payment_confirmation_expired:
-      return ['Вы отметили ордер как оплаченный. Дождитесь подтверждения и перевода актива от продавца'];
+      return [`Продавец не подтвердил заявку в течении ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
     case DealEnum.expired:
       return [`Продавец не успел подтвердить заявку в течении ${transactionInfo.value.status?.expirationTime ?? 15} минут`];
+    case DealEnum.error:
+      return ['Ошибка'];
+    case DealEnum.payment_confirmation_expired:
+      return ['Вы отметили ордер как оплаченный. Дождитесь подтверждения и перевода актива от продавца'];
   }
 });
 
