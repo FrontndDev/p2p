@@ -115,14 +115,14 @@ const selects: ComputedRef<ISelects[]> = computed(() => [
     id: 1,
     title: 'Покупаю',
     placeholder: 'Выберите валюту',
-    items: innerCurrencies.value,
+    items: [{ id: 0, name: 'Любая валюта' }, ...innerCurrencies.value],
     selectedItem: computed(() => innerCurrency.value)
   },
   {
     id: 2,
     title: 'Отдаю',
     placeholder: 'Выберите валюту',
-    items: outerCurrencies.value,
+    items: [{ id: 0, name: 'Любая валюта' }, ...outerCurrencies.value],
     selectedItem: computed(() => outerCurrency.value)
   },
   {
@@ -150,11 +150,11 @@ const selectItem = async (item: ISelect, id: number) => {
   switch (id) {
     case 1:
       // Выбираем валюту которую покупаем
-      store.commit('currencies/SET_INNER_CURRENCY', item);
+      store.commit('currencies/SET_INNER_CURRENCY', !item.id ? { ...item, name: '' } : item);
       break;
     case 2:
       // Выбираем валюту которую отдаём
-      store.commit('currencies/SET_OUTER_CURRENCY', item);
+      store.commit('currencies/SET_OUTER_CURRENCY', !item.id ? { ...item, name: '' } : item);
       // При смене внутренней валюты получаем доступные способы оплаты
       await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
         store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
