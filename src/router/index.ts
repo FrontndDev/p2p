@@ -12,9 +12,18 @@ import PlaceAd from "@/views/PlaceAd/PlaceAd.vue";
 // @ts-ignore
 const baseUrl: string = '/app/p2p/new'
 
+function getDefaultRoute(): string {
+  const appElement = document.getElementById('p2p-app');
+  if (appElement) {
+    const defaultRoute = appElement.getAttribute('default-route');
+    return defaultRoute || '/app/p2p';
+  }
+  return '/app/p2p';
+}
+
 const routes = [
   {
-    path: baseUrl,
+    path: getDefaultRoute(),
     children: [
       {
         path: '',

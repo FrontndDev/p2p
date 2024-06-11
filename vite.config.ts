@@ -30,5 +30,5 @@ export default defineConfig({
             }
         }
     },
-    base: '/app/p2p/new'
+    base: '/app/p2p'
 })
