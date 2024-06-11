@@ -156,7 +156,7 @@ const selectItem = async (item: ISelect, id: number) => {
       // Выбираем валюту которую отдаём
       store.commit('currencies/SET_OUTER_CURRENCY', !item.id ? { ...item, name: '' } : item);
       // При смене внутренней валюты получаем доступные способы оплаты
-      await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.name).then(() => {
+      await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.id ? item.name : '').then(() => {
         store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
       });
       break;

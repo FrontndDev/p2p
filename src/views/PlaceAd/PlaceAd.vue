@@ -183,7 +183,7 @@ const selectOuterCurrency = async (item: ISelect) => {
   }
 }
 
-const selectPriceType = (item: ISelect) => {
+const selectPriceType = async (item: ISelect) => {
   selectedPriceType.value = item
   switch (item.id) {
     case 1:
@@ -191,9 +191,9 @@ const selectPriceType = (item: ISelect) => {
       store.commit('CLEAR_INTERVAL');
       break;
     case 2:
-      maxAmount.value = floatPriceTypeMaxAmount.value;
       factor.value = 110;
-      getCurrentRate();
+      await getCurrentRate();
+      maxAmount.value = floatPriceTypeMaxAmount.value
       break;
   }
 }
@@ -346,12 +346,12 @@ const createAd = async () => {
   createInProcess.value = false
 }
 
-const getCurrentRate = (
+const getCurrentRate = async (
     from = selectedInnerCurrency.value.name,
     to = selectedOuterCurrency.value.name,
 ) => {
   if (from && to) {
-    store.dispatch('currencies/getCurrencyRate', { from, to })
+    await store.dispatch('currencies/getCurrencyRate', { from, to })
     store.commit('CLEAR_INTERVAL')
     store.commit('SET_INTERVAL', setInterval(() => {
       store.dispatch('currencies/getCurrencyRate', { from, to })

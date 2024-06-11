@@ -11,8 +11,8 @@ export default {
     selectedPaymentMethod: {} as ISelect,
   },
   actions: {
-    async getPaymentMethodsByCurrency({ commit }: TCtx, currency: string) {
-      if (currency) {
+    async getPaymentMethodsByCurrency({ commit }: TCtx, currency?: string) {
+      if (currency !== undefined) {
         return await API.getPaymentMethodsByCurrency(currency).then(response => {
           commit('SET_PAYMENT_METHODS', response.data.payment_methods)
 

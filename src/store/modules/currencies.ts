@@ -45,9 +45,10 @@ export default {
         return response
       })
     },
-    getCurrencyRate({ commit }: TCtx, data: { from: number, to: number }) {
-      API.getCurrencyRate(data).then(response => {
+    async getCurrencyRate({ commit }: TCtx, data: { from: number, to: number }) {
+      await API.getCurrencyRate(data).then(response => {
         if (response?.data?.rate) commit('SET_CURRENT_RATE', response?.data?.rate)
+        return response
       })
     }
   },
