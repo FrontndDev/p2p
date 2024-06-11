@@ -13,7 +13,6 @@
     "axios": "^1.6.4",
     "dotenv": "^16.3.1",
     "element-plus": "^2.7.3",
-    "jsdom": "^24.1.0",
     "lodash": "^4.17.21",
     "vue": "^3.3.11",
     "vue-advanced-chat": "^2.0.11",
