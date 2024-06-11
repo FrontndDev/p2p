@@ -164,7 +164,7 @@ const floatPriceTypeMaxAmount = computed(() =>
 )
 
 const setRate = async (item: ISelect) => {
-  const response = await getCurrencyRate({ from: 'USD', to: item.name })
+  const response = await store.dispatch('currencies/getCurrencyRate', { from: 'USD', to: item.name })
   rateUSD.value = +response.data.rate
 }
 
@@ -179,7 +179,6 @@ const selectOuterCurrency = async (item: ISelect) => {
   minAmount.value = rateUSD.value
   if (priceType.value === 'dynamic') {
     maxAmount.value = floatPriceTypeMaxAmount.value
-    getCurrentRate()
   }
 }
 
@@ -388,6 +387,7 @@ watch(() => requisites.value && detailAd.value?.id, () => {
 })
 
 onMounted(() => {
+  store.commit('transactions/SET_TRANSACTION_INFO', {})
   if (detailAd.value?.id === +route.params.id && route.name === 'edit-ad') {
     setDefaultValues()
   }
