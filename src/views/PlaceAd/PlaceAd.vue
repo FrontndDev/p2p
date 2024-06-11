@@ -359,6 +359,7 @@ const getCurrentRate = async (
 }
 
 const setDefaultValues = () => {
+  selectedPriceType.value = getPriceTypeId(detailAd.value.priceType)
   price.value = +detailAd.value.price.amount
   minAmount.value = +detailAd.value.minAmount.amount
   maxAmount.value = +detailAd.value.maxAmount.amount
@@ -373,7 +374,6 @@ const setDefaultValues = () => {
   if (outerCurrency) selectedOuterCurrency.value = outerCurrency
   if (time) selectedTime.value = time
   factor.value = detailAd.value.pricePercent
-  selectedPriceType.value = getPriceTypeId(detailAd.value.priceType)
   agreement.value = true
   copyData.value = data.value
 
