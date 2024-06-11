@@ -16,10 +16,12 @@ export default {
   },
   actions: {
     getAds({ commit, state, rootState }: TCtx) {
+      const innerCur = rootState.currencies.innerCurrency
+      const innerOut = rootState.currencies.outerCurrency
       const data: IGetAdsParams = {
         currency: {
-          inner: rootState.currencies.innerCurrency?.name ?? '',
-          outer: rootState.currencies.outerCurrency?.name ?? '',
+          inner: innerCur.id ? innerCur?.name ?? '' : '',
+          outer: innerOut.id ? innerOut?.name ?? '' : '',
         },
         page: state.page,
         min_amount: state.minAmount ? +state.minAmount : 0,

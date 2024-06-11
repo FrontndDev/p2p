@@ -150,11 +150,11 @@ const selectItem = async (item: ISelect, id: number) => {
   switch (id) {
     case 1:
       // Выбираем валюту которую покупаем
-      store.commit('currencies/SET_INNER_CURRENCY', !item.id ? { ...item, name: '' } : item);
+      store.commit('currencies/SET_INNER_CURRENCY', item);
       break;
     case 2:
       // Выбираем валюту которую отдаём
-      store.commit('currencies/SET_OUTER_CURRENCY', !item.id ? { ...item, name: '' } : item);
+      store.commit('currencies/SET_OUTER_CURRENCY', item);
       // При смене внутренней валюты получаем доступные способы оплаты
       await store.dispatch('paymentMethods/getPaymentMethodsByCurrency', item.id ? item.name : '').then(() => {
         store.commit('paymentMethods/SET_SELECTED_PAYMENT_METHOD', paymentMethods.value[0])
