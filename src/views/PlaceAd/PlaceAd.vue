@@ -72,7 +72,6 @@ import {
 import { IRequisite } from "@/interfaces/store/modules/profile.interface.ts";
 import _ from 'lodash';
 import { useShowMessage } from "@/composables/useShowMessage.ts";
-import { getCurrencyRate } from "@/api";
 
 const store = useStore();
 const router = useRouter();
@@ -187,11 +186,16 @@ const selectPriceType = async (item: ISelect) => {
   switch (item.id) {
     case 1:
       maxAmount.value = undefined;
+      if (selectedInnerCurrency.value.name === 'USD' && minAmount.value < rateUSD.value) {
+        minAmount.value = rateUSD.value
+      }
       store.commit('CLEAR_INTERVAL');
       break;
     case 2:
       factor.value = 110;
       await getCurrentRate();
+      const min = rateUSD.value * (factor.value / 100)
+      if (minAmount.value < min) minAmount.value = min
       maxAmount.value = floatPriceTypeMaxAmount.value
       break;
   }
