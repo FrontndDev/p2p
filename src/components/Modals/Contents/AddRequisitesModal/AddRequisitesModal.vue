@@ -119,6 +119,7 @@ const addRequisite = async () => {
     const response = await store.dispatch('requisites/createRequisite', data)
 
     requestInProcess.value = false
+    console.log('response', response)
     if (response?.data?.error_code === undefined) {
       emit('close-modal', response?.data?.requisite)
     }
