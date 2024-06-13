@@ -84,7 +84,10 @@ import MyButton from "@/components/UI/MyButton/MyButton.vue";
 import Seller from "@/components/Seller/Seller.vue";
 import Pagination from "@/components/UI/Pagination/Pagination.vue";
 import { useStore } from "vuex";
-import { ITransactionsHistory } from "@/interfaces/store/modules/transactions.interface.ts";
+import {
+  IDealsHistory,
+  ITransactionsHistory
+} from "@/interfaces/store/modules/transactions.interface.ts";
 import Preloader from "@/components/UI/Preloader/Preloader.vue";
 import { useCopy } from "@/composables/useCopy.ts";
 
@@ -102,14 +105,14 @@ const store = useStore();
 const selectedPage = ref(1);
 
 const transactionsHistory: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.transactionsHistory);
-const profileTransactions: ComputedRef<ITransactionsHistory> = computed(() => store.state.transactions.profileTransactionHistory);
+const profileTransactions: ComputedRef<IDealsHistory> = computed(() => store.state.transactions.profileTransactionHistory);
 
 const showTable = computed(() => {
   switch (props.type) {
     case 'purchases':
       return transactionsHistory.value?.transactions?.length
     case 'deals':
-      return profileTransactions.value?.transactions?.length
+      return profileTransactions.value?.deals?.length
   }
 })
 
@@ -118,7 +121,7 @@ const isLoading = computed(() => {
     case 'purchases':
       return !transactionsHistory.value?.transactions
     case 'deals':
-      return !profileTransactions.value?.transactions
+      return !profileTransactions.value?.deals
   }
 })
 
@@ -164,7 +167,7 @@ const data = computed(() => {
     case 'deals':
       return {
         ...getPaginationInfo(profileTransactions.value),
-        list: profileTransactions.value.transactions.map(transaction => ({
+        list: profileTransactions.value.deals.map(transaction => ({
           id: transaction.id,
           wallet: transaction.innerCurrency,
           name: `${transaction.buyer.firstName} ${transaction.buyer.lastName}`,

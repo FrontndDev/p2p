@@ -53,6 +53,12 @@ export interface ITransactionsHistory {
   transactions: ITransaction[];
 }
 
+export interface IDealsHistory {
+  totalPages: number;
+  currentPage: number;
+  deals: ITransaction[];
+}
+
 export interface ICreateDealParams {
   amount: number;
 }
