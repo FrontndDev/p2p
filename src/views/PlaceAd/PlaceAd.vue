@@ -169,7 +169,9 @@ const setRate = async (item: ISelect) => {
 
 const setMinValueByRate = async (item: ISelect) => {
   await setRate(item)
-  if (minAmount.value < rateUSD.value) minAmount.value = rateUSD.value
+  if (minAmount.value < rateUSD.value) {
+    minAmount.value = rateUSD.value
+  }
 }
 
 const selectInnerCurrency = (item: ISelect) => {
@@ -181,7 +183,7 @@ const selectInnerCurrency = (item: ISelect) => {
 const selectOuterCurrency = async (item: ISelect) => {
   selectedOuterCurrency.value = item
   await setRate(item)
-  minAmount.value = rateUSD.value
+  minAmount.value = rateUSD.value < price.value ? price.value : rateUSD.value
   if (priceType.value === 'dynamic') {
     maxAmount.value = floatPriceTypeMaxAmount.value
   }
