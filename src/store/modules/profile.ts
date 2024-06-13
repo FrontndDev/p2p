@@ -63,7 +63,7 @@ export default {
       return await API.acceptDeal(id).then(response => response)
     },
     async cancelDeal(_: TCtx, id: number) {
-      return await API.cancelDeal(id).then(response => console.log('cancelDeal', response))
+      return await API.cancelDeal(id).then(response => response)
     },
   },
   mutations: {

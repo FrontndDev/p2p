@@ -197,7 +197,6 @@ const setTab = (tab: ITabs) => {
 }
 
 watch(() => sum.value, (oldV, newV) => {
-  console.log('values', oldV, newV)
   canSendRequest.value = oldV !== newV
 })
 

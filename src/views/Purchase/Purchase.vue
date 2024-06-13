@@ -97,7 +97,6 @@ const goToDeal = (transactionId: number) => {
 }
 
 onBeforeMount(() => {
-  console.log('activeTab', activeTab.value)
   if (!activeTab.value?.id) store.commit('SET_PURCHASE_ACTIVE_TAB', tabs[0]);
 })
 </script>

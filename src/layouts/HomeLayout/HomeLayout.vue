@@ -62,7 +62,6 @@ const setTab = (tab: ITabs) => {
 
 onMounted(() => {
   if (!route.name) {
-    console.log('!route.name', route)
     router.push({ name: HomeRoutesEnum.purchase })
   }
 })

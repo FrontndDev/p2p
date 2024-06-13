@@ -195,7 +195,6 @@ const selectPriceType = async (item: ISelect) => {
     case 1:
       maxAmount.value = undefined;
       if (selectedInnerCurrency.value?.name === 'USD' && minAmount.value < rateUSD.value) {
-        console.log('rateUSD.value', rateUSD.value)
         minAmount.value = rateUSD.value
       }
       store.commit('CLEAR_INTERVAL');
@@ -355,7 +354,6 @@ const createAd = async () => {
           store.commit('profile/SET_DETAIL_AD', response?.data?.ad)
           setDefaultValues()
         }
-        console.log('response', response)
         break;
     }
   }
