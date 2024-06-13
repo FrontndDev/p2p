@@ -163,12 +163,18 @@ const floatPriceTypeMaxAmount = computed(() =>
 )
 
 const setRate = async (item: ISelect) => {
-  const response = await store.dispatch('currencies/getCurrencyRate', { from: 'USD', to: item.name })
+  const response = await store.dispatch('currencies/getCurrencyRate', { from: 'USD', to: selectedOuterCurrency.value?.name ?? item.name })
   rateUSD.value = +response.data.rate
+}
+
+const setMinValueByRate = async (item: ISelect) => {
+  await setRate(item)
+  if (minAmount.value < rateUSD.value) minAmount.value = rateUSD.value
 }
 
 const selectInnerCurrency = (item: ISelect) => {
   selectedInnerCurrency.value = item
+  setMinValueByRate(item)
   if (priceType.value === 'dynamic') getCurrentRate()
 }
 
@@ -186,7 +192,8 @@ const selectPriceType = async (item: ISelect) => {
   switch (item.id) {
     case 1:
       maxAmount.value = undefined;
-      if (selectedInnerCurrency.value.name === 'USD' && minAmount.value < rateUSD.value) {
+      if (selectedInnerCurrency.value?.name === 'USD' && minAmount.value < rateUSD.value) {
+        console.log('rateUSD.value', rateUSD.value)
         minAmount.value = rateUSD.value
       }
       store.commit('CLEAR_INTERVAL');
@@ -194,7 +201,7 @@ const selectPriceType = async (item: ISelect) => {
     case 2:
       factor.value = 110;
       await getCurrentRate();
-      const min = rateUSD.value * (factor.value / 100)
+      const min = (rateUSD.value * (factor.value / 100)).toFixed(2)
       if (minAmount.value < min) minAmount.value = min
       maxAmount.value = floatPriceTypeMaxAmount.value
       break;
@@ -279,6 +286,9 @@ const inputMinTransferBlur = () => {
         if (!minAmount.value || minAmount.value < rateUSD.value) {
           useShowMessage('red', 'Минимальный перевод не может быть меньше 1$')
           minAmount.value = rateUSD.value
+        } else if (minAmount.value < price.value) {
+          useShowMessage('red', 'Минимальный перевод не может быть меньше цены продажи')
+          minAmount.value = price.value
         }
 
         const value = getValue(price.value * amountOfCurrency.value)
@@ -322,6 +332,7 @@ const inputMaxTransferBlur = () => {
 
 const inputSellingPriceBlur = () => {
   if (maxAmount.value) inputMaxTransferBlur()
+  if (price.value > minAmount.value) minAmount.value = price.value
 }
 
 const createAd = async () => {
