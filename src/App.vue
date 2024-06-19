@@ -1,5 +1,6 @@
 <template>
-  <RouterView />
+  <FullScreenLoader v-if="showLoader"/>
+  <RouterView/>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +13,7 @@ import {
 import { useStore } from "vuex";
 import { ISelect } from "@/components/UI/Select/select.interface.ts";
 import { useRoute } from "vue-router";
+import FullScreenLoader from "@/components/UI/FullScreenLoader/FullScreenLoader.vue";
 
 const store = useStore();
 const route = useRoute();
@@ -22,6 +24,8 @@ const paymentMethods: ComputedRef<ISelect[]> = computed(() => {
   const paymentMethods = store.getters["paymentMethods/paymentMethodsForSelect"]
   return [{ id: '', name: 'Все способы оплаты' }, ...paymentMethods]
 });
+
+const showLoader = computed(() => store.state.showLoader)
 
 const getPaymentMethodsByCurrency = () => {
   // Получаем доступные способы оплаты выбранной валюты

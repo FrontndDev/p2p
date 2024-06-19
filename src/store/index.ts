@@ -22,6 +22,7 @@ export default createStore({
     purchaseActiveTab: {} as ITabs,
     saleActiveTab: {} as ITabs,
     interval: 0,
+    showLoader: true,
   },
   actions: {},
   mutations: {
@@ -36,6 +37,9 @@ export default createStore({
     },
     CLEAR_INTERVAL(state: any) {
       if (state.interval) clearInterval(state.interval)
+    },
+    SET_SHOW_LOADER(state: any, boolean: boolean) {
+      state.showLoader = boolean
     }
   }
 });
